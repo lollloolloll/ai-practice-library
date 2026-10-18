@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 520px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  form { display: flex; gap: 8px; margin-bottom: 14px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 13px; }
+  button.sec { background: #eef0f5; color: #333; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  .io { margin-top: 16px; border-top: 1px dashed #ddd; padding-top: 14px; }
+  .io h2 { font-size: 14px; margin: 0 0 8px; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; align-items: center; }
+  textarea { width: 100%; height: 150px; font: 11px/1.5 ui-monospace, monospace; border: 1px solid #ccc; border-radius: 6px; padding: 8px; background: #fbfbfd; }
+  .msg { font-size: 12px; margin-top: 6px; min-height: 16px; } .msg.ok { color: #2e9e5b; } .msg.err { color: #d64545; }
+  label.file { font-size: 12px; color: #4a6cf7; cursor: pointer; text-decoration: underline; }
+  label.file input { display: none; }
+  select { font-size: 12px; padding: 5px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+  <div class="io">
+    <h2>📦 JSON 가져오기 · 내보내기</h2>
+    <div class="row">
+      <button id="exp">내보내기 → 아래 텍스트</button>
+      <button class="sec" id="dl">.json 파일 저장</button>
+      <button class="sec" id="copy">복사</button>
+    </div>
+    <textarea id="json" spellcheck="false" placeholder="여기에 JSON을 붙여넣고 '가져오기'를 누르세요"></textarea>
+    <div class="row">
+      <button id="imp">가져오기</button>
+      <select id="mode"><option value="merge">병합 (중복 제외)</option><option value="replace">전체 교체</option></select>
+      <label class="file">또는 파일 선택<input type="file" id="file" accept="application/json,.json"></label>
+      <button class="sec" id="sample">샘플 넣기</button>
+    </div>
+    <div class="msg" id="msg"></div>
+  </div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ id: 'a1', text: '장보기', done: false }, { id: 'a2', text: '운동하기', done: true }, { id: 'a3', text: '보고서 작성', done: false }];
+  const list = document.getElementById('list'), ta = document.getElementById('json');
+  const msg = (t, ok = true) => { const m = document.getElementById('msg'); m.textContent = t; m.className = 'msg ' + (ok ? 'ok' : 'err'); };
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><button class="del">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+  }
+  const exportJSON = () => JSON.stringify({ app: 'todo', version: 1, exportedAt: new Date().toISOString(), count: todos.length, items: todos }, null, 2);
+  // 가져오기: 형식 검증 + 버전 호환 (v0 = 배열만 있는 옛 형식)
+  function parseImport(text) {
+    let data; try { data = JSON.parse(text); } catch (e) { throw new Error('JSON 문법 오류: ' + e.message); }
+    const items = Array.isArray(data) ? data : data.items;
+    if (!Array.isArray(items)) throw new Error('"items" 배열이 없습니다');
+    return items.map((it, i) => {
+      if (typeof it === 'string') it = { text: it };
+      if (!it || typeof it.text !== 'string' || !it.text.trim()) throw new Error(`${i + 1}번째 항목: text(문자열)가 필요합니다`);
+      return { id: String(it.id ?? 'imp-' + Date.now() + '-' + i), text: it.text.trim().slice(0, 200), done: Boolean(it.done) };
+    });
+  }
+  function doImport(text) {
+    try {
+      const items = parseImport(text);
+      if (document.getElementById('mode').value === 'replace') { todos = items; msg(`✓ ${items.length}개로 교체했습니다`); }
+      else { const seen = new Set(todos.map(t => t.text)); const add = items.filter(t => !seen.has(t.text)); todos = todos.concat(add); msg(`✓ ${add.length}개 추가 (중복 ${items.length - add.length}개 건너뜀)`); }
+      render();
+    } catch (e) { msg('✕ ' + e.message, false); }
+  }
+  document.getElementById('exp').onclick = () => { ta.value = exportJSON(); msg(`✓ ${todos.length}개 항목을 JSON으로 내보냈습니다`); };
+  document.getElementById('dl').onclick = () => {
+    ta.value = exportJSON();
+    try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ta.value], { type: 'application/json' })); a.download = `todos-${new Date().toISOString().slice(0, 10)}.json`; a.click(); msg('✓ 파일 저장을 시작했습니다 (차단된 환경이면 위 텍스트를 복사하세요)'); }
+    catch (e) { msg('파일 저장이 차단되었습니다. 텍스트를 복사해 주세요.', false); }
+  };
+  document.getElementById('copy').onclick = async () => { if (!ta.value) ta.value = exportJSON(); ta.select(); try { await navigator.clipboard.writeText(ta.value); msg('✓ 클립보드에 복사됨'); } catch (e) { document.execCommand && document.execCommand('copy'); msg('텍스트를 선택했습니다. Ctrl+C로 복사하세요'); } };
+  document.getElementById('imp').onclick = () => doImport(ta.value);
+  document.getElementById('file').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { ta.value = t; doImport(t); }); };
+  document.getElementById('sample').onclick = () => { ta.value = JSON.stringify({ version: 1, items: [{ text: '치과 예약', done: false }, { text: '장보기', done: false }, { text: '여행 짐 싸기', done: true }] }, null, 2); msg('샘플 JSON을 넣었습니다. "가져오기"를 눌러 보세요'); };
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'), v = i.value.trim(); if (!v) return; todos.push({ id: 'n' + Date.now(), text: v, done: false }); i.value = ''; render(); });
+  render(); ta.value = exportJSON();
+</script>
+</body>
+</html>

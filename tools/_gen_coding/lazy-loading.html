@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 3; }
+  .logo { font-weight: 700; font-size: 20px; color: #6f4e37; }
+  .meter { font: 12px ui-monospace, monospace; background: #3e2723; color: #ffe0b2; padding: 4px 10px; border-radius: 999px; }
+  .hero { text-align: center; padding: 48px 20px; background: #f7f1eb; }
+  .hero h1 { font-size: clamp(26px, 5vw, 36px); margin: 0 0 10px; color: #3e2723; }
+  .hero p { color: #666; margin: 0; }
+  section { padding: 36px 20px; max-width: 1000px; margin: 0 auto; }
+  h2 { color: #3e2723; text-align: center; margin-top: 0; }
+  .note { text-align: center; font-size: 13px; color: #8d6e63; margin: -6px 0 18px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .bean { border: 1px solid #eee; border-radius: 10px; overflow: hidden; }
+  .ph { aspect-ratio: 4 / 3; position: relative; background: #e9e1d8; overflow: hidden; }
+  .ph::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%); animation: sh 1.3s infinite; transform: translateX(-100%); }
+  @keyframes sh { to { transform: translateX(100%); } }
+  .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: blur(12px); transform: scale(1.06); transition: opacity .5s, filter .6s, transform .6s; }
+  .ph.loaded::before { display: none; }
+  .ph.loaded img { opacity: 1; filter: none; transform: none; }
+  .ph .tag { position: absolute; top: 8px; left: 8px; z-index: 2; font: 11px ui-monospace, monospace; background: rgba(0,0,0,.6); color: #fff; padding: 2px 6px; border-radius: 4px; }
+  .bean .b { padding: 10px 12px; } .bean h3 { margin: 0; font-size: 15px; } .bean p { margin: 2px 0 0; font-size: 13px; color: #888; }
+</style>
+</head>
+<body>
+<header><div class="logo">☕ 빈하우스</div><span class="meter" id="meter">이미지 0/24 로드</span></header>
+<div class="hero"><h1>매주 신선한 원두를 문 앞까지</h1><p>이번 시즌 원두 24종을 둘러보세요</p></div>
+<section>
+  <h2>이번 시즌 원두</h2>
+  <p class="note">스크롤해서 화면 근처에 올 때만 이미지를 불러옵니다 (각 카드의 상태 태그 확인)</p>
+  <div class="grid" id="grid"></div>
+</section>
+<script>
+  const origins = ['에티오피아 예가체프', '콜롬비아 수프리모', '과테말라 안티구아', '케냐 AA', '브라질 산토스', '코스타리카 따라주', '파나마 게이샤', '르완다 부산제', '인도네시아 만델링', '페루 쿠스코', '엘살바도르 파카마라', '온두라스 마르칼라'];
+  const notes = ['자스민 · 레몬', '캐러멜 · 견과', '초콜릿 · 스모키', '블랙커런트 · 자몽', '헤이즐넛 · 코코아', '꿀 · 오렌지'];
+  // 외부 이미지 대신 원두별 SVG 일러스트를 '서버에서 받는 것처럼' 생성
+  function svgFor(i) {
+    const h = (i * 37) % 360, bg = `hsl(${h},45%,78%)`, fg = `hsl(${(h + 20) % 360},40%,30%)`;
+    const beans = Array.from({ length: 6 }, (_, k) => { const x = 40 + (k % 3) * 80 + (i * 13 % 20), y = 70 + Math.floor(k / 3) * 90, r = (i * 29 + k * 47) % 60 - 30; return `<g transform="translate(${x} ${y}) rotate(${r})"><ellipse rx="26" ry="36" fill="${fg}"/><path d="M0 -32 C -12 -10 12 10 0 32" stroke="${bg}" stroke-width="5" fill="none"/></g>`; }).join('');
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240"><rect width="320" height="240" fill="${bg}"/>${beans}</svg>`);
+  }
+  const grid = document.getElementById('grid');
+  for (let i = 0; i < 24; i++) {
+    grid.insertAdjacentHTML('beforeend', `<div class="bean"><div class="ph" data-i="${i}"><span class="tag">대기</span><img alt="${origins[i % 12]} 원두" decoding="async"></div><div class="b"><h3>${origins[i % 12]}</h3><p>${notes[i % 6]} · ₩${(14 + i % 7) * 1000}</p></div></div>`);
+  }
+  let loaded = 0;
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (!en.isIntersecting) return;
+    const ph = en.target, img = ph.querySelector('img'), tag = ph.querySelector('.tag');
+    io.unobserve(ph); tag.textContent = '로딩 중…';
+    setTimeout(() => {                                  // 네트워크 지연 흉내 (400~900ms)
+      img.onload = () => { ph.classList.add('loaded'); tag.textContent = '✓ 로드됨'; loaded++; document.getElementById('meter').textContent = `이미지 ${loaded}/24 로드`; setTimeout(() => tag.remove(), 1200); };
+      img.src = svgFor(+ph.dataset.i);
+    }, 400 + Math.random() * 500);
+  }), { rootMargin: '150px 0px' });                    // 화면 150px 전에 미리 시작
+  document.querySelectorAll('.ph').forEach(p => io.observe(p));
+</script>
+</body>
+</html>

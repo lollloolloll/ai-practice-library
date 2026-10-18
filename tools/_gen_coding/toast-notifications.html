@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 24px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  form { display: flex; gap: 8px; margin-bottom: 16px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  #toasts { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 10; width: min(320px, calc(100vw - 32px)); }
+  .toast { display: flex; align-items: center; gap: 10px; background: #1f2937; color: #fff; padding: 12px 14px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.2); font-size: 14px; position: relative; overflow: hidden; animation: in .25s ease-out; }
+  .toast.out { animation: out .25s ease-in forwards; }
+  .toast .ic { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; flex: none; }
+  .success .ic { background: #22c55e; } .info .ic { background: #3b82f6; } .error .ic { background: #ef4444; } .warn .ic { background: #f59e0b; }
+  .toast .msg { flex: 1; }
+  .toast .x { background: none; color: #9ca3af; padding: 0 4px; font-size: 16px; }
+  .toast .bar { position: absolute; left: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.5); animation: bar 3s linear forwards; }
+  @keyframes bar { from { width: 100%; } to { width: 0; } }
+  @keyframes in { from { opacity: 0; transform: translateY(16px) scale(.96); } }
+  @keyframes out { to { opacity: 0; transform: translateX(40px); } }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  const icons = { success: '✓', info: 'i', error: '!', warn: '⚠' };
+  function toast(msg, type = 'info', ms = 3000) {
+    const box = document.getElementById('toasts');
+    if (box.children.length >= 3) box.firstChild.remove(); // 최대 3개
+    const el = document.createElement('div'); el.className = 'toast ' + type; el.setAttribute('role', 'status');
+    el.innerHTML = `<span class="ic">${icons[type]}</span><span class="msg"></span><button class="x" aria-label="닫기">×</button><span class="bar"></span>`;
+    el.querySelector('.msg').textContent = msg;
+    const close = () => { el.classList.add('out'); setTimeout(() => el.remove(), 250); };
+    el.querySelector('.x').onclick = close; setTimeout(close, ms);
+    box.appendChild(el);
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }];
+  const list = document.getElementById('list');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><button class="del">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => {
+        t.done = !t.done; render();
+        toast(t.done ? `"${t.text}" 완료!` : `"${t.text}" 다시 진행 중`, t.done ? 'success' : 'info');
+        if (todos.every(x => x.done)) setTimeout(() => toast('🎉 모든 할 일을 끝냈어요', 'success'), 300);
+      };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); toast(`"${t.text}" 삭제됨`, 'warn'); };
+      list.appendChild(li);
+    });
+  }
+  bindSubmit(document.getElementById('form'), e => {
+    e.preventDefault(); const i = document.getElementById('input'), v = i.value.trim();
+    if (!v) return toast('할 일 내용을 입력해 주세요', 'error');
+    if (todos.some(t => t.text === v)) return toast('이미 있는 할 일이에요', 'error');
+    todos.push({ text: v, done: false }); i.value = ''; render(); toast(`"${v}" 추가됨`, 'success');
+  });
+  render();
+  setTimeout(() => toast('체크·삭제·추가할 때마다 알림이 떠요', 'info', 4000), 400);
+</script>
+</body>
+</html>

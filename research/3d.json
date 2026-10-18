@@ -1,0 +1,4576 @@
+{
+  "field": "3d",
+  "field_ko": "3D",
+  "base_prompts": [
+    {
+      "id": "base-prop",
+      "prompt_en": "a wooden treasure chest with iron bands, single object, centered",
+      "desc_ko": "소품 기준 원안. 스타일어·재질어·폴리카운트·PBR 설정을 하나씩 바꿔 비교하기 좋은 단순한 하드서피스+목재 물체."
+    },
+    {
+      "id": "base-character",
+      "prompt_en": "a young knight character, full body, standing, front view",
+      "desc_ko": "캐릭터 기준 원안. T/A포즈, 치비/스타일라이즈드/사실적, 쿼드 토폴로지·리깅 적합성을 비교."
+    },
+    {
+      "id": "base-image-3d-look",
+      "prompt_en": "3D render of a ceramic coffee mug on a plain background, studio lighting",
+      "desc_ko": "이미지 모델용 3D 룩 기준 원안. 렌더러 키워드(Octane/Blender/UE5), 조명, 재질 광택을 한 단어씩 바꿔 비교."
+    },
+    {
+      "id": "base-world",
+      "prompt_en": "a small cozy forest cabin clearing at dusk",
+      "desc_ko": "월드/장면 생성 기준 원안(Marble·Genie·이미지 모델). 조명·분위기·스타일어 비교용."
+    }
+  ],
+  "categories": [
+    {
+      "id": "modeling-style",
+      "name_ko": "모델링 스타일",
+      "desc_ko": "형태를 어떤 미학으로 만들지(로우폴리·스타일라이즈드·하드서피스·복셀·치비 등). 텍스트→3D와 이미지 모델 3D 룩 양쪽에 쓰는 프롬프트어."
+    },
+    {
+      "id": "topology",
+      "name_ko": "토폴로지·폴리곤",
+      "desc_ko": "면 구조와 밀도(쿼드/트라이, 폴리카운트, 리토폴로지, LOD). 주로 생성기 설정값과 후처리로 결정."
+    },
+    {
+      "id": "material-pbr",
+      "name_ko": "재질·PBR",
+      "desc_ko": "베이스컬러·러프니스·메탈릭·노멀 등 물리 기반 재질 맵과 특수 재질(SSS, 유리, 발광)."
+    },
+    {
+      "id": "texturing",
+      "name_ko": "텍스처링·UV",
+      "desc_ko": "UV 전개, 베이킹, 텍스처 해상도, 핸드페인팅·리텍스처 등 표면 이미지 관련."
+    },
+    {
+      "id": "rendering",
+      "name_ko": "렌더링·렌더 룩",
+      "desc_ko": "렌더러(Cycles, Octane, UE5)와 GI·AO·레이트레이싱, 검수용 클레이·와이어프레임 렌더."
+    },
+    {
+      "id": "lighting",
+      "name_ko": "조명",
+      "desc_ko": "HDRI, 3점 조명, 림 라이트, 입력·텍스처용 중립 조명."
+    },
+    {
+      "id": "camera",
+      "name_ko": "카메라·턴테이블",
+      "desc_ko": "정면/3/4/정사영 뷰, 턴테이블, 턴어라운드 시트, 초점거리."
+    },
+    {
+      "id": "rigging-animation",
+      "name_ko": "리깅·애니메이션",
+      "desc_ko": "오토리깅, T/A포즈, 스키닝, 리타게팅, 프리셋 모션, Mixamo."
+    },
+    {
+      "id": "output-format",
+      "name_ko": "출력 포맷",
+      "desc_ko": "GLB/glTF, FBX, OBJ, USDZ, STL, 3MF, PLY/SPZ의 용도 차이."
+    },
+    {
+      "id": "use-case",
+      "name_ko": "용도별 설정",
+      "desc_ko": "게임 에셋, 3D 프린팅, AR·웹, 실제 크기·원점·파츠 분리."
+    },
+    {
+      "id": "input-prep",
+      "name_ko": "입력 이미지 준비",
+      "desc_ko": "이미지→3D 품질을 좌우하는 입력 사진/그림 준비 요령."
+    },
+    {
+      "id": "model-params",
+      "name_ko": "모델별 파라미터",
+      "desc_ko": "Meshy·Tripo·Rodin·Hunyuan3D·TRELLIS의 실제 API/UI 설정값."
+    },
+    {
+      "id": "world-gen",
+      "name_ko": "월드·스플랫 생성",
+      "desc_ko": "가우시안 스플래팅, NeRF, 월드 모델(Marble, Genie 3)."
+    }
+  ],
+  "terms": [
+    {
+      "id": "low-poly",
+      "term": "low poly",
+      "ko": "로우폴리",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "game"
+      ],
+      "effect_ko": "면 수를 적게 쓴 각진 형태로 단순화됩니다. 플랫 셰이딩·단색 면과 결합되면 미니멀한 게임풍이 되고, 생성 모델에서는 텍스처 디테일보다 실루엣이 강조됩니다.",
+      "snippet": "low poly fox, faceted geometry, flat shaded, minimal color palette",
+      "compare_with": [
+        "stylized",
+        "smart-low-poly",
+        "voxel",
+        "ps1-retro"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "stylized",
+      "term": "stylized",
+      "ko": "스타일라이즈드",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "현실 비율 대신 과장된 비율·단순화된 형태·선명한 색을 사용합니다. 'realistic'과 바꿔 비교하면 형태 과장과 재질 단순화 정도가 가장 크게 달라집니다.",
+      "snippet": "stylized fantasy treasure chest, exaggerated proportions, chunky shapes",
+      "compare_with": [
+        "realistic",
+        "low-poly",
+        "hand-painted-texture",
+        "toon-cartoon"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d",
+        "https://help.scenario.com/en/articles/rodin-hyper3d-models-the-essentials/"
+      ]
+    },
+    {
+      "id": "realistic",
+      "term": "realistic / photorealistic",
+      "ko": "사실적 / 포토리얼",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "실제 물체 비율·미세 표면 디테일·사실적 재질을 목표로 합니다. 생성기에서는 고폴리·고해상 텍스처와 함께 써야 효과가 납니다.",
+      "snippet": "photorealistic leather boot, real-world proportions, fine surface detail",
+      "compare_with": [
+        "stylized",
+        "sculpted"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "hard-surface",
+      "term": "hard surface",
+      "ko": "하드서피스",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "mech"
+      ],
+      "effect_ko": "기계·무기·차량처럼 날카로운 모서리, 평면, 베벨, 패널 라인이 있는 형태를 유도합니다. 유기적 곡면이 줄고 각진 구조가 늘어납니다.",
+      "snippet": "hard surface sci-fi drone, beveled edges, panel lines, mechanical details",
+      "compare_with": [
+        "organic",
+        "sculpted",
+        "kitbash"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html"
+      ]
+    },
+    {
+      "id": "organic",
+      "term": "organic modeling",
+      "ko": "오가닉 모델링",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "생물·식물·인체처럼 부드러운 곡면과 근육·주름 흐름이 있는 형태를 유도합니다. hard surface와 대비해 비교하기 좋습니다.",
+      "snippet": "organic creature, smooth flowing forms, muscle definition",
+      "compare_with": [
+        "hard-surface",
+        "sculpted"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html"
+      ]
+    },
+    {
+      "id": "sculpted",
+      "term": "digital sculpture / ZBrush sculpt",
+      "ko": "디지털 스컬프팅",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "detail"
+      ],
+      "effect_ko": "ZBrush식 조각 질감(주름·근육·크랙 등 고주파 디테일)을 강조합니다. Meshy 구버전 art_style 'sculpture'는 무채색 조각 느낌을 내며 PBR을 끄도록 안내됩니다(현재 deprecated).",
+      "snippet": "highly detailed digital sculpture of an orc warrior, ZBrush style, intricate wrinkles",
+      "compare_with": [
+        "hard-surface",
+        "clay-render",
+        "meshy-art-style"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "voxel",
+      "term": "voxel art",
+      "ko": "복셀",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "game"
+      ],
+      "effect_ko": "작은 정육면체 블록 단위로 쌓은 마인크래프트·MagicaVoxel풍 형태가 됩니다. 3D 생성기는 진짜 격자 복셀보다 '블록처럼 보이는 메시'를 만드는 경우가 많습니다.",
+      "snippet": "voxel art castle, cubic blocks, MagicaVoxel style",
+      "compare_with": [
+        "low-poly",
+        "isometric-diorama"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "chibi",
+      "term": "chibi / super-deformed",
+      "ko": "치비 / SD 캐릭터",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "character"
+      ],
+      "effect_ko": "머리가 크고 몸이 2~3등신인 귀여운 비율로 바뀝니다. 피규어·굿즈용 캐릭터에 자주 쓰이며 손발 디테일은 단순해집니다.",
+      "snippet": "chibi knight character, big head, 2-head-tall proportions, cute",
+      "compare_with": [
+        "stylized",
+        "figurine",
+        "toon-cartoon"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "toon-cartoon",
+      "term": "cartoon / toon style",
+      "ko": "카툰 / 툰",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "단순한 형태와 밝은 단색 영역, 큰 눈 등 애니메이션풍이 됩니다. 렌더 단계의 cel shading과 함께 쓰면 2D 애니 느낌이 강해집니다.",
+      "snippet": "cartoon style mushroom house, Pixar-like, bright saturated colors",
+      "compare_with": [
+        "stylized",
+        "cel-shading",
+        "chibi"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "clay-style",
+      "term": "claymation / clay style",
+      "ko": "클레이(점토) 스타일",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "손으로 빚은 점토 질감, 지문 자국, 부드러운 둥근 형태가 나옵니다. 렌더용 'clay render'(무채색 확인용 렌더)와는 다른 의미이니 구분해야 합니다.",
+      "snippet": "claymation style snowman, handmade plasticine texture, fingerprint marks",
+      "compare_with": [
+        "clay-render",
+        "stylized"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "isometric-diorama",
+      "term": "isometric diorama",
+      "ko": "아이소메트릭 디오라마",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "scene"
+      ],
+      "effect_ko": "작은 받침 위에 장면을 담은 미니어처 방 형태로 만들어집니다. 이미지 모델에서는 '3D 아이콘/룸' 룩, 3D 생성기에서는 하나의 덩어리 메시가 됩니다.",
+      "snippet": "isometric diorama of a cozy bakery, cutaway room on a square base",
+      "compare_with": [
+        "isometric-camera",
+        "miniature",
+        "voxel"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "miniature",
+      "term": "miniature / tabletop miniature",
+      "ko": "미니어처 / 테이블탑",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "print"
+      ],
+      "effect_ko": "보드게임 말처럼 받침(base) 위에 선 작은 피규어 형태를 유도합니다. 3D 프린팅용으로 받침과 두께감이 생기는 경향이 있습니다.",
+      "snippet": "28mm tabletop miniature of a dwarf, on round base, sculpted detail",
+      "compare_with": [
+        "figurine",
+        "3d-printing",
+        "watertight"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "figurine",
+      "term": "collectible figurine / vinyl toy",
+      "ko": "피규어 / 비닐 토이",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "print"
+      ],
+      "effect_ko": "매끈한 도장면, 받침, 단순화된 디테일의 완구풍이 됩니다. 이미지 모델에서 '제품 사진 같은 3D 피규어' 룩을 만들 때 핵심어입니다.",
+      "snippet": "collectible vinyl figurine of an astronaut cat, glossy paint, display base",
+      "compare_with": [
+        "chibi",
+        "miniature",
+        "keyshot-product"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "ps1-retro",
+      "term": "PS1 style / retro low-res 3D",
+      "ko": "PS1 레트로 3D",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "game"
+      ],
+      "effect_ko": "저폴리 + 저해상 픽셀 텍스처 + 흔들리는 듯한 90년대 콘솔 그래픽 느낌을 냅니다. 주로 이미지 모델에서 룩으로 효과가 크고, 3D 생성기에서는 low poly + 저해상 텍스처 설정으로 근사합니다.",
+      "snippet": "PS1 style low poly character, low-res pixelated textures, 1990s console graphics",
+      "compare_with": [
+        "low-poly",
+        "texture-resolution"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "kitbash",
+      "term": "kitbash",
+      "ko": "킷배시",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "mech"
+      ],
+      "effect_ko": "여러 기성 부품을 조합한 듯한 복잡한 기계 디테일(그리블)이 늘어납니다. SF 우주선·메카 배경물에 유용합니다.",
+      "snippet": "kitbashed sci-fi spaceship hull, greebles, modular parts",
+      "compare_with": [
+        "hard-surface"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "game-ready",
+      "term": "game-ready asset",
+      "ko": "게임 레디 에셋",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style",
+        "game"
+      ],
+      "effect_ko": "프롬프트어로는 깔끔한 형태·적당한 디테일을 유도하는 정도지만, 실제 '게임 레디'는 폴리카운트·UV·PBR·LOD 설정으로 결정됩니다. 단어만으로 토폴로지가 보장되지 않습니다.",
+      "snippet": "game-ready low poly wooden barrel, clean topology, PBR textures",
+      "compare_with": [
+        "polycount",
+        "quad-topology",
+        "lod",
+        "pbr"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "subdivision-smooth",
+      "term": "subdivision surface / smooth",
+      "ko": "서브디비전(매끈한 곡면)",
+      "category": "modeling-style",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "면을 세분화해 매끈한 곡면을 만듭니다. Blender에서는 Subdivision Surface 모디파이어로, 쿼드 메시일수록 결과가 깨끗합니다.",
+      "snippet": "Blender: Add Modifier > Subdivision Surface (Levels 2)",
+      "compare_with": [
+        "flat-vs-smooth-shading",
+        "quad-topology"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html"
+      ]
+    },
+    {
+      "id": "quad-topology",
+      "term": "quad topology",
+      "ko": "쿼드 토폴로지",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "삼각형 대신 사각형 면으로 구성돼 에지 흐름이 정돈되고 리깅·서브디비전·수작업 수정이 쉬워집니다. Meshy topology='quad', Tripo quad=true, Rodin mesh_mode='Quad'로 지정합니다.",
+      "snippet": "Meshy: topology: \"quad\" / Tripo: quad: true / Rodin: mesh_mode: \"Quad\"",
+      "compare_with": [
+        "triangle-mesh",
+        "retopology",
+        "edge-flow"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "triangle-mesh",
+      "term": "triangle mesh (tris)",
+      "ko": "트라이앵글 메시",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "모든 면이 삼각형입니다. 생성기 기본값인 경우가 많고 면 수 상한이 높아 디테일 보존에 유리하지만 편집·리깅은 불편합니다. Rodin에서는 'Raw' 모드에 해당합니다.",
+      "snippet": "Meshy: topology: \"triangle\" / Rodin: mesh_mode: \"Raw\"",
+      "compare_with": [
+        "quad-topology",
+        "polycount"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "retopology",
+      "term": "retopology",
+      "ko": "리토폴로지",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh",
+        "workflow"
+      ],
+      "effect_ko": "고밀도·불규칙 메시를 새로 깔끔한 면 구조로 다시 짭니다. AI 생성 메시를 애니메이션·게임에 쓰려면 사실상 필수 후처리입니다. Hunyuan 3.1은 저폴리 모드가 없어 Polygen 같은 별도 단계로 리토폴로지를 권장합니다.",
+      "snippet": "Meshy Remesh / Tripo smart_low_poly / Hunyuan Polygen / Blender QuadriFlow Remesh",
+      "compare_with": [
+        "remesh",
+        "quad-topology",
+        "smart-low-poly"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d",
+        "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials",
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/remesh.html"
+      ]
+    },
+    {
+      "id": "polycount",
+      "term": "polycount / face count",
+      "ko": "폴리곤 수",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh",
+        "param"
+      ],
+      "effect_ko": "메시의 면 개수입니다. 낮을수록 가볍고 각지며, 높을수록 디테일이 살지만 무거워집니다. 대략 웹·모바일 1만~5만, 게임 5만~10만 면이 흔한 목표치로 안내됩니다.",
+      "snippet": "Meshy target_polycount: 30000 / Tripo face_limit: 50000 / Hunyuan face_count: 500000",
+      "compare_with": [
+        "meshy-target-polycount",
+        "tripo-face-limit",
+        "lod",
+        "decimation"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://fal.ai/docs/model-api-reference/3d-api/hunyuan-3d-v3.1-pro.md"
+      ]
+    },
+    {
+      "id": "lod",
+      "term": "LOD (level of detail)",
+      "ko": "LOD(디테일 단계)",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh",
+        "game"
+      ],
+      "effect_ko": "거리에 따라 폴리곤 수가 다른 여러 버전을 두어 성능을 확보합니다. AI 생성기는 보통 한 단계만 내므로 엔진(Unreal 자동 LOD)이나 Blender Decimate로 LOD1~3을 만듭니다.",
+      "snippet": "Unreal Static Mesh Editor > LOD Settings > Number of LODs: 4",
+      "compare_with": [
+        "polycount",
+        "decimation",
+        "nanite"
+      ],
+      "tools": [
+        "Unreal Engine",
+        "Unity",
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://dev.epicgames.com/documentation/en-us/unreal-engine/static-mesh-automatic-lod-generation-in-unreal-engine",
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/decimate.html"
+      ]
+    },
+    {
+      "id": "edge-flow",
+      "term": "clean edge flow",
+      "ko": "에지 플로우",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "면의 선이 근육·관절 방향을 따라 흐르도록 정리된 상태입니다. 프롬프트어로 넣어도 생성기가 보장하진 않으며, 쿼드 출력·리토폴로지로 확보합니다.",
+      "snippet": "clean topology, good edge loops around joints",
+      "compare_with": [
+        "quad-topology",
+        "retopology"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "watertight",
+      "term": "watertight / manifold mesh",
+      "ko": "워터타이트(매니폴드) 메시",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh",
+        "print"
+      ],
+      "effect_ko": "구멍·뒤집힌 면·겹친 면이 없는 닫힌 메시입니다. 3D 프린팅 슬라이서가 요구하며, Blender 3D Print Toolbox로 검사합니다.",
+      "snippet": "Blender: 3D-Print Toolbox > Check All (Non-Manifold)",
+      "compare_with": [
+        "3d-printing",
+        "stl",
+        "remesh"
+      ],
+      "tools": [
+        "Blender",
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/addons/mesh/3d_print_toolbox.html"
+      ]
+    },
+    {
+      "id": "decimation",
+      "term": "decimation",
+      "ko": "데시메이션(면 줄이기)",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "형태를 유지하면서 면 수를 자동으로 줄입니다. 삼각형이 늘고 토폴로지가 지저분해지는 대신 빠릅니다. Meshy decimation_mode(1 ultra~4 low)는 target_polycount보다 우선합니다.",
+      "snippet": "Meshy: decimation_mode: 3 / Blender: Decimate modifier Ratio 0.25",
+      "compare_with": [
+        "remesh",
+        "polycount",
+        "retopology"
+      ],
+      "tools": [
+        "Meshy",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/decimate.html"
+      ]
+    },
+    {
+      "id": "remesh",
+      "term": "remesh",
+      "ko": "리메시",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "메시를 새 균일한 면 구조로 다시 생성합니다. Meshy should_remesh=true일 때 target_polycount(100~300,000)가 적용되며, 리깅 전·텍스처 전에 하는 것이 권장됩니다.",
+      "snippet": "Meshy: should_remesh: true, target_polycount: 20000, topology: \"quad\"",
+      "compare_with": [
+        "retopology",
+        "decimation"
+      ],
+      "tools": [
+        "Meshy",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://docs.meshy.ai/en/webapp/guides/3d-model/rigging",
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/remesh.html"
+      ]
+    },
+    {
+      "id": "flat-vs-smooth-shading",
+      "term": "flat shading vs smooth shading",
+      "ko": "플랫/스무스 셰이딩",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "shading"
+      ],
+      "effect_ko": "같은 메시라도 면마다 단색(각진 느낌)인지, 노멀을 보간해 매끈한지가 달라집니다. 로우폴리 룩은 flat, 일반 에셋은 smooth(오토 스무스)가 기본입니다.",
+      "snippet": "flat shaded low poly / Blender: Object > Shade Auto Smooth",
+      "compare_with": [
+        "low-poly",
+        "subdivision-smooth"
+      ],
+      "tools": [
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "smart-low-poly",
+      "term": "smart low poly / smart topology",
+      "ko": "스마트 로우폴리 / 스마트 토폴로지",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh",
+        "param"
+      ],
+      "effect_ko": "수작업처럼 깔끔한 저폴리 토폴로지를 직접 생성합니다. Tripo smart_low_poly(삼각 500~20,000/쿼드 500~10,000면), Meshy Smart Topology(meshy-t2, 100~15,000면, 기본 4,000, 삼각형만)가 있으며 복잡한 형태에서는 실패할 수 있습니다.",
+      "snippet": "Tripo: smart_low_poly: true, face_limit: 5000 / Meshy: model_type: \"smart-topology\"",
+      "compare_with": [
+        "low-poly",
+        "retopology",
+        "quad-topology"
+      ],
+      "tools": [
+        "Tripo",
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "ngon",
+      "term": "n-gon",
+      "ko": "엔곤(5각 이상 면)",
+      "category": "topology",
+      "tags": [
+        "3d",
+        "mesh"
+      ],
+      "effect_ko": "5개 이상 꼭짓점을 가진 면입니다. 셰이딩 왜곡과 서브디비전 문제를 일으켜 게임·애니 파이프라인에서는 피합니다. 프롬프트보다는 검수 항목입니다.",
+      "snippet": "Blender: Select > Select All by Trait > Faces by Sides (>4)",
+      "compare_with": [
+        "quad-topology"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "pbr",
+      "term": "PBR (physically based rendering)",
+      "ko": "PBR(물리 기반 재질)",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "param"
+      ],
+      "effect_ko": "빛의 물리에 맞춘 재질 맵 세트(베이스컬러·메탈릭·러프니스·노멀)를 생성해 어떤 조명에서도 그럴듯하게 보입니다. Meshy enable_pbr, Tripo pbr(기본 true), Rodin material='PBR', Hunyuan enable_pbr로 켭니다.",
+      "snippet": "Meshy refine: enable_pbr: true / Rodin: material: \"PBR\"",
+      "compare_with": [
+        "rodin-material",
+        "shaded-baked",
+        "albedo"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2",
+        "https://learnopengl.com/PBR/Theory"
+      ]
+    },
+    {
+      "id": "albedo",
+      "term": "albedo / base color",
+      "ko": "알베도 / 베이스컬러",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "조명·그림자가 빠진 순수한 표면 색 맵입니다. 그림자가 구워진 텍스처는 다른 조명에서 어색해지므로 'delit, no baked shadows' 성격이 중요합니다.",
+      "snippet": "base color map, flat albedo, no baked lighting",
+      "compare_with": [
+        "remove-lighting",
+        "pbr"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "Substance 3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.adobe.com/learn/substance-3d-designer/web/the-pbr-guide-part-1",
+        "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#materials"
+      ]
+    },
+    {
+      "id": "roughness",
+      "term": "roughness",
+      "ko": "러프니스(거칠기)",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "0이면 거울처럼 선명한 반사, 1이면 무광으로 퍼진 반사가 됩니다. 프롬프트에서는 'glossy' vs 'matte'로 바꿔 비교하면 차이가 잘 보입니다.",
+      "snippet": "matte finish (high roughness) vs glossy lacquer (low roughness)",
+      "compare_with": [
+        "metallic",
+        "clearcoat"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://learnopengl.com/PBR/Theory",
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "metallic",
+      "term": "metallic",
+      "ko": "메탈릭(금속성)",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "금속(1)인지 비금속(0)인지를 나타냅니다. 금속은 반사에 색이 실리고 확산색이 없어집니다. 'brushed steel', 'gold' 같은 재질어와 함께 씁니다.",
+      "snippet": "polished gold metallic surface / Principled BSDF Metallic: 1.0",
+      "compare_with": [
+        "roughness",
+        "anisotropic"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://learnopengl.com/PBR/Theory",
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "normal-map",
+      "term": "normal map",
+      "ko": "노멀 맵",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "폴리곤을 늘리지 않고 표면의 요철(볼트·주름·결)을 빛 반응으로 표현합니다. 저폴리 메시에 고폴리 디테일을 구울 때 핵심입니다.",
+      "snippet": "bake high-poly details to normal map on low-poly mesh",
+      "compare_with": [
+        "height-displacement",
+        "texture-baking"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "Substance 3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.adobe.com/learn/substance-3d-designer/web/the-pbr-guide-part-1",
+        "https://docs.blender.org/manual/en/latest/render/cycles/baking.html"
+      ]
+    },
+    {
+      "id": "ao-map",
+      "term": "ambient occlusion map",
+      "ko": "AO 맵",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "틈·접합부에 빛이 덜 닿는 정도를 담은 흑백 맵으로 입체감을 보강합니다. glTF에서는 occlusion 텍스처로 저장됩니다.",
+      "snippet": "occlusion texture (glTF ORM: R=AO, G=roughness, B=metallic)",
+      "compare_with": [
+        "ambient-occlusion",
+        "normal-map"
+      ],
+      "tools": [
+        "Blender",
+        "Substance 3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#materials"
+      ]
+    },
+    {
+      "id": "height-displacement",
+      "term": "height / displacement map",
+      "ko": "하이트 / 디스플레이스먼트 맵",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "노멀 맵과 달리 실제로 지오메트리를 밀어 실루엣까지 바꿉니다. 렌더용 고품질 표현에 쓰이며 실시간 에셋에는 무겁습니다.",
+      "snippet": "Blender: Displacement node, Material > Displacement: Displacement and Bump",
+      "compare_with": [
+        "normal-map"
+      ],
+      "tools": [
+        "Blender",
+        "Substance 3D"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.adobe.com/learn/substance-3d-designer/web/the-pbr-guide-part-1"
+      ]
+    },
+    {
+      "id": "subsurface-scattering",
+      "term": "subsurface scattering (SSS)",
+      "ko": "서브서피스 스캐터링",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "render"
+      ],
+      "effect_ko": "빛이 피부·왁스·옥·우유 속으로 들어가 퍼지는 반투명 효과입니다. 피부가 플라스틱처럼 보이는 문제를 줄이며, 이미지 모델에서도 '부드럽게 빛이 비치는 피부' 룩을 만듭니다.",
+      "snippet": "realistic skin with subsurface scattering, ears glowing in backlight",
+      "compare_with": [
+        "translucent",
+        "rim-light"
+      ],
+      "tools": [
+        "Blender",
+        "Octane",
+        "Unreal Engine",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "emissive",
+      "term": "emissive / emission map",
+      "ko": "이미시브(발광)",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "map"
+      ],
+      "effect_ko": "스스로 빛나는 영역(네온·LED·용암)을 만듭니다. Meshy는 meshy-6에서만 emission 맵을 내며 8K 텍스처에선 빠집니다.",
+      "snippet": "glowing neon emissive strips, emission map",
+      "compare_with": [
+        "pbr",
+        "bloom"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#materials"
+      ]
+    },
+    {
+      "id": "translucent",
+      "term": "transmission / glass / translucent",
+      "ko": "투과 / 유리",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material"
+      ],
+      "effect_ko": "유리·물·수지처럼 빛이 통과하고 굴절되는 재질입니다. AI 3D 생성기는 투명 재질을 대부분 불투명 텍스처로 구워버리므로, 엔진·Blender에서 재질을 다시 설정하는 경우가 많습니다.",
+      "snippet": "clear glass potion bottle, refraction / Principled BSDF Transmission: 1.0",
+      "compare_with": [
+        "subsurface-scattering",
+        "caustics"
+      ],
+      "tools": [
+        "Blender",
+        "Octane",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "clearcoat",
+      "term": "clearcoat",
+      "ko": "클리어코트",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material"
+      ],
+      "effect_ko": "자동차 도장·래커처럼 바탕 위에 투명 광택층이 한 겹 더 있는 반사를 냅니다.",
+      "snippet": "car paint with clearcoat, metallic flakes",
+      "compare_with": [
+        "roughness",
+        "metallic"
+      ],
+      "tools": [
+        "Blender",
+        "KeyShot",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "anisotropic",
+      "term": "anisotropic reflection",
+      "ko": "이방성 반사",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material"
+      ],
+      "effect_ko": "헤어라인 금속·냄비 바닥처럼 반사가 한 방향으로 늘어지는 효과입니다.",
+      "snippet": "brushed aluminum with anisotropic highlights",
+      "compare_with": [
+        "metallic"
+      ],
+      "tools": [
+        "Blender",
+        "KeyShot",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html"
+      ]
+    },
+    {
+      "id": "shaded-baked",
+      "term": "shaded / baked lighting texture",
+      "ko": "셰이디드(조명 구운) 텍스처",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "param"
+      ],
+      "effect_ko": "음영이 텍스처에 구워진 맵 하나로 출력됩니다. 별도 조명 없이도 보기 좋지만 다른 조명 환경에서는 그림자가 이중으로 보입니다. Rodin material='Shaded'.",
+      "snippet": "Rodin: material: \"Shaded\" (vs \"PBR\" / \"All\")",
+      "compare_with": [
+        "pbr",
+        "remove-lighting",
+        "rodin-material"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "remove-lighting",
+      "term": "remove lighting / delighting",
+      "ko": "조명 제거(디라이팅)",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "param"
+      ],
+      "effect_ko": "입력 이미지나 생성 텍스처에 구워진 하이라이트·그림자를 지워 순수 알베도에 가깝게 만듭니다. Meshy refine의 remove_lighting(기본 true, meshy-6에서 유효).",
+      "snippet": "Meshy refine: remove_lighting: true",
+      "compare_with": [
+        "albedo",
+        "shaded-baked"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "material-words",
+      "term": "material descriptors (worn leather, brushed steel, ceramic)",
+      "ko": "재질 묘사어",
+      "category": "material-pbr",
+      "tags": [
+        "3d",
+        "material",
+        "prompt"
+      ],
+      "effect_ko": "구체적 재질명은 색·러프니스·메탈릭 분포를 동시에 바꿉니다. 'metal'보다 'brushed steel', 'rusty iron'처럼 상태까지 적으면 차이가 큽니다.",
+      "snippet": "worn brown leather, brushed steel buckles, glazed ceramic",
+      "compare_with": [
+        "roughness",
+        "metallic",
+        "weathering"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "uv-unwrap",
+      "term": "UV unwrapping",
+      "ko": "UV 전개",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "uv"
+      ],
+      "effect_ko": "3D 표면을 2D 평면으로 펼쳐 텍스처를 입힐 좌표를 만듭니다. AI 생성 메시는 UV가 잘게 조각난 경우가 많아 수작업 텍스처 수정이 어렵습니다.",
+      "snippet": "Blender: UV > Smart UV Project",
+      "compare_with": [
+        "uv-seams",
+        "texel-density",
+        "texture-baking"
+      ],
+      "tools": [
+        "Blender",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/meshes/uv/index.html"
+      ]
+    },
+    {
+      "id": "uv-seams",
+      "term": "UV seams",
+      "ko": "UV 심(이음선)",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "uv"
+      ],
+      "effect_ko": "UV를 자르는 경계선입니다. 눈에 띄는 곳에 있으면 텍스처 이음매가 보이므로 겨드랑이·안쪽 등 가려진 곳에 둡니다.",
+      "snippet": "Blender: Edge > Mark Seam",
+      "compare_with": [
+        "uv-unwrap"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/meshes/uv/index.html"
+      ]
+    },
+    {
+      "id": "texture-baking",
+      "term": "texture baking",
+      "ko": "텍스처 베이킹",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "workflow"
+      ],
+      "effect_ko": "고폴리 디테일·조명·AO 등을 텍스처 이미지로 구워 저폴리 메시에 옮깁니다. AI 고폴리 결과를 리토폴로지 후 다시 입힐 때 씁니다.",
+      "snippet": "Blender Cycles: Bake Type Normal, Selected to Active, Extrusion 0.02",
+      "compare_with": [
+        "normal-map",
+        "retopology",
+        "ao-map"
+      ],
+      "tools": [
+        "Blender",
+        "Substance 3D",
+        "Marmoset Toolbag"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/baking.html"
+      ]
+    },
+    {
+      "id": "hand-painted-texture",
+      "term": "hand-painted texture",
+      "ko": "핸드페인팅 텍스처",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "style"
+      ],
+      "effect_ko": "붓 터치로 그린 듯한 색 그라데이션과 그려 넣은 하이라이트·그림자가 생깁니다. WoW식 스타일라이즈드 게임 룩의 핵심이며 PBR보다는 디퓨즈 위주입니다.",
+      "snippet": "hand-painted texture, painterly brush strokes, stylized WoW-like",
+      "compare_with": [
+        "stylized",
+        "pbr",
+        "texture-prompt"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "texture-resolution",
+      "term": "texture resolution (2K / 4K / 8K)",
+      "ko": "텍스처 해상도",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "param"
+      ],
+      "effect_ko": "텍스처 이미지의 픽셀 크기입니다. 높을수록 확대 시 선명하지만 용량이 커집니다. Meshy texture_resolution 2k/4k/8k, Tripo texture_quality standard/detailed, Rodin HighPack(4K).",
+      "snippet": "Meshy refine: texture_resolution: \"4k\" / Tripo: texture_quality: \"detailed\"",
+      "compare_with": [
+        "texel-density",
+        "tripo-texture-quality",
+        "rodin-highpack"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://docs.comfy.org/built-in-nodes/TripoImageToModelNodeV2.md",
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "texel-density",
+      "term": "texel density",
+      "ko": "텍셀 밀도",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "uv",
+        "game"
+      ],
+      "effect_ko": "모델 표면 단위 면적당 텍스처 픽셀 수입니다. 에셋끼리 밀도가 다르면 어떤 물체만 흐릿해 보입니다.",
+      "snippet": "target texel density 10.24 px/cm (2K map on 2m asset)",
+      "compare_with": [
+        "texture-resolution",
+        "uv-unwrap"
+      ],
+      "tools": [
+        "Blender",
+        "Unreal Engine"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "tileable",
+      "term": "tileable / seamless texture",
+      "ko": "타일러블(이음매 없는) 텍스처",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "texture"
+      ],
+      "effect_ko": "반복해도 경계가 보이지 않는 텍스처입니다. 바닥·벽 재질을 이미지 모델로 만들 때 'seamless tileable'을 넣습니다.",
+      "snippet": "seamless tileable cobblestone texture, top-down, PBR",
+      "compare_with": [
+        "trim-sheet"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Substance 3D"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "trim-sheet",
+      "term": "trim sheet",
+      "ko": "트림 시트",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "texture",
+        "game"
+      ],
+      "effect_ko": "여러 줄무늬 디테일을 한 장에 모아 여러 모델이 공유하는 텍스처 방식입니다. 게임 환경 아트에서 메모리를 절약합니다.",
+      "snippet": "sci-fi panel trim sheet, horizontal strips",
+      "compare_with": [
+        "tileable",
+        "texture-atlas"
+      ],
+      "tools": [
+        "Blender",
+        "Substance 3D"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "texture-atlas",
+      "term": "texture atlas",
+      "ko": "텍스처 아틀라스",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "texture",
+        "game"
+      ],
+      "effect_ko": "여러 오브젝트의 텍스처를 한 이미지에 모아 드로우콜을 줄입니다. AI 생성 단일 에셋은 이미 하나의 아틀라스 형태로 나오는 경우가 많습니다.",
+      "snippet": "combine materials into one 2048 atlas",
+      "compare_with": [
+        "trim-sheet",
+        "texture-resolution"
+      ],
+      "tools": [
+        "Blender",
+        "Unity"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "texture-prompt",
+      "term": "texture prompt / retexture",
+      "ko": "텍스처 프롬프트 / 리텍스처",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "param",
+        "prompt"
+      ],
+      "effect_ko": "형상은 그대로 두고 표면 텍스처만 텍스트나 참조 이미지로 다시 생성합니다. Meshy refine의 texture_prompt / texture_image_url(둘 중 하나), Meshy·Tripo의 Retexture 기능.",
+      "snippet": "Meshy refine: texture_prompt: \"weathered bronze statue with green patina\"",
+      "compare_with": [
+        "texture-image-reference",
+        "material-words"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "texture-image-reference",
+      "term": "texture image reference",
+      "ko": "텍스처 참조 이미지",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "param"
+      ],
+      "effect_ko": "텍스트 대신 이미지로 표면 스타일을 지정합니다. 브랜드 패턴·특정 재질 사진을 입힐 때 텍스트보다 정확합니다. Meshy texture_image_url(jpg/png/webp, 20MB 이하).",
+      "snippet": "Meshy refine: texture_image_url: \"https://.../fabric.png\"",
+      "compare_with": [
+        "texture-prompt"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "vertex-color",
+      "term": "vertex color",
+      "ko": "버텍스 컬러",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "texture"
+      ],
+      "effect_ko": "텍스처 이미지 없이 꼭짓점마다 색을 저장합니다. 로우폴리·복셀 단색 룩, 일부 3D 프린터 컬러 출력에 쓰입니다.",
+      "snippet": "export with vertex colors (PLY/GLB COLOR_0)",
+      "compare_with": [
+        "low-poly",
+        "3mf"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.khronos.org/gltf/"
+      ]
+    },
+    {
+      "id": "weathering",
+      "term": "weathering / edge wear / grime",
+      "ko": "웨더링(낡음·마모)",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "texture",
+        "prompt"
+      ],
+      "effect_ko": "모서리 페인트 벗겨짐·녹·때 같은 사용감을 더해 사실감을 높입니다. 'brand new'와 비교하면 차이가 뚜렷합니다.",
+      "snippet": "battle-worn, chipped paint on edges, rust streaks, grime in crevices",
+      "compare_with": [
+        "material-words",
+        "ao-map"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "texture-alignment",
+      "term": "texture alignment (Tripo)",
+      "ko": "텍스처 정렬 우선순위",
+      "category": "texturing",
+      "tags": [
+        "3d",
+        "param"
+      ],
+      "effect_ko": "Tripo에서 텍스처가 원본 이미지 색에 충실할지(original_image, 기본), 생성된 지오메트리에 맞출지(geometry)를 정합니다.",
+      "snippet": "Tripo: texture_alignment: \"original_image\" | \"geometry\"",
+      "compare_with": [
+        "texture-image-reference"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "octane-render",
+      "term": "Octane render",
+      "ko": "옥테인 렌더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render-look",
+        "image-model"
+      ],
+      "effect_ko": "이미지 모델에서 선명한 반사·강한 대비·광택 있는 CG 광고풍 룩을 유도하는 단골 키워드입니다. 실제 Octane은 GPU 언바이어스 렌더러입니다.",
+      "snippet": "3D render, Octane render, glossy, high contrast, studio lighting",
+      "compare_with": [
+        "cycles",
+        "unreal-engine",
+        "keyshot-product"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Octane"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://home.otoy.com/render/octane-render/"
+      ]
+    },
+    {
+      "id": "cycles",
+      "term": "Blender Cycles",
+      "ko": "블렌더 사이클스",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "Blender의 경로추적 렌더러로 사실적인 GI·반사·그림자를 계산합니다. 이미지 프롬프트에선 'Blender render'가 깔끔한 CG 룩을 냅니다. 실시간용 Eevee와 비교됩니다.",
+      "snippet": "Blender: Render Engine: Cycles, Samples 256, Denoise on",
+      "compare_with": [
+        "eevee",
+        "path-tracing",
+        "octane-render"
+      ],
+      "tools": [
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/index.html"
+      ]
+    },
+    {
+      "id": "eevee",
+      "term": "Blender Eevee",
+      "ko": "블렌더 이브이",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "Blender의 실시간(래스터) 렌더러로 빠르지만 GI·반사 정확도가 Cycles보다 낮습니다. 턴테이블 미리보기·스타일라이즈드 렌더에 적합합니다.",
+      "snippet": "Blender: Render Engine: Eevee",
+      "compare_with": [
+        "cycles"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/eevee/index.html"
+      ]
+    },
+    {
+      "id": "unreal-engine",
+      "term": "Unreal Engine 5 render",
+      "ko": "언리얼 엔진 5 렌더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render-look",
+        "image-model"
+      ],
+      "effect_ko": "이미지 모델에서 게임 시네마틱 같은 사실적 실시간 그래픽 룩을 유도합니다. 실제 UE5에서는 Lumen GI·Nanite 고폴리로 AI 에셋을 바로 보여줄 수 있습니다.",
+      "snippet": "cinematic scene, Unreal Engine 5, Lumen lighting, ultra detailed",
+      "compare_with": [
+        "octane-render",
+        "lumen",
+        "nanite"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Unreal Engine"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine"
+      ]
+    },
+    {
+      "id": "lumen",
+      "term": "Lumen global illumination",
+      "ko": "루멘",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "UE5의 실시간 GI·반사 시스템입니다. 실내 간접광이 자연스럽게 퍼집니다.",
+      "snippet": "Project Settings > Dynamic Global Illumination Method: Lumen",
+      "compare_with": [
+        "global-illumination",
+        "unreal-engine"
+      ],
+      "tools": [
+        "Unreal Engine"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine"
+      ]
+    },
+    {
+      "id": "nanite",
+      "term": "Nanite",
+      "ko": "나나이트",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render",
+        "mesh"
+      ],
+      "effect_ko": "UE5의 가상화 지오메트리로 수백만 폴리곤 메시를 LOD 없이 렌더합니다. AI 고폴리 결과를 리토폴로지 없이 배경물로 쓸 때 유용합니다(변형되는 캐릭터에는 제약).",
+      "snippet": "Static Mesh: Enable Nanite Support",
+      "compare_with": [
+        "lod",
+        "polycount"
+      ],
+      "tools": [
+        "Unreal Engine"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://dev.epicgames.com/documentation/en-us/unreal-engine/nanite-virtualized-geometry-in-unreal-engine"
+      ]
+    },
+    {
+      "id": "ray-tracing",
+      "term": "ray tracing",
+      "ko": "레이 트레이싱",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "광선을 추적해 정확한 반사·굴절·그림자를 계산합니다. 프롬프트에선 반짝이는 반사·사실적 그림자가 강조됩니다.",
+      "snippet": "ray traced reflections, realistic shadows",
+      "compare_with": [
+        "path-tracing",
+        "global-illumination"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender",
+        "Unreal Engine"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/index.html"
+      ]
+    },
+    {
+      "id": "path-tracing",
+      "term": "path tracing",
+      "ko": "패스 트레이싱",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "여러 번 튀는 빛을 확률적으로 추적해 GI까지 포함한 사진 같은 결과를 냅니다. 느리지만 기준 품질로 씁니다(Cycles, Octane).",
+      "snippet": "path traced render, physically accurate light",
+      "compare_with": [
+        "ray-tracing",
+        "cycles"
+      ],
+      "tools": [
+        "Blender",
+        "Octane"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/index.html"
+      ]
+    },
+    {
+      "id": "global-illumination",
+      "term": "global illumination (GI)",
+      "ko": "전역 조명",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render",
+        "light"
+      ],
+      "effect_ko": "벽에서 튕긴 간접광까지 계산해 그림자 부분이 자연스럽게 밝아지고 색이 번집니다. 빼면 그림자가 새까맣고 CG 티가 납니다.",
+      "snippet": "soft global illumination, bounced light, color bleeding",
+      "compare_with": [
+        "ambient-occlusion",
+        "lumen"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender",
+        "Unreal Engine"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/index.html",
+        "https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine"
+      ]
+    },
+    {
+      "id": "ambient-occlusion",
+      "term": "ambient occlusion (AO)",
+      "ko": "앰비언트 오클루전",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "틈·접촉부를 어둡게 해 접지감과 입체감을 줍니다. 클레이 렌더와 함께 쓰면 형태 검수에 좋습니다.",
+      "snippet": "soft ambient occlusion, contact shadows",
+      "compare_with": [
+        "ao-map",
+        "clay-render"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/baking.html"
+      ]
+    },
+    {
+      "id": "clay-render",
+      "term": "clay render / untextured render",
+      "ko": "클레이 렌더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render",
+        "review"
+      ],
+      "effect_ko": "텍스처 없이 회색·흰색 단일 재질로 렌더해 형태와 토폴로지만 평가합니다. 생성기 결과를 비교할 때 텍스처 착시를 제거하는 기준 렌더입니다.",
+      "snippet": "white clay render, matte grey material, no textures, soft AO",
+      "compare_with": [
+        "wireframe-render",
+        "clay-style",
+        "sculpted"
+      ],
+      "tools": [
+        "Blender",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "wireframe-render",
+      "term": "wireframe render",
+      "ko": "와이어프레임 렌더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render",
+        "review"
+      ],
+      "effect_ko": "면의 선을 보여주는 렌더입니다. 쿼드/트라이, 폴리 밀도 비교를 시각적으로 보여줍니다. Blender Wireframe 모디파이어·Freestyle 사용.",
+      "snippet": "wireframe overlay on clay render, quad topology visible",
+      "compare_with": [
+        "clay-render",
+        "quad-topology"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/freestyle/index.html"
+      ]
+    },
+    {
+      "id": "cel-shading",
+      "term": "cel shading / toon shader",
+      "ko": "셀 셰이딩 / 툰 셰이더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render",
+        "style"
+      ],
+      "effect_ko": "음영을 2~3단계로 끊고 외곽선을 넣어 애니메이션 같은 렌더가 됩니다. 3D 생성기 출력 자체보다 렌더 단계에서 적용됩니다.",
+      "snippet": "cel shaded, toon shader, bold outlines, anime style 3D",
+      "compare_with": [
+        "toon-cartoon",
+        "flat-vs-smooth-shading"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/freestyle/index.html"
+      ]
+    },
+    {
+      "id": "keyshot-product",
+      "term": "KeyShot / product render",
+      "ko": "키샷 / 제품 렌더",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render-look"
+      ],
+      "effect_ko": "흰 무한배경·스튜디오 반사판·깔끔한 반사의 제품 광고 렌더 룩이 됩니다.",
+      "snippet": "product render, KeyShot style, seamless white backdrop, studio reflections",
+      "compare_with": [
+        "octane-render",
+        "studio-lighting"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "KeyShot"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.keyshot.com/"
+      ]
+    },
+    {
+      "id": "3d-icon",
+      "term": "3D icon / glossy 3D illustration",
+      "ko": "3D 아이콘 룩",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render-look",
+        "image-model"
+      ],
+      "effect_ko": "이미지 모델에서 둥글고 말랑한 플라스틱 질감의 UI용 3D 아이콘을 만듭니다. 'C4D', 'Blender' 같은 툴명과 자주 묶입니다.",
+      "snippet": "3D icon of a rocket, soft glossy plastic, Cinema 4D style, pastel colors, isolated",
+      "compare_with": [
+        "isometric-diorama",
+        "clay-style"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "depth-of-field",
+      "term": "depth of field",
+      "ko": "피사계 심도",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "camera",
+        "render"
+      ],
+      "effect_ko": "초점 밖이 흐려져 미니어처·제품 사진 같은 느낌을 줍니다. 강한 DOF는 작은 물체처럼 보이게(틸트시프트) 만듭니다.",
+      "snippet": "shallow depth of field, f/2.8, tilt-shift miniature effect",
+      "compare_with": [
+        "focal-length",
+        "miniature"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cameras.html"
+      ]
+    },
+    {
+      "id": "bloom",
+      "term": "bloom",
+      "ko": "블룸",
+      "category": "rendering",
+      "tags": [
+        "3d",
+        "render"
+      ],
+      "effect_ko": "밝은 부분에서 빛이 번져 나오는 후처리로, 발광 재질과 함께 쓰면 네온 느낌이 강해집니다.",
+      "snippet": "emissive neon with bloom glow",
+      "compare_with": [
+        "emissive"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender",
+        "Unreal Engine"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/eevee/index.html"
+      ]
+    },
+    {
+      "id": "hdri",
+      "term": "HDRI environment lighting",
+      "ko": "HDRI 환경 조명",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "360° 고다이나믹레인지 사진으로 주변 전체를 조명·반사합니다. 같은 HDRI로 모든 결과를 렌더해야 비교가 공정합니다.",
+      "snippet": "Blender World: Environment Texture (studio_small_09.hdr), Strength 1.0",
+      "compare_with": [
+        "studio-lighting",
+        "neutral-lighting"
+      ],
+      "tools": [
+        "Blender",
+        "Unreal Engine",
+        "model-viewer"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/lights/world.html",
+        "https://polyhaven.com/hdris"
+      ]
+    },
+    {
+      "id": "three-point-lighting",
+      "term": "three-point lighting",
+      "ko": "3점 조명",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "키·필·백(림) 라이트로 형태를 명확히 드러내는 기본 조명입니다.",
+      "snippet": "three-point lighting, key light 45 degrees, soft fill, rim light",
+      "compare_with": [
+        "rim-light",
+        "studio-lighting"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "studio-lighting",
+      "term": "studio softbox lighting",
+      "ko": "스튜디오 소프트박스 조명",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "큰 확산광으로 그림자가 부드럽고 반사가 깔끔합니다. 제품·피규어 렌더의 기본값입니다.",
+      "snippet": "soft studio lighting, large softboxes, seamless backdrop",
+      "compare_with": [
+        "keyshot-product",
+        "hdri"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "rim-light",
+      "term": "rim light / backlight",
+      "ko": "림 라이트",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "뒤에서 비춰 외곽선이 빛나며 배경과 분리됩니다. SSS 재질과 함께 쓰면 귀·잎이 비쳐 보입니다.",
+      "snippet": "strong rim light outlining the silhouette",
+      "compare_with": [
+        "three-point-lighting",
+        "subsurface-scattering"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "neutral-lighting",
+      "term": "flat neutral lighting (for input/texture)",
+      "ko": "평탄한 중립 조명",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light",
+        "input"
+      ],
+      "effect_ko": "강한 그림자·하이라이트가 없는 고른 조명입니다. 이미지→3D 입력 사진이나 텍스처 생성 시 그림자가 텍스처에 구워지는 것을 줄입니다.",
+      "snippet": "evenly lit, flat diffuse lighting, no harsh shadows, no specular highlights",
+      "compare_with": [
+        "remove-lighting",
+        "albedo",
+        "plain-background"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d"
+      ]
+    },
+    {
+      "id": "volumetric-light",
+      "term": "volumetric lighting / god rays",
+      "ko": "볼류메트릭 라이트",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "공기 중 빛줄기·안개가 보여 분위기가 극적으로 바뀝니다. 장면·월드 생성 프롬프트에 유효합니다.",
+      "snippet": "volumetric god rays through fog",
+      "compare_with": [
+        "global-illumination"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender",
+        "Unreal Engine",
+        "Marble"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "caustics",
+      "term": "caustics",
+      "ko": "커스틱",
+      "category": "lighting",
+      "tags": [
+        "3d",
+        "light"
+      ],
+      "effect_ko": "유리·물을 통과한 빛이 바닥에 맺히는 일렁이는 무늬입니다. 경로추적 렌더러에서 표현됩니다.",
+      "snippet": "glass sphere casting caustics on the table",
+      "compare_with": [
+        "translucent",
+        "path-tracing"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Octane",
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cycles/index.html"
+      ]
+    },
+    {
+      "id": "turntable",
+      "term": "turntable",
+      "ko": "턴테이블",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera",
+        "review"
+      ],
+      "effect_ko": "모델을 360° 돌려 보여주는 영상·이미지입니다. 단일 뷰에서 안 보이는 뒷면 품질을 비교할 수 있어 3D 결과 비교의 표준 형식입니다.",
+      "snippet": "360 degree turntable, camera orbit, neutral grey background",
+      "compare_with": [
+        "orthographic",
+        "hdri",
+        "clay-render"
+      ],
+      "tools": [
+        "Blender",
+        "model-viewer",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://modelviewer.dev/"
+      ]
+    },
+    {
+      "id": "orthographic",
+      "term": "orthographic view",
+      "ko": "정사영(오쏘) 뷰",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera",
+        "input"
+      ],
+      "effect_ko": "원근 왜곡 없는 투영입니다. 이미지→3D용 입력/컨셉 시트를 만들 때 'orthographic front view'로 지정하면 비율 왜곡이 줄어듭니다.",
+      "snippet": "orthographic front view, no perspective distortion",
+      "compare_with": [
+        "focal-length",
+        "front-view",
+        "character-turnaround"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cameras.html"
+      ]
+    },
+    {
+      "id": "front-view",
+      "term": "front view / side view / back view",
+      "ko": "정면 / 측면 / 후면 뷰",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera",
+        "input"
+      ],
+      "effect_ko": "카메라 방향을 고정합니다. 이미지→3D 입력에는 정면 또는 3/4 뷰, 멀티뷰 입력에는 정면·측면·후면 세트를 씁니다.",
+      "snippet": "full body, front view, centered, facing camera",
+      "compare_with": [
+        "three-quarter-view",
+        "multiview-input"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-multiview-to-model/standard"
+      ]
+    },
+    {
+      "id": "three-quarter-view",
+      "term": "3/4 view",
+      "ko": "3/4 뷰",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera"
+      ],
+      "effect_ko": "정면과 측면 사이 약 45° 각도로 깊이와 측면 정보가 함께 보입니다. 단일 이미지 입력에서 측면 형태 추정이 좋아지는 경우가 있습니다.",
+      "snippet": "three-quarter view, 45 degree angle",
+      "compare_with": [
+        "front-view",
+        "isometric-camera"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "isometric-camera",
+      "term": "isometric camera",
+      "ko": "아이소메트릭 카메라",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera"
+      ],
+      "effect_ko": "위에서 비스듬히 보는 평행투영으로 게임 맵·디오라마 룩을 만듭니다.",
+      "snippet": "isometric view, 30 degree elevation, orthographic",
+      "compare_with": [
+        "isometric-diorama",
+        "orthographic"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "focal-length",
+      "term": "focal length (24mm / 85mm)",
+      "ko": "초점거리",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera"
+      ],
+      "effect_ko": "광각은 원근 과장, 망원은 평탄화됩니다. 3D 입력 이미지에는 50~85mm 이상이 왜곡이 적습니다.",
+      "snippet": "shot on 85mm lens, minimal perspective distortion",
+      "compare_with": [
+        "orthographic",
+        "depth-of-field"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/render/cameras.html"
+      ]
+    },
+    {
+      "id": "character-turnaround",
+      "term": "character turnaround sheet",
+      "ko": "캐릭터 턴어라운드 시트",
+      "category": "camera",
+      "tags": [
+        "3d",
+        "camera",
+        "input"
+      ],
+      "effect_ko": "같은 캐릭터를 정면·측면·후면으로 나란히 그린 시트입니다. 이미지 모델로 만들어 잘라 멀티뷰 3D 입력으로 사용합니다(뷰 간 불일치는 검수 필요).",
+      "snippet": "character turnaround sheet, front, side, back views, same character, T-pose, white background, orthographic",
+      "compare_with": [
+        "multiview-input",
+        "t-pose",
+        "orthographic"
+      ],
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-multiview-to-model/standard",
+        "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials"
+      ]
+    },
+    {
+      "id": "auto-rig",
+      "term": "auto-rigging",
+      "ko": "오토 리깅",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig"
+      ],
+      "effect_ko": "생성된 캐릭터에 뼈대와 스킨 가중치를 자동으로 붙입니다. Meshy는 팔다리가 분명한 휴머노이드 GLB가 필요하고, Tripo는 rig check 후 biped·quadruped 등 여러 체형을 지원합니다.",
+      "snippet": "Tripo: rig check → rig (rig_type biped, spec mixamo) / Meshy: Rig (height 1.7m)",
+      "compare_with": [
+        "t-pose",
+        "retargeting",
+        "skinning"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Mixamo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/guides/3d-model/rigging",
+        "https://developers.tripo3d.com/en/models/rig"
+      ]
+    },
+    {
+      "id": "t-pose",
+      "term": "T-pose",
+      "ko": "T포즈",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig",
+        "input"
+      ],
+      "effect_ko": "팔을 수평으로 벌린 기본 자세로 겨드랑이가 붙지 않아 리깅이 쉬워집니다. Meshy pose_mode='t-pose', Rodin TAPose로 지정 가능합니다.",
+      "snippet": "character in T-pose, arms straight out, legs apart / Meshy: pose_mode: \"t-pose\"",
+      "compare_with": [
+        "a-pose",
+        "auto-rig",
+        "rodin-tapose"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://docs.meshy.ai/en/webapp/guides/animate"
+      ]
+    },
+    {
+      "id": "a-pose",
+      "term": "A-pose",
+      "ko": "A포즈",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig",
+        "input"
+      ],
+      "effect_ko": "팔을 약 45° 내린 자세로 어깨 변형이 자연스러워 최근 캐릭터 리깅에서 선호됩니다. Meshy pose_mode='a-pose'.",
+      "snippet": "character in A-pose, arms 45 degrees down / Meshy: pose_mode: \"a-pose\"",
+      "compare_with": [
+        "t-pose"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "skinning",
+      "term": "skinning / weight painting",
+      "ko": "스키닝 / 웨이트",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig"
+      ],
+      "effect_ko": "각 버텍스가 어떤 뼈에 얼마나 따라 움직일지 정합니다. 가중치가 나쁘면 관절이 찌그러지며, 깔끔한 토폴로지가 선행돼야 합니다.",
+      "snippet": "Blender: Parent with Automatic Weights, then Weight Paint",
+      "compare_with": [
+        "auto-rig",
+        "edge-flow"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/animation/armatures/index.html"
+      ]
+    },
+    {
+      "id": "skeleton-armature",
+      "term": "skeleton / armature (bone naming)",
+      "ko": "스켈레톤 / 아마추어",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig"
+      ],
+      "effect_ko": "뼈대 구조와 이름 규칙입니다. Tripo는 tripo(기본) 또는 mixamo 본 명명 규칙을 선택할 수 있어 기존 애니메이션 재사용에 영향을 줍니다.",
+      "snippet": "Tripo rig: spec: \"mixamo\"",
+      "compare_with": [
+        "mixamo",
+        "retargeting"
+      ],
+      "tools": [
+        "Tripo",
+        "Blender",
+        "Mixamo"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.tripo3d.com/en/models/rig",
+        "https://docs.blender.org/manual/en/latest/animation/armatures/index.html"
+      ]
+    },
+    {
+      "id": "retargeting",
+      "term": "animation retargeting",
+      "ko": "애니메이션 리타게팅",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "anim"
+      ],
+      "effect_ko": "다른 뼈대용 모션을 내 캐릭터 뼈대에 옮깁니다. Tripo retarget(idle/walk/run 등 프리셋), Meshy 애니메이션 라이브러리(500+ 프리셋)가 이 방식입니다.",
+      "snippet": "Tripo retarget: animation: \"preset:walk\" / Meshy: animation preset id",
+      "compare_with": [
+        "animation-preset",
+        "mixamo",
+        "in-place"
+      ],
+      "tools": [
+        "Tripo",
+        "Meshy",
+        "Mixamo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/models/animation",
+        "https://docs.meshy.ai/en/webapp/guides/animate"
+      ]
+    },
+    {
+      "id": "animation-preset",
+      "term": "animation preset (idle, walk, run)",
+      "ko": "애니메이션 프리셋",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "anim"
+      ],
+      "effect_ko": "미리 만든 동작 클립을 적용합니다. Meshy 라이브러리는 휴머노이드 중심(사족보행은 걷기 위주), Tripo는 리깅된 모델에 프리셋을 배치로 적용합니다.",
+      "snippet": "Meshy: Animate > Walk & Run > Running / Tripo: preset:idle",
+      "compare_with": [
+        "retargeting",
+        "in-place"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/guides/animate",
+        "https://developers.tripo3d.com/en/models/animation"
+      ]
+    },
+    {
+      "id": "in-place",
+      "term": "in-place animation (root motion off)",
+      "ko": "인플레이스 애니메이션",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "anim",
+        "game"
+      ],
+      "effect_ko": "캐릭터가 제자리에서 걷도록 루트 이동을 제거합니다. 게임 엔진 이동 시스템과 연동할 때 필요합니다(Tripo retarget에 옵션 존재).",
+      "snippet": "walk cycle, in place, no root displacement",
+      "compare_with": [
+        "animation-preset",
+        "game-asset"
+      ],
+      "tools": [
+        "Tripo",
+        "Mixamo",
+        "Unreal Engine"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/models/animation"
+      ]
+    },
+    {
+      "id": "mixamo",
+      "term": "Mixamo",
+      "ko": "믹사모",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "rig",
+        "anim"
+      ],
+      "effect_ko": "Adobe의 무료 웹 오토리깅·모션 라이브러리입니다. AI 생성 휴머노이드를 FBX/OBJ로 올려 리깅 후 모션을 받는 대표 경로입니다.",
+      "snippet": "upload FBX → place markers (chin, wrists, elbows, knees, groin) → download with skin",
+      "compare_with": [
+        "auto-rig",
+        "fbx",
+        "skeleton-armature"
+      ],
+      "tools": [
+        "Mixamo"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.mixamo.com/"
+      ]
+    },
+    {
+      "id": "blendshapes",
+      "term": "blendshapes / shape keys",
+      "ko": "블렌드셰이프 / 셰이프키",
+      "category": "rigging-animation",
+      "tags": [
+        "3d",
+        "anim"
+      ],
+      "effect_ko": "표정·입모양처럼 메시 형태를 직접 변형하는 방식입니다. AI 생성기는 거의 제공하지 않아 수작업이 필요합니다.",
+      "snippet": "Blender: Object Data > Shape Keys > + (smile, blink)",
+      "compare_with": [
+        "skinning"
+      ],
+      "tools": [
+        "Blender"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/animation/shape_keys/introduction.html"
+      ]
+    },
+    {
+      "id": "glb",
+      "term": "GLB / glTF 2.0",
+      "ko": "GLB / glTF",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "web"
+      ],
+      "effect_ko": "메시·PBR 재질·텍스처·애니메이션을 한 파일에 담는 웹·실시간 표준(“3D의 JPEG”). 대부분 AI 생성기의 기본 출력이며 웹 뷰어·엔진 호환이 가장 좋습니다.",
+      "snippet": "Meshy: target_formats: [\"glb\"]",
+      "compare_with": [
+        "fbx",
+        "usdz",
+        "obj"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender",
+        "three.js",
+        "model-viewer"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.khronos.org/gltf/",
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "fbx",
+      "term": "FBX",
+      "ko": "FBX",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "game"
+      ],
+      "effect_ko": "리깅·애니메이션을 포함하는 게임·DCC 업계 표준 교환 포맷입니다. Unity·Unreal·Mixamo에 주로 씁니다. Tripo는 quad 출력 시 FBX로 강제됩니다.",
+      "snippet": "export FBX with skin and animation",
+      "compare_with": [
+        "glb",
+        "mixamo"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Unity",
+        "Unreal Engine",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "obj",
+      "term": "OBJ (+MTL)",
+      "ko": "OBJ",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format"
+      ],
+      "effect_ko": "오래된 단순 메시 포맷으로 거의 모든 툴이 읽지만 PBR·애니메이션을 제대로 담지 못합니다.",
+      "snippet": "Meshy: target_formats: [\"obj\"]",
+      "compare_with": [
+        "glb",
+        "stl"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "usdz",
+      "term": "USDZ",
+      "ko": "USDZ",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "ar"
+      ],
+      "effect_ko": "Apple AR Quick Look용 포맷으로 iPhone/iPad에서 별도 앱 없이 AR로 띄울 수 있습니다.",
+      "snippet": "Meshy: target_formats: [\"usdz\"]",
+      "compare_with": [
+        "glb",
+        "ar-web"
+      ],
+      "tools": [
+        "Meshy",
+        "Reality Composer"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.apple.com/augmented-reality/quick-look/",
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "stl",
+      "term": "STL",
+      "ko": "STL",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "print"
+      ],
+      "effect_ko": "색·재질 없이 형상만 담는 3D 프린팅 표준입니다.",
+      "snippet": "Meshy: target_formats: [\"stl\"]",
+      "compare_with": [
+        "3mf",
+        "watertight"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Bambu Studio",
+        "Cura"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "3mf",
+      "term": "3MF",
+      "ko": "3MF",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "print"
+      ],
+      "effect_ko": "단위·색·다중 재료 정보를 담는 최신 3D 프린팅 포맷입니다. Meshy는 요청 시에만 3mf를 포함합니다.",
+      "snippet": "Meshy: target_formats: [\"3mf\"]",
+      "compare_with": [
+        "stl",
+        "vertex-color"
+      ],
+      "tools": [
+        "Meshy",
+        "Bambu Studio",
+        "PrusaSlicer"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "ply-spz",
+      "term": "PLY / SPZ (Gaussian splat)",
+      "ko": "PLY / SPZ(스플랫)",
+      "category": "output-format",
+      "tags": [
+        "3d",
+        "format",
+        "splat"
+      ],
+      "effect_ko": "가우시안 스플랫 결과 포맷입니다. PLY는 호환성이 넓고, SPZ는 압축 포맷으로 World Labs Marble의 기본입니다. 메시가 아니라 점 기반이라 일반 게임 파이프라인에는 바로 쓰기 어렵습니다.",
+      "snippet": "Marble export: Splat (SPZ / PLY)",
+      "compare_with": [
+        "gaussian-splatting",
+        "glb"
+      ],
+      "tools": [
+        "Marble",
+        "Luma AI",
+        "Polycam"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.worldlabs.ai/marble/export/gaussian-splat.md"
+      ]
+    },
+    {
+      "id": "game-asset",
+      "term": "game asset pipeline",
+      "ko": "게임 에셋용 설정",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "game"
+      ],
+      "effect_ko": "적정 폴리카운트(약 5만~10만 이하), 쿼드/스마트 토폴로지, PBR 2K~4K, FBX/GLB 출력, LOD를 묶어 지정합니다.",
+      "snippet": "Tripo: face_limit: 30000, pbr: true, texture_quality: \"standard\"",
+      "compare_with": [
+        "polycount",
+        "lod",
+        "pbr",
+        "fbx"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Unity",
+        "Unreal Engine"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "3d-printing",
+      "term": "3D printing",
+      "ko": "3D 프린팅용 설정",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "print"
+      ],
+      "effect_ko": "텍스처보다 형상 해상도가 중요합니다. 고폴리, 워터타이트, 실제 크기, 얇은 부위 두께 확보, STL/3MF 출력이 핵심입니다. Meshy 문서는 Standard(고폴리)를 프린팅용으로 안내합니다.",
+      "snippet": "Meshy: model_type: \"standard\", geometry_resolution: \"2k\", target_formats: [\"stl\",\"3mf\"]",
+      "compare_with": [
+        "watertight",
+        "stl",
+        "auto-size",
+        "miniature"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d",
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://docs.blender.org/manual/en/latest/addons/mesh/3d_print_toolbox.html"
+      ]
+    },
+    {
+      "id": "ar-web",
+      "term": "AR / web 3D",
+      "ko": "AR·웹 3D용 설정",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "ar",
+        "web"
+      ],
+      "effect_ko": "용량이 작아야 하므로 저폴리(1만~5만), 2K 텍스처, GLB(안드로이드·웹)/USDZ(iOS)로 내보냅니다. model-viewer로 웹에 바로 띄울 수 있습니다.",
+      "snippet": "<model-viewer src=\"asset.glb\" ios-src=\"asset.usdz\" ar camera-controls auto-rotate>",
+      "compare_with": [
+        "glb",
+        "usdz",
+        "polycount"
+      ],
+      "tools": [
+        "model-viewer",
+        "Meshy",
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://modelviewer.dev/",
+        "https://developer.apple.com/augmented-reality/quick-look/"
+      ]
+    },
+    {
+      "id": "auto-size",
+      "term": "auto size / real-world scale",
+      "ko": "실제 크기 자동 맞춤",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "param"
+      ],
+      "effect_ko": "AI가 물체의 실제 높이를 추정해 미터 단위로 스케일을 맞춥니다. Meshy auto_size(+origin_at bottom/center), Tripo auto_size. AR·프린팅에서 크기 오류를 줄입니다.",
+      "snippet": "Meshy: auto_size: true, origin_at: \"bottom\"",
+      "compare_with": [
+        "origin-pivot",
+        "ar-web"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "origin-pivot",
+      "term": "origin / pivot point",
+      "ko": "원점 / 피벗",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "param",
+        "game"
+      ],
+      "effect_ko": "모델의 기준점 위치입니다. 바닥(bottom)이면 지면에 바로 놓이고, 중심(center)이면 회전에 유리합니다.",
+      "snippet": "Meshy: origin_at: \"bottom\" / Blender: Set Origin > Origin to 3D Cursor",
+      "compare_with": [
+        "auto-size"
+      ],
+      "tools": [
+        "Meshy",
+        "Blender"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "parts-segmentation",
+      "term": "part segmentation (generate parts)",
+      "ko": "파츠 분리 생성",
+      "category": "use-case",
+      "tags": [
+        "3d",
+        "param"
+      ],
+      "effect_ko": "한 덩어리가 아니라 부품별로 분리된 메시를 생성해 개별 수정·애니메이션이 쉬워집니다. Tripo generate_parts(v3.0 이상 모델에서 유효) 등.",
+      "snippet": "Tripo: generate_parts: true",
+      "compare_with": [
+        "kitbash",
+        "retopology"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "single-subject",
+      "term": "single centered subject",
+      "ko": "단일 피사체 중앙 배치",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input"
+      ],
+      "effect_ko": "한 장면에 한 물체만, 중앙에, 윤곽이 잘 보이게 둡니다. 여러 물체가 있으면 모델 주의가 분산돼 메시가 뭉개집니다.",
+      "snippet": "single object, centered, full object visible, nothing cropped",
+      "compare_with": [
+        "plain-background",
+        "no-occlusion"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d",
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "plain-background",
+      "term": "plain white background",
+      "ko": "흰색 단색 배경",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input"
+      ],
+      "effect_ko": "배경이 단순할수록 물체 분리가 정확해집니다. 사진이 복잡하면 업로드 단계의 배경 제거를 쓰거나 미리 투명 PNG로 만듭니다.",
+      "snippet": "isolated on pure white background, no shadow on ground",
+      "compare_with": [
+        "background-removal",
+        "neutral-lighting"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d",
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "background-removal",
+      "term": "background removal (transparent PNG)",
+      "ko": "배경 제거",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input"
+      ],
+      "effect_ko": "입력 이미지에서 배경을 지워 물체만 남깁니다. Meshy 업로드 영역에 Remove Background 옵션이 있습니다.",
+      "snippet": "export subject as transparent PNG before upload",
+      "compare_with": [
+        "plain-background"
+      ],
+      "tools": [
+        "Meshy",
+        "Photoshop",
+        "rembg"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "multiview-input",
+      "term": "multi-view input",
+      "ko": "멀티뷰 입력",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input",
+        "param"
+      ],
+      "effect_ko": "정면·측면·후면 등 여러 각도 이미지를 넣어 뒷면을 추측이 아닌 근거로 만듭니다. Tripo multiview(정면·좌·후·우), Hunyuan 3.0은 최대 4장, 3.1은 최대 8장(상하·45° 포함), Meshy Multi-Image to 3D.",
+      "snippet": "Tripo multiview_to_model: files [front, left, back, right]",
+      "compare_with": [
+        "character-turnaround",
+        "front-view",
+        "single-subject"
+      ],
+      "tools": [
+        "Tripo",
+        "Hunyuan3D",
+        "Meshy",
+        "Rodin (Hyper3D)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-multiview-to-model/standard",
+        "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials",
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "input-resolution",
+      "term": "square input, ≥1024px",
+      "ko": "정사각·고해상 입력",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input"
+      ],
+      "effect_ko": "짧은 변 1024px 이상, 1:1 비율 이미지가 권장됩니다. Meshy에서 이미지→3D용 이미지를 생성할 때 1:1 비율을 권합니다.",
+      "snippet": "1024x1024 PNG, sharp focus, no motion blur",
+      "compare_with": [
+        "single-subject"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d"
+      ]
+    },
+    {
+      "id": "no-occlusion",
+      "term": "no occlusion / no text / no watermark",
+      "ko": "가림·글자·워터마크 없음",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input"
+      ],
+      "effect_ko": "손·소품으로 가려진 부분, 글자 오버레이, 워터마크는 메시와 텍스처에 이상한 돌기·얼룩을 만듭니다.",
+      "snippet": "unobstructed view, no text, no watermark, no props covering the body",
+      "compare_with": [
+        "single-subject"
+      ],
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d"
+      ]
+    },
+    {
+      "id": "image-enhancement",
+      "term": "image enhancement (pre-process)",
+      "ko": "입력 이미지 보정",
+      "category": "input-prep",
+      "tags": [
+        "3d",
+        "input",
+        "param"
+      ],
+      "effect_ko": "Meshy Image Enhancement를 켜면 AI가 저품질 사진을 먼저 보정하고, 끄면 원본을 그대로 씁니다. 이미 깨끗한 입력에는 끄는 것이 원본 충실도가 높습니다.",
+      "snippet": "Meshy Image to 3D: Image Enhancement On/Off",
+      "compare_with": [
+        "input-resolution"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-ai-model",
+      "term": "Meshy ai_model / model_type",
+      "ko": "Meshy 모델 선택",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy"
+      ],
+      "effect_ko": "Meshy 버전(meshy-6-lite, meshy-6, meshy-7.1/latest)과 모델 타입(standard 고폴리 / smart-topology 깔끔한 저폴리)을 고릅니다. lowpoly 타입은 2026-10-30 종료 예정으로 표기돼 있습니다.",
+      "snippet": "ai_model: \"latest\", model_type: \"standard\" | \"smart-topology\"",
+      "compare_with": [
+        "smart-low-poly",
+        "meshy-geometry-resolution"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-geometry-resolution",
+      "term": "Meshy geometry_resolution",
+      "ko": "Meshy 지오메트리 해상도",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy"
+      ],
+      "effect_ko": "preview 단계 형상 해상도(standard/2k/4k)입니다. 높을수록 세밀한 형상, meshy-7.1/latest에서만 동작합니다(ultra_mode는 deprecated, 2k와 동일).",
+      "snippet": "geometry_resolution: \"2k\"",
+      "compare_with": [
+        "tripo-geometry-quality",
+        "polycount"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-target-polycount",
+      "term": "Meshy target_polycount",
+      "ko": "Meshy 목표 폴리곤 수",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy"
+      ],
+      "effect_ko": "standard+should_remesh=true에서 100~300,000(기본 30,000), smart-topology에서 100~15,000(기본 4,000) 면 수를 지정합니다.",
+      "snippet": "should_remesh: true, target_polycount: 10000",
+      "compare_with": [
+        "tripo-face-limit",
+        "polycount",
+        "remesh"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-symmetry",
+      "term": "Meshy symmetry_mode",
+      "ko": "Meshy 대칭 모드",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy"
+      ],
+      "effect_ko": "off/auto/on 값이 있으나 현재 API 문서에 'deprecated, 출력에 영향 없음'으로 표기돼 있습니다. 대칭이 필요하면 프롬프트('symmetrical')와 입력 이미지로 유도하거나 Blender Symmetrize를 씁니다.",
+      "snippet": "symmetry_mode: \"auto\"  (deprecated) / prompt: \"perfectly symmetrical\"",
+      "compare_with": [
+        "meshy-art-style"
+      ],
+      "tools": [
+        "Meshy",
+        "Blender"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-art-style",
+      "term": "Meshy art_style",
+      "ko": "Meshy 아트 스타일",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy"
+      ],
+      "effect_ko": "realistic/sculpture 선택지였으나 deprecated이며 Meshy-6 이후 무시됩니다. 스타일은 이제 프롬프트 문구로 지정합니다.",
+      "snippet": "art_style: \"sculpture\" (legacy) → prompt: \"marble sculpture style\"",
+      "compare_with": [
+        "sculpted",
+        "stylized"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "meshy-preview-refine",
+      "term": "Meshy preview → refine",
+      "ko": "Meshy 프리뷰→리파인 2단계",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "meshy",
+        "workflow"
+      ],
+      "effect_ko": "preview로 형상(무텍스처)을 먼저 뽑고, 마음에 드는 것만 refine으로 텍스처·PBR을 입힙니다. 형상 비교와 텍스처 비교를 분리할 수 있습니다.",
+      "snippet": "POST mode: \"preview\" → POST mode: \"refine\", preview_task_id, enable_pbr: true",
+      "compare_with": [
+        "texture-prompt",
+        "pbr"
+      ],
+      "tools": [
+        "Meshy"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "tripo-face-limit",
+      "term": "Tripo face_limit",
+      "ko": "Tripo 면 수 제한",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "tripo"
+      ],
+      "effect_ko": "최대 면 수를 지정합니다. 생략하면 적응형 토폴로지가 적용되고, quad=true에서 미지정 시 기본 10,000면입니다. 버전별 상한이 다릅니다.",
+      "snippet": "face_limit: 20000",
+      "compare_with": [
+        "meshy-target-polycount",
+        "smart-low-poly"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "tripo-texture-quality",
+      "term": "Tripo texture_quality",
+      "ko": "Tripo 텍스처 품질",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "tripo"
+      ],
+      "effect_ko": "standard(기본)/detailed(HD) 등 텍스처 품질 단계입니다. v3.0-20250812 이상 모델에서만 유효합니다.",
+      "snippet": "texture_quality: \"detailed\"",
+      "compare_with": [
+        "texture-resolution",
+        "tripo-geometry-quality"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+        "https://docs.comfy.org/built-in-nodes/TripoImageToModelNodeV2.md"
+      ]
+    },
+    {
+      "id": "tripo-geometry-quality",
+      "term": "Tripo geometry_quality",
+      "ko": "Tripo 지오메트리 품질",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "tripo"
+      ],
+      "effect_ko": "standard(균형) / detailed(Ultra, 더 세밀한 형상)입니다. v3.0 이상에서만 동작합니다.",
+      "snippet": "geometry_quality: \"detailed\"",
+      "compare_with": [
+        "meshy-geometry-resolution"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard"
+      ]
+    },
+    {
+      "id": "tripo-negative-seed",
+      "term": "Tripo negative_prompt / seeds",
+      "ko": "Tripo 네거티브 프롬프트·시드",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "tripo"
+      ],
+      "effect_ko": "텍스트→3D에서 원치 않는 요소를 negative_prompt로 배제하고, model_seed/texture_seed를 고정해 한 단어만 바꾼 비교를 재현성 있게 할 수 있습니다.",
+      "snippet": "negative_prompt: \"base, pedestal, text\", model_seed: 42, texture_seed: 42",
+      "compare_with": [
+        "tripo-face-limit"
+      ],
+      "tools": [
+        "Tripo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-text-to-model/standard.md"
+      ]
+    },
+    {
+      "id": "rodin-material",
+      "term": "Rodin material (PBR / Shaded / All)",
+      "ko": "Rodin 재질 모드",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "rodin"
+      ],
+      "effect_ko": "PBR은 물리 기반 맵, Shaded는 조명이 구워진 텍스처, All은 둘 다 반환합니다.",
+      "snippet": "material: \"PBR\"",
+      "compare_with": [
+        "pbr",
+        "shaded-baked"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "rodin-mesh-quality",
+      "term": "Rodin mesh_mode + quality",
+      "ko": "Rodin 메시 모드·품질",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "rodin"
+      ],
+      "effect_ko": "mesh_mode Quad/Raw(삼각)와 quality 프리셋(high/medium/low 등) 또는 사용자 지정 면 수로 밀도를 정합니다. 제공 플랫폼마다 이름·기본값이 다르므로(fal은 '18K Quad', '500K Triangle' 같은 결합 옵션) 사용하는 API 스키마를 확인해야 합니다.",
+      "snippet": "mesh_mode: \"Quad\", quality: \"medium\"  (fal: quality_mesh_option: \"18K Quad\")",
+      "compare_with": [
+        "quad-topology",
+        "polycount"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2",
+        "https://fal.ai/models/fal-ai/hyper3d/rodin/v2/api",
+        "https://help.scenario.com/en/articles/rodin-hyper3d-models-the-essentials/"
+      ]
+    },
+    {
+      "id": "rodin-tapose",
+      "term": "Rodin TAPose",
+      "ko": "Rodin T/A포즈 강제",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "rodin"
+      ],
+      "effect_ko": "휴머노이드를 T/A 바인딩 포즈로 생성해 리깅을 쉽게 합니다.",
+      "snippet": "TAPose: true",
+      "compare_with": [
+        "t-pose",
+        "auto-rig"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fal.ai/models/fal-ai/hyper3d/rodin/v2/api"
+      ]
+    },
+    {
+      "id": "rodin-highpack",
+      "term": "Rodin HighPack / hd_texture",
+      "ko": "Rodin 고해상 텍스처 애드온",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "rodin"
+      ],
+      "effect_ko": "HighPack 애드온은 텍스처를 4K로(기본 2K) 올립니다. 일부 제공처는 hd_texture 옵션을 별도로 둡니다.",
+      "snippet": "addons: [\"HighPack\"]",
+      "compare_with": [
+        "texture-resolution"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "rodin-bbox",
+      "term": "Rodin bounding box condition",
+      "ko": "Rodin 바운딩박스 조건",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "rodin"
+      ],
+      "effect_ko": "생성될 모델의 최대 치수 비율을 지정해 가로·세로·깊이 비율을 강제합니다(Runware 기준 [Y, Z, X] 순서).",
+      "snippet": "boundingBox: [100, 50, 30]",
+      "compare_with": [
+        "auto-size"
+      ],
+      "tools": [
+        "Rodin (Hyper3D)"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://runware.ai/docs/models/hyper3d-rodin-gen-2"
+      ]
+    },
+    {
+      "id": "hunyuan-generate-type",
+      "term": "Hunyuan3D generate_type",
+      "ko": "Hunyuan3D 생성 타입",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "hunyuan"
+      ],
+      "effect_ko": "3.0은 Normal / Low Poly / Geometry(무텍스처 형상만), 3.1은 Normal / Geometry를 제공합니다(제공처마다 다름). Geometry에선 enable_pbr가 무시됩니다.",
+      "snippet": "generate_type: \"Geometry\" | \"Normal\", face_count: 500000, enable_pbr: true",
+      "compare_with": [
+        "polycount",
+        "clay-render",
+        "smart-low-poly"
+      ],
+      "tools": [
+        "Hunyuan3D"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials",
+        "https://fal.ai/docs/model-api-reference/3d-api/hunyuan-3d-v3.1-pro.md"
+      ]
+    },
+    {
+      "id": "trellis-guidance",
+      "term": "TRELLIS guidance strength & sampling steps",
+      "ko": "TRELLIS 가이던스·스텝",
+      "category": "model-params",
+      "tags": [
+        "3d",
+        "param",
+        "trellis"
+      ],
+      "effect_ko": "희소 구조(SS)와 구조 잠재(SLAT) 2단계 각각에 guidance strength(입력 충실도)와 sampling steps(품질↔시간)를 지정합니다. 호스트별 기본값 예: 7.5 / 12스텝.",
+      "snippet": "ss_guidance_strength: 7.5, ss_sampling_steps: 12, resolution: 1024, texture_size: 2048",
+      "compare_with": [
+        "texture-resolution"
+      ],
+      "tools": [
+        "TRELLIS"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://fal.ai/docs/model-api-reference/3d-api/trellis-2.md",
+        "https://github.com/microsoft/TRELLIS.2"
+      ]
+    },
+    {
+      "id": "gaussian-splatting",
+      "term": "3D Gaussian splatting",
+      "ko": "3D 가우시안 스플래팅",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "splat"
+      ],
+      "effect_ko": "수많은 반투명 타원체로 장면을 표현해 사진 같은 실시간 뷰를 만듭니다. 메시처럼 편집·충돌·리깅이 어렵고, 시각화용으로 강합니다.",
+      "snippet": "export splat (.ply/.spz), view in SuperSplat / Unreal plugin",
+      "compare_with": [
+        "nerf",
+        "ply-spz",
+        "world-model"
+      ],
+      "tools": [
+        "Marble",
+        "Luma AI",
+        "Polycam",
+        "Postshot"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
+        "https://docs.worldlabs.ai/marble/export/gaussian-splat.md"
+      ]
+    },
+    {
+      "id": "nerf",
+      "term": "NeRF (neural radiance field)",
+      "ko": "NeRF",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "splat"
+      ],
+      "effect_ko": "신경망으로 장면의 빛을 학습해 새 시점을 렌더하는 방식입니다. 가우시안 스플래팅 이전 세대로, 렌더가 느린 편입니다.",
+      "snippet": "capture 50-150 photos orbiting the object → train NeRF",
+      "compare_with": [
+        "gaussian-splatting"
+      ],
+      "tools": [
+        "Luma AI",
+        "Nerfstudio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/"
+      ]
+    },
+    {
+      "id": "world-model",
+      "term": "world model (explorable 3D world)",
+      "ko": "월드 모델",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "world"
+      ],
+      "effect_ko": "텍스트·이미지에서 걸어 다닐 수 있는 3D 환경 전체를 만듭니다. Marble은 내보낼 수 있는 지속 월드(스플랫·메시), Genie 3는 실시간 생성되는 인터랙티브 월드(720p·24fps, 수 분간 일관성)입니다.",
+      "snippet": "Marble: text/image/panorama → world / Genie 3: text prompt → interactive world",
+      "compare_with": [
+        "gaussian-splatting",
+        "promptable-world-events",
+        "chisel-blockout"
+      ],
+      "tools": [
+        "Marble",
+        "Genie 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.worldlabs.ai/blog/marble-world-model",
+        "https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/"
+      ]
+    },
+    {
+      "id": "collider-mesh",
+      "term": "collider mesh",
+      "ko": "콜라이더 메시",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "world",
+        "game"
+      ],
+      "effect_ko": "월드의 물리 충돌용 저폴리 메시입니다. 스플랫은 충돌 판정이 없으므로 게임·시뮬레이션에서 함께 씁니다(Marble 내보내기 옵션).",
+      "snippet": "Marble export: Collider mesh (GLB)",
+      "compare_with": [
+        "gaussian-splatting",
+        "glb"
+      ],
+      "tools": [
+        "Marble",
+        "Unity",
+        "Unreal Engine"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.worldlabs.ai/marble/export/gaussian-splat.md"
+      ]
+    },
+    {
+      "id": "chisel-blockout",
+      "term": "Chisel / 3D blockout then style prompt",
+      "ko": "Chisel(블록아웃 후 스타일 프롬프트)",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "world",
+        "workflow"
+      ],
+      "effect_ko": "벽·방·지형을 단순한 박스로 먼저 배치해 구조를 고정한 뒤, 텍스트로 스타일을 입힙니다. 레이아웃을 정확히 통제할 때 프롬프트만 쓰는 것보다 유리합니다.",
+      "snippet": "block out L-shaped room + doorway → prompt: \"Victorian library, warm lamplight\"",
+      "compare_with": [
+        "world-model"
+      ],
+      "tools": [
+        "Marble"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.worldlabs.ai/blog/marble-world-model"
+      ]
+    },
+    {
+      "id": "panorama-360",
+      "term": "360 panorama input/output",
+      "ko": "360° 파노라마",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "world"
+      ],
+      "effect_ko": "등장방형(equirectangular) 파노라마로 월드를 시작하거나 내보냅니다. HDRI 배경·월드 생성 입력으로 쓰입니다.",
+      "snippet": "equirectangular 360 panorama, 2:1 aspect ratio",
+      "compare_with": [
+        "hdri",
+        "world-model"
+      ],
+      "tools": [
+        "Marble",
+        "Skybox AI",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.worldlabs.ai/blog/marble-world-model",
+        "https://docs.worldlabs.ai/marble/export/gaussian-splat.md"
+      ]
+    },
+    {
+      "id": "promptable-world-events",
+      "term": "promptable world events",
+      "ko": "프롬프트 월드 이벤트",
+      "category": "world-gen",
+      "tags": [
+        "3d",
+        "world"
+      ],
+      "effect_ko": "Genie 3에서 탐험 중 텍스트로 날씨·오브젝트·사건을 바꿔 넣는 기능입니다.",
+      "snippet": "\"a herd of deer runs across the road\" (during exploration)",
+      "compare_with": [
+        "world-model"
+      ],
+      "tools": [
+        "Genie 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "mobile-game-prop",
+      "name_ko": "모바일 게임용 로우폴리 소품",
+      "goal_ko": "가볍고 귀여운 게임 소품을 바로 엔진에 넣고 싶을 때",
+      "term_ids": [
+        "low-poly",
+        "stylized",
+        "hand-painted-texture",
+        "smart-low-poly",
+        "game-asset",
+        "glb"
+      ],
+      "prompt_en": "Prompt: stylized low poly wooden treasure chest, hand-painted texture, chunky shapes, game asset | Tripo: smart_low_poly: true, face_limit: 3000, pbr: false",
+      "notes_ko": "스마트 로우폴리는 단순 형태에서 잘 됩니다. 텍스처가 핸드페인팅풍이면 PBR을 꺼도 무방.",
+      "tools": [
+        "Tripo",
+        "Meshy"
+      ]
+    },
+    {
+      "id": "realistic-pbr-game",
+      "name_ko": "사실적 PBR 게임 에셋",
+      "goal_ko": "콘솔/PC 게임 수준의 사실적 소품",
+      "term_ids": [
+        "realistic",
+        "pbr",
+        "texture-resolution",
+        "polycount",
+        "weathering",
+        "fbx"
+      ],
+      "prompt_en": "Prompt: photorealistic battle-worn iron shield, chipped paint on edges, rust | Meshy preview: should_remesh: true, target_polycount: 30000, topology: \"quad\" | refine: enable_pbr: true, texture_resolution: \"4k\"",
+      "notes_ko": "엔진에서 LOD를 추가 생성하세요.",
+      "tools": [
+        "Meshy",
+        "Unreal Engine"
+      ]
+    },
+    {
+      "id": "riggable-character",
+      "name_ko": "리깅 가능한 캐릭터",
+      "goal_ko": "애니메이션까지 붙일 휴머노이드 캐릭터",
+      "term_ids": [
+        "a-pose",
+        "quad-topology",
+        "auto-rig",
+        "animation-preset",
+        "fbx",
+        "plain-background"
+      ],
+      "prompt_en": "Input image: young knight, full body, A-pose, front view, plain white background | Meshy: pose_mode: \"a-pose\", topology: \"quad\", should_remesh: true → Rig → Animate (Walk)",
+      "notes_ko": "Meshy 리깅 가이드는 Remesh 후 Rig를 권장. 손가락·망토 같은 분리 부위는 리깅 품질이 떨어질 수 있음.",
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Mixamo"
+      ]
+    },
+    {
+      "id": "print-figurine",
+      "name_ko": "3D 프린팅 피규어",
+      "goal_ko": "집에서 출력할 미니어처/피규어",
+      "term_ids": [
+        "miniature",
+        "sculpted",
+        "3d-printing",
+        "watertight",
+        "stl",
+        "auto-size"
+      ],
+      "prompt_en": "Prompt: 32mm tabletop miniature of a dwarf warrior on round base, highly detailed sculpt | Meshy: model_type: \"standard\", geometry_resolution: \"2k\", target_formats: [\"stl\",\"3mf\"]",
+      "notes_ko": "텍스처는 무의미하므로 preview 형상만으로 충분할 수 있음. 슬라이서 전에 Blender 3D Print Toolbox로 비매니폴드 검사.",
+      "tools": [
+        "Meshy",
+        "Blender"
+      ]
+    },
+    {
+      "id": "ar-product",
+      "name_ko": "AR 제품 미리보기",
+      "goal_ko": "쇼핑몰에서 휴대폰 AR로 제품을 띄우고 싶을 때",
+      "term_ids": [
+        "realistic",
+        "pbr",
+        "ar-web",
+        "usdz",
+        "glb",
+        "auto-size"
+      ],
+      "prompt_en": "Image→3D: product photo, front 3/4 view, white background | Meshy: target_polycount: 20000, enable_pbr: true, texture_resolution: \"2k\", auto_size: true, target_formats: [\"glb\",\"usdz\"]",
+      "notes_ko": "실제 크기가 틀리면 AR에서 어색하므로 auto_size 결과를 실제 치수로 확인.",
+      "tools": [
+        "Meshy",
+        "model-viewer"
+      ]
+    },
+    {
+      "id": "multiview-character",
+      "name_ko": "멀티뷰 기반 고정밀 캐릭터",
+      "goal_ko": "뒷면까지 의도대로 나온 캐릭터",
+      "term_ids": [
+        "character-turnaround",
+        "multiview-input",
+        "orthographic",
+        "t-pose",
+        "neutral-lighting"
+      ],
+      "prompt_en": "Image model: character turnaround sheet of a young knight, front, side, back views, T-pose, orthographic, white background, flat even lighting → crop → Tripo multiview_to_model / Hunyuan3D 3.1 Multiview",
+      "notes_ko": "생성 이미지의 뷰 간 디테일 불일치는 3D에서 뭉개짐으로 나타나므로 크롭 전 검수.",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Tripo",
+        "Hunyuan3D"
+      ]
+    },
+    {
+      "id": "image-3d-icon",
+      "name_ko": "이미지 모델 3D 아이콘",
+      "goal_ko": "앱/웹용 귀여운 3D 아이콘 이미지",
+      "term_ids": [
+        "3d-icon",
+        "clay-style",
+        "studio-lighting",
+        "ambient-occlusion"
+      ],
+      "prompt_en": "3D icon of a coffee mug, soft glossy plastic, Blender render, pastel colors, soft studio lighting, ambient occlusion, isolated on white",
+      "notes_ko": "실제 3D 파일이 아니라 3D 룩의 2D 이미지. 필요하면 이 이미지를 다시 image-to-3D 입력으로 사용.",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Flux"
+      ]
+    },
+    {
+      "id": "cinematic-ue5",
+      "name_ko": "UE5 시네마틱 룩",
+      "goal_ko": "게임 트레일러 같은 사실적 3D 장면 이미지",
+      "term_ids": [
+        "unreal-engine",
+        "global-illumination",
+        "volumetric-light",
+        "ray-tracing",
+        "depth-of-field"
+      ],
+      "prompt_en": "cinematic still of a cozy forest cabin at dusk, Unreal Engine 5, Lumen global illumination, volumetric god rays, ray traced reflections, shallow depth of field",
+      "notes_ko": "엔진명 키워드는 이미지 모델에 '룩'만 줍니다.",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ]
+    },
+    {
+      "id": "product-octane",
+      "name_ko": "광고용 제품 렌더",
+      "goal_ko": "광택 있는 하이엔드 제품 광고 이미지",
+      "term_ids": [
+        "octane-render",
+        "keyshot-product",
+        "roughness",
+        "rim-light",
+        "caustics"
+      ],
+      "prompt_en": "3D product render of a perfume bottle, Octane render, glossy glass, caustics on white seamless backdrop, rim light, studio softboxes",
+      "notes_ko": "",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ]
+    },
+    {
+      "id": "form-review",
+      "name_ko": "형태 검수 비교 세트",
+      "goal_ko": "여러 생성기 결과를 공정하게 비교하고 싶을 때",
+      "term_ids": [
+        "clay-render",
+        "wireframe-render",
+        "turntable",
+        "hdri"
+      ],
+      "prompt_en": "Blender: import GLB → override material with grey clay → same HDRI (studio) → 360 turntable 120 frames + wireframe pass",
+      "notes_ko": "텍스처가 형태 결함을 가리므로 클레이+와이어프레임을 같은 조명·카메라로 렌더해 비교.",
+      "tools": [
+        "Blender",
+        "model-viewer"
+      ]
+    },
+    {
+      "id": "sculpt-to-game",
+      "name_ko": "고폴리 → 게임용 변환",
+      "goal_ko": "AI 고폴리 결과를 게임용 저폴리로 옮기기",
+      "term_ids": [
+        "retopology",
+        "texture-baking",
+        "normal-map",
+        "uv-unwrap",
+        "lod"
+      ],
+      "prompt_en": "Hunyuan3D: face_count: 1000000 (high detail) → Blender QuadriFlow remesh (8k faces) → Smart UV Project → Bake Normal + Base Color (Selected to Active) → Decimate LODs",
+      "notes_ko": "전통적 하이→로우 베이크 파이프라인.",
+      "tools": [
+        "Hunyuan3D",
+        "Blender"
+      ]
+    },
+    {
+      "id": "retexture-variants",
+      "name_ko": "같은 형상 · 재질 바리에이션",
+      "goal_ko": "형태는 고정하고 재질/색만 여러 버전 비교",
+      "term_ids": [
+        "meshy-preview-refine",
+        "texture-prompt",
+        "material-words",
+        "pbr"
+      ],
+      "prompt_en": "Meshy: one preview task → refine A texture_prompt: \"polished bronze\" / refine B: \"weathered oak wood\" / refine C: \"glazed blue ceramic\", enable_pbr: true",
+      "notes_ko": "1항목만 바꾸는 비교에 가장 이상적인 구조.",
+      "tools": [
+        "Meshy",
+        "Tripo"
+      ]
+    },
+    {
+      "id": "explorable-world",
+      "name_ko": "탐험 가능한 3D 월드",
+      "goal_ko": "걸어 다닐 수 있는 환경/배경",
+      "term_ids": [
+        "world-model",
+        "chisel-blockout",
+        "gaussian-splatting",
+        "collider-mesh"
+      ],
+      "prompt_en": "Marble: block out cabin + clearing in Chisel → prompt \"cozy forest cabin clearing at dusk, warm window light\" → export SPZ + collider mesh",
+      "notes_ko": "내보내기는 요금제별로 제한됨(무료는 내보내기 불가로 안내).",
+      "tools": [
+        "Marble"
+      ]
+    },
+    {
+      "id": "voxel-diorama",
+      "name_ko": "복셀 디오라마",
+      "goal_ko": "마인크래프트풍 장면 오브젝트",
+      "term_ids": [
+        "voxel",
+        "isometric-diorama",
+        "isometric-camera",
+        "flat-vs-smooth-shading"
+      ],
+      "prompt_en": "voxel art isometric diorama of a tiny bakery on square base, flat shaded cubes, bright colors",
+      "notes_ko": "",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ]
+    },
+    {
+      "id": "toon-character-render",
+      "name_ko": "툰 셰이딩 캐릭터",
+      "goal_ko": "애니메이션풍 3D 캐릭터 렌더",
+      "term_ids": [
+        "chibi",
+        "toon-cartoon",
+        "cel-shading",
+        "three-point-lighting"
+      ],
+      "prompt_en": "chibi knight character, cartoon style, cel shaded toon shader, bold outlines, three-point lighting, 3D render",
+      "notes_ko": "",
+      "tools": [
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion",
+        "Blender"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "one-variable-ab",
+      "name": "One-variable A/B with fixed seed",
+      "ko": "시드 고정 1변수 비교",
+      "how_ko": "기준 원안·모델 버전·시드·설정을 고정하고 단어 하나(또는 파라미터 하나)만 바꿔 생성합니다. 시드를 지원하는 모델(Tripo model_seed/texture_seed, TRELLIS·Rodin 시드)에서 효과적.",
+      "when_ko": "용어 효과를 정확히 보고 싶을 때",
+      "example": "base-prop + \"low poly\" vs + \"stylized\", model_seed: 42 동일",
+      "tools": [
+        "Tripo",
+        "TRELLIS",
+        "Rodin (Hyper3D)"
+      ],
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-text-to-model/standard.md"
+      ]
+    },
+    {
+      "id": "image-first",
+      "name": "Text → image → 3D",
+      "ko": "이미지 먼저 만들고 3D로",
+      "how_ko": "이미지 모델로 정면·흰배경·단일 피사체 컨셉을 먼저 확정하고, 그 이미지를 image-to-3D에 넣습니다. 텍스트→3D보다 형태·색을 통제하기 쉽습니다.",
+      "when_ko": "디자인을 정확히 지정하고 싶을 때",
+      "example": "GPT Image: \"orthographic front view, A-pose, white background\" → Meshy Image to 3D",
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d"
+      ]
+    },
+    {
+      "id": "preview-then-refine",
+      "name": "Geometry first, texture second",
+      "ko": "형상 먼저, 텍스처 나중",
+      "how_ko": "Meshy preview(무텍스처)나 Hunyuan Geometry 모드로 형상만 여러 개 뽑아 고른 뒤 텍스처를 입힙니다. 비용·시간을 아끼고 비교 축을 분리합니다.",
+      "when_ko": "형태 후보가 많을 때",
+      "example": "Meshy mode: preview ×4 → best one → refine",
+      "tools": [
+        "Meshy",
+        "Hunyuan3D"
+      ],
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d",
+        "https://fal.ai/docs/model-api-reference/3d-api/hunyuan-3d-v3.1-pro.md"
+      ]
+    },
+    {
+      "id": "separate-geo-texture-prompt",
+      "name": "Separate shape and surface prompts",
+      "ko": "형상·표면 프롬프트 분리",
+      "how_ko": "형상 프롬프트에는 형태·비율·부품만, texture_prompt에는 재질·색·낡음만 씁니다. 재질어가 형상을 왜곡하는 현상을 줄입니다.",
+      "when_ko": "재질 바리에이션을 만들 때",
+      "example": "prompt: \"round shield with central boss\" / texture_prompt: \"rusty iron, red paint\"",
+      "tools": [
+        "Meshy"
+      ],
+      "sources": [
+        "https://docs.meshy.ai/en/api/text-to-3d"
+      ]
+    },
+    {
+      "id": "prompt-structure",
+      "name": "Subject → style → material → detail → constraints",
+      "ko": "3D 프롬프트 구조",
+      "how_ko": "대상(무엇) → 스타일(low poly 등) → 주 재질 → 핵심 디테일 → 제약(single object, no base)을 순서대로 짧게 씁니다. 장면·배경·카메라 묘사는 3D 생성기에선 대부분 무시되거나 불필요한 지오메트리를 만듭니다.",
+      "when_ko": "텍스트→3D 전반",
+      "example": "stylized wooden treasure chest, iron bands, hand-painted, single object, no base",
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D",
+        "TRELLIS",
+        "CSM",
+        "Spline AI"
+      ],
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "multiview-from-image-model",
+      "name": "Generate multiview sheet with an image model",
+      "ko": "이미지 모델로 멀티뷰 만들기",
+      "how_ko": "턴어라운드 시트를 생성해 각 뷰를 잘라 멀티뷰 입력으로 씁니다. 뷰 간 불일치가 있으면 단일 정면 입력이 더 나을 수 있으니 둘 다 비교.",
+      "when_ko": "뒷면 디자인이 중요한 캐릭터",
+      "example": "\"turnaround sheet, front/side/back, same character, T-pose, white bg\"",
+      "tools": [
+        "Tripo",
+        "Hunyuan3D",
+        "Midjourney",
+        "GPT Image",
+        "Imagen",
+        "Flux",
+        "Stable Diffusion"
+      ],
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-multiview-to-model/standard",
+        "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials"
+      ]
+    },
+    {
+      "id": "remesh-before-rig",
+      "name": "Remesh before rigging",
+      "ko": "리깅 전 리메시",
+      "how_ko": "AI 메시는 삼각형이 불규칙하므로 Remesh(쿼드, 적정 면 수) 후 리깅해야 관절 변형이 덜 깨집니다.",
+      "when_ko": "애니메이션용 캐릭터",
+      "example": "Meshy: Remesh (quad, 20k) → Rig → Animate",
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Blender"
+      ],
+      "sources": [
+        "https://docs.meshy.ai/en/webapp/guides/3d-model/rigging"
+      ]
+    },
+    {
+      "id": "neutral-review-scene",
+      "name": "Neutral review scene",
+      "ko": "중립 검수 씬",
+      "how_ko": "모든 결과를 같은 HDRI·카메라·턴테이블에서, 텍스처 버전과 클레이 버전 둘 다 렌더해 나란히 둡니다. 뷰어 기본 조명 차이에 따른 착시를 없앱니다.",
+      "when_ko": "생성기·설정 비교표 만들 때",
+      "example": "model-viewer environment-image=\"neutral\" auto-rotate / Blender studio HDRI",
+      "tools": [
+        "Blender",
+        "model-viewer"
+      ],
+      "sources": [
+        "https://modelviewer.dev/",
+        "https://docs.blender.org/manual/en/latest/render/lights/world.html"
+      ]
+    },
+    {
+      "id": "input-cleanup",
+      "name": "Clean the input image",
+      "ko": "입력 이미지 정리",
+      "how_ko": "배경 제거, 1:1 크롭, 1024px 이상, 그림자·글자·가림 제거, 고른 조명으로 다시 생성/편집 후 업로드합니다.",
+      "when_ko": "사진·일러스트를 3D로 변환할 때",
+      "example": "rembg → square pad → upscale → Meshy Image to 3D (Enhancement off)",
+      "tools": [
+        "Meshy",
+        "Tripo",
+        "Rodin (Hyper3D)",
+        "Hunyuan3D"
+      ],
+      "sources": [
+        "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d",
+        "https://docs.meshy.ai/en/webapp/image-to-3d"
+      ]
+    },
+    {
+      "id": "negative-constraints",
+      "name": "Exclude bases and extras",
+      "ko": "불필요 요소 배제",
+      "how_ko": "3D 생성기는 받침대·바닥판을 붙이는 경향이 있어 'no base, no pedestal'을 명시하거나 Tripo negative_prompt를 씁니다. 반대로 프린팅 미니어처는 'on round base'로 받침을 요청합니다.",
+      "when_ko": "단독 오브젝트가 필요할 때",
+      "example": "negative_prompt: \"base, pedestal, ground plane\"",
+      "tools": [
+        "Tripo",
+        "Meshy"
+      ],
+      "sources": [
+        "https://developers.tripo3d.com/en/docs/generation-text-to-model/standard.md"
+      ]
+    },
+    {
+      "id": "post-in-blender",
+      "name": "Finish in Blender",
+      "ko": "Blender 후처리 마무리",
+      "how_ko": "생성 결과를 Blender로 가져와 원점·스케일 정리, Decimate/Remesh, 재질 수정(유리·발광은 재설정), 베이크 후 재내보내기합니다. Blender MCP 같은 AI 연동으로 일부 자동화도 가능.",
+      "when_ko": "실서비스 투입 전",
+      "example": "Import GLB → Apply Scale → Decimate 0.5 → Export glTF (Draco)",
+      "tools": [
+        "Blender"
+      ],
+      "sources": [
+        "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/decimate.html",
+        "https://docs.blender.org/manual/en/latest/render/cycles/baking.html"
+      ]
+    },
+    {
+      "id": "blockout-then-style",
+      "name": "Block out structure, then prompt style",
+      "ko": "블록아웃 후 스타일링",
+      "how_ko": "월드 생성에서 구조(벽·방·지형)를 단순 형상으로 먼저 고정하고 스타일만 프롬프트로 지정합니다. 같은 블록아웃으로 스타일어만 바꿔 비교하기 좋습니다.",
+      "when_ko": "레이아웃이 정해진 환경",
+      "example": "Chisel blockout → \"Victorian library\" vs \"cyberpunk noodle bar\"",
+      "tools": [
+        "Marble"
+      ],
+      "sources": [
+        "https://www.worldlabs.ai/blog/marble-world-model"
+      ]
+    }
+  ],
+  "sources": [
+    "https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/",
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/lumen-global-illumination-and-reflections-in-unreal-engine",
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/nanite-virtualized-geometry-in-unreal-engine",
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/static-mesh-automatic-lod-generation-in-unreal-engine",
+    "https://developer.apple.com/augmented-reality/quick-look/",
+    "https://developers.tripo3d.com/en/docs/generation-image-to-model/standard",
+    "https://developers.tripo3d.com/en/docs/generation-multiview-to-model/standard",
+    "https://developers.tripo3d.com/en/docs/generation-text-to-model/standard.md",
+    "https://developers.tripo3d.com/en/models/animation",
+    "https://developers.tripo3d.com/en/models/rig",
+    "https://docs.blender.org/manual/en/latest/addons/mesh/3d_print_toolbox.html",
+    "https://docs.blender.org/manual/en/latest/animation/armatures/index.html",
+    "https://docs.blender.org/manual/en/latest/animation/shape_keys/introduction.html",
+    "https://docs.blender.org/manual/en/latest/modeling/meshes/uv/index.html",
+    "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/decimate.html",
+    "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/remesh.html",
+    "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/subdivision_surface.html",
+    "https://docs.blender.org/manual/en/latest/render/cameras.html",
+    "https://docs.blender.org/manual/en/latest/render/cycles/baking.html",
+    "https://docs.blender.org/manual/en/latest/render/cycles/index.html",
+    "https://docs.blender.org/manual/en/latest/render/eevee/index.html",
+    "https://docs.blender.org/manual/en/latest/render/freestyle/index.html",
+    "https://docs.blender.org/manual/en/latest/render/lights/world.html",
+    "https://docs.blender.org/manual/en/latest/render/shader_nodes/shader/principled.html",
+    "https://docs.comfy.org/built-in-nodes/TripoImageToModelNodeV2.md",
+    "https://docs.meshy.ai/en/api/text-to-3d",
+    "https://docs.meshy.ai/en/webapp/guides/3d-model/rigging",
+    "https://docs.meshy.ai/en/webapp/guides/animate",
+    "https://docs.meshy.ai/en/webapp/image-to-3d",
+    "https://docs.worldlabs.ai/marble/export/gaussian-splat.md",
+    "https://fal.ai/docs/model-api-reference/3d-api/hunyuan-3d-v3.1-pro.md",
+    "https://fal.ai/docs/model-api-reference/3d-api/trellis-2.md",
+    "https://fal.ai/models/fal-ai/hyper3d/rodin/v2/api",
+    "https://github.com/microsoft/TRELLIS.2",
+    "https://help.scenario.com/articles/5967392966-hunyuan-3d-models-the-essentials",
+    "https://help.scenario.com/en/articles/rodin-hyper3d-models-the-essentials/",
+    "https://home.otoy.com/render/octane-render/",
+    "https://intercom.help/meshy/en/articles/9996860-how-to-use-meshy-image-to-3d",
+    "https://learnopengl.com/PBR/Theory",
+    "https://modelviewer.dev/",
+    "https://polyhaven.com/hdris",
+    "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#materials",
+    "https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/",
+    "https://runware.ai/docs/models/hyper3d-rodin-gen-2",
+    "https://www.adobe.com/learn/substance-3d-designer/web/the-pbr-guide-part-1",
+    "https://www.keyshot.com/",
+    "https://www.khronos.org/gltf/",
+    "https://www.mixamo.com/",
+    "https://www.worldlabs.ai/blog/marble-world-model"
+  ]
+}

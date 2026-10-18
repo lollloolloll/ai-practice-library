@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 500px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  .status { font-size: 12px; padding: 6px 10px; border-radius: 6px; margin-bottom: 14px; background: #eef1ff; color: #3346c4; }
+  .status.warn { background: #fff4e0; color: #8a5a00; }
+  form { display: flex; gap: 8px; margin-bottom: 10px; }
+  input[type=text], select { padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  input[type=text] { flex: 1; min-width: 0; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  .filters { display: flex; gap: 6px; margin-bottom: 8px; font-size: 12px; color: #666; align-items: center; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+  li span.t { flex: 1; } li.done span.t { text-decoration: line-through; color: #999; }
+  .pri { font-size: 11px; padding: 1px 6px; border-radius: 4px; background: #f1f1f4; }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  .tx { margin-top: 10px; font: 11px/1.6 ui-monospace, monospace; background: #1f2430; color: #cfd6e6; padding: 6px 10px; border-radius: 6px; max-height: 90px; overflow: auto; }
+  .bulk { background: #eef0f5; color: #333; font-size: 12px; padding: 5px 10px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <div class="status" id="status">IndexedDB 여는 중…</div>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><select id="pri"><option value="1">낮음</option><option value="2" selected>보통</option><option value="3">높음</option></select><button>추가</button></form>
+  <div class="filters">인덱스 조회: <select id="by"><option value="all">전체 (createdAt)</option><option value="pri">우선순위 높은 순 (priority 인덱스)</option><option value="todo">미완료만 (done 인덱스)</option></select><button class="bulk" id="bulk">1,000개 일괄 추가</button></div>
+  <ul id="list"></ul>
+  <div class="tx" id="tx"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  // ── IndexedDB 래퍼 (Promise 기반). 오브젝트 스토어 'todos' + 인덱스 3개 ──
+  const DB_NAME = 'todo-db', VER = 1;
+  const logTx = m => document.getElementById('tx').insertAdjacentHTML('afterbegin', `<div>${m}</div>`);
+  const req2p = r => new Promise((res, rej) => { r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+  function openDB() {
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(DB_NAME, VER);
+      r.onupgradeneeded = () => {           // 스키마 정의/마이그레이션
+        const s = r.result.createObjectStore('todos', { keyPath: 'id', autoIncrement: true });
+        s.createIndex('createdAt', 'createdAt'); s.createIndex('priority', 'priority'); s.createIndex('done', 'doneKey');
+        logTx('upgrade → v1: store "todos" + index(createdAt, priority, done)');
+      };
+      r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+    });
+  }
+  // IndexedDB를 쓸 수 없는 환경(샌드박스 iframe 등)용 메모리 구현 — 같은 인터페이스
+  function memoryDB() {
+    let rows = [], seq = 0;
+    return { all: async () => rows.slice(), put: async t => { if (!t.id) t.id = ++seq; rows = rows.filter(r => r.id !== t.id).concat(t); return t.id; }, del: async id => { rows = rows.filter(r => r.id !== id); }, bulk: async ts => ts.forEach(t => { t.id = ++seq; rows.push(t); }) };
+  }
+  function idbStore(db) {
+    const store = mode => db.transaction('todos', mode).objectStore('todos');
+    return {
+      all: async by => {
+        if (by === 'pri') return (await req2p(store('readonly').index('priority').getAll())).reverse();
+        if (by === 'todo') return req2p(store('readonly').index('done').getAll(IDBKeyRange.only(0)));
+        return req2p(store('readonly').index('createdAt').getAll());
+      },
+      put: t => req2p(store('readwrite').put(t)),
+      del: id => req2p(store('readwrite').delete(id)),
+      bulk: ts => new Promise((res, rej) => { const tx = db.transaction('todos', 'readwrite'), s = tx.objectStore('todos'); ts.forEach(t => s.add(t)); tx.oncomplete = res; tx.onerror = () => rej(tx.error); })  // 단일 트랜잭션
+    };
+  }
+  let api, isMem = false;
+  const P = { 1: '낮음', 2: '보통', 3: '높음' };
+  const make = (text, priority = 2) => ({ text, priority, done: false, doneKey: 0, createdAt: Date.now() + Math.random() });
+  async function init() {
+    try { if (!window.indexedDB) throw new Error('no idb'); api = idbStore(await openDB()); document.getElementById('status').textContent = `🗄 IndexedDB "${DB_NAME}" v${VER} 연결됨 · 대용량·구조화 데이터 저장 (새로고침해도 유지)`; }
+    catch (e) { api = memoryDB(); isMem = true; const s = document.getElementById('status'); s.className = 'status warn'; s.textContent = `⚠ 이 환경에서는 IndexedDB 접근이 차단됨 (${e.name || e.message}) → 같은 API의 메모리 저장소로 대체 실행 중`; }
+    const existing = await api.all();
+    if (!existing.length) { for (const [t, p] of [['장보기', 2], ['운동하기', 1], ['보고서 작성', 3]]) await api.put(make(t, p)); logTx('seed: 3 rows'); }
+    render();
+  }
+  async function render() {
+    const by = document.getElementById('by').value, t0 = performance.now();
+    let rows = await api.all(by);
+    if (isMem) { if (by === 'pri') rows.sort((a, b) => b.priority - a.priority); else if (by === 'todo') rows = rows.filter(r => !r.done); else rows.sort((a, b) => a.createdAt - b.createdAt); }
+    logTx(`getAll(${by}) → ${rows.length} rows · ${(performance.now() - t0).toFixed(1)}ms`);
+    const list = document.getElementById('list'); list.innerHTML = '';
+    rows.slice(0, 50).forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = `<input type="checkbox" ${t.done ? 'checked' : ''}><span class="t"></span><span class="pri">${P[t.priority]}</span><button class="del">삭제</button>`;
+      li.querySelector('.t').textContent = t.text;
+      li.querySelector('input').onchange = async () => { t.done = !t.done; t.doneKey = t.done ? 1 : 0; await api.put(t); logTx(`put id=${t.id}`); render(); };
+      li.querySelector('.del').onclick = async () => { await api.del(t.id); logTx(`delete id=${t.id}`); render(); };
+      list.appendChild(li);
+    });
+    if (rows.length > 50) list.insertAdjacentHTML('beforeend', `<li style="color:#888;font-size:12px">… 외 ${rows.length - 50}개</li>`);
+  }
+  bindSubmit(document.getElementById('form'), async e => { e.preventDefault(); const i = document.getElementById('input'), v = i.value.trim(); if (!v) return; const id = await api.put(make(v, +document.getElementById('pri').value)); logTx(`add id=${id}`); i.value = ''; render(); });
+  document.getElementById('by').onchange = render;
+  document.getElementById('bulk').onclick = async () => { const t0 = performance.now(); await api.bulk(Array.from({ length: 1000 }, (_, k) => make(`자동 생성 할 일 #${k + 1}`, 1 + k % 3))); logTx(`bulk add 1000 rows (1 transaction) · ${(performance.now() - t0).toFixed(0)}ms`); render(); };
+  init();
+</script>
+</body>
+</html>

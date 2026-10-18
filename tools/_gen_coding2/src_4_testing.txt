@@ -1,0 +1,481 @@
+@@term tdd todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. TDD(테스트 주도 개발)로 — 실패하는 테스트를 먼저 쓰고, 실패하는 걸 확인한 다음, 통과할 때까지 구현해줘. 테스트는 수정하지 마.
+@@transcript
+TDD 순서대로 진행했습니다. 화면(DOM) 코드보다 먼저, 할 일 로직을 순수 함수 모듈 `todos.js`로 설계했습니다.
+
+**1단계 — 실패하는 테스트 작성 (Red)**
+`src/todos.test.js`에 7개 테스트를 먼저 작성하고 실행했습니다. 아직 `todos.js`가 없으므로 전부 실패합니다.
+
+```
+$ npx vitest run
+ FAIL  src/todos.test.js
+ Error: Failed to resolve import "./todos.js" from "src/todos.test.js"
+ Test Files  1 failed (1)
+```
+
+**2단계 — 최소 구현 (Green)**
+`addTodo`, `toggleTodo`, `removeTodo`, `remaining`을 구현했습니다. 첫 실행에서 1개가 실패했습니다.
+
+```
+ ✓ addTodo > 새 할 일을 끝에 추가한다
+ × addTodo > 앞뒤 공백을 제거하고, 공백만 있으면 추가하지 않는다
+   → expected [ { text: '   ', … } ] to have length 0
+```
+
+테스트가 아니라 구현을 고쳤습니다(`text.trim()` 검사 추가).
+
+```
+ ✓ src/todos.test.js (7)
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+```
+
+**3단계 — 리팩터링 (Refactor)**
+테스트가 초록인 상태에서 중복을 정리하고, 다시 실행해 7/7 통과를 확인했습니다. 마지막으로 이 모듈을 화면(`main.js`)에 연결했습니다.
+@@file src/todos.test.js
+import { describe, it, expect } from 'vitest';
+import { addTodo, toggleTodo, removeTodo, remaining } from './todos.js';
+
+describe('addTodo', () => {
+  it('새 할 일을 끝에 추가한다', () => {
+    const result = addTodo([], '우유 사기');
+    expect(result).toHaveLength(1);
+    expect(result[0]).toMatchObject({ text: '우유 사기', done: false });
+    expect(result[0].id).toBeTypeOf('string');
+  });
+
+  it('앞뒤 공백을 제거하고, 공백만 있으면 추가하지 않는다', () => {
+    expect(addTodo([], '  빵  ')[0].text).toBe('빵');
+    expect(addTodo([], '   ')).toHaveLength(0);
+  });
+
+  it('원본 배열을 변경하지 않는다', () => {
+    const original = [];
+    addTodo(original, '책 읽기');
+    expect(original).toHaveLength(0);
+  });
+});
+
+describe('toggleTodo', () => {
+  it('해당 id의 done만 뒤집는다', () => {
+    const list = [{ id: 'a', text: 'A', done: false }, { id: 'b', text: 'B', done: false }];
+    const result = toggleTodo(list, 'a');
+    expect(result[0].done).toBe(true);
+    expect(result[1].done).toBe(false);
+  });
+});
+
+describe('removeTodo', () => {
+  it('해당 id만 삭제한다', () => {
+    const list = [{ id: 'a', text: 'A', done: false }, { id: 'b', text: 'B', done: true }];
+    expect(removeTodo(list, 'a')).toEqual([{ id: 'b', text: 'B', done: true }]);
+  });
+
+  it('없는 id면 그대로 반환한다', () => {
+    const list = [{ id: 'a', text: 'A', done: false }];
+    expect(removeTodo(list, 'zzz')).toEqual(list);
+  });
+});
+
+describe('remaining', () => {
+  it('완료되지 않은 개수를 센다', () => {
+    expect(remaining([{ done: true }, { done: false }, { done: false }])).toBe(2);
+  });
+});
+@@file src/todos.js
+export function addTodo(todos, rawText) {
+  const text = rawText.trim();
+  if (!text) return todos;
+  return [...todos, { id: crypto.randomUUID(), text, done: false }];
+}
+
+export const toggleTodo = (todos, id) =>
+  todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+
+export const removeTodo = (todos, id) => todos.filter((t) => t.id !== id);
+
+export const remaining = (todos) => todos.filter((t) => !t.done).length;
+@@file src/main.js
+import { addTodo, toggleTodo, removeTodo, remaining } from './todos.js';
+
+let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+
+function update(next) {
+  todos = next;
+  localStorage.setItem('todos', JSON.stringify(todos));
+  render();
+}
+
+function render() {
+  const list = document.getElementById('list');
+  list.replaceChildren(...todos.map((t) => {
+    const li = document.createElement('li');
+    li.className = t.done ? 'done' : '';
+    li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+    li.querySelector('input').checked = t.done;
+    li.querySelector('span').textContent = t.text;
+    li.querySelector('input').onchange = () => update(toggleTodo(todos, t.id));
+    li.querySelector('button').onclick = () => update(removeTodo(todos, t.id));
+    return li;
+  }));
+  document.getElementById('count').textContent = `남은 할 일 ${remaining(todos)}개`;
+}
+
+document.getElementById('form').onsubmit = (e) => {
+  e.preventDefault();
+  update(addTodo(todos, e.target.text.value));
+  e.target.reset();
+};
+render();
+@@file package.json
+{
+  "type": "module",
+  "scripts": { "test": "vitest run", "test:watch": "vitest" },
+  "devDependencies": { "vitest": "^2.0.5" }
+}
+
+@@term unit-tests todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 리듀서와 유틸 함수에 대해 Vitest로 단위 테스트(unit tests)를 작성하고 실행해줘.
+@@transcript
+상태 변경은 `todoReducer`, 보조 로직은 `utils.js`로 분리해서 DOM 없이 테스트할 수 있게 했습니다.
+
+```
+$ npm test
+
+ ✓ src/todoReducer.test.js (8)
+   ✓ ADD: 항목을 추가한다
+   ✓ ADD: 공백만 있는 텍스트는 무시한다
+   ✓ TOGGLE: 해당 항목만 완료 전환
+   ✓ DELETE: 해당 항목만 삭제
+   ✓ CLEAR_DONE: 완료 항목만 제거
+   ✓ SET_FILTER: 필터를 바꾼다
+   ✓ 알 수 없는 액션은 상태를 그대로 반환
+   ✓ 원본 상태를 변경하지 않는다 (불변성)
+ ✓ src/utils.test.js (6)
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Duration  412ms
+
+$ npx vitest run --coverage
+ % Stmts | % Branch | % Funcs | % Lines
+   100   |   95.45  |   100   |   100
+```
+@@file src/todoReducer.js
+export const initialState = { todos: [], filter: 'all' };
+
+export function todoReducer(state, action) {
+  switch (action.type) {
+    case 'ADD': {
+      const text = action.text.trim();
+      if (!text) return state;
+      return { ...state, todos: [...state.todos, { id: action.id, text, done: false }] };
+    }
+    case 'TOGGLE':
+      return { ...state, todos: state.todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t)) };
+    case 'DELETE':
+      return { ...state, todos: state.todos.filter((t) => t.id !== action.id) };
+    case 'CLEAR_DONE':
+      return { ...state, todos: state.todos.filter((t) => !t.done) };
+    case 'SET_FILTER':
+      return { ...state, filter: action.filter };
+    default:
+      return state;
+  }
+}
+@@file src/todoReducer.test.js
+import { describe, it, expect } from 'vitest';
+import { todoReducer, initialState } from './todoReducer';
+
+const withTodos = (todos) => ({ ...initialState, todos });
+const a = { id: 'a', text: 'A', done: false };
+const b = { id: 'b', text: 'B', done: true };
+
+describe('todoReducer', () => {
+  it('ADD: 항목을 추가한다', () => {
+    const next = todoReducer(initialState, { type: 'ADD', id: 'x', text: '우유 사기' });
+    expect(next.todos).toEqual([{ id: 'x', text: '우유 사기', done: false }]);
+  });
+
+  it('ADD: 공백만 있는 텍스트는 무시한다', () => {
+    expect(todoReducer(initialState, { type: 'ADD', id: 'x', text: '   ' })).toBe(initialState);
+  });
+
+  it('TOGGLE: 해당 항목만 완료 전환', () => {
+    const next = todoReducer(withTodos([a, b]), { type: 'TOGGLE', id: 'a' });
+    expect(next.todos.map((t) => t.done)).toEqual([true, true]);
+  });
+
+  it('DELETE: 해당 항목만 삭제', () => {
+    expect(todoReducer(withTodos([a, b]), { type: 'DELETE', id: 'a' }).todos).toEqual([b]);
+  });
+
+  it('CLEAR_DONE: 완료 항목만 제거', () => {
+    expect(todoReducer(withTodos([a, b]), { type: 'CLEAR_DONE' }).todos).toEqual([a]);
+  });
+
+  it('SET_FILTER: 필터를 바꾼다', () => {
+    expect(todoReducer(initialState, { type: 'SET_FILTER', filter: 'done' }).filter).toBe('done');
+  });
+
+  it('알 수 없는 액션은 상태를 그대로 반환', () => {
+    const state = withTodos([a]);
+    expect(todoReducer(state, { type: 'UNKNOWN' })).toBe(state);
+  });
+
+  it('원본 상태를 변경하지 않는다 (불변성)', () => {
+    const state = Object.freeze(withTodos(Object.freeze([Object.freeze({ ...a })])));
+    expect(() => todoReducer(state, { type: 'TOGGLE', id: 'a' })).not.toThrow();
+    expect(state.todos[0].done).toBe(false);
+  });
+});
+@@file src/utils.js
+export function filterTodos(todos, filter) {
+  if (filter === 'active') return todos.filter((t) => !t.done);
+  if (filter === 'done') return todos.filter((t) => t.done);
+  return todos;
+}
+
+export function countLabel(todos) {
+  const left = todos.filter((t) => !t.done).length;
+  if (todos.length === 0) return '할 일이 없습니다';
+  if (left === 0) return '모두 완료!';
+  return `남은 할 일 ${left}개`;
+}
+@@file src/utils.test.js
+import { describe, it, expect } from 'vitest';
+import { filterTodos, countLabel } from './utils';
+
+const todos = [
+  { id: '1', text: 'A', done: false },
+  { id: '2', text: 'B', done: true },
+];
+
+describe('filterTodos', () => {
+  it.each([
+    ['all', ['1', '2']],
+    ['active', ['1']],
+    ['done', ['2']],
+  ])('%s 필터', (filter, ids) => {
+    expect(filterTodos(todos, filter).map((t) => t.id)).toEqual(ids);
+  });
+});
+
+describe('countLabel', () => {
+  it('빈 목록', () => expect(countLabel([])).toBe('할 일이 없습니다'));
+  it('모두 완료', () => expect(countLabel([todos[1]])).toBe('모두 완료!'));
+  it('남은 개수', () => expect(countLabel(todos)).toBe('남은 할 일 1개'));
+});
+@@file vitest.config.js
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: { environment: 'node', coverage: { provider: 'v8', include: ['src/**/*.js'] } },
+});
+
+@@term e2e-tests todo-app ts
+@@prompt
+할 일 목록 앱을 만들어줘. Playwright로 E2E 테스트(end-to-end tests)도 작성해줘 — 할 일 추가, 완료 처리, 새로고침 후 유지되는지 확인.
+@@transcript
+실제 브라우저(Chromium·모바일 Safari 에뮬레이션)에서 사용자처럼 클릭·입력하는 테스트를 작성했습니다. 테스트가 요소를 안정적으로 찾을 수 있도록 앱에 `getByRole`/`getByLabel`로 접근 가능한 레이블을 붙였습니다.
+
+```
+$ npx playwright install chromium webkit
+$ npx playwright test
+
+Running 8 tests using 4 workers
+  ✓ [chromium] › todo.spec.ts:10 › 할 일을 추가하면 목록에 보인다 (612ms)
+  ✓ [chromium] › todo.spec.ts:18 › 공백만 입력하면 추가되지 않는다 (301ms)
+  ✓ [chromium] › todo.spec.ts:24 › 완료 처리하면 줄이 그어지고 개수가 줄어든다 (455ms)
+  ✓ [chromium] › todo.spec.ts:35 › 새로고침해도 목록과 완료 상태가 유지된다 (688ms)
+  ✓ [mobile-safari] › ... (4)
+
+  8 passed (4.1s)
+```
+
+실패 시 `npx playwright show-report`로 스크린샷과 trace를 볼 수 있습니다.
+@@file playwright.config.ts
+import { defineConfig, devices } from "@playwright/test";
+
+export default defineConfig({
+  testDir: "./tests",
+  use: {
+    baseURL: "http://localhost:5173",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+  },
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "mobile-safari", use: { ...devices["iPhone 13"] } },
+  ],
+  webServer: {
+    command: "npx serve -l 5173 .",
+    url: "http://localhost:5173",
+    reuseExistingServer: !process.env.CI,
+  },
+});
+@@file tests/todo.spec.ts
+import { test, expect } from "@playwright/test";
+
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+});
+
+test("할 일을 추가하면 목록에 보인다", async ({ page }) => {
+  await page.getByLabel("새 할 일").fill("우유 사기");
+  await page.getByRole("button", { name: "추가" }).click();
+
+  await expect(page.getByRole("listitem")).toHaveCount(1);
+  await expect(page.getByRole("listitem").first()).toContainText("우유 사기");
+});
+
+test("공백만 입력하면 추가되지 않는다", async ({ page }) => {
+  await page.getByLabel("새 할 일").fill("    ");
+  await page.getByLabel("새 할 일").press("Enter");
+  await expect(page.getByRole("listitem")).toHaveCount(0);
+});
+
+test("완료 처리하면 줄이 그어지고 개수가 줄어든다", async ({ page }) => {
+  for (const text of ["빨래", "설거지"]) {
+    await page.getByLabel("새 할 일").fill(text);
+    await page.getByLabel("새 할 일").press("Enter");
+  }
+  await page.getByRole("checkbox", { name: "빨래 완료" }).check();
+
+  await expect(page.getByText("빨래")).toHaveCSS("text-decoration-line", "line-through");
+  await expect(page.getByText("남은 할 일 1개")).toBeVisible();
+});
+
+test("새로고침해도 목록과 완료 상태가 유지된다", async ({ page }) => {
+  await page.getByLabel("새 할 일").fill("운동하기");
+  await page.getByLabel("새 할 일").press("Enter");
+  await page.getByRole("checkbox", { name: "운동하기 완료" }).check();
+
+  await page.reload();
+
+  await expect(page.getByRole("listitem")).toHaveCount(1);
+  await expect(page.getByRole("checkbox", { name: "운동하기 완료" })).toBeChecked();
+});
+@@file index.html (테스트용으로 바뀐 부분)
+<form id="form">
+  <label for="todoInput" class="sr-only">새 할 일</label>
+  <input id="todoInput" placeholder="할 일을 입력하세요">
+  <button type="submit">추가</button>
+</form>
+<ul id="todoList"></ul>
+<p id="count"></p>
+<!-- 각 체크박스: aria-label="${todo.text} 완료" -->
+@@file package.json
+{
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": { "@playwright/test": "^1.46.0", "serve": "^14.2.3" }
+}
+
+@@term test-cases-examples todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 입력 검증 함수 validateTodo는 다음 예시를 만족해야 해(give concrete test cases): '우유 사기' → 통과, '' → "내용을 입력하세요", '   ' → "내용을 입력하세요", '  빵  ' → '빵'으로 정리, 101자 → "100자 이하로 입력하세요", 이미 있는 '우유 사기' → "이미 있는 할 일입니다". 구현 후 테스트를 실행해줘.
+@@transcript
+주신 예시 6개를 그대로 테스트 케이스로 옮긴 다음 구현했습니다. 예시에서 대소문자·공백 차이만 있는 중복도 막아야 하는지 애매했는데, `'  우유 사기 '`처럼 공백만 다른 경우는 중복으로 판단했습니다. (영문 대소문자는 구분합니다 — 다르게 원하시면 말씀해 주세요.)
+
+```
+$ npx vitest run
+
+ ✓ src/validateTodo.test.js (7)
+   ✓ '우유 사기' → 통과
+   ✓ '' → 내용을 입력하세요
+   ✓ '   ' → 내용을 입력하세요
+   ✓ '  빵  ' → '빵'으로 정리
+   ✓ 101자 → 100자 이하로 입력하세요
+   ✓ 100자 → 통과 (경계값)
+   ✓ 이미 있는 '우유 사기' → 이미 있는 할 일입니다
+
+ Tests  7 passed (7)
+```
+
+경계값 확인을 위해 "정확히 100자는 통과" 케이스를 하나 추가했습니다.
+@@file src/validateTodo.js
+export const MAX_LENGTH = 100;
+
+/**
+ * @param {string} input 사용자가 입력한 원본
+ * @param {{ text: string }[]} existing 현재 할 일 목록
+ * @returns {{ ok: true, value: string } | { ok: false, error: string }}
+ */
+export function validateTodo(input, existing = []) {
+  const value = input.trim().replace(/\s+/g, ' ');
+  if (!value) return { ok: false, error: '내용을 입력하세요' };
+  if (value.length > MAX_LENGTH) return { ok: false, error: `${MAX_LENGTH}자 이하로 입력하세요` };
+  if (existing.some((t) => t.text.trim().replace(/\s+/g, ' ') === value)) {
+    return { ok: false, error: '이미 있는 할 일입니다' };
+  }
+  return { ok: true, value };
+}
+@@file src/validateTodo.test.js
+import { describe, it, expect } from 'vitest';
+import { validateTodo } from './validateTodo.js';
+
+describe('validateTodo', () => {
+  it("'우유 사기' → 통과", () => {
+    expect(validateTodo('우유 사기')).toEqual({ ok: true, value: '우유 사기' });
+  });
+  it("'' → 내용을 입력하세요", () => {
+    expect(validateTodo('')).toEqual({ ok: false, error: '내용을 입력하세요' });
+  });
+  it("'   ' → 내용을 입력하세요", () => {
+    expect(validateTodo('   ')).toEqual({ ok: false, error: '내용을 입력하세요' });
+  });
+  it("'  빵  ' → '빵'으로 정리", () => {
+    expect(validateTodo('  빵  ')).toEqual({ ok: true, value: '빵' });
+  });
+  it('101자 → 100자 이하로 입력하세요', () => {
+    expect(validateTodo('가'.repeat(101))).toEqual({ ok: false, error: '100자 이하로 입력하세요' });
+  });
+  it('100자 → 통과 (경계값)', () => {
+    expect(validateTodo('가'.repeat(100)).ok).toBe(true);
+  });
+  it("이미 있는 '우유 사기' → 이미 있는 할 일입니다", () => {
+    const existing = [{ text: '우유 사기' }];
+    expect(validateTodo('우유 사기', existing)).toEqual({ ok: false, error: '이미 있는 할 일입니다' });
+  });
+});
+@@file src/main.js (연결 부분)
+import { validateTodo } from './validateTodo.js';
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const result = validateTodo(input.value, todos);
+  errorEl.textContent = result.ok ? '' : result.error;
+  if (!result.ok) return;
+  todos.push({ id: crypto.randomUUID(), text: result.value, done: false });
+  input.value = '';
+  save();
+  render();
+});
+
+@@term visual-verification todo-app md
+@@prompt
+할 일 목록 앱을 만들어줘. 첨부한 시안 이미지대로 만들고, 결과를 스크린샷으로 찍어서 시안과 비교한 뒤 다른 점을 나열하고 고쳐줘(screenshot and compare to design).
+@@transcript
+시안을 보고 1차 구현한 뒤, 브라우저에서 390×844(모바일)과 1280×800(데스크톱) 스크린샷을 찍어 시안과 나란히 비교했습니다.
+
+**1차 비교 — 차이 6건**
+
+| # | 위치 | 시안 | 현재 결과 | 조치 |
+|---|---|---|---|---|
+| 1 | 카드 상단 여백 | 32px | 24px | `padding-top` 수정 |
+| 2 | 제목 글꼴 | 굵기 800, 28px | 700, 24px | 수정 |
+| 3 | 추가 버튼 | 원형 + 아이콘 | 텍스트 "추가" 사각 버튼 | 원형 아이콘 버튼으로 교체 |
+| 4 | 체크박스 | 둥근 원, 완료 시 초록 채움 | 기본 사각 체크박스 | `appearance: none`으로 커스텀 |
+| 5 | 완료 항목 | 회색 + 취소선 + 맨 아래로 이동 | 취소선만, 위치 그대로 | 정렬 로직 추가 |
+| 6 | 하단 | "3개 남음" 왼쪽, "완료 지우기" 오른쪽 | 개수만 있음 | 버튼 추가 |
+
+**2차 비교** — 위 6건 수정 후 다시 촬영: 레이아웃·색·간격 일치. 남은 차이 1건 — 시안의 글꼴은 'SUIT'로 보이는데 현재는 시스템 글꼴입니다. 웹폰트 사용 여부를 알려주시면 반영하겠습니다.
+
+**확인한 상태**: 빈 목록, 항목 5개, 긴 제목(줄바꿈), 모두 완료 — 네 가지 상태 모두 스크린샷으로 확인했습니다. 시안에 없는 상태(빈 목록)는 시안 톤에 맞춰 임의로 디자인했습니다.

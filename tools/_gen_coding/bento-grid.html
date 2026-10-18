@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f2efea; color: #221a15; padding: 16px; }
+  header { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto 14px; padding: 4px; }
+  .logo { font-weight: 800; font-size: 19px; }
+  .btn { padding: 10px 18px; background: #221a15; color: #fff; border-radius: 999px; border: 0; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .bento { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 150px; gap: 12px; }
+  .tile { border-radius: 22px; padding: 20px; position: relative; overflow: hidden; background: #fff; display: flex; flex-direction: column; justify-content: space-between; transition: transform .25s; }
+  .tile:hover { transform: scale(1.015); }
+  .tile h3 { margin: 0; font-size: 17px; } .tile p { margin: 4px 0 0; font-size: 13px; color: #6b5d52; }
+  .k { font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #a0816a; text-transform: uppercase; }
+  .hero { grid-column: span 2; grid-row: span 2; background: #3b2418; color: #f7ead9; }
+  .hero h1 { font-size: clamp(26px, 3.6vw, 40px); line-height: 1.15; margin: 8px 0 0; }
+  .hero p { color: #d7c0a8; font-size: 15px; }
+  .hero .btn { background: #f7a440; color: #2a170c; font-weight: 700; align-self: flex-start; }
+  .hero svg { position: absolute; right: -20px; bottom: -20px; width: 180px; opacity: .25; }
+  .fresh { background: #f7a440; } .fresh .big { font-size: 54px; font-weight: 800; line-height: 1; }
+  .origin { grid-row: span 2; background: linear-gradient(160deg, #6a8f5a, #3c5d33); color: #fff; }
+  .origin p { color: #e3efd9; } .origin .big { font-size: 34px; font-weight: 800; line-height: 1.05; }
+  .ship { background: #fff; } .ship .ic { font-size: 30px; }
+  .plans { grid-column: span 2; background: #fff; }
+  .row { display: flex; gap: 8px; } .row div { flex: 1; background: #f6f1eb; border-radius: 12px; padding: 10px; font-size: 12px; } .row b { display: block; font-size: 16px; }
+  .row .on { background: #221a15; color: #fff; }
+  .review { grid-column: span 2; background: #e8ddd0; }
+  .review blockquote { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.45; }
+  .stars { color: #d9861a; }
+  .cancel { background: #221a15; color: #fff; } .cancel p { color: #bfb3a8; }
+  @media (max-width: 860px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .bento { grid-template-columns: 1fr; grid-auto-rows: auto; } .tile { grid-column: auto !important; grid-row: auto !important; min-height: 140px; } .hero { min-height: 300px; } }
+</style>
+</head>
+<body>
+<header><div class="logo">☕ 빈하우스</div><a class="btn" href="#">구독하기</a></header>
+<div class="bento">
+  <div class="tile hero">
+    <div><span class="k" style="color:#f7a440">Coffee subscription</span><h1>매주 신선한 원두를<br>문 앞까지</h1><p>로스팅 후 48시간 안에 배송되는 스페셜티 커피</p></div>
+    <a class="btn" href="#">첫 달 50% 할인 →</a>
+    <svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="34" ry="46" fill="#f7a440"/><path d="M50 6c-14 30 14 58 0 88" stroke="#3b2418" stroke-width="6" fill="none"/></svg>
+  </div>
+  <div class="tile fresh"><span class="k" style="color:#6b3d10">Freshness</span><div><div class="big">48h</div><p style="color:#5a3412">로스팅 → 도착</p></div></div>
+  <div class="tile origin"><span class="k" style="color:#cfe3c2">이달의 산지</span><div><div class="big">에티오피아<br>게뎁</div><p>자스민 · 베르가못 · 백도<br>워시드 · 2,100m</p></div></div>
+  <div class="tile ship"><div class="ic">🚚</div><div><h3>무료 배송</h3><p>모든 요금제 배송비 0원</p></div></div>
+  <div class="tile plans"><span class="k">요금제</span><div class="row"><div>라이트<b>₩15,900</b>200g</div><div class="on">스탠다드<b>₩27,900</b>400g</div><div>프리미엄<b>₩49,900</b>800g</div></div></div>
+  <div class="tile cancel"><span class="k" style="color:#f7a440">Freedom</span><div><h3>언제든 해지</h3><p>위약금 없이 버튼 한 번</p></div></div>
+  <div class="tile review"><div class="stars">★★★★★</div><blockquote>“봉투를 여는 순간 향부터 달라요. 3년째 아침이 기다려집니다.”</blockquote><p>— 김지은, 마포구</p></div>
+  <div class="tile ship"><div class="ic">🎁</div><div><h3>드리퍼 증정</h3><p>스탠다드 이상 첫 구독 시</p></div></div>
+</div>
+</body>
+</html>

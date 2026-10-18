@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  /* 레퍼런스: 애플 제품 페이지 스타일 — 큰 여백, 중앙 정렬 초대형 헤드라인, 짧은 문장, 섹션마다 배경 전환, 링크형 CTA */
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", system-ui, sans-serif; color: #1d1d1f; background: #fff; -webkit-font-smoothing: antialiased; word-break: keep-all; }
+  .gnav { height: 44px; background: rgba(251,251,253,.8); backdrop-filter: saturate(180%) blur(20px); display: flex; justify-content: center; gap: 28px; align-items: center; font-size: 12px; color: #424245; position: sticky; top: 0; z-index: 5; }
+  .sub { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px; border-bottom: 1px solid #e5e5e7; max-width: 1000px; margin: 0 auto; }
+  .sub b { font-size: 21px; font-weight: 600; }
+  .pill { background: #0071e3; color: #fff; border-radius: 980px; padding: 6px 14px; font-size: 12px; border: 0; }
+  .s { text-align: center; padding: 72px 22px 0; overflow: hidden; }
+  .eyebrow { font-size: 21px; font-weight: 600; color: #bf4800; }
+  h1 { font-size: clamp(44px, 9vw, 96px); font-weight: 700; letter-spacing: -.015em; line-height: 1.05; margin: 6px 0 14px; }
+  .lede { font-size: clamp(19px, 2.6vw, 28px); font-weight: 600; color: #6e6e73; margin: 0 auto 22px; max-width: 700px; line-height: 1.25; }
+  .links { display: flex; justify-content: center; gap: 30px; font-size: 19px; margin-bottom: 40px; }
+  .links a { color: #0066cc; text-decoration: none; } .links a:hover { text-decoration: underline; }
+  .bag { width: min(380px, 70vw); height: 300px; margin: 0 auto; position: relative; }
+  .bag .b { position: absolute; inset: 0 40px; background: linear-gradient(180deg, #2b2b2e, #111); border-radius: 18px 18px 30px 30px; box-shadow: 0 40px 80px rgba(0,0,0,.25); display: grid; place-items: center; color: #f5f5f7; font-size: 15px; letter-spacing: .3em; }
+  .bag .b::before { content: ''; position: absolute; top: 18px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid #444; }
+  .dark { background: #000; color: #f5f5f7; padding-bottom: 72px; margin-top: 72px; }
+  .dark .lede { color: #86868b; }
+  .num { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 30px auto 0; gap: 20px; }
+  .num div { font-size: 14px; color: #86868b; } .num b { display: block; font-size: clamp(36px, 6vw, 60px); color: #f5f5f7; font-weight: 700; letter-spacing: -.02em; }
+  .num b em { font-style: normal; background: linear-gradient(90deg, #ff9f0a, #ff375f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .gray { background: #f5f5f7; padding: 72px 22px; text-align: center; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; max-width: 1000px; margin: 30px auto 0; }
+  .card { background: #fff; border-radius: 18px; padding: 34px 24px; }
+  .card h3 { font-size: 24px; margin: 0 0 4px; } .card .p { font-size: 17px; color: #1d1d1f; } .card .g { color: #6e6e73; font-size: 14px; margin: 10px 0 18px; }
+  .card .pill { font-size: 14px; padding: 8px 18px; }
+  footer { font-size: 12px; color: #6e6e73; padding: 20px 22px; max-width: 1000px; margin: 0 auto; border-top: 1px solid #d2d2d7; }
+  @media (max-width: 680px) { .cards, .num { grid-template-columns: 1fr; } .gnav span:nth-child(n+4) { display: none; } }
+</style>
+</head>
+<body>
+<nav class="gnav"><span>☕</span><span>원두</span><span>요금제</span><span>이야기</span><span>지원</span></nav>
+<div class="sub"><b>빈하우스</b><button class="pill">구독하기</button></div>
+<div class="s">
+  <div class="eyebrow">새로워진 정기배송</div>
+  <h1>갓 볶음.</h1>
+  <p class="lede">볶은 지 48시간. 그 차이는 첫 모금에서 느껴집니다.</p>
+  <div class="links"><a href="#">더 알아보기 ›</a><a href="#">구독하기 ›</a></div>
+  <div class="bag"><div class="b">BEANHOUSE</div></div>
+</div>
+<div class="s dark">
+  <h1 style="font-size:clamp(36px,6vw,64px)">빠르다.<br>신선함이 남아 있을 만큼.</h1>
+  <p class="lede">목요일 로스팅. 금요일 도착. 매주.</p>
+  <div class="num"><div><b><em>48</em>h</b>로스팅 후 도착까지</div><div><b>27</b>소개한 산지 국가</div><div><b>0원</b>배송비. 해지 위약금도.</div></div>
+</div>
+<div class="gray">
+  <h1 style="font-size:clamp(32px,5vw,48px)">당신에게 맞는 양.</h1>
+  <div class="cards">
+    <div class="card"><h3>라이트</h3><div class="p">₩15,900/월</div><div class="g">200g. 혼자만의 아침.</div><button class="pill">구입하기</button></div>
+    <div class="card"><h3>스탠다드</h3><div class="p">₩27,900/월</div><div class="g">400g. 둘을 위한 넉넉함.</div><button class="pill">구입하기</button></div>
+    <div class="card"><h3>프리미엄</h3><div class="p">₩49,900/월</div><div class="g">800g. 팀 전체의 하루.</div><button class="pill">구입하기</button></div>
+  </div>
+</div>
+<footer>Copyright © 2024 Beanhouse Roasters. 모든 권리 보유.</footer>
+</body>
+</html>

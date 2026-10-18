@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 절차적 생성</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #161625; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .ui { position: fixed; top: 8px; left: 8px; display: flex; gap: 6px; align-items: center; font-size: 12px; background: rgba(0,0,0,.5); padding: 6px 8px; border-radius: 8px; flex-wrap: wrap; }
+  .ui input { width: 90px; font: 12px ui-monospace, monospace; padding: 4px 6px; border-radius: 4px; border: 1px solid #555; background: #222; color: #fff; }
+  .ui button { padding: 4px 9px; border-radius: 5px; border: 0; background: #6bcb77; color: #111; cursor: pointer; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="ui">시드 <input id="seed"> <button id="go">생성</button><button id="rand">🎲 랜덤</button><span id="info"></span></div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', () => { resize(); build(seed); }); resize();
+
+  // 시드 기반 PRNG (mulberry32): 같은 시드 → 항상 같은 레벨
+  function mulberry32(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const hash = s => [...String(s)].reduce((h, c) => Math.imul(h ^ c.charCodeAt(0), 16777619), 2166136261) >>> 0;
+
+  let seed = 'coffee42', pegs = [], bumpers = [], goals = [], palette, balls = [], score = 0;
+  function build(s) {
+    seed = s; document.getElementById('seed').value = s;
+    const rnd = mulberry32(hash(s)), pick = a => a[Math.floor(rnd() * a.length)];
+    palette = pick([['#ff6b6b', '#ffd93d', '#4d96ff'], ['#22e0c4', '#c77dff', '#ff9f43'], ['#f72585', '#4cc9f0', '#b8f35d'], ['#ffbe0b', '#fb5607', '#3a86ff']]);
+    pegs = []; bumpers = []; goals = [];
+    // 1) 핀 배치: 줄마다 간격·오프셋을 무작위로
+    const rows = 5 + Math.floor(rnd() * 4), gap = 34 + rnd() * 26;
+    for (let r = 0; r < rows; r++) {
+      const y = 110 + r * (H - 220) / rows, off = rnd() * gap;
+      for (let x = off; x < W; x += gap * (0.8 + rnd() * .6)) if (rnd() > .18) pegs.push({ x, y: y + (rnd() - .5) * 14, r: 3 + rnd() * 4 });
+    }
+    // 2) 범퍼: 겹치지 않게 시도 기반 배치
+    for (let tries = 0; bumpers.length < 3 + Math.floor(rnd() * 3) && tries < 200; tries++) {
+      const b = { x: 60 + rnd() * (W - 120), y: 140 + rnd() * (H - 300), r: 16 + rnd() * 20, hit: 0 };
+      if (bumpers.every(o => Math.hypot(o.x - b.x, o.y - b.y) > o.r + b.r + 30)) bumpers.push(b);
+    }
+    // 3) 바닥 점수 칸
+    const n = 5 + Math.floor(rnd() * 4); for (let i = 0; i < n; i++) goals.push({ x: i * W / n, w: W / n, pts: pick([10, 20, 50, 100]) });
+    balls = []; score = 0;
+    document.getElementById('info').textContent = `핀 ${pegs.length} · 범퍼 ${bumpers.length} · 칸 ${goals.length}`;
+  }
+  document.getElementById('go').onclick = () => build(document.getElementById('seed').value || 'seed');
+  document.getElementById('rand').onclick = () => build(Math.random().toString(36).slice(2, 8));
+  canvas.addEventListener('click', e => balls.push({ x: e.clientX, y: Math.min(e.clientY, 90), vx: (Math.random() - .5) * 60, vy: 0, r: 8 }));
+  setInterval(() => { if (balls.length < 6) balls.push({ x: W * (.2 + Math.random() * .6), y: 40, vx: (Math.random() - .5) * 80, vy: 0, r: 8 }); }, 900);
+
+  function bounce(b, o, k) {
+    const dx = b.x - o.x, dy = b.y - o.y, d = Math.hypot(dx, dy), m = b.r + o.r;
+    if (d >= m || !d) return false;
+    const nx = dx / d, ny = dy / d, dot = b.vx * nx + b.vy * ny; b.x = o.x + nx * m; b.y = o.y + ny * m;
+    if (dot < 0) { b.vx -= (1 + k) * dot * nx; b.vy -= (1 + k) * dot * ny; } return true;
+  }
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    for (let i = balls.length - 1; i >= 0; i--) {
+      const b = balls[i]; b.vy += 700 * dt; b.x += b.vx * dt; b.y += b.vy * dt;
+      if (b.x < b.r || b.x > W - b.r) { b.vx *= -.8; b.x = Math.max(b.r, Math.min(W - b.r, b.x)); }
+      pegs.forEach(p => bounce(b, p, .5));
+      bumpers.forEach(o => { if (bounce(b, o, 1.4)) { o.hit = 1; score += 5; } });
+      if (b.y > H - 30) { const g = goals.find(g => b.x >= g.x && b.x < g.x + g.w); score += g ? g.pts : 0; balls.splice(i, 1); }
+    }
+    ctx.fillStyle = '#161625'; ctx.fillRect(0, 0, W, H);
+    pegs.forEach(p => { ctx.fillStyle = palette[2]; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); });
+    bumpers.forEach(o => { o.hit *= .9; ctx.fillStyle = palette[1]; ctx.globalAlpha = .4 + o.hit * .6; ctx.beginPath(); ctx.arc(o.x, o.y, o.r * (1 + o.hit * .15), 0, 7); ctx.fill(); ctx.globalAlpha = 1; });
+    goals.forEach((g, i) => { ctx.fillStyle = i % 2 ? '#22223a' : '#2a2a48'; ctx.fillRect(g.x, H - 30, g.w, 30); ctx.fillStyle = '#ccc'; ctx.font = 'bold 12px system-ui'; ctx.textAlign = 'center'; ctx.fillText(g.pts, g.x + g.w / 2, H - 11); });
+    balls.forEach(b => { ctx.fillStyle = palette[0]; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 7); ctx.fill(); });
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 18px system-ui'; ctx.textAlign = 'right'; ctx.fillText(`점수 ${score}`, W - 12, 28);
+    requestAnimationFrame(loop);
+  }
+  build(seed); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

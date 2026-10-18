@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 펄린 노이즈 지형</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0f1b2d; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .hint { position: fixed; top: 8px; left: 12px; font-size: 12px; background: rgba(0,0,0,.35); padding: 5px 9px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="hint">펄린 노이즈로 만든 무한 지형 · 클릭/Space = 점프 · 거리 <b id="d">0</b>m</div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+
+  // 1D 펄린 노이즈 (그래디언트 노이즈 + fade 곡선) + 옥타브 합성(fBm)
+  const perm = new Uint8Array(512); { const p = [...Array(256).keys()]; let s = 1337; for (let i = 255; i > 0; i--) { s = (s * 16807) % 2147483647; const j = s % (i + 1); [p[i], p[j]] = [p[j], p[i]]; } for (let i = 0; i < 512; i++) perm[i] = p[i & 255]; }
+  const fade = t => t * t * t * (t * (t * 6 - 15) + 10);
+  const grad = (h, x) => (h & 1 ? -1 : 1) * (1 + (h & 7)) / 8 * x * 2;
+  function noise(x) { const i = Math.floor(x) & 255, f = x - Math.floor(x); const a = grad(perm[i], f), b = grad(perm[i + 1], f - 1); return a + (b - a) * fade(f); }
+  function fbm(x) { let v = 0, amp = 1, freq = 1, sum = 0; for (let o = 0; o < 4; o++) { v += noise(x * freq) * amp; sum += amp; amp *= .5; freq *= 2; } return v / sum; }
+  const ground = x => H * .62 + fbm(x * .004) * H * .55;
+
+  const ball = { x: 0, y: 0, vx: 220, vy: 0, r: 14, rot: 0 };
+  ball.y = ground(ball.x) - 60;
+  let camX = 0;
+  function jump() { if (ball.grounded) ball.vy = -560; }
+  canvas.addEventListener('pointerdown', jump); addEventListener('keydown', e => { if (e.key === ' ') { e.preventDefault(); jump(); } });
+
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    ball.vy += 1100 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+    const gy = ground(ball.x), slope = (ground(ball.x + 2) - ground(ball.x - 2)) / 4;
+    ball.grounded = false;
+    if (ball.y > gy - ball.r) {
+      ball.y = gy - ball.r;
+      // 경사면 법선 방향으로 반사 (튀는 공)
+      const nx = -slope, ny = -1, nl = Math.hypot(nx, ny), ux = nx / nl, uy = ny / nl, dot = ball.vx * ux + ball.vy * uy;
+      if (dot < 0) { ball.vx -= 1.55 * dot * ux; ball.vy -= 1.55 * dot * uy; }
+      ball.vx += slope * 400 * dt;                      // 내리막에서 가속
+      ball.vx = Math.max(160, Math.min(520, ball.vx)); ball.grounded = true;
+    }
+    ball.rot += ball.vx * dt / ball.r;
+    camX += (ball.x - W * .3 - camX) * Math.min(1, dt * 5);
+
+    const sky = ctx.createLinearGradient(0, 0, 0, H); sky.addColorStop(0, '#0f1b2d'); sky.addColorStop(1, '#3b4b78'); ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+    // 먼 산 (같은 노이즈, 다른 주파수/스크롤 속도)
+    ctx.fillStyle = '#2a3560'; ctx.beginPath(); ctx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 6) ctx.lineTo(x, H * .45 + fbm((x + camX * .3) * .002 + 100) * H * .5); ctx.lineTo(W, H); ctx.fill();
+    // 지형
+    ctx.fillStyle = '#3e8e5a'; ctx.beginPath(); ctx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 4) ctx.lineTo(x, ground(x + camX)); ctx.lineTo(W, H); ctx.fill();
+    ctx.strokeStyle = '#7ed09a'; ctx.lineWidth = 3; ctx.beginPath();
+    for (let x = 0; x <= W; x += 4) x ? ctx.lineTo(x, ground(x + camX)) : ctx.moveTo(x, ground(camX)); ctx.stroke(); ctx.lineWidth = 1;
+    // 공
+    ctx.save(); ctx.translate(ball.x - camX, ball.y); ctx.rotate(ball.rot);
+    ctx.fillStyle = '#ffd93d'; ctx.beginPath(); ctx.arc(0, 0, ball.r, 0, 7); ctx.fill();
+    ctx.strokeStyle = '#b8860b'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-ball.r, 0); ctx.lineTo(ball.r, 0); ctx.stroke(); ctx.restore();
+    document.getElementById('d').textContent = Math.floor(ball.x / 50);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

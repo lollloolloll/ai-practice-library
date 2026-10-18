@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 520px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  form { display: flex; gap: 8px; margin-bottom: 12px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; }
+  .search { position: relative; margin-bottom: 10px; }
+  .search input { width: 100%; padding-left: 30px; }
+  .search::before { content: '🔍'; position: absolute; left: 9px; top: 9px; font-size: 13px; }
+  .search .spin { position: absolute; right: 10px; top: 11px; width: 14px; height: 14px; border: 2px solid #ddd; border-top-color: #4a6cf7; border-radius: 50%; animation: s .6s linear infinite; display: none; }
+  .search.busy .spin { display: block; } @keyframes s { to { transform: rotate(360deg); } }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .stat { background: #f7f8fb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #666; }
+  .stat b { display: block; font-size: 22px; color: #222; }
+  .stat.good b { color: #2e9e5b; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  mark { background: #fff3a3; }
+  .log { margin-top: 10px; font: 11px/1.5 ui-monospace, monospace; color: #666; max-height: 70px; overflow: auto; background: #fafafa; padding: 6px 8px; border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <div class="search" id="sbox"><input type="text" id="q" placeholder="검색 (빠르게 타이핑해 보세요)"><i class="spin"></i></div>
+  <div class="stats">
+    <div class="stat">키 입력 횟수<b id="keys">0</b></div>
+    <div class="stat good">실제 검색 실행 (300ms 디바운스)<b id="calls">0</b></div>
+  </div>
+  <ul id="list"></ul>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  // debounce: 마지막 호출 후 wait ms 동안 추가 호출이 없을 때만 실행
+  function debounce(fn, wait) {
+    let t; const d = (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), wait); };
+    d.cancel = () => clearTimeout(t); return d;
+  }
+  const words = ['장보기', '운동하기', '보고서 작성', '이메일 답장', '치과 예약', '책 반납', '분기 보고서 검토', '세탁소 들르기', '화분 물 주기', '운동화 사기', '보험 서류 제출', '장난감 정리', '운전면허 갱신', '이사 견적 받기', '보일러 점검'];
+  let todos = words.map((text, i) => ({ text, done: i % 4 === 1 }));
+  let query = '', keys = 0, calls = 0;
+  const esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  // 비용이 큰 작업이라고 가정 (예: 서버 검색 API)
+  function search(q) {
+    calls++; document.getElementById('calls').textContent = calls;
+    const log = document.getElementById('log'); log.insertAdjacentHTML('afterbegin', `<div>${new Date().toLocaleTimeString('ko-KR')} · GET /api/todos?q=${encodeURIComponent(q)}</div>`);
+    document.getElementById('sbox').classList.add('busy');
+    setTimeout(() => { query = q; render(); document.getElementById('sbox').classList.remove('busy'); }, 150);
+  }
+  const debouncedSearch = debounce(search, 300);
+  document.getElementById('q').addEventListener('input', e => { keys++; document.getElementById('keys').textContent = keys; debouncedSearch(e.target.value.trim()); });
+  document.getElementById('q').addEventListener('keydown', e => { if (e.key === 'Enter') { debouncedSearch.cancel(); search(e.target.value.trim()); } }); // Enter는 즉시
+  function render() {
+    const list = document.getElementById('list'); list.innerHTML = '';
+    const rows = todos.filter(t => t.text.includes(query));
+    if (!rows.length) list.innerHTML = '<li style="color:#999;justify-content:center">결과 없음</li>';
+    rows.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      const h = query ? esc(t.text).split(esc(query)).join(`<mark>${esc(query)}</mark>`) : esc(t.text);
+      li.innerHTML = `<input type="checkbox" ${t.done ? 'checked' : ''}><span>${h}</span>`;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      list.appendChild(li);
+    });
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.unshift({ text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f6fb; color: #1f2430; }
+  .layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+  aside { background: #151a2d; color: #c5cbe0; padding: 18px 12px; }
+  .brand { color: #fff; font-weight: 800; font-size: 17px; padding: 0 8px 18px; }
+  aside a { display: flex; gap: 10px; align-items: center; padding: 9px 10px; border-radius: 8px; color: inherit; text-decoration: none; font-size: 14px; margin-bottom: 2px; }
+  aside a.on { background: #2b3360; color: #fff; } aside a:hover { background: #22284a; }
+  main { padding: 18px 20px; min-width: 0; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 10px; }
+  h1 { font-size: 20px; margin: 0; }
+  .top select { padding: 6px 8px; border: 1px solid #d5d9e5; border-radius: 6px; background: #fff; font-size: 13px; }
+  .burger { display: none; border: 0; background: none; font-size: 22px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+  .card { background: #fff; border-radius: 10px; padding: 14px 16px; border: 1px solid #e7eaf2; }
+  .kpi .l { font-size: 12px; color: #7a8095; } .kpi .v { font-size: 21px; font-weight: 700; margin: 4px 0 2px; } .kpi .d { font-size: 12px; }
+  .up { color: #1f9d55; } .down { color: #d64545; }
+  .spark { height: 28px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .card h2 { font-size: 14px; margin: 0 0 10px; color: #444; }
+  .cw { position: relative; height: 220px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  td { padding: 8px 4px; border-top: 1px solid #f0f2f7; } td:last-child { text-align: right; font-weight: 600; }
+  @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, 1fr); } .grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .layout { grid-template-columns: 1fr; }
+    aside { position: fixed; inset: 0 auto 0 0; width: 220px; transform: translateX(-100%); transition: transform .25s; z-index: 10; }
+    aside.open { transform: none; } .burger { display: block; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside id="side">
+    <div class="brand">📊 SalesHub</div>
+    <a class="on" href="#">🏠 개요</a><a href="#">🧾 주문</a><a href="#">📦 상품</a><a href="#">👥 고객</a><a href="#">📈 리포트</a><a href="#">⚙️ 설정</a>
+  </aside>
+  <main>
+    <div class="top">
+      <div style="display:flex;gap:8px;align-items:center"><button class="burger" id="burger" aria-label="메뉴">☰</button><h1>매출 개요</h1></div>
+      <select><option>최근 30일</option><option>이번 분기</option><option>올해</option></select>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid">
+      <div class="card"><h2>매출 추이 (만원)</h2><div class="cw"><canvas id="line"></canvas></div></div>
+      <div class="card"><h2>채널별 비중</h2><div class="cw"><canvas id="pie"></canvas></div></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>지역별 매출</h2><div class="cw" style="height:180px"><canvas id="bar"></canvas></div></div>
+      <div class="card"><h2>베스트 상품</h2><table>
+        <tr><td>하우스 블렌드 1kg</td><td>₩8.4M</td></tr><tr><td>예가체프 200g</td><td>₩6.1M</td></tr><tr><td>드립백 30개입</td><td>₩4.9M</td></tr><tr><td>디카페인 400g</td><td>₩3.2M</td></tr>
+      </table></div>
+    </div>
+  </main>
+</div>
+<script>
+  const kpis = [['총 매출', '₩48.3M', '+12.5%', 1, [3, 4, 3.5, 5, 4.8, 6, 6.4]], ['주문 수', '1,284', '+8.1%', 1, [5, 4, 6, 5.5, 6, 6.2, 7]], ['평균 주문 금액', '₩37,580', '+4.0%', 1, [4, 4.2, 4.1, 4.4, 4.3, 4.6, 4.7]], ['환불률', '2.3%', '+0.4%p', 0, [2, 1.9, 2.1, 2.0, 2.2, 2.4, 2.3]]];
+  document.getElementById('kpis').innerHTML = kpis.map((k, i) => `<div class="card kpi"><div class="l">${k[0]}</div><div class="v">${k[1]}</div><div class="d ${k[3] ? 'up' : 'down'}">${k[3] ? '▲' : '▼'} ${k[2]}</div><div class="spark"><canvas id="sp${i}"></canvas></div></div>`).join('');
+  const base = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+  kpis.forEach((k, i) => new Chart(document.getElementById('sp' + i), { type: 'line', data: { labels: k[4].map((_, j) => j), datasets: [{ data: k[4], borderColor: k[3] ? '#1f9d55' : '#d64545', borderWidth: 2, pointRadius: 0, tension: .4 }] }, options: { ...base, scales: { x: { display: false }, y: { display: false } }, plugins: { legend: { display: false }, tooltip: { enabled: false } } } }));
+  new Chart(document.getElementById('line'), { type: 'line', data: { labels: ['1주', '2주', '3주', '4주', '5주', '6주', '7주', '8주'], datasets: [{ label: '올해', data: [980, 1120, 1050, 1260, 1190, 1340, 1410, 1380], borderColor: '#4a6cf7', backgroundColor: 'rgba(74,108,247,.12)', fill: true, tension: .35 }, { label: '작년', data: [900, 950, 980, 1010, 1040, 1080, 1100, 1120], borderColor: '#b7bdd0', borderDash: [5, 4], tension: .35 }] }, options: { ...base, plugins: { legend: { display: true, labels: { boxWidth: 10 } } } } });
+  new Chart(document.getElementById('pie'), { type: 'doughnut', data: { labels: ['자사몰', '스마트스토어', '쿠팡', '오프라인'], datasets: [{ data: [46, 27, 18, 9], backgroundColor: ['#4a6cf7', '#22c3a6', '#f5a524', '#e5e7ef'] }] }, options: { ...base, cutout: '62%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 11 } } } } } });
+  new Chart(document.getElementById('bar'), { type: 'bar', data: { labels: ['서울', '경기', '부산', '대구', '인천', '기타'], datasets: [{ data: [1820, 1340, 520, 380, 410, 355], backgroundColor: '#4a6cf7', borderRadius: 4 }] }, options: { ...base, indexAxis: 'y' } });
+  document.getElementById('burger').onclick = () => document.getElementById('side').classList.toggle('open');
+</script>
+</body>
+</html>

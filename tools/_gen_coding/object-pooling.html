@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 오브젝트 풀</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #12121c; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .hud { position: fixed; top: 8px; left: 8px; background: rgba(0,0,0,.6); padding: 8px 10px; border-radius: 8px; font: 12px/1.7 ui-monospace, monospace; }
+  .hud b { color: #ffd93d; }
+  .hud button { font: 12px system-ui; padding: 4px 9px; margin: 2px 4px 2px 0; border-radius: 5px; border: 1px solid #555; background: #2a2a3d; color: #ddd; cursor: pointer; }
+  .hud button.on { background: #6bcb77; color: #111; border-color: #6bcb77; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div><button id="pool" class="on">풀 사용</button><button id="nopool">매번 new</button></div>
+  <div id="stats"></div>
+</div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+
+  // ── 오브젝트 풀: 2000개를 미리 만들어 두고 재사용. 생성/GC 비용 0 ──
+  class Pool {
+    constructor(make, size) { this.free = []; this.make = make; this.created = 0; for (let i = 0; i < size; i++) this.free.push(this._new()); }
+    _new() { this.created++; return this.make(); }
+    acquire() { return this.free.pop() || this._new(); }
+    release(o) { this.free.push(o); }
+  }
+  const MAX = 2000;
+  const makeParticle = () => ({ x: 0, y: 0, vx: 0, vy: 0, life: 0, hue: 0 });
+  const pool = new Pool(makeParticle, MAX);
+  const active = [];
+  let usePool = true, allocs = 0;
+
+  function spawn(x, y, hue) {
+    if (active.length >= MAX) return;
+    const p = usePool ? pool.acquire() : (allocs++, makeParticle());
+    const a = Math.random() * Math.PI * 2, s = 60 + Math.random() * 260;
+    p.x = x; p.y = y; p.vx = Math.cos(a) * s; p.vy = Math.sin(a) * s - 120; p.life = 1 + Math.random() * 1.5; p.hue = hue + Math.random() * 40;
+    active.push(p);
+  }
+  // 튀는 공 3개가 계속 파티클 분수를 뿜음
+  const balls = [0, 1, 2].map(i => ({ x: W * (.25 + i * .25), y: H / 2, vx: (i - 1) * 180 + 90, vy: -200, r: 14, hue: i * 120 }));
+  let last = performance.now(), fr = 0, ft = 0, fps = 0, worst = 0;
+  function loop(now) {
+    const raw = now - last, dt = Math.min(.033, raw / 1000); last = now; worst = Math.max(worst, raw);
+    for (const b of balls) {
+      b.vy += 900 * dt; b.x += b.vx * dt; b.y += b.vy * dt;
+      if (b.x < b.r || b.x > W - b.r) { b.vx *= -1; b.x = Math.max(b.r, Math.min(W - b.r, b.x)); }
+      if (b.y > H - b.r) { b.y = H - b.r; b.vy = -700 - Math.random() * 200; }
+      for (let i = 0; i < 12; i++) spawn(b.x, b.y, b.hue);
+    }
+    for (let i = active.length - 1; i >= 0; i--) {
+      const p = active[i]; p.life -= dt; p.vy += 400 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.life <= 0 || p.y > H + 10) {
+        active[i] = active[active.length - 1]; active.pop();          // O(1) 제거
+        if (usePool) pool.release(p);                                  // 버리지 않고 반환
+      }
+    }
+    ctx.fillStyle = 'rgba(18,18,28,.4)'; ctx.fillRect(0, 0, W, H);
+    for (const p of active) { ctx.fillStyle = `hsla(${p.hue},90%,65%,${Math.min(1, p.life)})`; ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3); }
+    for (const b of balls) { ctx.fillStyle = `hsl(${b.hue},80%,60%)`; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 7); ctx.fill(); }
+    fr++; ft += raw;
+    if (ft > 500) {
+      fps = Math.round(fr * 1000 / ft);
+      document.getElementById('stats').innerHTML = `FPS <b>${fps}</b> · 최악 프레임 <b>${worst.toFixed(1)}ms</b><br>활성 파티클 <b>${active.length}</b> / ${MAX}<br>` +
+        (usePool ? `풀 대기 <b>${pool.free.length}</b> · 총 생성 <b>${pool.created}</b> (재사용 중)` : `새로 할당한 객체 <b>${allocs.toLocaleString()}</b>개 → GC 대상`);
+      fr = 0; ft = 0; worst = 0;
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  const setMode = m => { usePool = m; allocs = 0; document.getElementById('pool').classList.toggle('on', m); document.getElementById('nopool').classList.toggle('on', !m); };
+  document.getElementById('pool').onclick = () => setMode(true); document.getElementById('nopool').onclick = () => setMode(false);
+</script>
+</body>
+</html>

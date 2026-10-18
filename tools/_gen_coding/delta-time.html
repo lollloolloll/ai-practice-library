@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 델타 타임</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .ui { position: fixed; top: 10px; left: 12px; right: 12px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; font-size: 13px; }
+  .ui button { background: #2c2c44; color: #ddd; border: 1px solid #44446a; border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+  .ui button.on { background: #4d96ff; color: #fff; border-color: #4d96ff; }
+  .note { position: fixed; bottom: 10px; left: 12px; right: 12px; font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+<div class="ui">목표 FPS 시뮬레이션: <span id="fpsBtns"></span><span id="real"></span></div>
+<canvas id="c"></canvas>
+<div class="note">모든 공은 초당 300px로 움직이도록 설정. 위 공은 프레임마다 고정량(5px), 아래 공은 dt(경과 시간)를 곱해 이동합니다.</div>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  let target = 60; const opts = [10, 20, 30, 60];
+  const box = document.getElementById('fpsBtns');
+  opts.forEach(f => { const b = document.createElement('button'); b.textContent = f + 'fps'; b.onclick = () => { target = f; [...box.children].forEach(x => x.classList.toggle('on', x === b)); }; if (f === 60) b.classList.add('on'); box.appendChild(b); });
+
+  const SPEED = 300; // px/s
+  const lanes = [
+    { name: '❌ 프레임 기반: x += 5', color: '#ff6b6b', x: 40, vx: 1, vy: 1, y: 0, dist: 0, frameBased: true },
+    { name: '✅ 델타 타임: x += v * dt', color: '#6bcb77', x: 40, vx: 1, vy: 1, y: 0, dist: 0, frameBased: false }
+  ];
+  let last = performance.now(), acc = 0, t0 = performance.now(), frames = 0, shown = 0;
+  function step(dt) {
+    lanes.forEach((b, i) => {
+      const top = 70 + i * (H - 110) / 2, bottom = top + (H - 150) / 2, r = 14;
+      const move = b.frameBased ? 5 : SPEED * dt;           // 핵심 차이
+      b.x += b.vx * move; b.y += b.vy * move * 0.6; b.dist += move;
+      if (b.x < r || b.x > W - r) { b.vx *= -1; b.x = Math.max(r, Math.min(W - r, b.x)); }
+      if (b.y < 0 || b.y > bottom - top - 2 * r) { b.vy *= -1; b.y = Math.max(0, Math.min(bottom - top - 2 * r, b.y)); }
+      b.top = top; b.bottom = bottom;
+    });
+  }
+  function draw() {
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    const sec = (performance.now() - t0) / 1000;
+    lanes.forEach(b => {
+      ctx.strokeStyle = '#33334d'; ctx.strokeRect(4, b.top - 4, W - 8, b.bottom - b.top + 8);
+      ctx.fillStyle = b.color; ctx.beginPath(); ctx.arc(b.x, b.top + 14 + b.y, 14, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ccc'; ctx.font = '13px system-ui'; ctx.textAlign = 'left';
+      ctx.fillText(`${b.name}   실제 속도 ≈ ${Math.round(b.dist / sec)} px/s`, 12, b.top + 14);
+    });
+  }
+  function loop(now) {
+    requestAnimationFrame(loop);
+    acc += now - last; last = now;
+    if (acc < 1000 / target - 1) return;             // 낮은 FPS 기기 흉내
+    const dt = Math.min(acc, 100) / 1000; acc = 0;
+    step(dt); draw(); frames++;
+    if (now - shown > 500) { document.getElementById('real').textContent = `실제 렌더 ${Math.round(frames * 1000 / (now - shown))}fps`; frames = 0; shown = now; }
+  }
+  setInterval(() => { lanes.forEach(b => b.dist = 0); t0 = performance.now(); }, 3000); // 속도 측정 구간 리셋
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

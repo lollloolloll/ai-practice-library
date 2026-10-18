@@ -1,0 +1,783 @@
+{
+  "categories": {
+    "modeling-style": {
+      "name_ko": "모델링 스타일",
+      "desc_ko": "형태를 어떤 미학으로 만들지 정해요(로우폴리·스타일라이즈드·하드서피스·복셀·치비 등)."
+    },
+    "topology": {
+      "name_ko": "토폴로지·폴리곤",
+      "desc_ko": "면의 구조와 밀도예요(쿼드·트라이, 폴리곤 수, 리토폴로지, LOD). 주로 생성기 설정과 후처리로 정해요."
+    },
+    "material-pbr": {
+      "name_ko": "재질·PBR",
+      "desc_ko": "베이스컬러·러프니스·메탈릭·노멀 같은 재질 맵과 SSS·유리·발광 같은 특수 재질이에요."
+    },
+    "texturing": {
+      "name_ko": "텍스처링·UV",
+      "desc_ko": "UV 펼치기, 베이킹, 해상도, 핸드페인팅·리텍스처 등 표면 이미지 관련 용어예요."
+    },
+    "rendering": {
+      "name_ko": "렌더링·렌더 느낌",
+      "desc_ko": "렌더러(Cycles, Octane, UE5), GI·AO·레이트레이싱, 검수용 클레이·와이어프레임 렌더예요."
+    },
+    "lighting": {
+      "name_ko": "조명",
+      "desc_ko": "HDRI, 3점 조명, 림 라이트, 입력·텍스처용 중립 조명이에요."
+    },
+    "camera": {
+      "name_ko": "카메라·턴테이블",
+      "desc_ko": "정면·3/4·정사영 뷰, 턴테이블, 턴어라운드 시트, 초점거리예요."
+    },
+    "rigging-animation": {
+      "name_ko": "리깅·애니메이션",
+      "desc_ko": "오토 리깅, T·A포즈, 스키닝, 리타게팅, 프리셋 모션, Mixamo예요."
+    },
+    "output-format": {
+      "name_ko": "출력 포맷",
+      "desc_ko": "GLB/glTF, FBX, OBJ, USDZ, STL, 3MF, PLY/SPZ의 용도 차이예요."
+    },
+    "use-case": {
+      "name_ko": "용도별 설정",
+      "desc_ko": "게임 에셋, 3D 프린팅, AR·웹, 실제 크기·원점·파츠 분리 설정이에요."
+    },
+    "input-prep": {
+      "name_ko": "입력 이미지 준비",
+      "desc_ko": "이미지→3D 품질을 좌우하는 입력 사진·그림 준비 방법이에요."
+    },
+    "model-params": {
+      "name_ko": "모델별 파라미터",
+      "desc_ko": "Meshy·Tripo·Rodin·Hunyuan3D·TRELLIS의 실제 API·UI 설정값이에요."
+    },
+    "world-gen": {
+      "name_ko": "월드·스플랫 생성",
+      "desc_ko": "가우시안 스플래팅, NeRF, 월드 모델(Marble, Genie 3)이에요."
+    }
+  },
+  "base_prompts": {
+    "base-prop": {
+      "desc_ko": "소품 원안이에요. 하드서피스와 목재가 섞인 단순한 물체라 스타일·재질·폴리곤 수·PBR을 하나씩 바꿔 비교하기 좋아요."
+    },
+    "base-character": {
+      "desc_ko": "캐릭터 원안이에요. T·A포즈, 치비·스타일라이즈드·사실적 스타일, 쿼드 토폴로지와 리깅 적합성을 비교해요."
+    },
+    "base-image-3d-look": {
+      "desc_ko": "이미지 모델용 3D 느낌 원안이에요. 렌더러 키워드(Octane·Blender·UE5), 조명, 광택을 하나씩 바꿔 비교해요."
+    },
+    "base-world": {
+      "desc_ko": "월드·장면 생성 원안이에요(Marble·Genie·이미지 모델). 조명·분위기·스타일을 비교해요."
+    }
+  },
+  "terms": {
+    "low-poly": {
+      "ko": "로우폴리",
+      "effect_ko": "면 수를 줄여 각지고 단순한 형태가 돼요. 생성 모델에선 텍스처 디테일보다 실루엣이 강조돼요."
+    },
+    "stylized": {
+      "ko": "스타일라이즈드",
+      "effect_ko": "현실 비율 대신 과장된 비율, 단순한 형태, 선명한 색을 써요. 'realistic'과 바꿔 보면 차이가 가장 크게 보여요."
+    },
+    "realistic": {
+      "ko": "사실적·포토리얼",
+      "effect_ko": "실제 비율, 미세한 표면 디테일, 사실적인 재질을 목표로 해요. 생성기에선 고폴리·고해상 텍스처와 함께 써야 효과가 나요."
+    },
+    "hard-surface": {
+      "ko": "하드서피스",
+      "effect_ko": "기계·무기·차량처럼 날카로운 모서리, 평면, 베벨, 패널 라인이 있는 형태로 유도해요. 곡면은 줄고 각진 구조가 늘어요."
+    },
+    "organic": {
+      "ko": "오가닉 모델링",
+      "effect_ko": "생물·식물·인체처럼 부드러운 곡면과 근육·주름 흐름이 있는 형태로 유도해요. hard surface와 비교하기 좋아요."
+    },
+    "sculpted": {
+      "ko": "디지털 스컬프팅",
+      "effect_ko": "ZBrush식 조각 질감(주름·근육·균열 같은 잔디테일)을 강조해요. Meshy 구버전 art_style 'sculpture'는 무채색 조각 느낌을 냈지만 지금은 deprecated예요."
+    },
+    "voxel": {
+      "ko": "복셀",
+      "effect_ko": "작은 정육면체 블록을 쌓은 마인크래프트·MagicaVoxel풍 형태예요. 생성기는 진짜 복셀보다 '블록처럼 보이는 메시'를 만들 때가 많아요."
+    },
+    "chibi": {
+      "ko": "치비·SD 캐릭터",
+      "effect_ko": "머리가 크고 2~3등신인 귀여운 비율이에요. 피규어·굿즈에 자주 쓰고, 손발 디테일은 단순해져요."
+    },
+    "toon-cartoon": {
+      "ko": "카툰·툰",
+      "effect_ko": "단순한 형태, 밝은 단색 면, 큰 눈의 애니메이션풍이에요. 렌더 단계의 cel shading과 함께 쓰면 2D 애니 느낌이 강해져요."
+    },
+    "clay-style": {
+      "ko": "클레이(점토) 스타일",
+      "effect_ko": "손으로 빚은 점토 질감, 지문 자국, 둥근 형태가 나와요. 무채색 확인용 'clay render'와는 다른 뜻이에요."
+    },
+    "isometric-diorama": {
+      "ko": "아이소메트릭 디오라마",
+      "effect_ko": "작은 받침 위에 장면을 담은 미니어처 방이 돼요. 이미지 모델에선 '3D 아이콘·룸' 느낌, 3D 생성기에선 한 덩어리 메시가 나와요."
+    },
+    "miniature": {
+      "ko": "미니어처·테이블탑",
+      "effect_ko": "보드게임 말처럼 받침 위에 선 작은 피규어로 유도해요. 받침과 두께감이 생겨 3D 프린팅에 좋아요."
+    },
+    "figurine": {
+      "ko": "피규어·비닐 토이",
+      "effect_ko": "매끈한 도장면, 받침, 단순한 디테일의 완구풍이에요. 이미지 모델로 '제품 사진 같은 3D 피규어'를 만들 때 핵심어예요."
+    },
+    "ps1-retro": {
+      "ko": "PS1 레트로 3D",
+      "effect_ko": "저폴리, 저해상도 픽셀 텍스처, 흔들리는 90년대 콘솔 그래픽 느낌이에요. 이미지 모델에서 효과가 크고, 3D 생성기에선 low poly와 저해상 텍스처 설정으로 비슷하게 내요."
+    },
+    "kitbash": {
+      "ko": "킷배시",
+      "effect_ko": "기성 부품을 조합한 듯한 복잡한 기계 디테일(그리블)이 늘어요. SF 우주선·메카 배경물에 좋아요."
+    },
+    "game-ready": {
+      "ko": "게임 레디 에셋",
+      "effect_ko": "프롬프트로는 깔끔한 형태 정도만 유도해요. 실제 '게임 레디'는 폴리곤 수·UV·PBR·LOD 설정으로 정해지고, 단어만으론 토폴로지가 보장되지 않아요."
+    },
+    "subdivision-smooth": {
+      "ko": "서브디비전(매끈한 곡면)",
+      "effect_ko": "면을 잘게 나눠 매끈한 곡면을 만들어요. Blender는 Subdivision Surface 모디파이어로 하며, 쿼드 메시일수록 깔끔해요."
+    },
+    "quad-topology": {
+      "ko": "쿼드 토폴로지",
+      "effect_ko": "사각형 면으로 이뤄져 에지 흐름이 정돈되고 리깅·서브디비전·수정이 쉬워요. Meshy topology='quad', Tripo quad=true, Rodin mesh_mode='Quad'로 지정해요."
+    },
+    "triangle-mesh": {
+      "ko": "트라이앵글 메시",
+      "effect_ko": "모든 면이 삼각형이에요. 생성기 기본값인 경우가 많고 디테일 보존엔 좋지만, 편집·리깅은 불편해요(Rodin 'Raw' 모드)."
+    },
+    "retopology": {
+      "ko": "리토폴로지",
+      "effect_ko": "빽빽하고 불규칙한 메시를 깔끔한 면 구조로 다시 짜요. AI 메시를 애니메이션·게임에 쓰려면 사실상 필수예요(Hunyuan 3.1은 저폴리 모드가 없어 Polygen 같은 별도 단계를 권해요)."
+    },
+    "polycount": {
+      "ko": "폴리곤 수",
+      "effect_ko": "메시의 면 개수예요. 적으면 가볍고 각지며, 많으면 디테일이 살지만 무거워요(보통 웹·모바일 1만~5만, 게임 5만~10만 면)."
+    },
+    "lod": {
+      "ko": "LOD(디테일 단계)",
+      "effect_ko": "거리에 따라 면 수가 다른 여러 버전을 둬서 성능을 확보해요. AI 생성기는 보통 한 단계만 내니 엔진(Unreal 자동 LOD)이나 Blender Decimate로 LOD1~3을 만들어요."
+    },
+    "edge-flow": {
+      "ko": "에지 플로우",
+      "effect_ko": "면의 선이 근육·관절 방향을 따라 흐르게 정리된 상태예요. 프롬프트로는 보장되지 않아 쿼드 출력이나 리토폴로지로 확보해요."
+    },
+    "watertight": {
+      "ko": "워터타이트(매니폴드) 메시",
+      "effect_ko": "구멍·뒤집힌 면·겹친 면이 없는 닫힌 메시예요. 3D 프린팅 슬라이서가 요구하고, Blender 3D Print Toolbox로 검사해요."
+    },
+    "decimation": {
+      "ko": "데시메이션(면 줄이기)",
+      "effect_ko": "형태는 지키면서 면 수를 자동으로 줄여요. 빠르지만 삼각형이 늘고 토폴로지가 지저분해져요(Meshy decimation_mode 1 ultra~4 low는 target_polycount보다 우선해요)."
+    },
+    "remesh": {
+      "ko": "리메시",
+      "effect_ko": "메시를 균일한 새 면 구조로 다시 만들어요. Meshy는 should_remesh=true일 때 target_polycount(100~300,000)가 적용되고, 리깅·텍스처 전에 하길 권해요."
+    },
+    "flat-vs-smooth-shading": {
+      "ko": "플랫·스무스 셰이딩",
+      "effect_ko": "같은 메시도 면마다 단색이면 각져 보이고, 노멀을 보간하면 매끈해 보여요. 로우폴리는 flat, 일반 에셋은 smooth(오토 스무스)가 기본이에요."
+    },
+    "smart-low-poly": {
+      "ko": "스마트 로우폴리·스마트 토폴로지",
+      "effect_ko": "손으로 만든 듯 깔끔한 저폴리 토폴로지를 바로 생성해요. Tripo smart_low_poly(삼각 500~20,000·쿼드 500~10,000면), Meshy Smart Topology(meshy-t2, 100~15,000면, 기본 4,000, 삼각형만)가 있고 복잡한 형태에선 실패할 수 있어요."
+    },
+    "ngon": {
+      "ko": "엔곤(5각 이상 면)",
+      "effect_ko": "꼭짓점이 5개 이상인 면이에요. 셰이딩 왜곡과 서브디비전 문제를 일으켜 게임·애니 작업에선 피해요(프롬프트보다 검수 항목이에요)."
+    },
+    "pbr": {
+      "ko": "PBR(물리 기반 재질)",
+      "effect_ko": "빛의 물리에 맞춘 재질 맵(베이스컬러·메탈릭·러프니스·노멀)을 만들어 어떤 조명에서도 자연스러워요. Meshy enable_pbr, Tripo pbr(기본 true), Rodin material='PBR', Hunyuan enable_pbr로 켜요."
+    },
+    "albedo": {
+      "ko": "알베도·베이스컬러",
+      "effect_ko": "조명과 그림자를 뺀 순수한 표면 색 맵이에요. 그림자가 구워지면 다른 조명에서 어색하니 'delit, no baked shadows'가 중요해요."
+    },
+    "roughness": {
+      "ko": "러프니스(거칠기)",
+      "effect_ko": "0이면 거울 같은 반사, 1이면 무광으로 퍼진 반사예요. 'glossy'와 'matte'를 바꿔 비교하면 차이가 잘 보여요."
+    },
+    "metallic": {
+      "ko": "메탈릭(금속성)",
+      "effect_ko": "금속(1)인지 비금속(0)인지 나타내요. 금속은 반사에 색이 실려요. 'brushed steel', 'gold' 같은 재질어와 함께 써요."
+    },
+    "normal-map": {
+      "ko": "노멀 맵",
+      "effect_ko": "면을 늘리지 않고 볼트·주름·결 같은 요철을 빛 반응으로 표현해요. 저폴리에 고폴리 디테일을 구울 때 핵심이에요."
+    },
+    "ao-map": {
+      "ko": "AO 맵",
+      "effect_ko": "틈·접합부에 빛이 덜 닿는 정도를 담은 흑백 맵이에요. 입체감을 더하고, glTF에선 occlusion 텍스처로 저장돼요."
+    },
+    "height-displacement": {
+      "ko": "하이트·디스플레이스먼트 맵",
+      "effect_ko": "노멀 맵과 달리 형상을 실제로 밀어서 실루엣까지 바꿔요. 고품질 렌더용이고, 실시간 에셋엔 무거워요."
+    },
+    "subsurface-scattering": {
+      "ko": "서브서피스 스캐터링",
+      "effect_ko": "빛이 피부·왁스·옥·우유 속으로 들어가 퍼지는 반투명 효과예요. 피부가 플라스틱처럼 보이는 문제를 줄여요."
+    },
+    "emissive": {
+      "ko": "이미시브(발광)",
+      "effect_ko": "네온·LED·용암처럼 스스로 빛나는 부분을 만들어요. Meshy는 meshy-6에서만 emission 맵을 내고, 8K 텍스처에선 빠져요."
+    },
+    "translucent": {
+      "ko": "투과·유리",
+      "effect_ko": "유리·물·수지처럼 빛이 통과하고 굴절되는 재질이에요. AI 생성기는 대부분 불투명 텍스처로 구워 버려서 엔진·Blender에서 다시 설정할 때가 많아요."
+    },
+    "clearcoat": {
+      "ko": "클리어코트",
+      "effect_ko": "자동차 도장·래커처럼 표면 위에 투명한 광택층이 한 겹 더 있는 반사예요."
+    },
+    "anisotropic": {
+      "ko": "이방성 반사",
+      "effect_ko": "헤어라인 금속·냄비 바닥처럼 반사가 한 방향으로 길게 늘어져요."
+    },
+    "shaded-baked": {
+      "ko": "셰이디드(조명 구운) 텍스처",
+      "effect_ko": "음영이 구워진 맵 하나로 나와요. 조명 없이도 보기 좋지만, 다른 조명에선 그림자가 겹쳐 보여요(Rodin material='Shaded')."
+    },
+    "remove-lighting": {
+      "ko": "조명 제거(디라이팅)",
+      "effect_ko": "입력 이미지나 텍스처에 구워진 하이라이트·그림자를 지워 순수 알베도에 가깝게 해요. Meshy refine의 remove_lighting(기본 true, meshy-6에서 유효)이에요."
+    },
+    "material-words": {
+      "ko": "재질 묘사어",
+      "effect_ko": "구체적인 재질 이름은 색·러프니스·메탈릭을 한꺼번에 바꿔요. 'metal'보다 'brushed steel', 'rusty iron'처럼 상태까지 적으면 차이가 커요."
+    },
+    "uv-unwrap": {
+      "ko": "UV 펼치기",
+      "effect_ko": "3D 표면을 2D로 펼쳐 텍스처를 입힐 좌표를 만들어요. AI 메시는 UV가 잘게 쪼개져 있어 텍스처를 손으로 고치기 어려워요."
+    },
+    "uv-seams": {
+      "ko": "UV 심(이음선)",
+      "effect_ko": "UV를 자르는 경계선이에요. 눈에 띄면 이음매가 보이니 겨드랑이·안쪽처럼 가려진 곳에 둬요."
+    },
+    "texture-baking": {
+      "ko": "텍스처 베이킹",
+      "effect_ko": "고폴리 디테일·조명·AO를 텍스처로 구워 저폴리 메시에 옮겨요. AI 고폴리 결과를 리토폴로지한 뒤 다시 입힐 때 써요."
+    },
+    "hand-painted-texture": {
+      "ko": "핸드페인팅 텍스처",
+      "effect_ko": "붓으로 그린 듯한 색 그라데이션과 하이라이트·그림자가 생겨요. WoW식 스타일라이즈드 게임 룩의 핵심이고, PBR보다 디퓨즈 위주예요."
+    },
+    "texture-resolution": {
+      "ko": "텍스처 해상도",
+      "effect_ko": "텍스처 이미지의 픽셀 크기예요. 높을수록 선명하지만 용량이 커져요(Meshy texture_resolution 2k/4k/8k, Tripo texture_quality standard/detailed, Rodin HighPack 4K)."
+    },
+    "texel-density": {
+      "ko": "텍셀 밀도",
+      "effect_ko": "표면 단위 면적당 텍스처 픽셀 수예요. 에셋끼리 다르면 어떤 물체만 흐릿해 보여요."
+    },
+    "tileable": {
+      "ko": "타일러블(이음매 없는) 텍스처",
+      "effect_ko": "반복해도 경계가 안 보이는 텍스처예요. 바닥·벽 재질을 이미지 모델로 만들 때 'seamless tileable'을 넣어요."
+    },
+    "trim-sheet": {
+      "ko": "트림 시트",
+      "effect_ko": "여러 줄무늬 디테일을 한 장에 모아 여러 모델이 함께 쓰는 텍스처예요. 게임 환경 아트에서 메모리를 아껴요."
+    },
+    "texture-atlas": {
+      "ko": "텍스처 아틀라스",
+      "effect_ko": "여러 물체의 텍스처를 한 이미지에 모아 드로우콜을 줄여요. AI 단일 에셋은 이미 아틀라스 형태로 나올 때가 많아요."
+    },
+    "texture-prompt": {
+      "ko": "텍스처 프롬프트·리텍스처",
+      "effect_ko": "형상은 그대로 두고 표면만 텍스트나 참조 이미지로 다시 만들어요. Meshy refine의 texture_prompt·texture_image_url(둘 중 하나), Meshy·Tripo의 Retexture 기능이에요."
+    },
+    "texture-image-reference": {
+      "ko": "텍스처 참조 이미지",
+      "effect_ko": "텍스트 대신 이미지로 표면 스타일을 정해요. 브랜드 패턴이나 재질 사진을 입힐 때 더 정확해요(Meshy texture_image_url, jpg/png/webp 20MB 이하)."
+    },
+    "vertex-color": {
+      "ko": "버텍스 컬러",
+      "effect_ko": "텍스처 없이 꼭짓점마다 색을 저장해요. 로우폴리·복셀 단색 룩이나 일부 3D 프린터 컬러 출력에 써요."
+    },
+    "weathering": {
+      "ko": "웨더링(낡음·마모)",
+      "effect_ko": "모서리 페인트 벗겨짐, 녹, 때 같은 사용감으로 사실감을 높여요. 'brand new'와 비교하면 차이가 뚜렷해요."
+    },
+    "texture-alignment": {
+      "ko": "텍스처 정렬 우선순위",
+      "effect_ko": "Tripo에서 텍스처를 원본 이미지 색(original_image, 기본)에 맞출지, 생성된 형상(geometry)에 맞출지 정해요."
+    },
+    "octane-render": {
+      "ko": "옥테인 렌더",
+      "effect_ko": "이미지 모델에서 선명한 반사, 강한 대비, 광택 있는 CG 광고 느낌을 내는 단골 키워드예요. 실제 Octane은 GPU 언바이어스 렌더러예요."
+    },
+    "cycles": {
+      "ko": "블렌더 사이클스",
+      "effect_ko": "Blender의 경로 추적 렌더러로 사실적인 GI·반사·그림자를 계산해요. 이미지 프롬프트에선 'Blender render'가 깔끔한 CG 느낌을 내요."
+    },
+    "eevee": {
+      "ko": "블렌더 이브이",
+      "effect_ko": "Blender의 실시간 렌더러예요. 빠르지만 GI·반사 정확도는 Cycles보다 낮아 미리보기·스타일라이즈드 렌더에 맞아요."
+    },
+    "unreal-engine": {
+      "ko": "언리얼 엔진 5 렌더",
+      "effect_ko": "이미지 모델에서 게임 시네마틱 같은 사실적 실시간 그래픽 느낌을 내요. 실제 UE5에선 Lumen GI·Nanite로 AI 에셋을 바로 보여줄 수 있어요."
+    },
+    "lumen": {
+      "ko": "루멘",
+      "effect_ko": "UE5의 실시간 GI·반사 시스템이에요. 실내 간접광이 자연스럽게 퍼져요."
+    },
+    "nanite": {
+      "ko": "나나이트",
+      "effect_ko": "UE5에서 수백만 폴리곤 메시를 LOD 없이 렌더하는 기술이에요. AI 고폴리를 리토폴로지 없이 배경물로 쓸 때 좋아요(움직이는 캐릭터엔 제약이 있어요)."
+    },
+    "ray-tracing": {
+      "ko": "레이 트레이싱",
+      "effect_ko": "광선을 추적해 정확한 반사·굴절·그림자를 계산해요. 프롬프트에선 반짝이는 반사와 사실적인 그림자가 강조돼요."
+    },
+    "path-tracing": {
+      "ko": "패스 트레이싱",
+      "effect_ko": "여러 번 튀는 빛까지 추적해 GI를 포함한 사진 같은 결과를 내요. 느리지만 기준 품질로 써요(Cycles, Octane)."
+    },
+    "global-illumination": {
+      "ko": "전역 조명(GI)",
+      "effect_ko": "벽에서 튕긴 간접광까지 계산해 그림자가 자연스럽게 밝아지고 색이 번져요. 빼면 그림자가 새까매서 CG 티가 나요."
+    },
+    "ambient-occlusion": {
+      "ko": "앰비언트 오클루전(AO)",
+      "effect_ko": "틈과 닿는 부분을 어둡게 해 바닥에 붙은 느낌과 입체감을 줘요. 클레이 렌더와 함께 쓰면 형태 검수에 좋아요."
+    },
+    "clay-render": {
+      "ko": "클레이 렌더",
+      "effect_ko": "텍스처 없이 회색·흰색 재질 하나로 렌더해 형태와 토폴로지만 봐요. 텍스처 착시를 없애는 비교 기준이에요."
+    },
+    "wireframe-render": {
+      "ko": "와이어프레임 렌더",
+      "effect_ko": "면의 선을 보여주는 렌더예요. 쿼드·트라이와 면 밀도를 눈으로 비교할 수 있어요(Blender Wireframe 모디파이어·Freestyle)."
+    },
+    "cel-shading": {
+      "ko": "셀 셰이딩·툰 셰이더",
+      "effect_ko": "음영을 2~3단계로 끊고 외곽선을 넣어 애니메이션처럼 렌더해요. 생성기 출력보다 렌더 단계에서 적용해요."
+    },
+    "keyshot-product": {
+      "ko": "키샷·제품 렌더",
+      "effect_ko": "흰 무한 배경, 스튜디오 반사판, 깔끔한 반사의 제품 광고 렌더 느낌이에요."
+    },
+    "3d-icon": {
+      "ko": "3D 아이콘 느낌",
+      "effect_ko": "이미지 모델에서 둥글고 말랑한 플라스틱 질감의 UI용 3D 아이콘을 만들어요. 'C4D', 'Blender' 같은 툴 이름과 자주 함께 써요."
+    },
+    "depth-of-field": {
+      "ko": "피사계 심도",
+      "effect_ko": "초점 밖이 흐려져 미니어처·제품 사진 같은 느낌이 나요. 심도가 아주 얕으면 물체가 작아 보여요(틸트시프트)."
+    },
+    "bloom": {
+      "ko": "블룸",
+      "effect_ko": "밝은 부분에서 빛이 번지는 후처리예요. 발광 재질과 함께 쓰면 네온 느낌이 강해져요."
+    },
+    "hdri": {
+      "ko": "HDRI 환경 조명",
+      "effect_ko": "360° HDR 사진으로 주변 전체를 비추고 반사해요. 모든 결과를 같은 HDRI로 렌더해야 공정하게 비교할 수 있어요."
+    },
+    "three-point-lighting": {
+      "ko": "3점 조명",
+      "effect_ko": "키·필·백(림) 라이트로 형태를 분명히 보여주는 기본 조명이에요."
+    },
+    "studio-lighting": {
+      "ko": "스튜디오 소프트박스 조명",
+      "effect_ko": "크고 퍼지는 빛이라 그림자가 부드럽고 반사가 깔끔해요. 제품·피규어 렌더의 기본값이에요."
+    },
+    "rim-light": {
+      "ko": "림 라이트",
+      "effect_ko": "뒤에서 비춰 외곽선이 빛나고 배경과 분리돼요. SSS 재질과 함께 쓰면 귀·잎이 비쳐 보여요."
+    },
+    "neutral-lighting": {
+      "ko": "고른 중립 조명",
+      "effect_ko": "강한 그림자·하이라이트 없이 고르게 비춰요. 이미지→3D 입력이나 텍스처 생성 때 그림자가 구워지는 걸 줄여요."
+    },
+    "volumetric-light": {
+      "ko": "볼류메트릭 라이트",
+      "effect_ko": "공기 중 빛줄기와 안개가 보여 분위기가 극적으로 바뀌어요. 장면·월드 생성 프롬프트에 효과적이에요."
+    },
+    "caustics": {
+      "ko": "커스틱",
+      "effect_ko": "유리·물을 지난 빛이 바닥에 맺히는 일렁이는 무늬예요. 경로 추적 렌더러에서 표현돼요."
+    },
+    "turntable": {
+      "ko": "턴테이블",
+      "effect_ko": "모델을 360° 돌려 보여주는 영상·이미지예요. 뒷면 품질까지 비교할 수 있어 3D 결과 비교의 표준이에요."
+    },
+    "orthographic": {
+      "ko": "정사영(오소) 뷰",
+      "effect_ko": "원근 왜곡 없는 투영이에요. 이미지→3D 입력이나 콘셉트 시트에 'orthographic front view'를 적으면 비율 왜곡이 줄어요."
+    },
+    "front-view": {
+      "ko": "정면·측면·후면 뷰",
+      "effect_ko": "카메라 방향을 고정해요. 단일 입력엔 정면이나 3/4 뷰, 멀티뷰 입력엔 정면·측면·후면 세트를 써요."
+    },
+    "three-quarter-view": {
+      "ko": "3/4 뷰",
+      "effect_ko": "정면과 측면 사이 약 45° 각도라 깊이와 옆모습이 함께 보여요. 단일 이미지 입력에서 옆면 추정이 좋아지기도 해요."
+    },
+    "isometric-camera": {
+      "ko": "아이소메트릭 카메라",
+      "effect_ko": "위에서 비스듬히 보는 평행 투영이에요. 게임 맵·디오라마 느낌을 내요."
+    },
+    "focal-length": {
+      "ko": "초점거리",
+      "effect_ko": "광각은 원근을 과장하고, 망원은 평평하게 해요. 3D 입력 이미지는 50~85mm 이상이 왜곡이 적어요."
+    },
+    "character-turnaround": {
+      "ko": "캐릭터 턴어라운드 시트",
+      "effect_ko": "같은 캐릭터를 정면·측면·후면으로 나란히 그린 시트예요. 이미지 모델로 만들어 잘라서 멀티뷰 입력으로 써요(뷰끼리 안 맞는지 꼭 확인하세요)."
+    },
+    "auto-rig": {
+      "ko": "오토 리깅",
+      "effect_ko": "생성된 캐릭터에 뼈대와 스킨 가중치를 자동으로 붙여요. Meshy는 팔다리가 분명한 휴머노이드 GLB가 필요하고, Tripo는 rig check 후 biped·quadruped 등 여러 체형을 지원해요."
+    },
+    "t-pose": {
+      "ko": "T포즈",
+      "effect_ko": "팔을 수평으로 벌린 기본 자세예요. 겨드랑이가 붙지 않아 리깅이 쉬워요(Meshy pose_mode='t-pose', Rodin TAPose)."
+    },
+    "a-pose": {
+      "ko": "A포즈",
+      "effect_ko": "팔을 약 45° 내린 자세예요. 어깨 변형이 자연스러워 요즘 캐릭터 리깅에서 선호해요(Meshy pose_mode='a-pose')."
+    },
+    "skinning": {
+      "ko": "스키닝·웨이트",
+      "effect_ko": "각 꼭짓점이 어느 뼈를 얼마나 따라 움직일지 정해요. 가중치가 나쁘면 관절이 찌그러지니 토폴로지부터 깔끔해야 해요."
+    },
+    "skeleton-armature": {
+      "ko": "스켈레톤·아마추어",
+      "effect_ko": "뼈대 구조와 이름 규칙이에요. Tripo는 tripo(기본)나 mixamo 이름 규칙을 고를 수 있어 기존 애니메이션 재사용에 영향을 줘요."
+    },
+    "retargeting": {
+      "ko": "애니메이션 리타게팅",
+      "effect_ko": "다른 뼈대용 동작을 내 캐릭터에 옮겨요. Tripo retarget(idle·walk·run 등 프리셋)과 Meshy 애니메이션 라이브러리(500개+ 프리셋)가 이 방식이에요."
+    },
+    "animation-preset": {
+      "ko": "애니메이션 프리셋",
+      "effect_ko": "미리 만든 동작 클립을 적용해요. Meshy는 휴머노이드 중심(사족보행은 걷기 위주)이고, Tripo는 리깅된 모델에 프리셋을 한꺼번에 적용해요."
+    },
+    "in-place": {
+      "ko": "제자리 애니메이션(인플레이스)",
+      "effect_ko": "루트 이동을 빼서 캐릭터가 제자리에서 걷게 해요. 게임 엔진 이동 시스템과 연결할 때 필요해요(Tripo retarget에 옵션이 있어요)."
+    },
+    "mixamo": {
+      "ko": "믹사모",
+      "effect_ko": "Adobe의 무료 웹 오토 리깅·모션 라이브러리예요. AI 휴머노이드를 FBX·OBJ로 올려 리깅하고 모션을 받는 대표 경로예요."
+    },
+    "blendshapes": {
+      "ko": "블렌드셰이프·셰이프 키",
+      "effect_ko": "표정·입 모양처럼 메시 형태를 직접 바꾸는 방식이에요. AI 생성기는 거의 제공하지 않아 손으로 만들어야 해요."
+    },
+    "glb": {
+      "ko": "GLB·glTF",
+      "effect_ko": "메시·PBR 재질·텍스처·애니메이션을 한 파일에 담는 웹·실시간 표준이에요(\"3D의 JPEG\"). 대부분 AI 생성기의 기본 출력이고 호환성이 가장 좋아요."
+    },
+    "fbx": {
+      "ko": "FBX",
+      "effect_ko": "리깅·애니메이션을 담는 게임·DCC 업계 표준 포맷이에요. Unity·Unreal·Mixamo에 주로 쓰고, Tripo는 quad 출력이면 FBX로 고정돼요."
+    },
+    "obj": {
+      "ko": "OBJ",
+      "effect_ko": "오래된 단순 메시 포맷이에요. 거의 모든 툴이 읽지만 PBR·애니메이션은 제대로 못 담아요."
+    },
+    "usdz": {
+      "ko": "USDZ",
+      "effect_ko": "Apple AR Quick Look용 포맷이에요. iPhone·iPad에서 앱 없이 바로 AR로 띄울 수 있어요."
+    },
+    "stl": {
+      "ko": "STL",
+      "effect_ko": "색·재질 없이 형태만 담는 3D 프린팅 표준이에요."
+    },
+    "3mf": {
+      "ko": "3MF",
+      "effect_ko": "단위·색·여러 재료 정보까지 담는 최신 3D 프린팅 포맷이에요. Meshy는 요청할 때만 3mf를 포함해요."
+    },
+    "ply-spz": {
+      "ko": "PLY·SPZ(스플랫)",
+      "effect_ko": "가우시안 스플랫 결과 포맷이에요. PLY는 호환성이 넓고, SPZ는 World Labs Marble 기본 압축 포맷이에요. 메시가 아닌 점 기반이라 일반 게임 작업엔 바로 쓰기 어려워요."
+    },
+    "game-asset": {
+      "ko": "게임 에셋용 설정",
+      "effect_ko": "적정 면 수(약 5만~10만 이하), 쿼드·스마트 토폴로지, PBR 2K~4K, FBX·GLB 출력, LOD를 함께 지정해요."
+    },
+    "3d-printing": {
+      "ko": "3D 프린팅용 설정",
+      "effect_ko": "텍스처보다 형태 해상도가 중요해요. 고폴리, 워터타이트, 실제 크기, 얇은 부위 두께, STL·3MF 출력이 핵심이에요(Meshy 문서는 Standard 고폴리를 권해요)."
+    },
+    "ar-web": {
+      "ko": "AR·웹 3D용 설정",
+      "effect_ko": "용량이 작아야 해서 저폴리(1만~5만), 2K 텍스처, GLB(안드로이드·웹)·USDZ(iOS)로 내보내요. model-viewer로 웹에 바로 띄울 수 있어요."
+    },
+    "auto-size": {
+      "ko": "실제 크기 자동 맞춤",
+      "effect_ko": "AI가 물체의 실제 높이를 추정해 미터 단위로 크기를 맞춰요(Meshy auto_size+origin_at bottom/center, Tripo auto_size). AR·프린팅에서 크기 오류를 줄여요."
+    },
+    "origin-pivot": {
+      "ko": "원점·피벗",
+      "effect_ko": "모델의 기준점 위치예요. 바닥(bottom)이면 땅에 바로 놓이고, 중심(center)이면 회전하기 좋아요."
+    },
+    "parts-segmentation": {
+      "ko": "파츠 분리 생성",
+      "effect_ko": "한 덩어리 대신 부품별로 나뉜 메시를 만들어 따로 고치거나 움직이기 쉬워요(Tripo generate_parts, v3.0 이상 모델에서 유효)."
+    },
+    "single-subject": {
+      "ko": "피사체 하나를 가운데에",
+      "effect_ko": "한 장면에 물체 하나만, 가운데에, 윤곽이 잘 보이게 둬요. 물체가 여럿이면 모델이 헷갈려 메시가 뭉개져요."
+    },
+    "plain-background": {
+      "ko": "흰색 단색 배경",
+      "effect_ko": "배경이 단순할수록 물체를 정확히 분리해요. 사진이 복잡하면 배경 제거를 쓰거나 미리 투명 PNG로 만들어요."
+    },
+    "background-removal": {
+      "ko": "배경 제거",
+      "effect_ko": "입력 이미지에서 배경을 지우고 물체만 남겨요. Meshy 업로드 화면에 Remove Background 옵션이 있어요."
+    },
+    "multiview-input": {
+      "ko": "멀티뷰 입력",
+      "effect_ko": "여러 각도 이미지를 넣어 뒷면을 추측이 아닌 근거로 만들어요. Tripo multiview(정면·좌·후·우), Hunyuan 3.0 최대 4장·3.1 최대 8장(상하·45° 포함), Meshy Multi-Image to 3D가 있어요."
+    },
+    "input-resolution": {
+      "ko": "정사각·고해상도 입력",
+      "effect_ko": "짧은 변 1024px 이상, 1:1 비율 이미지를 권해요. Meshy도 이미지→3D용 이미지는 1:1로 만들길 권해요."
+    },
+    "no-occlusion": {
+      "ko": "가림·글자·워터마크 없애기",
+      "effect_ko": "손·소품에 가린 부분, 글자, 워터마크는 메시와 텍스처에 이상한 돌기·얼룩을 만들어요."
+    },
+    "image-enhancement": {
+      "ko": "입력 이미지 보정",
+      "effect_ko": "Meshy Image Enhancement를 켜면 AI가 저품질 사진을 먼저 보정해요. 이미 깨끗한 이미지라면 끄는 게 원본에 더 충실해요."
+    },
+    "meshy-ai-model": {
+      "ko": "Meshy 모델 선택",
+      "effect_ko": "Meshy 버전(meshy-6-lite, meshy-6, meshy-7.1/latest)과 모델 타입(standard 고폴리, smart-topology 깔끔한 저폴리)을 골라요. lowpoly 타입은 2026-10-30 종료 예정으로 표기돼 있어요."
+    },
+    "meshy-geometry-resolution": {
+      "ko": "Meshy 지오메트리 해상도",
+      "effect_ko": "preview 단계 형태 해상도(standard/2k/4k)예요. 높을수록 세밀하고, meshy-7.1/latest에서만 동작해요(ultra_mode는 deprecated, 2k와 같아요)."
+    },
+    "meshy-target-polycount": {
+      "ko": "Meshy 목표 폴리곤 수",
+      "effect_ko": "면 수를 지정해요. standard+should_remesh=true는 100~300,000(기본 30,000), smart-topology는 100~15,000(기본 4,000)이에요."
+    },
+    "meshy-symmetry": {
+      "ko": "Meshy 대칭 모드",
+      "effect_ko": "off/auto/on 값이 있지만 현재 API 문서에 'deprecated, 출력에 영향 없음'으로 나와 있어요. 대칭이 필요하면 프롬프트('symmetrical')·입력 이미지로 유도하거나 Blender Symmetrize를 써요."
+    },
+    "meshy-art-style": {
+      "ko": "Meshy 아트 스타일",
+      "effect_ko": "realistic/sculpture 선택지였지만 deprecated라 Meshy-6부터 무시돼요. 이제 스타일은 프롬프트로 지정해요."
+    },
+    "meshy-preview-refine": {
+      "ko": "Meshy 프리뷰→리파인 2단계",
+      "effect_ko": "preview로 텍스처 없는 형태를 먼저 뽑고, 마음에 드는 것만 refine으로 텍스처·PBR을 입혀요. 형태 비교와 텍스처 비교를 나눌 수 있어요."
+    },
+    "tripo-face-limit": {
+      "ko": "Tripo 면 수 제한",
+      "effect_ko": "최대 면 수를 정해요. 비우면 적응형 토폴로지가 적용되고, quad=true인데 비우면 기본 10,000면이에요(버전마다 상한이 달라요)."
+    },
+    "tripo-texture-quality": {
+      "ko": "Tripo 텍스처 품질",
+      "effect_ko": "standard(기본)·detailed(HD) 같은 텍스처 품질 단계예요. v3.0-20250812 이상 모델에서만 유효해요."
+    },
+    "tripo-geometry-quality": {
+      "ko": "Tripo 지오메트리 품질",
+      "effect_ko": "standard(균형)·detailed(Ultra, 더 세밀한 형태)예요. v3.0 이상에서만 동작해요."
+    },
+    "tripo-negative-seed": {
+      "ko": "Tripo 네거티브 프롬프트·시드",
+      "effect_ko": "negative_prompt로 원하지 않는 요소를 빼요. model_seed·texture_seed를 고정하면 단어 하나만 바꾼 비교를 똑같이 재현할 수 있어요."
+    },
+    "rodin-material": {
+      "ko": "Rodin 재질 모드",
+      "effect_ko": "PBR은 물리 기반 맵, Shaded는 조명이 구워진 텍스처, All은 둘 다 줘요."
+    },
+    "rodin-mesh-quality": {
+      "ko": "Rodin 메시 모드·품질",
+      "effect_ko": "mesh_mode Quad/Raw(삼각)와 quality 프리셋(high/medium/low 등)이나 직접 정한 면 수로 밀도를 정해요. 플랫폼마다 이름·기본값이 달라(fal은 '18K Quad', '500K Triangle' 같은 결합 옵션) 쓰는 API 스키마를 확인하세요."
+    },
+    "rodin-tapose": {
+      "ko": "Rodin T·A포즈 고정",
+      "effect_ko": "휴머노이드를 T·A 포즈로 생성해 리깅을 쉽게 해요."
+    },
+    "rodin-highpack": {
+      "ko": "Rodin 고해상 텍스처 애드온",
+      "effect_ko": "HighPack 애드온은 텍스처를 4K로 올려요(기본 2K). 일부 제공처는 hd_texture 옵션을 따로 둬요."
+    },
+    "rodin-bbox": {
+      "ko": "Rodin 바운딩 박스 조건",
+      "effect_ko": "생성될 모델의 가로·세로·깊이 비율을 강제로 정해요(Runware 기준 [Y, Z, X] 순서)."
+    },
+    "hunyuan-generate-type": {
+      "ko": "Hunyuan3D 생성 타입",
+      "effect_ko": "3.0은 Normal·Low Poly·Geometry(텍스처 없는 형태만), 3.1은 Normal·Geometry를 제공해요(제공처마다 달라요). Geometry에선 enable_pbr가 무시돼요."
+    },
+    "trellis-guidance": {
+      "ko": "TRELLIS 가이던스·스텝",
+      "effect_ko": "희소 구조(SS)와 구조 잠재(SLAT) 두 단계마다 guidance strength(입력 충실도)와 sampling steps(품질↔시간)를 정해요. 호스트 기본값 예시는 7.5·12스텝이에요."
+    },
+    "gaussian-splatting": {
+      "ko": "3D 가우시안 스플래팅",
+      "effect_ko": "수많은 반투명 타원체로 장면을 표현해 사진 같은 실시간 화면을 만들어요. 시각화엔 강하지만 메시처럼 편집·충돌·리깅하긴 어려워요."
+    },
+    "nerf": {
+      "ko": "NeRF",
+      "effect_ko": "신경망이 장면의 빛을 학습해 새 시점을 렌더해요. 가우시안 스플래팅 이전 세대라 렌더가 느린 편이에요."
+    },
+    "world-model": {
+      "ko": "월드 모델",
+      "effect_ko": "텍스트·이미지로 걸어 다닐 수 있는 3D 환경 전체를 만들어요. Marble은 내보낼 수 있는 월드(스플랫·메시), Genie 3는 실시간으로 생성되는 인터랙티브 월드(720p·24fps, 몇 분간 일관성)예요."
+    },
+    "collider-mesh": {
+      "ko": "콜라이더 메시",
+      "effect_ko": "월드의 물리 충돌용 저폴리 메시예요. 스플랫엔 충돌 판정이 없어 게임·시뮬레이션에선 함께 써요(Marble 내보내기 옵션)."
+    },
+    "chisel-blockout": {
+      "ko": "Chisel(블록아웃 후 스타일 프롬프트)",
+      "effect_ko": "벽·방·지형을 단순한 상자로 먼저 배치해 구조를 고정하고, 텍스트로 스타일을 입혀요. 레이아웃을 정확히 잡을 땐 프롬프트만 쓰는 것보다 나아요."
+    },
+    "panorama-360": {
+      "ko": "360° 파노라마",
+      "effect_ko": "등장방형(equirectangular) 파노라마로 월드를 시작하거나 내보내요. HDRI 배경이나 월드 생성 입력으로 써요."
+    },
+    "promptable-world-events": {
+      "ko": "프롬프트 월드 이벤트",
+      "effect_ko": "Genie 3에서 탐험 중에 텍스트로 날씨·물체·사건을 바꿔 넣는 기능이에요."
+    }
+  },
+  "combos": {
+    "mobile-game-prop": {
+      "name_ko": "모바일 게임용 로우폴리 소품",
+      "goal_ko": "가볍고 귀여운 게임 소품을 바로 엔진에 넣고 싶을 때",
+      "notes_ko": "스마트 로우폴리는 단순한 형태에서 잘 돼요. 핸드페인팅풍 텍스처라면 PBR을 꺼도 괜찮아요."
+    },
+    "realistic-pbr-game": {
+      "name_ko": "사실적인 PBR 게임 에셋",
+      "goal_ko": "콘솔·PC 게임 수준의 사실적인 소품이 필요할 때",
+      "notes_ko": "LOD는 엔진에서 따로 만들어 보세요."
+    },
+    "riggable-character": {
+      "name_ko": "리깅 가능한 캐릭터",
+      "goal_ko": "애니메이션까지 붙일 휴머노이드 캐릭터를 만들 때",
+      "notes_ko": "Meshy 리깅 가이드는 Remesh 후 Rig를 권해요. 손가락·망토처럼 떨어진 부위는 리깅 품질이 떨어질 수 있어요."
+    },
+    "print-figurine": {
+      "name_ko": "3D 프린팅 피규어",
+      "goal_ko": "집에서 출력할 미니어처·피규어를 만들 때",
+      "notes_ko": "텍스처는 필요 없으니 preview 형태만으로 충분할 수 있어요. 슬라이서에 넣기 전 Blender 3D Print Toolbox로 비매니폴드를 검사하세요."
+    },
+    "ar-product": {
+      "name_ko": "AR 제품 미리보기",
+      "goal_ko": "쇼핑몰에서 휴대폰 AR로 제품을 띄우고 싶을 때",
+      "notes_ko": "크기가 틀리면 AR에서 어색하니 auto_size 결과를 실제 치수와 비교해 보세요."
+    },
+    "multiview-character": {
+      "name_ko": "멀티뷰 기반 고정밀 캐릭터",
+      "goal_ko": "뒷면까지 의도대로 나온 캐릭터가 필요할 때",
+      "notes_ko": "생성 이미지의 뷰끼리 디테일이 다르면 3D에서 뭉개지니, 자르기 전에 확인하세요."
+    },
+    "image-3d-icon": {
+      "name_ko": "이미지 모델 3D 아이콘",
+      "goal_ko": "앱·웹용 귀여운 3D 아이콘 이미지가 필요할 때",
+      "notes_ko": "실제 3D 파일이 아니라 3D처럼 보이는 2D 이미지예요. 필요하면 이 이미지를 다시 image-to-3D 입력으로 써요."
+    },
+    "cinematic-ue5": {
+      "name_ko": "UE5 시네마틱 느낌",
+      "goal_ko": "게임 트레일러 같은 사실적인 3D 장면 이미지를 만들 때",
+      "notes_ko": "엔진 이름 키워드는 이미지 모델에 '느낌'만 줘요."
+    },
+    "product-octane": {
+      "name_ko": "광고용 제품 렌더",
+      "goal_ko": "광택 있는 고급 제품 광고 이미지를 만들 때",
+      "notes_ko": ""
+    },
+    "form-review": {
+      "name_ko": "형태 검수 비교 세트",
+      "goal_ko": "여러 생성기 결과를 공정하게 비교하고 싶을 때",
+      "notes_ko": "텍스처가 형태 결함을 가리니, 클레이·와이어프레임을 같은 조명·카메라로 렌더해 비교하세요."
+    },
+    "sculpt-to-game": {
+      "name_ko": "고폴리 → 게임용 변환",
+      "goal_ko": "AI 고폴리 결과를 게임용 저폴리로 옮길 때",
+      "notes_ko": "전통적인 하이→로우 베이크 방식이에요."
+    },
+    "retexture-variants": {
+      "name_ko": "같은 형태, 다른 재질",
+      "goal_ko": "형태는 그대로 두고 재질·색만 여러 버전으로 비교할 때",
+      "notes_ko": "항목 하나만 바꿔 비교하기에 가장 좋은 구조예요."
+    },
+    "explorable-world": {
+      "name_ko": "탐험 가능한 3D 월드",
+      "goal_ko": "걸어 다닐 수 있는 환경·배경을 만들 때",
+      "notes_ko": "내보내기는 요금제마다 제한이 있어요(무료는 내보내기 불가로 안내돼요)."
+    },
+    "voxel-diorama": {
+      "name_ko": "복셀 디오라마",
+      "goal_ko": "마인크래프트풍 장면 오브젝트를 만들 때",
+      "notes_ko": ""
+    },
+    "toon-character-render": {
+      "name_ko": "툰 셰이딩 캐릭터",
+      "goal_ko": "애니메이션풍 3D 캐릭터를 렌더할 때",
+      "notes_ko": ""
+    }
+  },
+  "techniques": {
+    "one-variable-ab": {
+      "ko": "시드 고정 1변수 비교",
+      "how_ko": "원안·모델 버전·시드·설정을 고정하고 단어나 파라미터 하나만 바꿔 생성해요. 시드를 지원하는 모델(Tripo model_seed·texture_seed, TRELLIS·Rodin 시드)에서 효과적이에요.",
+      "when_ko": "용어 효과를 정확히 확인하고 싶을 때"
+    },
+    "image-first": {
+      "ko": "이미지 먼저 만들고 3D로",
+      "how_ko": "이미지 모델로 정면·흰 배경·단일 피사체 콘셉트를 먼저 정하고, 그 이미지를 image-to-3D에 넣어요. 텍스트→3D보다 형태와 색을 잡기 쉬워요.",
+      "when_ko": "디자인을 정확히 지정하고 싶을 때"
+    },
+    "preview-then-refine": {
+      "ko": "형태 먼저, 텍스처 나중",
+      "how_ko": "Meshy preview(텍스처 없음)나 Hunyuan Geometry 모드로 형태만 여러 개 뽑아 고른 뒤 텍스처를 입혀요. 비용과 시간을 아끼고 비교 기준도 나눌 수 있어요.",
+      "when_ko": "형태 후보가 많을 때"
+    },
+    "separate-geo-texture-prompt": {
+      "ko": "형태·표면 프롬프트 나누기",
+      "how_ko": "형태 프롬프트엔 모양·비율·부품만, texture_prompt엔 재질·색·낡음만 적어요. 재질어가 형태를 비트는 현상이 줄어요.",
+      "when_ko": "재질 바리에이션을 만들 때"
+    },
+    "prompt-structure": {
+      "ko": "3D 프롬프트 구조",
+      "how_ko": "대상, 스타일(low poly 등), 주 재질, 핵심 디테일, 제약(single object, no base) 순으로 짧게 적어요. 장면·배경·카메라 묘사는 3D 생성기에서 대부분 무시되거나 쓸데없는 형상을 만들어요.",
+      "when_ko": "텍스트→3D를 쓸 때"
+    },
+    "multiview-from-image-model": {
+      "ko": "이미지 모델로 멀티뷰 만들기",
+      "how_ko": "턴어라운드 시트를 만들어 뷰별로 잘라 멀티뷰 입력으로 써요. 뷰끼리 안 맞으면 정면 한 장이 더 나을 수 있으니 둘 다 비교해 보세요.",
+      "when_ko": "뒷면 디자인이 중요한 캐릭터를 만들 때"
+    },
+    "remesh-before-rig": {
+      "ko": "리깅 전에 리메시",
+      "how_ko": "AI 메시는 삼각형이 불규칙해요. 쿼드·적정 면 수로 Remesh한 뒤 리깅해야 관절이 덜 깨져요.",
+      "when_ko": "애니메이션용 캐릭터를 만들 때"
+    },
+    "neutral-review-scene": {
+      "ko": "중립 검수 씬",
+      "how_ko": "모든 결과를 같은 HDRI·카메라·턴테이블에서 텍스처 버전과 클레이 버전으로 렌더해 나란히 둬요. 뷰어 기본 조명 차이로 생기는 착시를 없애요.",
+      "when_ko": "생성기·설정 비교표를 만들 때"
+    },
+    "input-cleanup": {
+      "ko": "입력 이미지 정리",
+      "how_ko": "배경을 지우고 1:1, 1024px 이상으로 잘라요. 그림자·글자·가림을 없애고 고른 조명으로 다시 만들거나 고친 뒤 올려요.",
+      "when_ko": "사진·일러스트를 3D로 바꿀 때"
+    },
+    "negative-constraints": {
+      "ko": "필요 없는 요소 빼기",
+      "how_ko": "3D 생성기는 받침대·바닥판을 붙이곤 해서 'no base, no pedestal'을 적거나 Tripo negative_prompt를 써요. 프린팅용 미니어처라면 반대로 'on round base'로 받침을 요청해요.",
+      "when_ko": "물체 하나만 따로 필요할 때"
+    },
+    "post-in-blender": {
+      "ko": "Blender로 마무리",
+      "how_ko": "결과를 Blender로 가져와 원점·크기를 정리하고 Decimate·Remesh, 재질 수정(유리·발광은 다시 설정), 베이크 후 다시 내보내요. Blender MCP 같은 AI 연동으로 일부는 자동화할 수 있어요.",
+      "when_ko": "실제 서비스에 넣기 전"
+    },
+    "blockout-then-style": {
+      "ko": "블록아웃 후 스타일링",
+      "how_ko": "월드 생성에서 벽·방·지형 같은 구조를 단순한 형태로 먼저 고정하고, 스타일만 프롬프트로 정해요. 같은 블록아웃에 스타일어만 바꿔 비교하기 좋아요.",
+      "when_ko": "레이아웃이 정해진 환경을 만들 때"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 520px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  form { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  input[type=text], select { padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fff; }
+  #input { flex: 1; min-width: 140px; }
+  button { padding: 8px 14px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  .bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px; background: #f7f8fb; border-radius: 8px; margin-bottom: 10px; }
+  .search { flex: 1; min-width: 140px; position: relative; }
+  .search input { width: 100%; padding-left: 28px; }
+  .search::before { content: '🔍'; position: absolute; left: 8px; top: 8px; font-size: 12px; }
+  .seg { display: flex; border: 1px solid #ccc; border-radius: 6px; overflow: hidden; }
+  .seg button { background: #fff; color: #555; border-radius: 0; padding: 7px 10px; font-size: 13px; }
+  .seg button.on { background: #4a6cf7; color: #fff; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+  li .t { flex: 1; } li.done .t { text-decoration: line-through; color: #999; }
+  mark { background: #fff3a3; padding: 0 1px; }
+  .pri { font-size: 11px; padding: 2px 7px; border-radius: 999px; }
+  .p3 { background: #fde2e2; color: #b42318; } .p2 { background: #fef0c7; color: #93370d; } .p1 { background: #e0f2fe; color: #075985; }
+  .due { font-size: 11px; color: #888; width: 42px; text-align: right; }
+  .del { background: none; color: #c33; padding: 2px 6px; }
+  .meta { font-size: 12px; color: #666; margin-top: 10px; }
+  .none { text-align: center; color: #999; padding: 20px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form">
+    <input type="text" id="input" placeholder="할 일을 입력하세요">
+    <select id="newPri"><option value="3">높음</option><option value="2" selected>보통</option><option value="1">낮음</option></select>
+    <button>추가</button>
+  </form>
+  <div class="bar">
+    <div class="search"><input type="text" id="q" placeholder="검색"></div>
+    <div class="seg" id="filter"><button data-f="all" class="on">전체</button><button data-f="active">진행</button><button data-f="done">완료</button></div>
+    <select id="sort"><option value="new">최근 추가순</option><option value="pri">우선순위순</option><option value="due">마감일순</option><option value="name">가나다순</option></select>
+  </div>
+  <ul id="list"></ul>
+  <div class="meta" id="meta"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  const label = { 3: '높음', 2: '보통', 1: '낮음' };
+  let id = 0;
+  let todos = [
+    ['장보기', 2, 3, false], ['운동하기', 1, 1, true], ['보고서 작성', 3, 2, false], ['치과 예약', 3, 5, false],
+    ['이메일 답장', 2, 1, true], ['책 반납하기', 1, 7, false], ['분기 보고서 검토', 3, 4, false], ['화분 물 주기', 1, 2, false]
+  ].map(([text, pri, due, done]) => ({ id: ++id, text, pri, due, done }));
+  let filter = 'all';
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function render() {
+    const q = document.getElementById('q').value.trim().toLowerCase(), sort = document.getElementById('sort').value;
+    let rows = todos.filter(t => (filter === 'all' || (filter === 'done') === t.done) && t.text.toLowerCase().includes(q));
+    const cmp = { new: (a, b) => b.id - a.id, pri: (a, b) => b.pri - a.pri, due: (a, b) => a.due - b.due, name: (a, b) => a.text.localeCompare(b.text, 'ko') }[sort];
+    rows.sort(cmp);
+    const list = document.getElementById('list'); list.innerHTML = '';
+    if (!rows.length) list.innerHTML = '<div class="none">조건에 맞는 할 일이 없어요</div>';
+    rows.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      let txt = esc(t.text);
+      if (q) txt = txt.replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), m => `<mark>${m}</mark>`);
+      li.innerHTML = `<input type="checkbox" ${t.done ? 'checked' : ''}><span class="t">${txt}</span><span class="pri p${t.pri}">${label[t.pri]}</span><span class="due">D-${t.due}</span><button class="del">✕</button>`;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+    document.getElementById('meta').textContent = `${rows.length}개 표시 / 전체 ${todos.length}개 · 남은 할 일 ${todos.filter(t => !t.done).length}개`;
+  }
+  document.getElementById('filter').onclick = e => {
+    if (!e.target.dataset.f) return; filter = e.target.dataset.f;
+    document.querySelectorAll('#filter button').forEach(b => b.classList.toggle('on', b === e.target)); render();
+  };
+  document.getElementById('q').oninput = render; document.getElementById('sort').onchange = render;
+  bindSubmit(document.getElementById('form'), e => {
+    e.preventDefault(); const i = document.getElementById('input'), v = i.value.trim(); if (!v) return;
+    todos.push({ id: ++id, text: v, pri: +document.getElementById('newPri').value, due: 7, done: false }); i.value = ''; render();
+  });
+  render();
+</script>
+</body>
+</html>

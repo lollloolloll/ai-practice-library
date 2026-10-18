@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 16px; color: #222; }
+  .wrap { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 16px; min-width: 0; }
+  h1 { font-size: 20px; margin: 0 0 12px; } h2 { font-size: 14px; margin: 0 0 8px; color: #555; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+  form input[name=title] { grid-column: 1 / -1; }
+  input, select { padding: 7px 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; min-width: 0; }
+  input.bad, select.bad { border-color: #d64545; background: #fff7f7; }
+  button { padding: 7px 12px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 13px; grid-column: 1 / -1; }
+  .errs { font-size: 12px; color: #d64545; min-height: 16px; margin-bottom: 6px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+  li .t { flex: 1; } li.done .t { text-decoration: line-through; color: #999; }
+  .chip { font-size: 11px; padding: 1px 7px; border-radius: 999px; background: #eef1ff; color: #3b4fd8; }
+  .chip.high { background: #fde2e2; color: #b42318; }
+  pre { margin: 0; background: #1f2430; color: #cfd6e6; border-radius: 8px; padding: 10px; font-size: 11px; line-height: 1.5; overflow: auto; max-height: 300px; }
+  .k { color: #93c5fd; } .s { color: #a7f3d0; } .n { color: #fcd34d; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 6px; } .tabs button { grid-column: auto; background: #eef0f5; color: #333; padding: 4px 10px; font-size: 12px; } .tabs button.on { background: #1f2430; color: #fff; }
+  @media (max-width: 720px) { .wrap { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>할 일 목록</h1>
+    <form id="form" novalidate>
+      <input name="title" placeholder="제목 (1~80자)">
+      <select name="priority"><option value="">우선순위 선택</option><option value="low">low</option><option value="medium">medium</option><option value="high">high</option></select>
+      <input name="dueDate" type="date">
+      <input name="tags" placeholder="태그 (쉼표 구분, 최대 5개)" style="grid-column:1/-1">
+      <button>추가</button>
+    </form>
+    <div class="errs" id="errs"></div>
+    <ul id="list"></ul>
+  </div>
+  <div class="card">
+    <h2>데이터 모델</h2>
+    <div class="tabs"><button class="on" data-v="schema">JSON Schema</button><button data-v="ts">TypeScript</button><button data-v="data">현재 데이터</button></div>
+    <pre id="code"></pre>
+  </div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  // ① 스키마를 먼저 정의 → UI·검증·저장이 모두 이 스키마를 따름
+  const TodoSchema = {
+    $id: 'Todo', type: 'object', required: ['id', 'title', 'status', 'priority', 'createdAt'], additionalProperties: false,
+    properties: {
+      id: { type: 'string', format: 'uuid' },
+      title: { type: 'string', minLength: 1, maxLength: 80 },
+      status: { type: 'string', enum: ['todo', 'done'] },
+      priority: { type: 'string', enum: ['low', 'medium', 'high'] },
+      dueDate: { type: ['string', 'null'], format: 'date' },
+      tags: { type: 'array', items: { type: 'string', maxLength: 20 }, maxItems: 5, uniqueItems: true },
+      createdAt: { type: 'string', format: 'date-time' }
+    }
+  };
+  const TS = `type Priority = 'low' | 'medium' | 'high';\ntype Status = 'todo' | 'done';\n\ninterface Todo {\n  id: string;          // uuid\n  title: string;       // 1–80자\n  status: Status;\n  priority: Priority;\n  dueDate: string | null; // YYYY-MM-DD\n  tags: string[];      // 최대 5개, 중복 불가\n  createdAt: string;   // ISO 8601\n}`;
+  // ② 최소 검증기 (스키마 기반)
+  function validate(obj, schema = TodoSchema) {
+    const errs = [];
+    for (const k of schema.required) if (obj[k] === undefined || obj[k] === '') errs.push([k, '필수 항목']);
+    for (const [k, rule] of Object.entries(schema.properties)) {
+      const v = obj[k]; if (v === undefined || v === null) continue;
+      if (rule.minLength && v.length < rule.minLength) errs.push([k, `${rule.minLength}자 이상`]);
+      if (rule.maxLength && v.length > rule.maxLength) errs.push([k, `${rule.maxLength}자 이하`]);
+      if (rule.enum && !rule.enum.includes(v)) errs.push([k, `${rule.enum.join(' | ')} 중 하나`]);
+      if (rule.maxItems && v.length > rule.maxItems) errs.push([k, `최대 ${rule.maxItems}개`]);
+      if (rule.uniqueItems && new Set(v).size !== v.length) errs.push([k, '중복 불가']);
+      if (rule.format === 'date' && !/^\d{4}-\d{2}-\d{2}$/.test(v)) errs.push([k, 'YYYY-MM-DD']);
+      if (rule.items?.maxLength && v.some(x => x.length > rule.items.maxLength)) errs.push([k, `각 ${rule.items.maxLength}자 이하`]);
+    }
+    for (const k of Object.keys(obj)) if (!schema.properties[k]) errs.push([k, '정의되지 않은 필드']);
+    return errs;
+  }
+  const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : r & 3 | 8).toString(16); }));
+  const createTodo = input => ({ id: uuid(), title: input.title.trim(), status: 'todo', priority: input.priority, dueDate: input.dueDate || null, tags: input.tags ? input.tags.split(',').map(s => s.trim()).filter(Boolean) : [], createdAt: new Date().toISOString() });
+  let todos = [createTodo({ title: '장보기', priority: 'medium', tags: '집,주말' }), createTodo({ title: '보고서 작성', priority: 'high', dueDate: '2024-07-05', tags: '업무' })];
+  let view = 'schema';
+  const hl = json => json.replace(/("[^"]+")(\s*:)/g, '<span class="k">$1</span>$2').replace(/: ("[^"]*")/g, ': <span class="s">$1</span>').replace(/: (\d+|true|false|null)/g, ': <span class="n">$1</span>');
+  function render() {
+    const list = document.getElementById('list'); list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.status === 'done') li.className = 'done';
+      li.innerHTML = `<input type="checkbox" ${t.status === 'done' ? 'checked' : ''}><span class="t"></span><span class="chip ${t.priority === 'high' ? 'high' : ''}">${t.priority}</span>${t.tags.map(x => `<span class="chip" style="background:#f1f1f4;color:#555">#${x.replace(/</g, '&lt;')}</span>`).join('')}`;
+      li.querySelector('.t').textContent = t.title;
+      li.querySelector('input').onchange = () => { t.status = t.status === 'done' ? 'todo' : 'done'; render(); };
+      list.appendChild(li);
+    });
+    const code = document.getElementById('code');
+    if (view === 'schema') code.innerHTML = hl(JSON.stringify(TodoSchema, null, 2));
+    else if (view === 'ts') code.textContent = TS;
+    else code.innerHTML = hl(JSON.stringify(todos, null, 2).replace(/</g, '&lt;'));
+  }
+  document.querySelector('.tabs').onclick = e => { if (!e.target.dataset.v) return; view = e.target.dataset.v; document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b === e.target)); render(); };
+  bindSubmit(document.getElementById('form'), e => {
+    e.preventDefault(); const f = e.target, input = Object.fromEntries(new FormData(f));
+    const todo = createTodo(input), errs = validate(todo);
+    f.querySelectorAll('input,select').forEach(el => el.classList.toggle('bad', errs.some(([k]) => k === el.name || (k === 'title' && el.name === 'title'))));
+    document.getElementById('errs').textContent = errs.map(([k, m]) => `${k}: ${m}`).join(' · ');
+    if (errs.length) return;
+    todos.push(todo); f.reset(); view = 'data'; document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === 'data')); render();
+  });
+  render();
+</script>
+</body>
+</html>

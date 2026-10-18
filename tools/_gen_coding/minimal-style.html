@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #111; font-family: -apple-system, "Helvetica Neue", "Apple SD Gothic Neo", system-ui, sans-serif; font-size: 15px; }
+  .app { max-width: 420px; margin: 0 auto; padding: 64px 24px; }
+  h1 { font-size: 13px; font-weight: 500; letter-spacing: .08em; color: #999; margin: 0 0 40px; text-transform: uppercase; display: flex; justify-content: space-between; }
+  input { width: 100%; border: 0; border-bottom: 1px solid #eee; padding: 12px 0; font: inherit; font-size: 20px; outline: none; transition: border-color .2s; }
+  input:focus { border-color: #111; }
+  input::placeholder { color: #ccc; }
+  ul { list-style: none; padding: 0; margin: 28px 0 0; }
+  li { display: flex; align-items: center; gap: 14px; padding: 12px 0; cursor: pointer; }
+  li .dot { width: 14px; height: 14px; border: 1px solid #bbb; border-radius: 50%; flex: none; transition: all .2s; }
+  li.done .dot { background: #111; border-color: #111; }
+  li span { flex: 1; transition: color .2s; }
+  li.done span { color: #c8c8c8; }
+  li .x { opacity: 0; color: #bbb; font-size: 13px; background: none; border: 0; cursor: pointer; transition: opacity .2s; }
+  li:hover .x { opacity: 1; }
+  .foot { margin-top: 32px; font-size: 12px; color: #bbb; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1><span>할 일</span><span id="count"></span></h1>
+  <form id="form"><input id="input" placeholder="무엇을 해야 하나요?" autocomplete="off"></form>
+  <ul id="list"></ul>
+  <div class="foot">Enter로 추가 · 클릭으로 완료</div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }];
+  const list = document.getElementById('list');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<i class="dot"></i><span></span><button class="x" aria-label="삭제">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.onclick = () => { t.done = !t.done; render(); };
+      li.querySelector('.x').onclick = e => { e.stopPropagation(); todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+    document.getElementById('count').textContent = todos.filter(t => !t.done).length;
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

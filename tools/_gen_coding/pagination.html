@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .panel { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .label { font-size: 13px; color: #777; } .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .panel h2 { font-size: 16px; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+  select { font-size: 13px; padding: 4px 6px; border: 1px solid #ccc; border-radius: 6px; }
+  .tw { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 420px; }
+  th { text-align: left; color: #777; font-weight: 600; font-size: 12px; padding: 8px; border-bottom: 1px solid #e5e5e5; }
+  td { padding: 9px 8px; border-bottom: 1px solid #f2f2f2; }
+  td.r, th.r { text-align: right; }
+  .b { font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+  .paid { background: #e7f6ee; color: #2e7d4f; } .ship { background: #e8edff; color: #3346c4; } .ref { background: #fde8e8; color: #b42318; }
+  .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; flex-wrap: wrap; gap: 8px; font-size: 13px; color: #666; }
+  .pages { display: flex; gap: 4px; flex-wrap: wrap; }
+  .pages button { min-width: 34px; height: 34px; border: 1px solid #d9dce4; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  .pages button.on { background: #4a6cf7; color: #fff; border-color: #4a6cf7; font-weight: 700; }
+  .pages button:disabled { opacity: .4; cursor: default; }
+  .pages span { padding: 0 4px; align-self: center; color: #aaa; }
+</style>
+</head>
+<body>
+<h1>매출 대시보드</h1>
+<div class="kpis">
+  <div class="kpi"><div class="label">이번 달 매출</div><div class="value">₩48,250,000</div></div>
+  <div class="kpi"><div class="label">주문 수</div><div class="value">1,284</div></div>
+  <div class="kpi"><div class="label">평균 주문 금액</div><div class="value">₩37,580</div></div>
+</div>
+<div class="panel">
+  <h2>주문 내역 <label style="font-size:12px;font-weight:400;color:#666">페이지당 <select id="size"><option>10</option><option>20</option><option>50</option></select>개</label></h2>
+  <div class="tw"><table><thead><tr><th>주문번호</th><th>고객</th><th>상품</th><th class="r">금액</th><th>상태</th></tr></thead><tbody id="tb"></tbody></table></div>
+  <div class="pager"><span id="info"></span><div class="pages" id="pages"></div></div>
+</div>
+<script>
+  const names = ['김민지','이준호','박서연','최도윤','정하은','강지후','윤서준','임수아','한예준','오지민'];
+  const items = ['예가체프 200g','수프리모 400g','안티구아 200g','하우스 블렌드 1kg','디카페인 400g','드립백 30개입'];
+  const st = [['결제완료','paid'],['배송중','ship'],['환불','ref']];
+  let s = 3; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const orders = Array.from({ length: 237 }, (_, i) => ({ id: 'A' + (20480 - i), who: names[Math.floor(r() * 10)], item: items[Math.floor(r() * 6)], amt: Math.round(15 + r() * 120) * 1000, s: st[r() < .75 ? 0 : r() < .7 ? 1 : 2] }));
+  let page = 1, size = 10;
+  function range(cur, last) {
+    // 1 … 4 5 [6] 7 8 … 24 형태
+    const out = [], w = 1;
+    for (let p = 1; p <= last; p++) if (p === 1 || p === last || Math.abs(p - cur) <= w) out.push(p); else if (out[out.length - 1] !== '…') out.push('…');
+    return out;
+  }
+  function render() {
+    const last = Math.ceil(orders.length / size); page = Math.min(page, last);
+    const start = (page - 1) * size, rows = orders.slice(start, start + size);
+    document.getElementById('tb').innerHTML = rows.map(o => `<tr><td>#${o.id}</td><td>${o.who}</td><td>${o.item}</td><td class="r">₩${o.amt.toLocaleString()}</td><td><span class="b ${o.s[1]}">${o.s[0]}</span></td></tr>`).join('');
+    document.getElementById('info').textContent = `${start + 1}–${start + rows.length} / 총 ${orders.length}건`;
+    const pg = document.getElementById('pages');
+    pg.innerHTML = `<button data-p="${page - 1}" ${page === 1 ? 'disabled' : ''} aria-label="이전">‹</button>` +
+      range(page, last).map(p => p === '…' ? '<span>…</span>' : `<button data-p="${p}" class="${p === page ? 'on' : ''}" ${p === page ? 'aria-current="page"' : ''}>${p}</button>`).join('') +
+      `<button data-p="${page + 1}" ${page === last ? 'disabled' : ''} aria-label="다음">›</button>`;
+  }
+  document.getElementById('pages').onclick = e => { const p = +e.target.dataset.p; if (p) { page = p; render(); } };
+  document.getElementById('size').onchange = e => { size = +e.target.value; page = 1; render(); };
+  render();
+</script>
+</body>
+</html>

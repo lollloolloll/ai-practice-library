@@ -1,0 +1,1596 @@
+@@term production-ready todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 프로덕션 수준(production-ready)으로 — 오류 처리, 입력 검증, 접근성, 설정값 분리, console.log 없이 만들어줘.
+@@transcript
+실서비스에 올릴 수 있는 수준으로 다음을 보강했습니다.
+
+- **저장소 오류 대응**: 손상된 데이터·용량 초과·사생활 보호 모드(localStorage 차단)에서도 앱이 멈추지 않고 안내 메시지 표시
+- **입력 검증**: 공백 제거, 최대 200자, 빈 값 차단 + 화면에 오류 표시
+- **XSS 방지**: 사용자 입력은 `textContent`로만 렌더링
+- **안정적인 ID**: 배열 인덱스 대신 `crypto.randomUUID()` (삭제·토글 시 엉뚱한 항목이 바뀌는 문제 방지)
+- **접근성**: `label`, `aria-live`, 키보드 포커스 스타일, 삭제 버튼에 항목 이름 포함
+- **설정값 분리**: `CONFIG` 객체 (저장 키, 최대 길이)
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  .container { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; border: 1px solid #d4d4d8; border-radius: 6px; }
+  input[aria-invalid=true] { border-color: #dc2626; }
+  button { padding: 8px 12px; cursor: pointer; border-radius: 6px; border: 1px solid #d4d4d8; background: #fff; }
+  :focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .msg { min-height: 1.2em; font-size: 13px; margin: 6px 0 0; color: #dc2626; }
+  .banner { background: #fef3c7; color: #92400e; padding: 8px 12px; border-radius: 6px; font-size: 13px; margin-bottom: 12px; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; overflow-wrap: anywhere; }
+  li.done span { text-decoration: line-through; color: #999; }
+  .empty { color: #71717a; font-size: 14px; text-align: center; padding: 16px 0; }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>할 일 목록</h1>
+  <div id="banner" class="banner" role="alert" hidden></div>
+  <form id="form" class="input-row" novalidate>
+    <label for="todoInput" class="sr-only">새 할 일</label>
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요" maxlength="200" autocomplete="off" aria-describedby="formMsg">
+    <button type="submit">추가</button>
+  </form>
+  <p id="formMsg" class="msg" aria-live="polite"></p>
+  <ul id="todoList"></ul>
+  <p id="empty" class="empty" hidden>할 일이 없습니다.</p>
+</main>
+<script>
+  'use strict';
+  const CONFIG = { storageKey: 'todos.v1', maxLength: 200 };
+  const $ = (id) => document.getElementById(id);
+
+  const storage = {
+    load() {
+      try {
+        const data = JSON.parse(localStorage.getItem(CONFIG.storageKey) ?? '[]');
+        if (!Array.isArray(data)) throw new Error('invalid shape');
+        return data.filter((t) => t && typeof t.id === 'string' && typeof t.text === 'string')
+                   .map((t) => ({ id: t.id, text: t.text, done: Boolean(t.done) }));
+      } catch {
+        showBanner('저장된 데이터를 읽을 수 없어 빈 목록으로 시작합니다.');
+        return [];
+      }
+    },
+    save(todos) {
+      try {
+        localStorage.setItem(CONFIG.storageKey, JSON.stringify(todos));
+        return true;
+      } catch {
+        showBanner('저장 공간에 접근할 수 없어 변경 내용이 이 탭에만 유지됩니다.');
+        return false;
+      }
+    },
+  };
+
+  let todos = storage.load();
+
+  function showBanner(text) { $('banner').textContent = text; $('banner').hidden = false; }
+  function setFormMessage(text) {
+    $('formMsg').textContent = text;
+    $('todoInput').setAttribute('aria-invalid', String(Boolean(text)));
+  }
+
+  function commit(next) { todos = next; storage.save(todos); render(); }
+
+  function render() {
+    const list = $('todoList');
+    list.replaceChildren(...todos.map((todo) => {
+      const li = document.createElement('li');
+      li.classList.toggle('done', todo.done);
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.checked = todo.done;
+      box.setAttribute('aria-label', `${todo.text} 완료`);
+      box.addEventListener('change', () => commit(todos.map((t) => (t.id === todo.id ? { ...t, done: !t.done } : t))));
+      const text = document.createElement('span');
+      text.textContent = todo.text;
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.textContent = '삭제';
+      del.setAttribute('aria-label', `${todo.text} 삭제`);
+      del.addEventListener('click', () => commit(todos.filter((t) => t.id !== todo.id)));
+      li.append(box, text, del);
+      return li;
+    }));
+    $('empty').hidden = todos.length > 0;
+  }
+
+  $('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = $('todoInput');
+    const text = input.value.trim().replace(/\s+/g, ' ');
+    if (!text) return setFormMessage('내용을 입력해 주세요.');
+    if (text.length > CONFIG.maxLength) return setFormMessage(`${CONFIG.maxLength}자 이하로 입력해 주세요.`);
+    setFormMessage('');
+    commit([...todos, { id: crypto.randomUUID(), text, done: false }]);
+    input.value = '';
+    input.focus();
+  });
+  $('todoInput').addEventListener('input', () => setFormMessage(''));
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term prototype-quick todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 빠른 프로토타입(quick prototype)이면 돼 — 정상 동작 경로만, 최소한의 코드로, 테스트 없이.
+@@transcript
+최소 버전입니다. 추가·완료·삭제만 되고, 저장·검증·스타일은 없습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="UTF-8">
+<title>할 일</title>
+<body style="font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 0 16px">
+<h1>할 일</h1>
+<form onsubmit="add(event)"><input id="t" autofocus> <button>추가</button></form>
+<ul id="list"></ul>
+<script>
+  const todos = [];
+  function add(e) {
+    e.preventDefault();
+    todos.push({ text: t.value, done: false });
+    t.value = '';
+    draw();
+  }
+  function draw() {
+    list.innerHTML = todos.map((x, i) => `
+      <li><input type="checkbox" ${x.done ? 'checked' : ''} onchange="todos[${i}].done ^= 1; draw()">
+      <span style="text-decoration:${x.done ? 'line-through' : 'none'}">${x.text}</span>
+      <button onclick="todos.splice(${i}, 1); draw()">x</button></li>`).join('');
+  }
+</script>
+</body>
+</html>
+@@html=code
+
+@@term type-safe todo-app ts
+@@prompt
+할 일 목록 앱을 만들어줘. 완전히 타입 안전(type-safe)하게 — TypeScript strict, `any` 금지, 외부에서 들어오는 데이터는 zod로 검증해줘.
+@@transcript
+타입 안전성을 세 겹으로 확보했습니다.
+
+1. **컴파일 타임**: `strict` + `noUncheckedIndexedAccess` + ESLint `no-explicit-any`
+2. **런타임 경계 검증**: localStorage·API처럼 "타입을 믿을 수 없는 곳"에서 들어온 값은 zod 스키마로 파싱 — 실패하면 타입이 `Todo`가 되지 않음
+3. **타입을 스키마에서 파생**: `type Todo = z.infer<typeof TodoSchema>` — 스키마와 타입이 따로 놀 수 없음
+
+`as` 단언은 한 군데도 쓰지 않았습니다.
+@@file src/schema.ts
+import { z } from "zod";
+
+export const TodoSchema = z.object({
+  id: z.string().uuid(),
+  text: z.string().trim().min(1, "내용을 입력하세요").max(200, "200자 이하로 입력하세요"),
+  done: z.boolean(),
+  createdAt: z.number().int().positive(),
+});
+export const TodoListSchema = z.array(TodoSchema);
+export const NewTodoInputSchema = TodoSchema.pick({ text: true });
+
+export type Todo = z.infer<typeof TodoSchema>;
+export type NewTodoInput = z.infer<typeof NewTodoInputSchema>;
+
+export type Filter = "all" | "active" | "done";
+
+export type TodoAction =
+  | { type: "add"; text: string }
+  | { type: "toggle"; id: Todo["id"] }
+  | { type: "remove"; id: Todo["id"] };
+@@file src/storage.ts
+import { TodoListSchema, type Todo } from "./schema";
+
+const KEY = "todos";
+
+export type LoadResult = { ok: true; todos: Todo[] } | { ok: false; error: string };
+
+export function loadTodos(): LoadResult {
+  let raw: unknown;
+  try {
+    raw = JSON.parse(localStorage.getItem(KEY) ?? "[]");
+  } catch {
+    return { ok: false, error: "저장 데이터가 JSON이 아닙니다." };
+  }
+  const parsed = TodoListSchema.safeParse(raw);
+  return parsed.success ? { ok: true, todos: parsed.data } : { ok: false, error: parsed.error.issues[0]?.message ?? "형식 오류" };
+}
+
+export function saveTodos(todos: readonly Todo[]): void {
+  localStorage.setItem(KEY, JSON.stringify(todos));
+}
+@@file src/reducer.ts
+import type { Todo, TodoAction } from "./schema";
+
+export function reducer(todos: readonly Todo[], action: TodoAction): Todo[] {
+  switch (action.type) {
+    case "add":
+      return [...todos, { id: crypto.randomUUID(), text: action.text, done: false, createdAt: Date.now() }];
+    case "toggle":
+      return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
+    case "remove":
+      return todos.filter((t) => t.id !== action.id);
+    default: {
+      const exhaustive: never = action; // 새 액션을 추가하고 처리하지 않으면 컴파일 오류
+      return exhaustive;
+    }
+  }
+}
+@@file src/main.ts
+import { NewTodoInputSchema, type Todo } from "./schema";
+import { loadTodos, saveTodos } from "./storage";
+import { reducer } from "./reducer";
+
+function getEl<T extends Element>(selector: string, ctor: new () => T): T {
+  const el = document.querySelector(selector);
+  if (!(el instanceof ctor)) throw new Error(`${selector} 요소가 없거나 타입이 다릅니다`);
+  return el;
+}
+
+const form = getEl("#form", HTMLFormElement);
+const input = getEl("#input", HTMLInputElement);
+const list = getEl("#list", HTMLUListElement);
+const error = getEl("#error", HTMLParagraphElement);
+
+const initial = loadTodos();
+let todos: Todo[] = initial.ok ? initial.todos : [];
+if (!initial.ok) error.textContent = initial.error;
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const result = NewTodoInputSchema.safeParse({ text: input.value });
+  if (!result.success) {
+    error.textContent = result.error.issues[0]?.message ?? "";
+    return;
+  }
+  error.textContent = "";
+  todos = reducer(todos, { type: "add", text: result.data.text });
+  saveTodos(todos);
+  input.value = "";
+  render();
+});
+
+function render(): void {
+  list.replaceChildren(...todos.map(renderItem));
+}
+
+function renderItem(todo: Todo): HTMLLIElement {
+  const li = document.createElement("li");
+  const box = document.createElement("input");
+  box.type = "checkbox";
+  box.checked = todo.done;
+  box.addEventListener("change", () => dispatchAndSave({ type: "toggle", id: todo.id }));
+  const span = document.createElement("span");
+  span.textContent = todo.text;
+  const del = document.createElement("button");
+  del.textContent = "삭제";
+  del.addEventListener("click", () => dispatchAndSave({ type: "remove", id: todo.id }));
+  li.append(box, span, del);
+  return li;
+}
+
+function dispatchAndSave(action: Parameters<typeof reducer>[1]): void {
+  todos = reducer(todos, action);
+  saveTodos(todos);
+  render();
+}
+
+render();
+@@file tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM"]
+  }
+}
+
+@@term error-handling todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 오류 처리(robust error handling)를 탄탄하게 — 실패는 잡아서 사용자에게 친절한 메시지와 다시 시도 버튼을 보여주고, 조용히 죽는 일이 없게 해줘.
+@@transcript
+실패할 수 있는 지점마다 처리 방식을 정했습니다.
+
+| 실패 지점 | 처리 |
+|---|---|
+| 저장 데이터 손상 (JSON 파싱 실패) | 원본을 `todos.backup`에 보존 → 빈 목록으로 시작 → 안내 |
+| 저장 실패 (용량 초과·차단) | 화면 상태는 유지, 오류 배너 + **다시 시도** 버튼 |
+| 예상 못 한 런타임 오류 | `window.onerror`에서 잡아 배너 표시 (흰 화면 방지) |
+
+테스트해 보려면 개발자 도구 콘솔에서 `localStorage.setItem('todos', '{깨진')` 후 새로고침해 보세요.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+  .alert { display: flex; gap: 8px; align-items: center; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca;
+           padding: 10px 12px; border-radius: 6px; font-size: 14px; margin-bottom: 12px; }
+  .alert.info { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+  .alert p { flex: 1; margin: 0; }
+  .alert button { padding: 4px 10px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div id="alert" class="alert" role="alert" hidden><p id="alertText"></p><button id="alertAction" hidden></button><button id="alertClose" aria-label="닫기">✕</button></div>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  const KEY = 'todos';
+
+  function showAlert(message, { type = 'error', actionLabel, onAction } = {}) {
+    const box = document.getElementById('alert');
+    const action = document.getElementById('alertAction');
+    box.className = 'alert' + (type === 'info' ? ' info' : '');
+    document.getElementById('alertText').textContent = message;
+    action.hidden = !actionLabel;
+    action.textContent = actionLabel || '';
+    action.onclick = () => { hideAlert(); onAction?.(); };
+    box.hidden = false;
+  }
+  function hideAlert() { document.getElementById('alert').hidden = true; }
+  document.getElementById('alertClose').onclick = hideAlert;
+
+  function loadTodos() {
+    let raw = null;
+    try {
+      raw = localStorage.getItem(KEY);
+      const data = JSON.parse(raw || '[]');
+      if (!Array.isArray(data)) throw new TypeError('배열이 아님');
+      return data;
+    } catch (err) {
+      try { if (raw) localStorage.setItem(KEY + '.backup', raw); } catch {}
+      showAlert('저장된 목록을 불러오지 못해 새 목록으로 시작합니다. (기존 데이터는 백업해 두었어요)', { type: 'info' });
+      return [];
+    }
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(todos));
+      return true;
+    } catch (err) {
+      const reason = err.name === 'QuotaExceededError' ? '저장 공간이 가득 찼어요.' : '브라우저가 저장을 막고 있어요.';
+      showAlert(`변경 내용을 저장하지 못했습니다. ${reason}`, { actionLabel: '다시 시도', onAction: save });
+      return false;
+    }
+  }
+
+  let todos = loadTodos();
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = Boolean(todo.done);
+      li.querySelector('span').textContent = String(todo.text ?? '');
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value.trim();
+    if (!text) return;
+    todos.push({ text: text, done: false });
+    input.value = '';
+    save();
+    render();
+  }
+
+  // 예상 못 한 오류도 흰 화면 대신 안내로
+  window.addEventListener('error', () => {
+    showAlert('문제가 발생했어요. 새로고침하면 대부분 해결됩니다.', { actionLabel: '새로고침', onAction: () => location.reload() });
+  });
+  window.addEventListener('unhandledrejection', () => showAlert('요청을 처리하지 못했어요. 잠시 후 다시 시도해 주세요.'));
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.isComposing) addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term edge-cases todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 엣지 케이스(edge cases)도 처리해줘 — 공백만 입력, 아주 긴 제목, 중복 항목, 손상된 localStorage, 한글 입력 중 Enter 같은 경우.
+@@transcript
+처리한 엣지 케이스 목록입니다.
+
+1. **공백만 입력** → 추가 안 함 (`trim()`), 연속 공백은 하나로
+2. **긴 제목** → 최대 200자, 남은 글자 수 표시, 긴 영단어/URL은 줄바꿈 (`overflow-wrap: anywhere`)
+3. **중복** → 같은 내용(대소문자·공백 무시)이 이미 진행 중이면 추가하지 않고 기존 항목을 강조
+4. **손상된 localStorage** → 파싱 실패·배열 아님·필드 누락 항목은 걸러냄
+5. **한글 IME 조합 중 Enter** → `e.isComposing` 체크로 마지막 글자가 두 번 들어가는 버그 방지
+6. **인덱스 대신 ID** → 빠르게 연속 삭제해도 엉뚱한 항목이 지워지지 않음
+7. **빈 목록 / 전부 완료** → 각각 다른 안내 문구
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  .hint { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-top: 4px; min-height: 1.2em; }
+  .hint .warn { color: #c2410c; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; overflow-wrap: anywhere; }
+  li.done span { text-decoration: line-through; color: #999; }
+  li.flash { animation: flash 1s; }
+  @keyframes flash { 0%, 60% { background: #fef08a; } 100% { background: transparent; } }
+  .empty { text-align: center; color: #888; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요" maxlength="200">
+    <button id="addBtn">추가</button>
+  </div>
+  <div class="hint"><span id="warn" class="warn"></span><span id="counter">0/200</span></div>
+  <ul id="todoList"></ul>
+  <p id="empty" class="empty"></p>
+</div>
+<script>
+  const MAX = 200;
+  const normalize = (s) => s.trim().replace(/\s+/g, ' ');
+  const sameText = (a, b) => normalize(a).toLowerCase() === normalize(b).toLowerCase();
+
+  function loadTodos() {
+    try {
+      const data = JSON.parse(localStorage.getItem('todos'));
+      if (!Array.isArray(data)) return [];
+      return data
+        .filter((t) => t && typeof t.text === 'string' && normalize(t.text))
+        .map((t, i) => ({ id: t.id ?? `${Date.now()}-${i}`, text: normalize(t.text).slice(0, MAX), done: t.done === true }));
+    } catch {
+      return [];
+    }
+  }
+
+  let todos = loadTodos();
+
+  function save() {
+    try { localStorage.setItem('todos', JSON.stringify(todos)); } catch { /* 저장 불가 환경: 메모리로만 동작 */ }
+  }
+
+  function render(flashId) {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      if (todo.id === flashId) li.classList.add('flash');
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = todo.done;
+      li.querySelector('span').textContent = todo.text;
+      li.querySelector('input').onchange = () => { todo.done = !todo.done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos = todos.filter((t) => t.id !== todo.id); save(); render(); };
+      list.appendChild(li);
+    });
+    const empty = document.getElementById('empty');
+    empty.textContent = todos.length === 0 ? '할 일이 없습니다.' : todos.every((t) => t.done) ? '모두 완료했어요! 🎉' : '';
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = normalize(input.value);
+    const warn = document.getElementById('warn');
+    if (!text) { warn.textContent = '내용을 입력하세요.'; return; }
+    const dup = todos.find((t) => !t.done && sameText(t.text, text));
+    if (dup) { warn.textContent = '이미 같은 할 일이 있어요.'; render(dup.id); return; }
+    todos.push({ id: crypto.randomUUID(), text: text.slice(0, MAX), done: false });
+    input.value = '';
+    warn.textContent = '';
+    updateCounter();
+    save();
+    render();
+  }
+
+  function updateCounter() {
+    const len = document.getElementById('todoInput').value.length;
+    const counter = document.getElementById('counter');
+    counter.textContent = `${len}/${MAX}`;
+    counter.className = len >= MAX ? 'warn' : '';
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('input', () => { updateCounter(); document.getElementById('warn').textContent = ''; });
+  document.getElementById('todoInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.isComposing) addTodo(); // 한글 조합 중 Enter 무시
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term input-validation todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 모든 사용자 입력은 검증하고 정제(input validation & sanitization)해줘. 텍스트는 innerHTML이 아니라 textContent로만 그려줘.
+@@transcript
+입력 처리를 `sanitize → validate → 저장` 3단계로 만들었습니다.
+
+- **정제(sanitize)**: 앞뒤 공백 제거, 연속 공백 축소, 제어 문자·제로폭 문자 제거
+- **검증(validate)**: 필수, 2~100자, 마감일은 오늘 이후 — 실패 시 입력란 아래에 즉시 오류 표시하고 `aria-invalid` 설정
+- **출력**: 모든 사용자 텍스트는 `textContent` — `<img src=x onerror=alert(1)>`을 입력해도 글자 그대로 보입니다
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 380px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .field { margin-bottom: 10px; }
+  .field label { display: block; font-size: 13px; color: #444; margin-bottom: 4px; }
+  .field input { width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .field input[aria-invalid=true] { border-color: #dc2626; background: #fef2f2; }
+  .error { color: #dc2626; font-size: 12px; margin: 4px 0 0; min-height: 1em; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; overflow-wrap: anywhere; }
+  li small { color: #888; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <form id="form" novalidate>
+    <div class="field">
+      <label for="title">할 일 (2~100자)</label>
+      <input id="title" name="title" aria-describedby="titleError" autocomplete="off">
+      <p id="titleError" class="error" role="alert"></p>
+    </div>
+    <div class="field">
+      <label for="due">마감일 (선택)</label>
+      <input id="due" name="due" type="date" aria-describedby="dueError">
+      <p id="dueError" class="error" role="alert"></p>
+    </div>
+    <button type="submit">추가</button>
+  </form>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  // ── 정제: 보이지 않는 문자·제어 문자 제거, 공백 정리 ──
+  function sanitize(text) {
+    return String(text)
+      .normalize('NFC')
+      .replace(/[\u0000-\u001F\u007F​-‍﻿]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // ── 검증: 오류 메시지 객체 반환 (빈 객체면 통과) ──
+  function validate({ title, due }) {
+    const errors = {};
+    if (!title) errors.title = '할 일을 입력해 주세요.';
+    else if (title.length < 2) errors.title = '2자 이상 입력해 주세요.';
+    else if (title.length > 100) errors.title = `100자 이하로 입력해 주세요. (현재 ${title.length}자)`;
+    if (due) {
+      const today = new Date().toISOString().slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) errors.due = '날짜 형식이 올바르지 않습니다.';
+      else if (due < today) errors.due = '마감일은 오늘 이후여야 합니다.';
+    }
+    return errors;
+  }
+
+  function showErrors(errors) {
+    for (const name of ['title', 'due']) {
+      document.getElementById(name).setAttribute('aria-invalid', String(Boolean(errors[name])));
+      document.getElementById(name + 'Error').textContent = errors[name] || '';
+    }
+    const first = Object.keys(errors)[0];
+    if (first) document.getElementById(first).focus();
+  }
+
+  // 저장된 값도 신뢰하지 않고 다시 정제·검증
+  let todos = [];
+  try {
+    const stored = JSON.parse(localStorage.getItem('todos') || '[]');
+    todos = (Array.isArray(stored) ? stored : [])
+      .map((t) => ({ title: sanitize(t?.title ?? ''), due: typeof t?.due === 'string' ? t.due : '', done: t?.done === true }))
+      .filter((t) => t.title.length >= 2 && t.title.length <= 100);
+  } catch { todos = []; }
+
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.replaceChildren(...todos.map((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.checked = todo.done;
+      box.onchange = () => { todo.done = !todo.done; save(); render(); };
+      const span = document.createElement('span');
+      span.textContent = todo.title;                 // innerHTML 사용 안 함
+      const due = document.createElement('small');
+      due.textContent = todo.due ? `~${todo.due.slice(5)}` : '';
+      const del = document.createElement('button');
+      del.textContent = '삭제';
+      del.onclick = () => { todos.splice(index, 1); save(); render(); };
+      li.append(box, span, due, del);
+      return li;
+    }));
+  }
+
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const values = { title: sanitize(e.target.title.value), due: e.target.due.value };
+    const errors = validate(values);
+    showErrors(errors);
+    if (Object.keys(errors).length) return;
+    todos.push({ ...values, done: false });
+    save();
+    e.target.reset();
+    render();
+  });
+  document.getElementById('title').addEventListener('input', (e) => {
+    if (e.target.getAttribute('aria-invalid') === 'true') showErrors(validate({ title: sanitize(e.target.value), due: '' }));
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term security-xss todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 보안을 기본으로 적용해줘(secure by default) — XSS 방지, 출력 이스케이프, 클라이언트 코드에 비밀값 넣지 않기.
+@@transcript
+보안 관점에서 기본 버전과 달라진 점입니다.
+
+1. **XSS 차단**: 사용자 입력을 `innerHTML` 템플릿에 끼워 넣지 않고 `textContent`로만 출력합니다. (기존 방식이면 `<img src=x onerror=alert(document.cookie)>`가 실행됩니다)
+2. **CSP 헤더**: 인라인 이벤트 핸들러·외부 스크립트 차단 (`script-src 'self'`). 그래서 JS를 `app.js`로 분리했습니다.
+3. **신뢰 경계**: localStorage 값도 다른 스크립트가 바꿀 수 있으므로 읽을 때 형식 검증
+4. **비밀값**: 이 앱엔 API 키가 필요 없습니다. 나중에 서버를 붙이면 키는 `.env`에 두고 서버에서만 사용하세요. 클라이언트에 들어간 키는 누구나 볼 수 있습니다.
+5. **권한 확인은 서버에서**: 서버 동기화를 추가할 때는 "본인 할 일인지"를 반드시 서버(또는 DB RLS)에서 검사해야 합니다.
+@@file index.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>할 일 목록</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <form id="form" class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요" maxlength="200" autocomplete="off">
+    <button type="submit">추가</button>
+  </form>
+  <ul id="todoList"></ul>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+@@file app.js
+'use strict';
+(() => {
+  const KEY = 'todos';
+
+  /** 저장소 값도 외부 입력으로 간주하고 검증 */
+  function load() {
+    try {
+      const data = JSON.parse(localStorage.getItem(KEY) || '[]');
+      return Array.isArray(data)
+        ? data.filter((t) => typeof t?.text === 'string' && t.text.length <= 200)
+              .map((t) => ({ id: String(t.id ?? crypto.randomUUID()), text: t.text, done: t.done === true }))
+        : [];
+    } catch {
+      return [];
+    }
+  }
+
+  let todos = load();
+  const save = () => localStorage.setItem(KEY, JSON.stringify(todos));
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.replaceChildren();
+    for (const todo of todos) {
+      const li = document.createElement('li');
+      li.classList.toggle('done', todo.done);
+
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.checked = todo.done;
+      box.addEventListener('change', () => { todo.done = !todo.done; save(); render(); });
+
+      const span = document.createElement('span');
+      span.textContent = todo.text;           // 절대 innerHTML 사용 금지
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.textContent = '삭제';
+      del.addEventListener('click', () => { todos = todos.filter((t) => t.id !== todo.id); save(); render(); });
+
+      li.append(box, span, del);
+      list.append(li);
+    }
+  }
+
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('todoInput');
+    const text = input.value.trim().slice(0, 200);
+    if (!text) return;
+    todos.push({ id: crypto.randomUUID(), text, done: false });
+    input.value = '';
+    save();
+    render();
+  });
+
+  render();
+})();
+@@file style.css
+body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+.container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; }
+.input-row { display: flex; gap: 8px; }
+li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+li span { flex: 1; overflow-wrap: anywhere; }
+li.done span { text-decoration: line-through; color: #999; }
+
+@@term refactor todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 그리고 동작은 하나도 바꾸지 말고 가독성 위주로 리팩터링(refactor without changing behavior)해줘.
+@@transcript
+동작(화면, 저장 형식 `todos` 키, 추가/토글/삭제)은 그대로 두고 구조만 정리했습니다.
+
+**변경 사항**
+- 반복되던 `document.getElementById` → 시작할 때 한 번만 찾아 상수로 보관
+- `render()` 안에 있던 항목 생성 로직 → `createTodoItem(todo, index)`로 분리
+- "변경 → 저장 → 다시 그리기" 3줄 반복 → `update(changeFn)` 하나로
+- `if (text) { ... }` 중첩 → 조기 반환(early return)
+- 이름 정리: `list` → `listEl`, `addTodo` 유지 (외부에서 쓸 수 있는 이름은 변경하지 않음)
+
+**바꾸지 않은 것**: 공백 입력 처리, 인덱스 기반 삭제 등 기존 동작은 버그처럼 보여도 그대로 두었습니다. 고치려면 별도 작업으로 요청해 주세요.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  const STORAGE_KEY = 'todos';
+  const inputEl = document.getElementById('todoInput');
+  const addBtnEl = document.getElementById('addBtn');
+  const listEl = document.getElementById('todoList');
+
+  let todos = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+  function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }
+
+  function update(changeFn) {
+    changeFn();
+    save();
+    render();
+  }
+
+  function createTodoItem(todo, index) {
+    const li = document.createElement('li');
+    li.classList.toggle('done', todo.done);
+    li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+
+    li.querySelector('input').onchange = () => update(() => { todo.done = !todo.done; });
+    li.querySelector('button').onclick = () => update(() => { todos.splice(index, 1); });
+    return li;
+  }
+
+  function render() {
+    listEl.innerHTML = '';
+    todos.forEach((todo, index) => listEl.appendChild(createTodoItem(todo, index)));
+  }
+
+  function addTodo() {
+    const text = inputEl.value;
+    if (!text) return;
+
+    update(() => todos.push({ text, done: false }));
+    inputEl.value = '';
+  }
+
+  addBtnEl.onclick = addTodo;
+  inputEl.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term dry todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 전체·진행 중·완료 필터와 일괄 처리 버튼도 넣고, 중복 코드는 공용 함수로 뽑아서 DRY(Don't Repeat Yourself)하게 짜줘.
+@@transcript
+비슷한 코드가 반복될 만한 곳을 공용 함수로 묶었습니다.
+
+- `el(tag, props, ...children)` — DOM 요소 생성 헬퍼 (createElement + 속성 + 자식 반복 제거)
+- `mutate(fn)` — 변경 → 저장 → 렌더 3줄 반복 제거
+- `FILTERS` 테이블 — 필터 3개를 `if/else` 대신 데이터로 정의하고, 탭 버튼도 이 테이블에서 생성
+- `BULK_ACTIONS` 테이블 — "모두 완료 / 완료 항목 삭제" 버튼을 같은 방식으로
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 380px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 6px 10px; cursor: pointer; }
+  button.on { background: #222; color: #fff; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <form id="form" class="row"><input type="text" id="todoInput" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <div id="filters" class="row"></div>
+  <ul id="todoList"></ul>
+  <div id="bulk" class="row"></div>
+</div>
+<script>
+  // ── 공용 헬퍼 ──
+  const $ = (id) => document.getElementById(id);
+  function el(tag, props = {}, ...children) {
+    const node = Object.assign(document.createElement(tag), props);
+    node.append(...children);
+    return node;
+  }
+
+  // ── 데이터 정의 (반복 대신 테이블) ──
+  const FILTERS = {
+    all:    { label: '전체',    test: () => true },
+    active: { label: '진행 중', test: (t) => !t.done },
+    done:   { label: '완료',    test: (t) => t.done },
+  };
+  const BULK_ACTIONS = [
+    { label: '모두 완료',      run: (list) => list.map((t) => ({ ...t, done: true })) },
+    { label: '완료 항목 삭제', run: (list) => list.filter((t) => !t.done) },
+  ];
+
+  const state = { todos: JSON.parse(localStorage.getItem('todos') || '[]'), filter: 'all' };
+
+  function mutate(fn) {
+    fn(state);
+    localStorage.setItem('todos', JSON.stringify(state.todos));
+    render();
+  }
+  const updateTodo = (id, change) => mutate((s) => { s.todos = s.todos.map((t) => (t.id === id ? { ...t, ...change } : t)); });
+  const removeTodo = (id) => mutate((s) => { s.todos = s.todos.filter((t) => t.id !== id); });
+
+  function render() {
+    $('filters').replaceChildren(...Object.entries(FILTERS).map(([key, f]) =>
+      el('button', { textContent: f.label, className: state.filter === key ? 'on' : '', onclick: () => mutate((s) => { s.filter = key; }) })));
+
+    $('todoList').replaceChildren(...state.todos.filter(FILTERS[state.filter].test).map((t) =>
+      el('li', { className: t.done ? 'done' : '' },
+        el('input', { type: 'checkbox', checked: t.done, onchange: () => updateTodo(t.id, { done: !t.done }) }),
+        el('span', { textContent: t.text }),
+        el('button', { textContent: '삭제', onclick: () => removeTodo(t.id) }))));
+
+    $('bulk').replaceChildren(...BULK_ACTIONS.map((a) =>
+      el('button', { textContent: a.label, onclick: () => mutate((s) => { s.todos = a.run(s.todos); }) })));
+  }
+
+  $('form').onsubmit = (e) => {
+    e.preventDefault();
+    const text = $('todoInput').value.trim();
+    if (!text) return;
+    mutate((s) => s.todos.push({ id: Date.now(), text, done: false }));
+    $('todoInput').value = '';
+  };
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term yagni todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. YAGNI(You Aren't Gonna Need It) 원칙으로 — 요청한 것만 구현하고, 추가 기능·설정 옵션·추상화는 넣지 마.
+@@transcript
+요청 범위(할 일 추가·완료·삭제·목록 유지)만 구현했습니다.
+
+넣지 않은 것: 필터 탭, 수정 기능, 마감일, 드래그 정렬, 다크 모드, 테마 설정, 저장소 추상화 계층, 상태 관리 라이브러리. 필요해지면 그때 추가하는 게 더 쉽습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; max-width: 360px; margin: 40px auto; padding: 0 16px; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+  <h1>할 일 목록</h1>
+  <form id="form"><input id="todoInput" placeholder="할 일을 입력하세요"> <button>추가</button></form>
+  <ul id="todoList"></ul>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, i) => {
+      const li = document.createElement('li');
+      li.className = todo.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox"> <span></span> <button>삭제</button>';
+      li.querySelector('input').checked = todo.done;
+      li.querySelector('span').textContent = todo.text;
+      li.querySelector('input').onchange = () => { todo.done = !todo.done; update(); };
+      li.querySelector('button').onclick = () => { todos.splice(i, 1); update(); };
+      list.appendChild(li);
+    });
+  }
+
+  function update() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+    render();
+  }
+
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('todoInput');
+    if (!input.value.trim()) return;
+    todos.push({ text: input.value.trim(), done: false });
+    input.value = '';
+    update();
+  };
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term kiss todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 단순하게(KISS) — 동작하는 가장 쉬운 방법으로, 초보자도 읽을 수 있게 짜줘.
+@@transcript
+초보자도 위에서 아래로 읽으면 이해되도록 만들었습니다. 화살표 함수·템플릿 문자열·클래스 같은 문법 없이, 함수 4개(`load`, `save`, `show`, `add`)로만 구성했습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; max-width: 360px; margin: 40px auto; padding: 0 16px; }
+  li { margin: 6px 0; }
+  .done { text-decoration: line-through; color: gray; }
+</style>
+</head>
+<body>
+  <h1>할 일 목록</h1>
+  <input id="newTodo" placeholder="할 일을 입력하세요">
+  <button onclick="add()">추가</button>
+  <ul id="list"></ul>
+
+<script>
+  // 할 일 목록 (예: [{ text: '우유 사기', done: false }])
+  var todos = load();
+
+  // 1. 브라우저에 저장된 목록 불러오기
+  function load() {
+    var saved = localStorage.getItem('todos');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+    return [];
+  }
+
+  // 2. 목록 저장하기
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  // 3. 화면에 목록 보여주기
+  function show() {
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+
+    for (var i = 0; i < todos.length; i++) {
+      var item = document.createElement('li');
+
+      var checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = todos[i].done;
+      checkbox.dataset.index = i;
+      checkbox.onchange = function () {
+        var index = this.dataset.index;
+        todos[index].done = this.checked;
+        save();
+        show();
+      };
+
+      var text = document.createElement('span');
+      text.textContent = ' ' + todos[i].text + ' ';
+      if (todos[i].done) {
+        text.className = 'done';
+      }
+
+      var deleteButton = document.createElement('button');
+      deleteButton.textContent = '삭제';
+      deleteButton.dataset.index = i;
+      deleteButton.onclick = function () {
+        todos.splice(this.dataset.index, 1);
+        save();
+        show();
+      };
+
+      item.appendChild(checkbox);
+      item.appendChild(text);
+      item.appendChild(deleteButton);
+      list.appendChild(item);
+    }
+  }
+
+  // 4. 새 할 일 추가하기
+  function add() {
+    var input = document.getElementById('newTodo');
+    var text = input.value.trim();
+    if (text === '') {
+      return;
+    }
+    todos.push({ text: text, done: false });
+    input.value = '';
+    save();
+    show();
+  }
+
+  show();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term clean-code-comments todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 읽기 쉬운 코드로 — 이름은 명확하게, 주석은 '무엇'이 아니라 '왜'를 설명하고, 공개 함수에는 JSDoc을 달아줘(well-commented, readable code).
+@@code
+/**
+ * 할 일 목록 앱
+ *
+ * 데이터 흐름: 사용자 입력 → todos 배열 변경 → localStorage 저장 → 전체 다시 그리기.
+ * 항목 수가 수백 개를 넘지 않는다고 보고, 부분 업데이트 대신 전체 렌더링을 택했다.
+ * (코드가 단순해지고, 화면과 데이터가 어긋나는 버그가 생기지 않는다)
+ */
+
+/** localStorage 키. 저장 형식을 바꾸면 버전을 올려 옛 데이터와 섞이지 않게 한다. */
+const STORAGE_KEY = 'todos.v1';
+
+/**
+ * @typedef {Object} Todo
+ * @property {string} id      - 고유 ID. 배열 인덱스는 삭제 시 바뀌므로 쓰지 않는다.
+ * @property {string} text    - 사용자가 입력한 내용 (앞뒤 공백 제거됨)
+ * @property {boolean} done   - 완료 여부
+ */
+
+/** @type {Todo[]} */
+let todos = loadTodos();
+
+/**
+ * 저장된 할 일을 불러온다.
+ * 사용자가 개발자 도구로 값을 바꿨거나 예전 버전 데이터일 수 있으므로 실패하면 빈 목록으로 시작한다.
+ * @returns {Todo[]}
+ */
+function loadTodos() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return [];
+  }
+}
+
+/** 현재 목록을 저장한다. */
+function saveTodos() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+/**
+ * 새 할 일을 추가한다. 공백만 있는 입력은 실수로 Enter를 누른 경우가 대부분이라 무시한다.
+ * @param {string} rawText - 입력창의 원본 문자열
+ * @returns {boolean} 추가되었으면 true
+ */
+function addTodo(rawText) {
+  const text = rawText.trim();
+  if (text === '') return false;
+
+  todos.push({ id: crypto.randomUUID(), text, done: false });
+  saveTodos();
+  renderTodoList();
+  return true;
+}
+
+/**
+ * 완료 상태를 뒤집는다.
+ * @param {string} id
+ */
+function toggleTodo(id) {
+  const todo = todos.find((item) => item.id === id);
+  if (!todo) return; // 다른 탭에서 이미 삭제된 경우
+  todo.done = !todo.done;
+  saveTodos();
+  renderTodoList();
+}
+
+/**
+ * 할 일을 삭제한다.
+ * @param {string} id
+ */
+function deleteTodo(id) {
+  todos = todos.filter((item) => item.id !== id);
+  saveTodos();
+  renderTodoList();
+}
+
+/** 목록 전체를 다시 그린다. */
+function renderTodoList() {
+  const listElement = document.getElementById('todoList');
+  listElement.replaceChildren(...todos.map(createTodoElement));
+}
+
+/**
+ * 할 일 한 줄의 DOM을 만든다.
+ * @param {Todo} todo
+ * @returns {HTMLLIElement}
+ */
+function createTodoElement(todo) {
+  const item = document.createElement('li');
+  item.classList.toggle('done', todo.done);
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = todo.done;
+  checkbox.addEventListener('change', () => toggleTodo(todo.id));
+
+  // innerHTML이 아닌 textContent: 사용자가 입력한 <script> 등이 실행되지 않게
+  const label = document.createElement('span');
+  label.textContent = todo.text;
+
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = '삭제';
+  deleteButton.addEventListener('click', () => deleteTodo(todo.id));
+
+  item.append(checkbox, label, deleteButton);
+  return item;
+}
+
+const inputElement = document.getElementById('todoInput');
+document.getElementById('addBtn').addEventListener('click', () => {
+  if (addTodo(inputElement.value)) inputElement.value = '';
+});
+inputElement.addEventListener('keydown', (event) => {
+  // 한글 입력 중(조합 중) Enter는 글자 확정용이므로 추가로 처리하지 않는다
+  if (event.key === 'Enter' && !event.isComposing && addTodo(inputElement.value)) {
+    inputElement.value = '';
+  }
+});
+
+renderTodoList();
+
+@@term minimal-diff todo-app html
+@@prompt
+할 일 목록 앱에서 공백만 입력해도 빈 항목이 추가되는 버그가 있어. 최소 변경(minimal diff)으로 이것만 고쳐줘. 관계없는 코드는 포맷도 이름도 바꾸지 마.
+@@transcript
+원인은 `addTodo()`에서 입력값을 공백 제거 없이 검사하는 부분입니다. `"   "`는 빈 문자열이 아니라서 `if (text)`를 통과합니다.
+
+변경은 **1줄**입니다.
+
+```diff
+   function addTodo() {
+     const input = document.getElementById('todoInput');
+-    const text = input.value;
++    const text = input.value.trim();
+     if (text) {
+```
+
+부수 효과: 앞뒤 공백이 붙은 정상 입력(`"  우유  "`)은 이제 `"우유"`로 저장됩니다. 다른 코드는 건드리지 않았습니다.
+
+참고로 작업 중 눈에 띈 문제(입력값을 `innerHTML`로 출력해 XSS 위험)가 있는데, 요청 범위 밖이라 수정하지 않았습니다. 원하시면 별도로 고치겠습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value.trim();
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+
+@@term root-cause todo-app html
+@@prompt
+할 일 목록 앱이 가끔 열자마자 빈 화면이 되고 콘솔에 "TypeError: todos.forEach is not a function"이 떠. try/catch로 오류를 숨기지 말고 근본 원인(root cause)을 찾아서 고쳐줘.
+@@transcript
+**재현**: 콘솔에서 `localStorage.setItem('todos', '{"items":[]}')` 후 새로고침 → 동일한 오류 발생.
+
+**근본 원인**: 첫 줄의 `JSON.parse(localStorage.getItem('todos')) || []`는 "값이 없을 때"만 막아줍니다. 저장된 값이 **배열이 아닌 다른 JSON**(예: 이전 버전 앱이 `{ items: [...] }` 형태로 저장한 데이터)이면 객체가 그대로 `todos`에 들어가고, `render()`의 `todos.forEach`에서 터집니다. 같은 키 `todos`를 쓰던 예전 버전이 있었을 가능성이 큽니다.
+
+**하지 않은 것**: `render()`를 try/catch로 감싸면 오류는 사라지지만 사용자의 기존 할 일이 조용히 안 보이게 됩니다. 그래서 증상이 아니라 원인(로드 단계의 형식 불일치)을 고쳤습니다.
+
+**수정**: `loadTodos()`에서 형식을 확인하고, 예전 형식 `{ items }`는 **마이그레이션**해서 데이터를 살립니다. 알 수 없는 형식만 빈 목록으로 시작합니다.
+
+```diff
+-  let todos = JSON.parse(localStorage.getItem('todos')) || [];
++  function loadTodos() {
++    const data = JSON.parse(localStorage.getItem('todos') || '[]');
++    if (Array.isArray(data)) return data;
++    if (data && Array.isArray(data.items)) return data.items; // 이전 버전 형식 마이그레이션
++    return [];
++  }
++  let todos = loadTodos();
++  save(); // 마이그레이션된 형식으로 다시 저장
+```
+
+검증: 위 재현 절차 → 오류 없음, 기존 항목 표시됨. 정상 배열 데이터도 그대로 동작합니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  function loadTodos() {
+    const data = JSON.parse(localStorage.getItem('todos') || '[]');
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.items)) return data.items; // 이전 버전 형식 마이그레이션
+    return [];
+  }
+
+  let todos = loadTodos();
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+  save(); // 마이그레이션된 형식으로 다시 저장
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value;
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+
+@@term lint-format todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. ESLint와 Prettier로 린트·포맷(lint & format)을 설정하고, 린트 오류는 전부 고쳐줘.
+@@transcript
+ESLint(flat config) + Prettier를 설정하고 실행했습니다.
+
+```
+$ npx eslint .
+src/app.js
+   3:5   error  'todos' is never reassigned. Use 'const' instead   prefer-const
+  14:7   error  'idx' is assigned a value but never used           no-unused-vars
+  21:9   error  Expected '===' and instead saw '=='                eqeqeq
+  30:3   error  Unexpected console statement                       no-console
+✖ 4 problems (4 errors, 0 warnings)
+```
+
+4건 모두 코드를 고쳐서 해결했습니다(규칙을 끄거나 `eslint-disable` 주석을 쓰지 않음).
+
+```
+$ npm run lint && npm run format:check
+✔ No problems found
+Checking formatting... All matched files use Prettier code style!
+```
+
+에디터 저장 시 자동 포맷을 원하면 VS Code에서 `"editor.formatOnSave": true`를 켜세요.
+@@file package.json
+{
+  "name": "todo-app",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3"
+  }
+}
+@@file eslint.config.js
+import js from "@eslint/js";
+import globals from "globals";
+import prettier from "eslint-config-prettier";
+
+export default [
+  js.configs.recommended,
+  prettier, // 포맷 관련 규칙은 Prettier에 맡김
+  {
+    files: ["src/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: globals.browser,
+    },
+    rules: {
+      eqeqeq: "error",
+      "prefer-const": "error",
+      "no-console": "error",
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    },
+  },
+];
+@@file .prettierrc
+{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "all"
+}
+@@file .prettierignore
+dist
+node_modules
+@@file src/app.js
+const STORAGE_KEY = 'todos';
+
+const todos = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+
+const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+
+function render() {
+  const list = document.getElementById('todoList');
+  list.replaceChildren(
+    ...todos.map((todo) => {
+      const li = document.createElement('li');
+      li.classList.toggle('done', todo.done);
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = todo.done;
+      li.querySelector('span').textContent = todo.text;
+      li.querySelector('input').addEventListener('change', () => {
+        todo.done = !todo.done;
+        save();
+        render();
+      });
+      li.querySelector('button').addEventListener('click', () => {
+        todos.splice(todos.indexOf(todo), 1);
+        save();
+        render();
+      });
+      return li;
+    }),
+  );
+}
+
+document.getElementById('form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const input = document.getElementById('todoInput');
+  const text = input.value.trim();
+  if (text === '') return;
+  todos.push({ text, done: false });
+  input.value = '';
+  save();
+  render();
+});
+
+render();

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  header { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; background: rgba(247,241,235,0); transition: padding .25s, background .25s, box-shadow .25s; }
+  header.scrolled { padding: 10px 24px; background: rgba(255,255,255,.85); backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  .logo { font-weight: 700; font-size: 20px; color: #6f4e37; }
+  nav { display: flex; gap: 4px; }
+  nav a { color: #555; text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 999px; transition: background .2s, color .2s; }
+  nav a.active { background: #6f4e37; color: #fff; }
+  .cta { padding: 8px 16px; background: #6f4e37; color: #fff; border-radius: 999px; font-size: 13px; text-decoration: none; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  header.scrolled .cta { opacity: 1; pointer-events: auto; }
+  .progress { position: absolute; left: 0; bottom: 0; height: 2px; background: #c8a98c; width: 0; }
+  .hero { text-align: center; padding: 72px 24px 90px; background: #f7f1eb; margin-top: -66px; padding-top: 130px; }
+  .hero h1 { font-size: clamp(26px, 5vw, 38px); margin: 0 0 12px; color: #3e2723; }
+  .hero p { color: #666; }
+  section { padding: 56px 24px; max-width: 900px; margin: 0 auto; min-height: 70vh; }
+  h2 { color: #3e2723; text-align: center; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .card { padding: 22px; border: 1px solid #eee; border-radius: 10px; text-align: center; }
+  .price { font-size: 26px; font-weight: 700; color: #6f4e37; }
+  .scrollhint { font-size: 13px; color: #a1887f; margin-top: 30px; }
+  footer { text-align: center; padding: 24px; background: #3e2723; color: #d7ccc8; font-size: 14px; }
+  @media (max-width: 560px) { nav a:not(.active) { display: none; } .cta { display: none; } }
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="logo">☕ 빈하우스</div>
+  <nav id="nav"><a href="#features">특징</a><a href="#plans">요금제</a><a href="#reviews">후기</a></nav>
+  <a class="cta" href="#plans">구독하기</a>
+  <div class="progress" id="prog"></div>
+</header>
+<div class="hero">
+  <h1>매주 신선한 원두를 문 앞까지</h1>
+  <p>로스팅 후 48시간 안에 배송되는 스페셜티 커피 구독 서비스</p>
+  <div class="scrollhint">↓ 스크롤하면 헤더가 상단에 고정됩니다</div>
+</div>
+<section id="features"><h2>왜 빈하우스인가요?</h2><div class="grid">
+  <div class="card"><h3>🌱 신선함</h3><p>주문 후 로스팅해 바로 발송합니다.</p></div>
+  <div class="card"><h3>🌍 다양한 산지</h3><p>매달 새로운 산지의 원두를 소개합니다.</p></div>
+  <div class="card"><h3>🚚 무료 배송</h3><p>모든 구독은 배송비가 무료입니다.</p></div>
+</div></section>
+<section id="plans" style="background:#fbf8f5;max-width:none"><h2>요금제</h2><div class="grid" style="max-width:900px;margin:0 auto">
+  <div class="card"><h3>라이트</h3><div class="price">₩15,900</div><p>월 200g</p></div>
+  <div class="card"><h3>스탠다드</h3><div class="price">₩27,900</div><p>월 400g</p></div>
+  <div class="card"><h3>프리미엄</h3><div class="price">₩49,900</div><p>월 800g</p></div>
+</div></section>
+<section id="reviews"><h2>고객 후기</h2><div class="grid">
+  <div class="card">"아침이 기다려져요. 에티오피아 원두 최고!"<br><small>— 김지은</small></div>
+  <div class="card">"배송이 정말 빨라요. 향이 살아있어요."<br><small>— 박민수</small></div>
+</div></section>
+<footer>© 2024 빈하우스 커피</footer>
+<script>
+  const hdr = document.getElementById('hdr'), links = [...document.querySelectorAll('#nav a')];
+  const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  addEventListener('scroll', () => {
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    hdr.classList.toggle('scrolled', y > 20);
+    document.getElementById('prog').style.width = (y / max * 100) + '%';
+    let cur = -1; secs.forEach((s, i) => { if (s.getBoundingClientRect().top < 120) cur = i; });
+    links.forEach((a, i) => a.classList.toggle('active', i === cur));
+  }, { passive: true });
+</script>
+</body>
+</html>

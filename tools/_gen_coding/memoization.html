@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 18px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 21px; margin: 0; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .clock { font: 13px ui-monospace, monospace; color: #666; }
+  .ctrl { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; background: #fff; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 13px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  select { padding: 5px 8px; border-radius: 6px; border: 1px solid #ccc; }
+  .toggle { margin-left: auto; padding: 6px 12px; border-radius: 999px; border: 0; cursor: pointer; font-weight: 700; }
+  .toggle.on { background: #2e9e5b; color: #fff; } .toggle.off { background: #d64545; color: #fff; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .kpi, .panel { background: #fff; padding: 14px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .label { font-size: 12px; color: #777; } .value { font-size: 21px; font-weight: 700; margin-top: 2px; }
+  .perf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; font-size: 12px; margin-bottom: 12px; }
+  .perf div { background: #1f2430; color: #cfd6e6; padding: 8px 10px; border-radius: 8px; } .perf b { display: block; font: 700 18px ui-monospace, monospace; color: #fff; }
+  .perf .hot b { color: #ff8a8a; } .perf .cool b { color: #7ee2a8; }
+  .bars { display: flex; flex-direction: column; gap: 6px; }
+  .bar { display: grid; grid-template-columns: 70px 1fr 90px; gap: 8px; align-items: center; font-size: 13px; }
+  .bar i { display: block; height: 14px; background: #4a6cf7; border-radius: 3px; transition: width .3s; }
+  .bar span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const { useState, useMemo, useEffect, memo, useRef } = React;
+  const html = htm.bind(React.createElement);
+  // 목업: 거래 30만 건
+  const REGIONS = ['서울', '경기', '부산', '대구', '인천', '광주', '대전'], CH = ['자사몰', '스마트스토어', '쿠팡'];
+  let s = 9; const r = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const TX = Array.from({ length: 300000 }, () => ({ region: REGIONS[Math.floor(r() * 7)], ch: CH[Math.floor(r() * 3)], month: 1 + Math.floor(r() * 12), amount: 5000 + Math.floor(r() * 200000) }));
+  const stats = { computeMs: 0, computes: 0, renders: 0 };
+
+  // 비싼 집계: 30만 건 필터 + 그룹 합계
+  function aggregate(channel, month) {
+    const t0 = performance.now(); stats.computes++;
+    const by = {}; let total = 0, count = 0;
+    for (const t of TX) {
+      if ((channel === '전체' || t.ch === channel) && (month === 0 || t.month === month)) { by[t.region] = (by[t.region] || 0) + t.amount; total += t.amount; count++; }
+    }
+    for (let k = 0; k < 3; k++) TX.slice(0, 60000).sort((a, b) => a.amount - b.amount); // 추가 정렬 비용
+    stats.computeMs = performance.now() - t0;
+    return { by, total, count };
+  }
+  const RegionBars = memo(function RegionBars({ by }) {   // React.memo: props가 같으면 리렌더 생략
+    const max = Math.max(...Object.values(by), 1);
+    return html`<div class="bars">${REGIONS.map(k => html`<div class="bar" key=${k}><span>${k}</span><i style=${{ width: (by[k] || 0) / max * 100 + '%' }}></i><span>₩${((by[k] || 0) / 1e8).toFixed(2)}억</span></div>`)}</div>`;
+  });
+  function App() {
+    const [channel, setChannel] = useState('전체');
+    const [month, setMonth] = useState(0);
+    const [memoOn, setMemoOn] = useState(true);
+    const [now, setNow] = useState(new Date());
+    const nonce = useRef(0);
+    useEffect(() => { const t = setInterval(() => setNow(new Date()), 1000); return () => clearInterval(t); }, []);  // 1초마다 리렌더 유발
+    stats.renders++;
+    // useMemo: channel·month가 바뀔 때만 재계산. 꺼지면 매 렌더마다 재계산.
+    const data = useMemo(() => aggregate(channel, month), [channel, month, memoOn ? 0 : ++nonce.current]);
+    return html`
+      <div class="top"><h1>매출 대시보드</h1><span class="clock">⏱ ${now.toLocaleTimeString('ko-KR')} (매초 리렌더)</span></div>
+      <div class="ctrl">
+        채널 <select value=${channel} onChange=${e => setChannel(e.target.value)}>${['전체', ...CH].map(c => html`<option key=${c}>${c}</option>`)}</select>
+        월 <select value=${month} onChange=${e => setMonth(+e.target.value)}><option value="0">전체</option>${Array.from({ length: 12 }, (_, i) => html`<option key=${i} value=${i + 1}>${i + 1}월</option>`)}</select>
+        <button class=${'toggle ' + (memoOn ? 'on' : 'off')} onClick=${() => setMemoOn(!memoOn)}>useMemo ${memoOn ? 'ON' : 'OFF'}</button>
+      </div>
+      <div class="perf">
+        <div>렌더 횟수<b>${stats.renders}</b></div>
+        <div class=${memoOn ? 'cool' : 'hot'}>집계 실행 횟수<b>${stats.computes}</b></div>
+        <div class=${stats.computeMs > 50 && !memoOn ? 'hot' : 'cool'}>마지막 집계 시간<b>${memoOn ? '캐시' : stats.computeMs.toFixed(0) + 'ms'}</b></div>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><div class="label">매출 합계</div><div class="value">₩${(data.total / 1e8).toFixed(1)}억</div></div>
+        <div class="kpi"><div class="label">거래 건수</div><div class="value">${data.count.toLocaleString()}</div></div>
+        <div class="kpi"><div class="label">객단가</div><div class="value">₩${Math.round(data.total / Math.max(1, data.count)).toLocaleString()}</div></div>
+      </div>
+      <div class="panel"><div class="label" style=${{ marginBottom: 8 }}>지역별 매출 (거래 30만 건 집계)</div><${RegionBars} by=${data.by} /></div>`;
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
+</script>
+</body>
+</html>

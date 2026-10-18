@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 공간 해시</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #14141f; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .hud { position: fixed; top: 8px; left: 8px; background: rgba(0,0,0,.6); padding: 8px 10px; border-radius: 8px; font: 12px/1.7 ui-monospace, monospace; }
+  .hud button { font: 12px system-ui; margin: 2px 4px 0 0; padding: 4px 8px; border-radius: 5px; border: 1px solid #555; background: #2a2a3d; color: #ddd; cursor: pointer; }
+  .hud button.on { background: #4d96ff; border-color: #4d96ff; color: #fff; }
+  .hud b { color: #ffd93d; }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div>방식: <button id="mHash" class="on">공간 해시</button><button id="mBrute">전체 비교 O(n²)</button></div>
+  <div>공 개수: <button data-n="300">300</button><button data-n="1000" class="on">1000</button><button data-n="2500">2500</button></div>
+  <div><label><input type="checkbox" id="grid" checked> 격자 표시</label></div>
+  <div id="stats"></div>
+</div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const R = 4, CELL = 16; let useHash = true, balls = [];
+  function spawn(n) { balls = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * 120, vy: (Math.random() - .5) * 120, hit: 0 })); }
+  spawn(1000);
+
+  // 공간 해시: 셀 키 → 그 셀에 있는 공 목록. 이웃 9칸만 검사.
+  const cells = new Map();
+  function buildHash() {
+    cells.clear();
+    for (let i = 0; i < balls.length; i++) {
+      const b = balls[i], key = ((b.x / CELL) | 0) + ',' + ((b.y / CELL) | 0);
+      let c = cells.get(key); if (!c) cells.set(key, c = []); c.push(i);
+    }
+  }
+  let checks = 0;
+  function resolve(a, b) {
+    checks++;
+    const dx = b.x - a.x, dy = b.y - a.y, d2 = dx * dx + dy * dy;
+    if (d2 >= 4 * R * R || d2 === 0) return;
+    const d = Math.sqrt(d2), nx = dx / d, ny = dy / d, rel = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+    const o = (2 * R - d) / 2; a.x -= nx * o; a.y -= ny * o; b.x += nx * o; b.y += ny * o;
+    if (rel < 0) { a.vx += rel * nx; a.vy += rel * ny; b.vx -= rel * nx; b.vy -= rel * ny; }
+    a.hit = b.hit = 1;
+  }
+  function collide() {
+    checks = 0;
+    if (!useHash) { for (let i = 0; i < balls.length; i++) for (let j = i + 1; j < balls.length; j++) resolve(balls[i], balls[j]); return; }
+    buildHash();
+    for (let i = 0; i < balls.length; i++) {
+      const a = balls[i], cx = (a.x / CELL) | 0, cy = (a.y / CELL) | 0;
+      for (let ox = -1; ox <= 1; ox++) for (let oy = -1; oy <= 1; oy++) {
+        const c = cells.get((cx + ox) + ',' + (cy + oy)); if (!c) continue;
+        for (const j of c) if (j > i) resolve(a, balls[j]);
+      }
+    }
+  }
+  let last = performance.now(), fr = 0, ft = 0, simMs = 0;
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    for (const b of balls) {
+      b.x += b.vx * dt; b.y += b.vy * dt;
+      if (b.x < R || b.x > W - R) { b.vx *= -1; b.x = Math.max(R, Math.min(W - R, b.x)); }
+      if (b.y < R || b.y > H - R) { b.vy *= -1; b.y = Math.max(R, Math.min(H - R, b.y)); }
+      b.hit *= .9;
+    }
+    const t0 = performance.now(); collide(); simMs = simMs * .9 + (performance.now() - t0) * .1;
+    ctx.fillStyle = '#14141f'; ctx.fillRect(0, 0, W, H);
+    if (useHash && document.getElementById('grid').checked) {
+      ctx.fillStyle = 'rgba(77,150,255,.10)';
+      for (const [k, c] of cells) if (c.length > 1) { const [x, y] = k.split(','); ctx.fillRect(x * CELL, y * CELL, CELL, CELL); }
+      ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.beginPath();
+      for (let x = 0; x < W; x += CELL) { ctx.moveTo(x, 0); ctx.lineTo(x, H); } for (let y = 0; y < H; y += CELL) { ctx.moveTo(0, y); ctx.lineTo(W, y); } ctx.stroke();
+    }
+    for (const b of balls) { ctx.fillStyle = b.hit > .2 ? '#ffd93d' : '#4d96ff'; ctx.fillRect(b.x - R, b.y - R, R * 2, R * 2); }
+    fr++; ft += dt;
+    if (ft > .5) {
+      document.getElementById('stats').innerHTML = `FPS <b>${Math.round(fr / ft)}</b> · 충돌 계산 <b>${simMs.toFixed(2)}ms</b><br>쌍 검사 <b>${checks.toLocaleString()}</b>회/프레임<br>(전체 비교라면 ${(balls.length * (balls.length - 1) / 2).toLocaleString()}회)`;
+      fr = 0; ft = 0;
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+  const setMode = h => { useHash = h; document.getElementById('mHash').classList.toggle('on', h); document.getElementById('mBrute').classList.toggle('on', !h); };
+  document.getElementById('mHash').onclick = () => setMode(true); document.getElementById('mBrute').onclick = () => setMode(false);
+  document.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { spawn(+b.dataset.n); document.querySelectorAll('[data-n]').forEach(x => x.classList.toggle('on', x === b)); });
+</script>
+</body>
+</html>

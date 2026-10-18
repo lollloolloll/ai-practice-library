@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #eee; }
+  canvas { display: block; touch-action: none; }
+  .hud { position: fixed; top: 10px; left: 12px; right: 12px; display: flex; justify-content: space-between; font-size: 14px; pointer-events: none; }
+  .hud b { color: #ffd93d; }
+</style>
+</head>
+<body>
+<div class="hud"><span>점수 <b id="score">0</b> · 목숨 <b id="lives">❤❤❤</b></span><span id="fps">-- FPS</span></div>
+<canvas id="c"></canvas>
+<script>
+  // ── 게임 루프 구조: input → update(dt) → render() 를 requestAnimationFrame으로 반복 ──
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+
+  const state = { score: 0, lives: 3, paused: false, over: false };
+  const paddle = { x: W / 2, w: 110, h: 12 };
+  const ball = { x: W / 2, y: H / 3, r: 11, vx: 240, vy: 260 };
+  const input = { x: null, left: false, right: false };
+
+  addEventListener('pointermove', e => input.x = e.clientX);
+  addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') input.left = true; if (e.key === 'ArrowRight') input.right = true;
+    if (e.key === 'p' || e.key === 'P' || e.key === ' ') state.paused = !state.paused;
+  });
+  addEventListener('keyup', e => { if (e.key === 'ArrowLeft') input.left = false; if (e.key === 'ArrowRight') input.right = false; });
+  canvas.addEventListener('pointerdown', () => { if (state.over) reset(); });
+
+  function reset() { Object.assign(state, { score: 0, lives: 3, over: false }); serve(); }
+  function serve() { Object.assign(ball, { x: W / 2, y: H / 3, vx: (Math.random() < .5 ? -1 : 1) * 240, vy: 260 }); }
+
+  function update(dt) {
+    // 입력 처리
+    if (input.left) paddle.x -= 520 * dt; if (input.right) paddle.x += 520 * dt;
+    if (input.x !== null && !input.left && !input.right) paddle.x += (input.x - paddle.x) * Math.min(1, dt * 18);
+    paddle.x = Math.max(paddle.w / 2, Math.min(W - paddle.w / 2, paddle.x));
+    // 이동
+    ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+    // 벽 충돌
+    if (ball.x < ball.r) { ball.x = ball.r; ball.vx *= -1; }
+    if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx *= -1; }
+    if (ball.y < ball.r) { ball.y = ball.r; ball.vy *= -1; }
+    // 패들 충돌
+    const py = H - 40;
+    if (ball.vy > 0 && ball.y + ball.r >= py && ball.y + ball.r <= py + paddle.h + 10 && Math.abs(ball.x - paddle.x) < paddle.w / 2 + ball.r) {
+      ball.vy = -Math.abs(ball.vy) * 1.04; ball.vx += (ball.x - paddle.x) * 4; state.score++;
+    }
+    // 바닥 → 목숨 감소
+    if (ball.y > H + 30) { state.lives--; if (state.lives <= 0) state.over = true; else serve(); }
+  }
+
+  function render() {
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#4d96ff'; ctx.beginPath(); ctx.roundRect(paddle.x - paddle.w / 2, H - 40, paddle.w, paddle.h, 6); ctx.fill();
+    ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2); ctx.fill();
+    document.getElementById('score').textContent = state.score;
+    document.getElementById('lives').textContent = '❤'.repeat(Math.max(0, state.lives)) || '—';
+    if (state.paused || state.over) {
+      ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.font = 'bold 30px system-ui';
+      ctx.fillText(state.over ? '게임 오버' : '일시정지', W / 2, H / 2 - 6);
+      ctx.font = '15px system-ui'; ctx.fillText(state.over ? `점수 ${state.score} · 클릭해서 다시 시작` : 'P 또는 Space로 계속', W / 2, H / 2 + 24);
+    } else if (state.score === 0) {
+      ctx.fillStyle = '#888'; ctx.textAlign = 'center'; ctx.font = '14px system-ui';
+      ctx.fillText('마우스/터치 또는 ← → 로 패들 이동 · P 일시정지', W / 2, H / 2);
+    }
+  }
+
+  let last = performance.now(), frames = 0, fpsT = 0;
+  function loop(now) {
+    const dt = Math.min(0.033, (now - last) / 1000); last = now;  // 탭 전환 등 큰 dt 방지
+    if (!state.paused && !state.over) update(dt);
+    render();
+    frames++; fpsT += dt; if (fpsT >= 0.5) { document.getElementById('fps').textContent = Math.round(frames / fpsT) + ' FPS'; frames = 0; fpsT = 0; }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

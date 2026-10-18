@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 타일맵</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #111; font-family: system-ui, sans-serif; color: #ddd; display: grid; place-items: center; }
+  canvas { display: block; max-width: 100vw; max-height: calc(100vh - 30px); image-rendering: pixelated; touch-action: none; }
+  .hint { font-size: 12px; color: #999; padding: 4px; text-align: center; }
+</style>
+</head>
+<body>
+<div>
+  <canvas id="c"></canvas>
+  <div class="hint">← → 또는 A D 이동 · 벽돌(■)은 3번 맞으면 깨짐 · 클릭으로 타일 편집 · 코인 <b id="coin">0</b></div>
+</div>
+<script>
+  const T = 24;
+  // 문자열 타일맵: # 벽, B 벽돌, ^ 가시, o 코인, = 점프대
+  const MAP = [
+    '####################',
+    '#..................#',
+    '#..o....BBBB....o..#',
+    '#.......B..B.......#',
+    '#..###..BBBB..###..#',
+    '#..................#',
+    '#.o..............o.#',
+    '#....=...##...=....#',
+    '#..######..######..#',
+    '#..................#',
+    '#.o..o..o..o..o..o.#',
+    '##^^^^##====##^^^^##',
+  ];
+  const grid = MAP.map(r => r.split('').map(ch => ({ ch, hp: ch === 'B' ? 3 : 0 })));
+  const COLS = grid[0].length, ROWS = grid.length;
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  canvas.width = COLS * T; canvas.height = ROWS * T;
+  const solid = ch => ch === '#' || ch === 'B';
+  const tileAt = (cx, cy) => (grid[cy] && grid[cy][cx]) || { ch: '#' };
+  const ball = { x: 5 * T, y: 2 * T, vx: 120, vy: 0, r: 8 }; let coins = 0, keys = {};
+  addEventListener('keydown', e => keys[e.key.toLowerCase()] = true); addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
+  canvas.addEventListener('pointerdown', e => {
+    const r = canvas.getBoundingClientRect(), cx = Math.floor((e.clientX - r.left) / r.width * COLS), cy = Math.floor((e.clientY - r.top) / r.height * ROWS);
+    const t = grid[cy][cx]; const order = ['.', 'B', '#', 'o', '=']; t.ch = order[(order.indexOf(t.ch) + 1) % order.length]; t.hp = 3;
+  });
+  // 원 vs 타일(AABB): 주변 3x3 타일만 검사, 가장 가까운 점으로 밀어냄
+  function collide() {
+    const cx = Math.floor(ball.x / T), cy = Math.floor(ball.y / T);
+    for (let y = cy - 1; y <= cy + 1; y++) for (let x = cx - 1; x <= cx + 1; x++) {
+      const t = tileAt(x, y);
+      const nx = Math.max(x * T, Math.min(ball.x, x * T + T)), ny = Math.max(y * T, Math.min(ball.y, y * T + T));
+      const dx = ball.x - nx, dy = ball.y - ny, d = Math.hypot(dx, dy);
+      if (d >= ball.r || d === 0) continue;
+      if (t.ch === 'o') { t.ch = '.'; coins++; continue; }
+      if (t.ch === '^') { Object.assign(ball, { x: 5 * T, y: 2 * T, vx: 120, vy: 0 }); return; }
+      if (t.ch === '=') { ball.vy = -520; continue; }
+      if (!solid(t.ch)) continue;
+      const ux = dx / d, uy = dy / d; ball.x = nx + ux * ball.r; ball.y = ny + uy * ball.r;
+      const dot = ball.vx * ux + ball.vy * uy; if (dot < 0) { ball.vx -= 1.8 * dot * ux; ball.vy -= 1.8 * dot * uy; }
+      if (t.ch === 'B' && --t.hp <= 0) t.ch = '.';
+    }
+  }
+  function drawTile(t, x, y) {
+    const px = x * T, py = y * T;
+    if (t.ch === '#') { ctx.fillStyle = '#5a4a3a'; ctx.fillRect(px, py, T, T); ctx.fillStyle = '#6e5b48'; ctx.fillRect(px + 1, py + 1, T - 2, 6); }
+    else if (t.ch === 'B') { ctx.fillStyle = ['#000', '#7a2e2e', '#b5452f', '#e0643a'][t.hp]; ctx.fillRect(px + 1, py + 1, T - 2, T - 2); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(px + 1, py + T / 2, T - 2, 2); ctx.fillRect(px + T / 2, py + 1, 2, T / 2); }
+    else if (t.ch === '^') { ctx.fillStyle = '#ccc'; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(px + i * 8, py + T); ctx.lineTo(px + i * 8 + 4, py + 8); ctx.lineTo(px + i * 8 + 8, py + T); ctx.fill(); } }
+    else if (t.ch === 'o') { ctx.fillStyle = '#ffd93d'; ctx.beginPath(); ctx.arc(px + T / 2, py + T / 2, 5, 0, 7); ctx.fill(); }
+    else if (t.ch === '=') { ctx.fillStyle = '#4d96ff'; ctx.fillRect(px + 2, py + T - 8, T - 4, 6); ctx.fillStyle = '#9cc3ff'; ctx.fillRect(px + 2, py + T - 10, T - 4, 2); }
+  }
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    if (keys.arrowleft || keys.a) ball.vx -= 600 * dt; if (keys.arrowright || keys.d) ball.vx += 600 * dt;
+    ball.vx = Math.max(-260, Math.min(260, ball.vx));
+    ball.vy += 900 * dt;
+    const steps = 3; for (let i = 0; i < steps; i++) { ball.x += ball.vx * dt / steps; ball.y += ball.vy * dt / steps; collide(); }
+    ctx.fillStyle = '#1b1b2b'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = 'rgba(255,255,255,.04)'; for (let x = 0; x <= COLS; x++) { ctx.beginPath(); ctx.moveTo(x * T, 0); ctx.lineTo(x * T, canvas.height); ctx.stroke(); } for (let y = 0; y <= ROWS; y++) { ctx.beginPath(); ctx.moveTo(0, y * T); ctx.lineTo(canvas.width, y * T); ctx.stroke(); }
+    grid.forEach((row, y) => row.forEach((t, x) => drawTile(t, x, y)));
+    ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, 7); ctx.fill();
+    document.getElementById('coin').textContent = coins;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

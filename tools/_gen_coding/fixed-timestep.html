@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 고정 시간 간격</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .ui { position: fixed; top: 10px; left: 12px; font: 12px/1.6 ui-monospace, monospace; background: rgba(0,0,0,.45); padding: 8px 10px; border-radius: 8px; }
+  .ui label { display: block; font-family: system-ui; }
+</style>
+</head>
+<body>
+<div class="ui">
+  <div id="stats"></div>
+  <label><input type="checkbox" id="lag"> 렌더 랙 시뮬레이션 (프레임 무작위 지연)</label>
+  <label><input type="checkbox" id="interp" checked> 보간(interpolation) 렌더</label>
+  <div style="font-family:system-ui;color:#999">클릭: 공 추가</div>
+</div>
+<canvas id="c"></canvas>
+<script>
+  // 물리는 항상 1/60초 고정 스텝으로, 렌더는 가능한 만큼. 남은 시간(alpha)으로 위치 보간.
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const STEP = 1 / 60, G = 1400, E = 0.82;
+  const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
+  const balls = [];
+  function add(x, y) { balls.push({ x, y, px: x, py: y, vx: (Math.random() - .5) * 500, vy: -200, r: 10 + Math.random() * 14, c: colors[balls.length % 5] }); }
+  for (let i = 0; i < 8; i++) add(60 + i * (W - 120) / 7, 80 + (i % 3) * 30);
+  canvas.addEventListener('click', e => add(e.clientX, e.clientY));
+
+  function physics(dt) {
+    for (const b of balls) {
+      b.px = b.x; b.py = b.y;
+      b.vy += G * dt; b.x += b.vx * dt; b.y += b.vy * dt;
+      if (b.y > H - b.r) { b.y = H - b.r; b.vy *= -E; if (Math.abs(b.vy) < 60) b.vy = -900; } // 계속 튀도록 재충전
+      if (b.x < b.r) { b.x = b.r; b.vx *= -1; } if (b.x > W - b.r) { b.x = W - b.r; b.vx *= -1; }
+    }
+    steps++;
+  }
+  let acc = 0, last = performance.now(), steps = 0, frames = 0, statT = last, maxSteps = 0;
+  function loop(now) {
+    if (document.getElementById('lag').checked) { const until = performance.now() + Math.random() * 45; while (performance.now() < until); } // 무거운 프레임 흉내
+    let frame = Math.min(0.25, (now - last) / 1000); last = now; acc += frame;
+    let n = 0; while (acc >= STEP) { physics(STEP); acc -= STEP; n++; }
+    maxSteps = Math.max(maxSteps, n);
+    const a = document.getElementById('interp').checked ? acc / STEP : 1;
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    for (const b of balls) {
+      const x = b.px + (b.x - b.px) * a, y = b.py + (b.y - b.py) * a;
+      ctx.fillStyle = b.c; ctx.beginPath(); ctx.arc(x, y, b.r, 0, Math.PI * 2); ctx.fill();
+    }
+    frames++;
+    if (now - statT > 500) {
+      const s = (now - statT) / 1000;
+      document.getElementById('stats').innerHTML = `렌더: ${Math.round(frames / s)} fps<br>물리: ${Math.round(steps / s)} 스텝/초 (고정 60)<br>프레임당 최대 스텝: ${maxSteps}<br>alpha: ${a.toFixed(2)} · 공 ${balls.length}개`;
+      frames = 0; steps = 0; statT = now; maxSteps = 0;
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

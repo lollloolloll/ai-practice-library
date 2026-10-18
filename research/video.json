@@ -1,0 +1,5061 @@
+{
+  "field": "video",
+  "field_ko": "동영상",
+  "base_prompts": [
+    {
+      "id": "bp-street-walk",
+      "prompt_en": "A young woman in a beige trench coat walks along a rain-wet city street at dusk, neon signs reflecting in puddles.",
+      "desc_ko": "인물+환경+시간대가 모두 있는 범용 원안. 샷 크기·카메라 무빙·조명·필름룩 용어를 하나씩 바꿔 비교하기 좋다."
+    },
+    {
+      "id": "bp-coffee-product",
+      "prompt_en": "A ceramic cup of coffee sits on a wooden table by a window, steam rising slowly.",
+      "desc_ko": "정적인 제품 샷 원안. 렌즈·초점·촬영 속도·조명·궤도형 카메라 무빙 차이가 잘 드러난다."
+    },
+    {
+      "id": "bp-runner-landscape",
+      "prompt_en": "A trail runner sprints across a mountain ridge under a wide sky.",
+      "desc_ko": "빠른 동작+넓은 풍경 원안. 드론·트래킹·슬로모션·스피드 램프·앵글 비교용."
+    },
+    {
+      "id": "bp-dialogue-kitchen",
+      "prompt_en": "Two friends sit at a small kitchen table at night, one of them says: \"I think we should leave tomorrow.\"",
+      "desc_ko": "대사/오디오 원안(Veo·Kling 등 네이티브 오디오 모델용). 대사 문법·SFX·앰비언스·샷/리버스샷 비교용."
+    }
+  ],
+  "categories": [
+    {
+      "id": "shot-size",
+      "name_ko": "샷 크기",
+      "desc_ko": "프레임 안에서 피사체가 차지하는 크기. 정보량과 감정 거리감을 결정한다."
+    },
+    {
+      "id": "camera-angle",
+      "name_ko": "카메라 앵글",
+      "desc_ko": "카메라 높이와 기울기. 피사체의 권위·취약함·불안감을 조절한다."
+    },
+    {
+      "id": "camera-movement",
+      "name_ko": "카메라 무빙",
+      "desc_ko": "카메라 자체의 이동/회전. 클립당 하나의 명확한 무빙이 가장 안정적이다."
+    },
+    {
+      "id": "lens-focus",
+      "name_ko": "렌즈·초점",
+      "desc_ko": "초점거리, 심도, 렌즈 종류와 초점 변화."
+    },
+    {
+      "id": "speed-time",
+      "name_ko": "촬영 속도·시간",
+      "desc_ko": "슬로모션, 타임랩스, 하이퍼랩스, 스피드 램프 등 시간 표현."
+    },
+    {
+      "id": "subject-motion",
+      "name_ko": "피사체 동작",
+      "desc_ko": "인물·사물의 움직임을 박자(beat) 단위로 구체적으로 묘사하는 표현."
+    },
+    {
+      "id": "transition-editing",
+      "name_ko": "전환·편집",
+      "desc_ko": "컷, 매치컷, 디졸브 등 샷 사이 연결과 편집 리듬."
+    },
+    {
+      "id": "lighting-time",
+      "name_ko": "조명·시간대",
+      "desc_ko": "광원의 질·방향·색, 시간대와 날씨."
+    },
+    {
+      "id": "film-look-color",
+      "name_ko": "필름 룩·색보정",
+      "desc_ko": "필름 스톡, 그레인, 컬러 그레이딩, 화면비 등 질감."
+    },
+    {
+      "id": "genre-style",
+      "name_ko": "장르·스타일",
+      "desc_ko": "다큐, 광고, 뮤직비디오, 애니메이션 등 장르 문법 전체를 불러오는 단어."
+    },
+    {
+      "id": "physics-vfx",
+      "name_ko": "물리·VFX",
+      "desc_ko": "유체·파티클·변형 등 물리 현상과 특수효과 묘사."
+    },
+    {
+      "id": "audio-dialogue",
+      "name_ko": "오디오·대사",
+      "desc_ko": "네이티브 오디오 모델의 대사, 효과음, 앰비언스, 음악 지시."
+    },
+    {
+      "id": "sequence-structure",
+      "name_ko": "시퀀스·멀티샷",
+      "desc_ko": "한 번의 생성 안에서 여러 샷/박자를 구성하는 구조."
+    },
+    {
+      "id": "model-syntax",
+      "name_ko": "모델별 문법·기능",
+      "desc_ko": "시작/끝 프레임, 레퍼런스, 브러시, 프리셋 등 모델 고유 입력 방식."
+    }
+  ],
+  "terms": [
+    {
+      "id": "extreme-wide-shot",
+      "term": "extreme wide shot",
+      "ko": "익스트림 와이드 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "피사체가 풍경 속 작은 점이 되어 규모감·고립감이 강조된다. 인물 디테일과 표정은 거의 사라진다.",
+      "snippet": "Extreme wide shot of a lone hiker on a vast salt flat",
+      "compare_with": [
+        "wide-establishing-shot",
+        "full-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "wide-establishing-shot",
+      "term": "wide establishing shot",
+      "ko": "와이드 설정 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "장소와 상황을 먼저 보여주는 오프닝 샷이 된다. 시퀀스의 첫 샷으로 넣으면 이후 샷의 공간 기준이 잡힌다.",
+      "snippet": "Wide establishing shot, eye level, of a quiet harbor town at dawn",
+      "compare_with": [
+        "extreme-wide-shot",
+        "medium-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "full-shot",
+      "term": "full shot",
+      "ko": "풀 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "인물 머리부터 발끝까지 프레임에 들어와 전신 동작·의상이 잘 보인다. 댄스, 패션 영상에 유리.",
+      "snippet": "Full shot of a dancer spinning in an empty studio",
+      "compare_with": [
+        "medium-full-shot",
+        "wide-establishing-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "medium-full-shot",
+      "term": "medium full shot (cowboy shot)",
+      "ko": "미디엄 풀 샷(카우보이 샷)",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "무릎~허벅지 위로 잘라 몸짓과 표정을 함께 담는다. Runway Aleph에서 기존 영상의 새 앵글을 뽑을 때 예시로 쓰인다.",
+      "snippet": "Medium full shot of the subject leaning against a car",
+      "compare_with": [
+        "full-shot",
+        "medium-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Runway Aleph"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph",
+        "https://help.runwayml.com/hc/en-us/sections/47313458960403-Prompting-Guides-Examples"
+      ]
+    },
+    {
+      "id": "medium-shot",
+      "term": "medium shot",
+      "ko": "미디엄 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "허리 위 프레이밍으로 대화·리액션의 기본값. 인물과 배경 정보가 균형을 이룬다.",
+      "snippet": "Medium shot, a tired office worker rubbing his temples",
+      "compare_with": [
+        "medium-close-up",
+        "medium-full-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "medium-close-up",
+      "term": "medium close-up",
+      "ko": "미디엄 클로즈업",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "가슴 위로 잡아 감정과 대사 전달력이 높아진다. 립싱크 대사 샷에 적합.",
+      "snippet": "Medium close-up shot, slight angle from behind",
+      "compare_with": [
+        "medium-shot",
+        "close-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "close-up",
+      "term": "close-up",
+      "ko": "클로즈업",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "얼굴이나 사물이 화면을 채워 감정·질감이 극대화되고 배경은 거의 사라진다.",
+      "snippet": "Close-up of her eyes as rain streaks down the window",
+      "compare_with": [
+        "extreme-close-up",
+        "medium-close-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "extreme-close-up",
+      "term": "extreme close-up",
+      "ko": "익스트림 클로즈업",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "눈, 입술, 손끝 같은 일부만 확대해 긴장감·디테일을 강조한다. 매크로 렌즈와 함께 쓰면 질감이 살아난다.",
+      "snippet": "Extreme close-up of a watch's second hand ticking",
+      "compare_with": [
+        "close-up",
+        "macro-lens"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "insert-shot",
+      "term": "insert shot",
+      "ko": "인서트 샷",
+      "category": "shot-size",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "손에 쥔 열쇠, 화면 속 문자 등 서사에 중요한 사물만 짧게 보여주는 샷이 된다. 멀티샷 시퀀스 중간에 넣기 좋다.",
+      "snippet": "Insert shot: her finger presses the elevator button",
+      "compare_with": [
+        "extreme-close-up",
+        "cutaway"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "two-shot",
+      "term": "two-shot",
+      "ko": "투 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "두 인물을 한 프레임에 함께 담아 관계와 거리감이 드러난다. 대화 장면의 기준 샷.",
+      "snippet": "Two-shot of an old couple sitting on a park bench",
+      "compare_with": [
+        "over-the-shoulder",
+        "medium-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "over-the-shoulder",
+      "term": "over-the-shoulder shot",
+      "ko": "오버 더 숄더 샷",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "한 인물의 어깨 너머로 상대를 보여줘 대화의 시점·몰입감이 생긴다. Aleph로 와이드에서 재구성도 시도된다.",
+      "snippet": "Over-the-shoulder shot from behind the detective, looking at the suspect",
+      "compare_with": [
+        "two-shot",
+        "shot-reverse-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Runway Aleph"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph"
+      ]
+    },
+    {
+      "id": "pov-shot",
+      "term": "POV shot",
+      "ko": "시점 샷(POV)",
+      "category": "shot-size",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "카메라가 인물의 눈이 되어 1인칭 체험감이 생긴다. 손이 프레임 아래에 보이게 쓰면 더 확실하다.",
+      "snippet": "POV shot: my hands grip the handlebars as the bike speeds downhill",
+      "compare_with": [
+        "over-the-shoulder",
+        "fpv-drone"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "eye-level",
+      "term": "eye level",
+      "ko": "아이 레벨",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "중립적이고 자연스러운 시선. 다른 앵글 비교의 기준값으로 쓴다.",
+      "snippet": "eye-level shot of a barista handing over a cup",
+      "compare_with": [
+        "low-angle",
+        "high-angle"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "low-angle",
+      "term": "low angle shot",
+      "ko": "로우 앵글",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "아래에서 올려다봐 피사체가 크고 위압적으로 보인다. 영웅·권력 표현.",
+      "snippet": "Low angle shot of a knight standing against the storm clouds",
+      "compare_with": [
+        "high-angle",
+        "worms-eye-view"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "high-angle",
+      "term": "high angle shot",
+      "ko": "하이 앵글",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "위에서 내려다봐 피사체가 작고 취약해 보인다.",
+      "snippet": "High angle shot of a child alone in a huge train station",
+      "compare_with": [
+        "low-angle",
+        "birds-eye-view"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "birds-eye-view",
+      "term": "bird's-eye view / top-down shot",
+      "ko": "버즈아이 뷰(부감)",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "수직으로 내려다보는 그래픽한 구도. 음식, 교차로, 군중 패턴에 효과적.",
+      "snippet": "Top-down bird's-eye view of a busy crosswalk",
+      "compare_with": [
+        "high-angle",
+        "aerial-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "worms-eye-view",
+      "term": "worm's-eye view",
+      "ko": "웜즈아이 뷰(앙각 극단)",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "지면에서 하늘로 올려다보는 극단적 로우 앵글. 건물·나무가 하늘로 치솟는 느낌.",
+      "snippet": "Worm's-eye view looking up at skyscrapers converging into the sky",
+      "compare_with": [
+        "low-angle",
+        "birds-eye-view"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "dutch-angle",
+      "term": "Dutch angle (canted angle)",
+      "ko": "더치 앵글",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "수평선을 기울여 불안·혼란·광기를 표현한다. 스릴러/호러에 자주 쓰인다.",
+      "snippet": "Dutch angle, the hallway tilted as he stumbles forward",
+      "compare_with": [
+        "eye-level",
+        "handheld"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Higgsfield"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "profile-shot",
+      "term": "profile shot",
+      "ko": "프로필(측면) 샷",
+      "category": "camera-angle",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "정측면 실루엣으로 인물을 보여줘 사색적·관조적인 느낌이 든다.",
+      "snippet": "Profile shot of a woman looking out a train window",
+      "compare_with": [
+        "eye-level",
+        "over-the-shoulder"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph"
+      ]
+    },
+    {
+      "id": "rear-shot",
+      "term": "from behind / rear shot",
+      "ko": "후면 샷",
+      "category": "camera-angle",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "인물의 뒤에서 따라가며 관객이 같은 방향을 보게 만든다. 공간 공개(reveal)에 유리.",
+      "snippet": "Medium shot from behind a young explorer as she pushes aside a vine",
+      "compare_with": [
+        "pov-shot",
+        "follow-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "static-shot",
+      "term": "static shot / locked-off camera",
+      "ko": "고정 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라를 완전히 고정해 피사체 움직임만 보이게 한다. 무빙을 원하지 않을 때 명시하면 불필요한 드리프트가 줄어든다.",
+      "snippet": "Static locked-off shot, tripod, no camera movement",
+      "compare_with": [
+        "slow-push-in",
+        "handheld"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "pan",
+      "term": "pan left / pan right",
+      "ko": "팬",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라 위치는 고정, 좌우로 회전해 공간을 훑는다. 풍경 소개나 시선 이동 표현.",
+      "snippet": "Slow pan right across the misty valley",
+      "compare_with": [
+        "truck",
+        "whip-pan"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "tilt",
+      "term": "tilt up / tilt down",
+      "ko": "틸트",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라가 상하로 회전한다. 틸트업은 건물·인물의 높이를 드러내는 리빌에 쓰인다.",
+      "snippet": "Camera tilts up from her boots to her face",
+      "compare_with": [
+        "pedestal",
+        "crane-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "dolly-in",
+      "term": "dolly in",
+      "ko": "돌리 인",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라 본체가 피사체 쪽으로 물리적으로 전진해 원근감(패럴랙스)이 바뀌며 몰입이 커진다. 줌 인과 달리 배경 관계가 변한다.",
+      "snippet": "Dolly in toward the old man at the piano",
+      "compare_with": [
+        "zoom-in",
+        "slow-push-in"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Higgsfield"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "dolly-out",
+      "term": "dolly out / pull back",
+      "ko": "돌리 아웃(풀백)",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "피사체에서 멀어지며 주변 맥락이 드러난다. 엔딩이나 고립감 표현에 적합.",
+      "snippet": "Camera dollies out, revealing the empty stadium around her",
+      "compare_with": [
+        "dolly-in",
+        "pull-out-reveal"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "slow-push-in",
+      "term": "slow push-in",
+      "ko": "슬로 푸시 인",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "아주 느린 전진으로 긴장·감정이 서서히 고조된다. 단일 무빙 원칙에 가장 안전한 선택.",
+      "snippet": "Slow push-in on her face as she reads the letter",
+      "compare_with": [
+        "dolly-in",
+        "static-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "pull-out-reveal",
+      "term": "pull-out reveal",
+      "ko": "풀아웃 리빌",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "클로즈업에서 뒤로 빠지며 예상 밖의 전체 상황을 드러낸다. 반전 연출용.",
+      "snippet": "Starts on a close-up of a coffee cup, then pulls out to reveal the cafe is on a spaceship",
+      "compare_with": [
+        "dolly-out",
+        "crane-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "truck",
+      "term": "truck left / truck right (lateral tracking)",
+      "ko": "트럭(좌우 이동)",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라가 옆으로 평행 이동해 전경-배경 패럴랙스가 강하게 생긴다. 팬보다 입체감이 크다.",
+      "snippet": "Camera trucks left past rows of bookshelves",
+      "compare_with": [
+        "pan",
+        "tracking-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "tracking-shot",
+      "term": "tracking shot",
+      "ko": "트래킹 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "움직이는 피사체를 일정 거리로 따라가며 속도감·연속성을 준다.",
+      "snippet": "Tracking shot alongside a cyclist racing through the old town",
+      "compare_with": [
+        "follow-shot",
+        "truck"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "follow-shot",
+      "term": "follow shot / camera follows from behind",
+      "ko": "팔로우 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "피사체 뒤를 따라가 관객이 함께 이동하는 느낌을 준다.",
+      "snippet": "The camera follows behind a girl running through a sunflower field",
+      "compare_with": [
+        "tracking-shot",
+        "steadicam"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "leading-shot",
+      "term": "leading shot (camera moves backward in front of subject)",
+      "ko": "리딩 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "인물 앞에서 뒤로 물러나며 걸어오는 얼굴을 계속 보여준다. 대화하며 걷는 장면의 정석.",
+      "snippet": "Leading shot: camera moves backward as the two friends walk and talk toward us",
+      "compare_with": [
+        "follow-shot",
+        "tracking-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "pedestal",
+      "term": "pedestal up / down (boom)",
+      "ko": "페데스탈/붐",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라 각도는 유지한 채 높이만 수직 이동. 틸트와 달리 시점 높이 자체가 바뀐다.",
+      "snippet": "Camera booms up from table height to above the dinner guests",
+      "compare_with": [
+        "tilt",
+        "crane-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Higgsfield"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "crane-up",
+      "term": "crane shot (crane up / crane down)",
+      "ko": "크레인 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "크게 상승/하강하며 장면 스케일을 드러낸다. 크레인 업은 엔딩·웅장함, 다운은 장면 진입.",
+      "snippet": "High-angle crane shot rising above the festival crowd",
+      "compare_with": [
+        "pedestal",
+        "aerial-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Higgsfield"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "orbit",
+      "term": "orbit / arc shot",
+      "ko": "오빗(아크) 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "피사체 주위를 원호로 돌며 입체감과 히어로 느낌을 준다. Veo 시작·끝 프레임 예시에서 180도 아크로 사용.",
+      "snippet": "The camera performs a smooth 180-degree arc shot around the singer",
+      "compare_with": [
+        "bullet-time",
+        "truck"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan",
+        "Higgsfield"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "360-orbit",
+      "term": "360-degree orbit",
+      "ko": "360도 회전",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "피사체를 한 바퀴 완전히 돈다. 제품 쇼케이스에 유용하지만 뒷면을 모델이 지어내므로 일관성이 깨지기 쉽다.",
+      "snippet": "360-degree orbit around a sneaker on a rotating pedestal",
+      "compare_with": [
+        "orbit"
+      ],
+      "tools": [
+        "Kling",
+        "Luma Ray",
+        "Higgsfield"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "handheld",
+      "term": "handheld camera",
+      "ko": "핸드헬드",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "미세한 흔들림으로 다큐·현장감·긴박감이 생긴다. Sora 가이드 예시 'handheld eng camera'.",
+      "snippet": "Handheld camera, slight shake, following the reporter through the crowd",
+      "compare_with": [
+        "steadicam",
+        "static-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "steadicam",
+      "term": "steadicam / gimbal shot",
+      "ko": "스테디캠",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "부드럽게 떠다니듯 따라가는 무빙. 핸드헬드보다 매끈하고 고급스럽다.",
+      "snippet": "Smooth steadicam shot gliding through a ballroom",
+      "compare_with": [
+        "handheld",
+        "one-take"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "aerial-shot",
+      "term": "aerial shot / drone shot",
+      "ko": "항공(드론) 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "하늘에서 넓게 내려다보며 지형과 스케일을 강조한다.",
+      "snippet": "Aerial drone shot slowly descending over a coastal cliff",
+      "compare_with": [
+        "fpv-drone",
+        "crane-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "fpv-drone",
+      "term": "FPV drone shot",
+      "ko": "FPV 드론 샷",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "고속으로 다이빙·선회하며 장애물 사이를 통과하는 역동적 1인칭 비행. 광고·익스트림 스포츠에 효과적이나 왜곡이 생기기 쉽다.",
+      "snippet": "FPV drone shot diving down a waterfall and flying through the canyon",
+      "compare_with": [
+        "aerial-shot",
+        "pov-shot"
+      ],
+      "tools": [
+        "Kling",
+        "Higgsfield",
+        "Veo 3.1",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "whip-pan",
+      "term": "whip pan",
+      "ko": "휩 팬",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "아주 빠른 팬으로 모션블러가 생기며 에너지 넘치는 전환이 된다. 전환 효과로도 쓰인다.",
+      "snippet": "Whip pan from the boxer to his opponent",
+      "compare_with": [
+        "pan",
+        "whip-pan-transition"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "crash-zoom",
+      "term": "crash zoom (snap zoom)",
+      "ko": "크래시 줌",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "순간적으로 급격히 줌인해 놀람·코믹·강조 효과를 준다. Higgsfield에 'Crash Zoom In' 프리셋이 있다.",
+      "snippet": "Sudden crash zoom into his shocked face",
+      "compare_with": [
+        "zoom-in",
+        "dolly-in"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Seedance",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "zoom-in",
+      "term": "zoom in / zoom out",
+      "ko": "줌 인/아웃",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라 위치는 그대로 화각만 변한다. 돌리와 비교하면 원근(패럴랙스)이 평평하게 유지된다.",
+      "snippet": "Slow zoom in on the lighthouse",
+      "compare_with": [
+        "dolly-in",
+        "crash-zoom"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "dolly-zoom",
+      "term": "dolly zoom (Vertigo effect)",
+      "ko": "돌리 줌(버티고 효과)",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "돌리와 줌을 반대로 동시에 써서 피사체 크기는 같고 배경만 늘어나거나 줄어든다. 충격·현기증 표현. 텍스트만으로는 불안정하므로 프리셋 권장.",
+      "snippet": "Dolly zoom on the man's face as the corridor stretches behind him",
+      "compare_with": [
+        "dolly-in",
+        "zoom-in"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Kling"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "bullet-time",
+      "term": "bullet time",
+      "ko": "불릿 타임",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "시간이 거의 멈춘 상태에서 카메라만 피사체를 돈다. 매트릭스식 액션 강조.",
+      "snippet": "Bullet time: the camera orbits the frozen fighter mid-kick as debris hangs in the air",
+      "compare_with": [
+        "orbit",
+        "slow-motion"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Wan",
+        "Kling"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "snorricam",
+      "term": "snorricam (body-mounted camera)",
+      "ko": "스노리캠",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라가 인물 몸에 고정되어 얼굴은 고정, 배경만 요동친다. 취함·공황·도취 표현.",
+      "snippet": "Snorricam shot of a man stumbling through a nightclub, his face fixed in frame",
+      "compare_with": [
+        "handheld",
+        "pov-shot"
+      ],
+      "tools": [
+        "Higgsfield"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "roll",
+      "term": "camera roll / barrel roll",
+      "ko": "롤(회전)",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라가 렌즈 축으로 회전해 화면 전체가 돈다. 몽환·혼란·전환 연출.",
+      "snippet": "The camera slowly rolls 90 degrees as she falls backward into the water",
+      "compare_with": [
+        "dutch-angle",
+        "fpv-drone"
+      ],
+      "tools": [
+        "Kling",
+        "Higgsfield"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "one-take",
+      "term": "one continuous take (oner)",
+      "ko": "원테이크",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "컷 없이 이어지는 긴 이동 샷을 유도해 공간 연속성을 준다. 클립 길이 제약 안에서만 유효.",
+      "snippet": "One continuous take: the camera glides from the street into the cafe and up to the counter",
+      "compare_with": [
+        "steadicam",
+        "hard-cut"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "parallax",
+      "term": "strong parallax",
+      "ko": "패럴랙스 강조",
+      "category": "camera-movement",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "전경·중경·배경이 다른 속도로 움직여 깊이감이 커진다. 트럭/돌리와 전경 오브젝트를 함께 쓰면 효과적.",
+      "snippet": "Camera trucks right behind foreground leaves, strong parallax on the city beyond",
+      "compare_with": [
+        "truck",
+        "zoom-in"
+      ],
+      "tools": [
+        "Kling",
+        "Luma Ray",
+        "Runway Gen-4.5"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "wide-angle-lens",
+      "term": "wide-angle lens (24mm)",
+      "ko": "광각 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "넓은 화각과 원근 과장으로 공간감·역동성이 커진다. 가까이 찍으면 얼굴이 왜곡된다.",
+      "snippet": "Shot on a 24mm wide-angle lens",
+      "compare_with": [
+        "telephoto-lens",
+        "fisheye-lens"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "50mm-lens",
+      "term": "50mm lens",
+      "ko": "50mm 표준 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "사람 눈과 비슷한 자연스러운 원근. 비교 기준값으로 쓰기 좋다.",
+      "snippet": "35mm film look, 50mm lens",
+      "compare_with": [
+        "wide-angle-lens",
+        "85mm-portrait"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "85mm-portrait",
+      "term": "85mm portrait lens",
+      "ko": "85mm 인물 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "배경 압축과 부드러운 보케로 인물이 돋보인다.",
+      "snippet": "Close-up on an 85mm lens, creamy bokeh",
+      "compare_with": [
+        "50mm-lens",
+        "telephoto-lens"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "telephoto-lens",
+      "term": "telephoto lens (200mm)",
+      "ko": "망원 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "원근이 압축되어 배경이 크게 다가오고, 멀리서 엿보는 관찰자 느낌이 든다.",
+      "snippet": "Telephoto shot, heat haze, a runner approaching across the desert",
+      "compare_with": [
+        "wide-angle-lens",
+        "85mm-portrait"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "macro-lens",
+      "term": "macro lens",
+      "ko": "매크로 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "아주 작은 피사체를 확대해 질감과 미세 동작(물방울, 곤충)이 드러난다.",
+      "snippet": "Macro lens, a dew drop slides down a blade of grass",
+      "compare_with": [
+        "extreme-close-up",
+        "shallow-dof"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "fisheye-lens",
+      "term": "fisheye lens",
+      "ko": "어안 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "강한 원형 왜곡으로 스케이트·힙합 MV 같은 거친 스트리트 감성이 생긴다.",
+      "snippet": "Fisheye lens, skateboarder kickflips toward the camera",
+      "compare_with": [
+        "wide-angle-lens",
+        "anamorphic"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "anamorphic",
+      "term": "anamorphic lens",
+      "ko": "아나모픽 렌즈",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "타원형 보케, 가로 렌즈 플레어, 와이드 화면비로 극장 영화 느낌이 강해진다. Sora 가이드 예시 'Anamorphic 2.0x lens'.",
+      "snippet": "Anamorphic 2.0x lens, shallow DOF, volumetric light",
+      "compare_with": [
+        "50mm-lens",
+        "lens-flare"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "shallow-dof",
+      "term": "shallow depth of field",
+      "ko": "얕은 심도",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "피사체만 선명하고 배경이 흐려져 시선이 집중된다.",
+      "snippet": "Shallow depth of field, background softly blurred",
+      "compare_with": [
+        "deep-focus",
+        "rack-focus"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "deep-focus",
+      "term": "deep focus",
+      "ko": "딥 포커스",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "전경부터 배경까지 모두 선명해 공간 전체 정보가 살아난다.",
+      "snippet": "Deep focus, foreground and background both sharp",
+      "compare_with": [
+        "shallow-dof"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "rack-focus",
+      "term": "rack focus (focus pull)",
+      "ko": "랙 포커스",
+      "category": "lens-focus",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "클립 도중 초점이 전경→배경(또는 반대)으로 이동해 시선을 유도한다. '무엇에서 무엇으로'를 명시해야 잘 된다.",
+      "snippet": "Rack focus from the wedding ring in the foreground to the bride's face",
+      "compare_with": [
+        "shallow-dof",
+        "deep-focus"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "soft-focus",
+      "term": "soft focus",
+      "ko": "소프트 포커스",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "전체가 은은하게 번져 몽환·회상·로맨틱한 분위기가 된다.",
+      "snippet": "Soft focus, dreamy haze, memory sequence",
+      "compare_with": [
+        "shallow-dof",
+        "diffusion-filter"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "tilt-shift",
+      "term": "tilt-shift (miniature effect)",
+      "ko": "틸트 시프트",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "위아래가 흐려져 실제 도시가 미니어처처럼 보인다. 타임랩스와 궁합이 좋다.",
+      "snippet": "Tilt-shift aerial of a busy train station, miniature effect",
+      "compare_with": [
+        "timelapse",
+        "birds-eye-view"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "lens-flare",
+      "term": "lens flare",
+      "ko": "렌즈 플레어",
+      "category": "lens-focus",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "역광 광원에서 빛번짐이 생겨 영화적·청춘 감성이 강해진다.",
+      "snippet": "Sun lens flare as she turns toward the camera",
+      "compare_with": [
+        "anamorphic"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "slow-motion",
+      "term": "slow motion (120fps)",
+      "ko": "슬로모션",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "동작이 늘어져 물·머리카락·파편 디테일과 감정이 강조된다. 'shot at 120fps' 같은 프레임 표현이 보조 신호가 된다.",
+      "snippet": "Slow motion, 120fps, water droplets explode from the boxer's glove",
+      "compare_with": [
+        "real-time",
+        "speed-ramp"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "real-time",
+      "term": "real-time speed",
+      "ko": "실시간 속도",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "자연스러운 실제 속도를 명시해 모델이 임의로 슬로모션화하는 것을 줄인다.",
+      "snippet": "Real-time speed, natural pace",
+      "compare_with": [
+        "slow-motion",
+        "timelapse"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "timelapse",
+      "term": "timelapse",
+      "ko": "타임랩스",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "고정 카메라에서 시간이 빠르게 흘러 구름·그림자·도시 불빛 변화가 압축된다.",
+      "snippet": "Timelapse of clouds racing over the city as day turns to night",
+      "compare_with": [
+        "hyperlapse",
+        "slow-motion"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "hyperlapse",
+      "term": "hyperlapse",
+      "ko": "하이퍼랩스",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "카메라가 이동하면서 시간이 빨리 흐른다. 도시를 질주하는 듯한 에너지.",
+      "snippet": "Hyperlapse moving forward through Tokyo streets at night",
+      "compare_with": [
+        "timelapse",
+        "tracking-shot"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "speed-ramp",
+      "term": "speed ramp",
+      "ko": "스피드 램프",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "정상 속도→급슬로우→다시 가속처럼 속도가 변한다. 스포츠·액션 광고 느낌. 단일 클립 안에서 박자로 명시해야 한다.",
+      "snippet": "Speed ramp: normal speed as the skier launches, slowing to slow motion at the peak of the jump, then snapping back to real time on landing",
+      "compare_with": [
+        "slow-motion",
+        "real-time"
+      ],
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Seedance",
+        "Higgsfield"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "freeze-frame",
+      "term": "freeze frame",
+      "ko": "프리즈 프레임",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "동작이 정지 화면으로 멈춰 강조·코믹·엔딩 효과를 준다.",
+      "snippet": "The action freezes in a freeze frame as he jumps",
+      "compare_with": [
+        "bullet-time",
+        "slow-motion"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "reverse-motion",
+      "term": "reverse motion",
+      "ko": "역재생",
+      "category": "speed-time",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "깨진 유리가 다시 붙는 듯 시간이 거꾸로 흐르는 초현실 효과. 모델 해석 편차가 크다.",
+      "snippet": "In reverse motion, the shattered vase reassembles on the table",
+      "compare_with": [
+        "slow-motion",
+        "morph"
+      ],
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Runway Gen-4.5"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "stop-motion",
+      "term": "stop-motion animation",
+      "ko": "스톱모션",
+      "category": "speed-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "끊기는 프레임과 손때 묻은 질감으로 클레이·종이 인형 애니메이션 느낌이 된다.",
+      "snippet": "Stop-motion clay animation, slightly jittery frame rate",
+      "compare_with": [
+        "claymation",
+        "real-time"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "action-beats",
+      "term": "action beats / counted beats",
+      "ko": "동작 박자 묘사",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "동작을 '네 걸음 걷고, 멈추고, 마지막 1초에 커튼을 당긴다'처럼 셀 수 있게 쓰면 타이밍 준수율이 크게 높아진다(Sora 공식 가이드).",
+      "snippet": "Actor takes four steps to the window, pauses, and pulls the curtain in the final second.",
+      "compare_with": [
+        "vague-motion",
+        "timestamp-prompting"
+      ],
+      "tools": [
+        "Sora 2",
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "vague-motion",
+      "term": "vague motion (\"moves around\")",
+      "ko": "모호한 동작(반면교사)",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "'walks', 'moves'처럼 막연하면 모델이 임의로 동작을 지어내거나 정지에 가깝게 만든다. 비교 시 기준 대조군으로 쓴다.",
+      "snippet": "A woman moves around the room",
+      "compare_with": [
+        "action-beats",
+        "mid-action-verbs"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "mid-action-verbs",
+      "term": "present-tense mid-action verbs",
+      "ko": "진행형 동작 동사",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "'begins to run' 대신 'sprints'처럼 이미 진행 중인 강한 동사를 쓰면 정지 상태에서 시작하는 지연이 줄고 움직임이 커진다(Luma 가이드).",
+      "snippet": "A wolf sprints through deep snow, kicking up powder",
+      "compare_with": [
+        "vague-motion",
+        "action-beats"
+      ],
+      "tools": [
+        "Luma Ray",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "micro-expression",
+      "term": "subtle facial micro-expressions",
+      "ko": "미세 표정",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "과장된 연기 대신 눈썹 떨림, 입꼬리 같은 작은 변화로 사실적인 감정 연기가 나온다.",
+      "snippet": "Her lip trembles slightly, eyes glistening, she forces a small smile",
+      "compare_with": [
+        "action-beats",
+        "close-up"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Hailuo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "secondary-motion",
+      "term": "secondary motion (hair, fabric, foliage)",
+      "ko": "2차 움직임",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "바람에 날리는 머리카락·옷자락·잎사귀처럼 부수적 움직임을 넣어 정지 사진 같은 느낌을 없앤다. 이미지→영상에서 특히 유효.",
+      "snippet": "Wind ripples through her coat and loose strands of hair",
+      "compare_with": [
+        "static-shot",
+        "motion-brush"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement",
+        "https://help.runwayml.com/hc/en-us/articles/37425232841875-Getting-Started-with-Generative-Video"
+      ]
+    },
+    {
+      "id": "crowd-motion",
+      "term": "background crowd motion",
+      "ko": "배경 군중 움직임",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "배경 인물이 자연스럽게 지나가 살아있는 공간이 된다. 너무 많으면 얼굴 왜곡이 늘어난다.",
+      "snippet": "Commuters blur past in the background while she stands still",
+      "compare_with": [
+        "secondary-motion",
+        "timelapse"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "looks-at-camera",
+      "term": "looks directly into the camera",
+      "ko": "카메라 응시",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "제4의 벽을 깨고 관객과 눈을 맞춘다. 광고·브이로그·대사 직전에 유용.",
+      "snippet": "He turns and looks directly into the camera",
+      "compare_with": [
+        "profile-shot",
+        "dialogue-colon-syntax"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "fight-choreography",
+      "term": "fight choreography",
+      "ko": "액션 합(격투 안무)",
+      "category": "subject-motion",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "타격·회피를 순서대로 지정하면 엉킴이 줄어든다. 동작 수를 2~3개로 제한하는 것이 안정적.",
+      "snippet": "He blocks a punch, spins, and sweeps the attacker's legs",
+      "compare_with": [
+        "action-beats",
+        "bullet-time"
+      ],
+      "tools": [
+        "Kling",
+        "Seedance",
+        "Veo 3.1"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "lip-sync",
+      "term": "lip-synced speech",
+      "ko": "립싱크 발화",
+      "category": "subject-motion",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "따옴표 대사와 함께 인물이 실제로 입을 맞춰 말한다. 화면 텍스트로 새지 않게 콜론+따옴표 문법을 쓴다.",
+      "snippet": "The woman says: \"We have to leave now.\"",
+      "compare_with": [
+        "voiceover",
+        "dialogue-colon-syntax"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Sora 2"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "hard-cut",
+      "term": "hard cut / cut to",
+      "ko": "하드 컷",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "멀티샷 생성에서 다음 샷으로 즉시 전환을 지시한다. 모델에 따라 'cut to'가 실제 컷을 유도한다.",
+      "snippet": "Wide shot of the desert. Cut to: close-up of the traveler's cracked lips.",
+      "compare_with": [
+        "match-cut",
+        "lens-switch"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blog.fal.ai/kling-3-0-prompting-guide/",
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "match-cut",
+      "term": "match cut",
+      "ko": "매치 컷",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "모양·동작이 비슷한 두 장면을 이어 붙여 시각적 운율을 만든다. 시작/끝 프레임 기능으로 구현하기 쉽다.",
+      "snippet": "Match cut from a spinning coin to a spinning planet",
+      "compare_with": [
+        "hard-cut",
+        "morph"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "cross-dissolve",
+      "term": "cross dissolve",
+      "ko": "디졸브",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "한 장면이 서서히 겹치며 다음 장면으로 바뀐다. 시간 경과·회상 표현.",
+      "snippet": "Cross dissolve from her childhood bedroom to the same room decades later",
+      "compare_with": [
+        "hard-cut",
+        "fade-to-black"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "fade-to-black",
+      "term": "fade to black / fade in",
+      "ko": "페이드 아웃/인",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "화면이 검게 사라지거나 검정에서 나타나 시작·끝을 명확히 한다.",
+      "snippet": "The scene slowly fades to black",
+      "compare_with": [
+        "cross-dissolve"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "whip-pan-transition",
+      "term": "whip pan transition",
+      "ko": "휩 팬 전환",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "빠른 팬 블러로 장면이 바뀐다. 두 장소를 역동적으로 연결.",
+      "snippet": "Whip pan transition from the Paris street to a Tokyo alley",
+      "compare_with": [
+        "whip-pan",
+        "match-cut"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation"
+      ]
+    },
+    {
+      "id": "morph",
+      "term": "seamless morph transition",
+      "ko": "모핑 전환",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "한 형태가 다른 형태로 매끄럽게 변한다. 시작/끝 프레임을 서로 다른 이미지로 주면 자주 나오는 결과.",
+      "snippet": "The flower seamlessly morphs into a butterfly and flies away",
+      "compare_with": [
+        "match-cut",
+        "start-end-frame"
+      ],
+      "tools": [
+        "Luma Ray",
+        "Kling",
+        "Pika",
+        "Veo 3.1"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://yourstory.com/ai-story/luma-ai-ray3-modify"
+      ]
+    },
+    {
+      "id": "shot-reverse-shot",
+      "term": "shot / reverse shot",
+      "ko": "샷-리버스 샷",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "대화하는 두 인물을 번갈아 보여주는 기본 편집 문법. Veo 타임스탬프 예시에서 'Reverse shot' 사용.",
+      "snippet": "[00:02-00:04] Reverse shot of the explorer's face",
+      "compare_with": [
+        "over-the-shoulder",
+        "timestamp-prompting"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "cutaway",
+      "term": "cutaway",
+      "ko": "컷어웨이",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "주 행동에서 잠시 벗어나 반응·소품·주변을 보여준다.",
+      "snippet": "Cutaway to the clock on the wall",
+      "compare_with": [
+        "insert-shot",
+        "hard-cut"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "montage",
+      "term": "fast-paced montage",
+      "ko": "몽타주",
+      "category": "transition-editing",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "짧은 컷을 빠르게 이어 붙여 시간 압축·리듬감을 만든다. 한 클립에 3~4컷 이상은 품질이 떨어지기 쉽다.",
+      "snippet": "Fast-paced montage: alarm clock, coffee pour, subway doors closing, keyboard typing",
+      "compare_with": [
+        "hard-cut",
+        "multi-shot-numbered"
+      ],
+      "tools": [
+        "Seedance",
+        "Kling",
+        "Veo 3.1"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blog.segmind.com/ultimate-seedance-1-0-pro-tutorial/"
+      ]
+    },
+    {
+      "id": "golden-hour",
+      "term": "golden hour",
+      "ko": "골든 아워",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "해 질 녘 낮은 각도의 따뜻한 주황빛으로 부드럽고 감성적인 분위기가 된다.",
+      "snippet": "Golden hour sunlight, long warm shadows",
+      "compare_with": [
+        "blue-hour",
+        "harsh-noon"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "blue-hour",
+      "term": "blue hour",
+      "ko": "블루 아워",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "해 뜨기 전/진 직후의 푸른 하늘과 켜진 조명이 섞여 차분하고 쓸쓸한 분위기.",
+      "snippet": "Blue hour, city lights flickering on",
+      "compare_with": [
+        "golden-hour",
+        "night-neon"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "harsh-noon",
+      "term": "harsh midday sun",
+      "ko": "한낮 직사광",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "강한 대비와 짧은 그림자로 건조하고 뜨거운 느낌. 사막·여름.",
+      "snippet": "Harsh midday sun, hard shadows, bleached colors",
+      "compare_with": [
+        "golden-hour",
+        "overcast"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "overcast",
+      "term": "overcast soft light",
+      "ko": "흐린 날 확산광",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "그림자 없는 균일한 빛으로 차분하고 북유럽 느낌. 피부 표현이 부드럽다.",
+      "snippet": "Overcast sky, soft diffused light",
+      "compare_with": [
+        "harsh-noon",
+        "soft-window-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "night-neon",
+      "term": "neon-lit night",
+      "ko": "네온 야경",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "핑크·청록 네온과 젖은 바닥 반사로 사이버펑크·누아르 무드.",
+      "snippet": "Neon-lit night street, wet asphalt reflections",
+      "compare_with": [
+        "blue-hour",
+        "practical-lights"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "low-key",
+      "term": "low-key lighting",
+      "ko": "로우키 조명",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "어둠이 대부분이고 일부만 밝아 긴장·미스터리. 스릴러·누아르.",
+      "snippet": "Low-key lighting, deep shadows, single hard light",
+      "compare_with": [
+        "high-key",
+        "chiaroscuro"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "high-key",
+      "term": "high-key lighting",
+      "ko": "하이키 조명",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "밝고 그림자가 적어 깨끗하고 경쾌하다. 광고·코미디·뷰티.",
+      "snippet": "High-key lighting, bright white studio",
+      "compare_with": [
+        "low-key"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "chiaroscuro",
+      "term": "chiaroscuro",
+      "ko": "키아로스쿠로",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "회화적인 강한 명암 대비로 얼굴 반쪽만 빛나는 극적인 인상.",
+      "snippet": "Chiaroscuro lighting, half her face in shadow",
+      "compare_with": [
+        "low-key",
+        "rim-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "rim-light",
+      "term": "rim light / backlight",
+      "ko": "림 라이트(역광)",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "윤곽선이 빛나 피사체가 배경에서 분리된다. 실루엣과 머리카락 빛.",
+      "snippet": "Strong backlight creating a glowing rim around his silhouette",
+      "compare_with": [
+        "silhouette",
+        "lens-flare"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "silhouette",
+      "term": "silhouette",
+      "ko": "실루엣",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "피사체가 검은 형태로만 보여 상징적·미니멀한 화면.",
+      "snippet": "Silhouette of a couple against a sunset sky",
+      "compare_with": [
+        "rim-light",
+        "golden-hour"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "volumetric-light",
+      "term": "volumetric lighting (god rays)",
+      "ko": "볼류메트릭 라이트",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "안개·먼지 속에 빛줄기가 보여 공간감·신성함이 생긴다.",
+      "snippet": "Volumetric light beams through dusty church windows",
+      "compare_with": [
+        "haze-fog",
+        "rim-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "practical-lights",
+      "term": "practical lights",
+      "ko": "프랙티컬 라이트",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "화면 속 램프·간판·모니터가 실제 광원이 되어 사실감이 커진다. Veo 예시: 모니터의 녹색 빛.",
+      "snippet": "Lit only by the green glow of the monitor and a desk lamp",
+      "compare_with": [
+        "motivated-lighting",
+        "night-neon"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "motivated-lighting",
+      "term": "motivated lighting",
+      "ko": "동기 부여 조명",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "빛이 창문·불 등 그럴듯한 출처에서 오도록 지시해 조명이 자연스러워진다.",
+      "snippet": "Soft window light with warm lamp fill and a cool edge from the hallway",
+      "compare_with": [
+        "practical-lights",
+        "soft-window-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "soft-window-light",
+      "term": "soft window light",
+      "ko": "부드러운 창가광",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "한쪽에서 들어오는 확산광으로 인물·제품이 부드럽고 입체적으로 보인다.",
+      "snippet": "Soft window light from the left",
+      "compare_with": [
+        "overcast",
+        "motivated-lighting"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "candlelight",
+      "term": "flickering candlelight",
+      "ko": "촛불 조명",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "흔들리는 따뜻한 광원이 화면 밝기에 미세한 움직임을 준다. 영상에서만 살아나는 조명.",
+      "snippet": "Flickering candlelight dancing across their faces",
+      "compare_with": [
+        "practical-lights",
+        "low-key"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "haze-fog",
+      "term": "atmospheric haze / fog",
+      "ko": "연무·안개",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "깊이감과 신비감이 생기고 빛줄기가 보인다.",
+      "snippet": "Thin morning fog rolling across the field",
+      "compare_with": [
+        "volumetric-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "color-anchors",
+      "term": "named color palette (3-5 color anchors)",
+      "ko": "색상 앵커 지정",
+      "category": "lighting-time",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "3~5개 색을 명시하면 클립 간 색 일관성이 높아진다(Sora 가이드 권장).",
+      "snippet": "Palette: amber, teal, deep navy, soft cream",
+      "compare_with": [
+        "teal-orange",
+        "monochrome"
+      ],
+      "tools": [
+        "Sora 2",
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "35mm-film",
+      "term": "shot on 35mm film",
+      "ko": "35mm 필름",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "자연스러운 그레인, 부드러운 하이라이트로 영화적 질감이 생긴다.",
+      "snippet": "Shot on 35mm film, natural grain",
+      "compare_with": [
+        "digital-clean",
+        "16mm-film"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "16mm-film",
+      "term": "16mm film",
+      "ko": "16mm 필름",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "굵은 그레인과 약간의 흔들림으로 인디·다큐·홈무비 감성.",
+      "snippet": "16mm film, heavy grain, slight gate weave",
+      "compare_with": [
+        "35mm-film",
+        "vhs"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "digital-clean",
+      "term": "clean digital cinema (ARRI Alexa look)",
+      "ko": "클린 디지털 시네마",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "깨끗하고 넓은 다이내믹 레인지의 현대 영화 톤. 그레인 없음.",
+      "snippet": "Clean digital cinema look, high dynamic range",
+      "compare_with": [
+        "35mm-film"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "vhs",
+      "term": "VHS camcorder footage",
+      "ko": "VHS 캠코더",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "색 번짐, 스캔라인, 날짜 표시 감성의 90년대 홈비디오.",
+      "snippet": "1990s VHS camcorder footage, tracking lines, washed colors",
+      "compare_with": [
+        "16mm-film",
+        "found-footage"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "retro-80s-film",
+      "term": "shot as if on 1980s color film",
+      "ko": "80년대 컬러 필름",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "시대 특유의 색감과 그레인으로 레트로 분위기. Veo 공식 예시 문구.",
+      "snippet": "Retro aesthetic, shot as if on 1980s color film, slightly grainy",
+      "compare_with": [
+        "35mm-film",
+        "vhs"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "teal-orange",
+      "term": "teal and orange grade",
+      "ko": "틸 앤 오렌지",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "피부는 따뜻하게, 그림자는 청록으로 블록버스터식 대비 색감.",
+      "snippet": "Teal and orange color grade",
+      "compare_with": [
+        "bleach-bypass",
+        "color-anchors"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "bleach-bypass",
+      "term": "bleach bypass",
+      "ko": "블리치 바이패스",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "채도는 낮고 대비는 강한 거친 금속성 톤. 전쟁·범죄물.",
+      "snippet": "Bleach bypass look, desaturated, high contrast",
+      "compare_with": [
+        "teal-orange",
+        "monochrome"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "monochrome",
+      "term": "black and white",
+      "ko": "흑백",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "색 정보를 지워 형태·명암·감정에 집중시킨다.",
+      "snippet": "Black and white, high contrast film noir",
+      "compare_with": [
+        "bleach-bypass",
+        "color-anchors"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "pastel-grade",
+      "term": "soft pastel grade",
+      "ko": "파스텔 톤",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "밝고 부드러운 저채도 파스텔로 웨스 앤더슨식·감성 브이로그 느낌.",
+      "snippet": "Soft pastel color palette, symmetrical framing",
+      "compare_with": [
+        "teal-orange",
+        "high-key"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "diffusion-filter",
+      "term": "Pro-Mist diffusion filter",
+      "ko": "디퓨전 필터",
+      "category": "film-look-color",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "하이라이트가 은은하게 번져 부드럽고 꿈같은 질감.",
+      "snippet": "Black Pro-Mist diffusion, blooming highlights",
+      "compare_with": [
+        "soft-focus",
+        "35mm-film"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "aspect-ratio",
+      "term": "2.39:1 widescreen / 9:16 vertical",
+      "ko": "화면비",
+      "category": "film-look-color",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "프롬프트 문장보다는 모델의 화면비 설정이 우선이다. Veo는 16:9·9:16, Sora는 size 파라미터로 지정.",
+      "snippet": "(set in UI/API) aspect ratio 9:16 for vertical",
+      "compare_with": [
+        "anamorphic"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Sora 2",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "documentary",
+      "term": "documentary style",
+      "ko": "다큐멘터리 스타일",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "핸드헬드, 자연광, 인터뷰 구도 등 현실 기록 문법이 함께 따라온다.",
+      "snippet": "Documentary style, handheld, natural light, observational",
+      "compare_with": [
+        "commercial-ad",
+        "found-footage"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "commercial-ad",
+      "term": "high-end commercial",
+      "ko": "하이엔드 광고",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "매끈한 조명, 제품 히어로 샷, 느린 무빙으로 광고 품질의 화면이 된다.",
+      "snippet": "High-end perfume commercial, glossy lighting, slow orbit",
+      "compare_with": [
+        "documentary",
+        "music-video"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "music-video",
+      "term": "music video aesthetic",
+      "ko": "뮤직비디오 스타일",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "강한 조명 색, 빠른 컷, 퍼포먼스 중심 구도.",
+      "snippet": "Music video aesthetic, colored gels, rhythmic cuts",
+      "compare_with": [
+        "commercial-ad",
+        "montage"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "film-noir",
+      "term": "film noir",
+      "ko": "필름 누아르",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "흑백 또는 저채도, 블라인드 그림자, 담배 연기의 범죄 영화 문법.",
+      "snippet": "1940s film noir, venetian blind shadows, smoke",
+      "compare_with": [
+        "monochrome",
+        "low-key"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "found-footage",
+      "term": "found footage / security cam",
+      "ko": "파운드 푸티지·CCTV",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "저화질, 고정 고각, 타임코드로 날것의 사실감·공포감.",
+      "snippet": "Grainy security camera footage, timestamp overlay, high angle",
+      "compare_with": [
+        "vhs",
+        "documentary"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "anime",
+      "term": "2D anime style",
+      "ko": "애니메이션(아니메)",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "셀 셰이딩, 선명한 윤곽, 과장된 효과선으로 일본 애니 느낌.",
+      "snippet": "2D anime style, cel shading, dramatic speed lines",
+      "compare_with": [
+        "pixar-3d",
+        "claymation"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "pixar-3d",
+      "term": "3D animated feature style",
+      "ko": "3D 애니메이션",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "부드러운 재질, 큰 눈, 따뜻한 조명의 장편 3D 애니메이션 룩. (특정 스튜디오명 사용은 정책상 제한될 수 있음)",
+      "snippet": "3D animated feature film style, soft subsurface skin, warm lighting",
+      "compare_with": [
+        "anime",
+        "claymation"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "claymation",
+      "term": "claymation",
+      "ko": "클레이메이션",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "점토 질감, 지문 자국, 스톱모션 프레임감.",
+      "snippet": "Claymation, visible fingerprints on clay characters",
+      "compare_with": [
+        "stop-motion",
+        "pixar-3d"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "vlog-ugc",
+      "term": "UGC selfie vlog",
+      "ko": "UGC 셀카 브이로그",
+      "category": "genre-style",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "폰 전면카메라, 팔 길이 거리, 자연광으로 SNS 광고·후기 영상 느낌.",
+      "snippet": "Selfie-style vertical vlog, handheld phone camera, she talks to the camera",
+      "compare_with": [
+        "documentary",
+        "commercial-ad"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance",
+        "Higgsfield"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "nature-doc",
+      "term": "wildlife documentary",
+      "ko": "자연 다큐",
+      "category": "genre-style",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "망원 렌즈, 느린 관찰, 내레이션 톤까지 포함해 BBC식 자연 다큐 문법.",
+      "snippet": "Wildlife documentary, telephoto lens, a snow leopard stalks along the cliff",
+      "compare_with": [
+        "documentary",
+        "telephoto-lens"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "fluid-sim",
+      "term": "realistic fluid dynamics",
+      "ko": "유체 시뮬레이션",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "물·우유·꿀 붓기 등 액체가 사실적으로 튀고 흐르게 강조한다. 슬로모션과 궁합.",
+      "snippet": "Honey pours in thick ribbons, folding onto itself, realistic fluid dynamics",
+      "compare_with": [
+        "particle-fx",
+        "slow-motion"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7"
+      ]
+    },
+    {
+      "id": "particle-fx",
+      "term": "particles / embers / dust motes",
+      "ko": "파티클(불씨·먼지)",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "공중에 떠다니는 입자가 깊이감과 분위기를 더한다.",
+      "snippet": "Glowing embers drift upward through the dark",
+      "compare_with": [
+        "haze-fog",
+        "volumetric-light"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "cloth-sim",
+      "term": "cloth billowing in the wind",
+      "ko": "천의 펄럭임",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "망토·커튼·드레스가 바람에 자연스럽게 휘날린다. 2차 움직임의 대표 사례.",
+      "snippet": "Her red silk dress billows dramatically in the wind",
+      "compare_with": [
+        "secondary-motion"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7"
+      ]
+    },
+    {
+      "id": "destruction",
+      "term": "shattering / explosion debris",
+      "ko": "파괴·폭발",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "유리 파편·잔해가 물리적으로 흩어진다. 정책 필터와 물리 오류가 잦아 단순한 묘사가 안전.",
+      "snippet": "The glass window shatters into thousands of shards in slow motion",
+      "compare_with": [
+        "particle-fx",
+        "slow-motion"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "weight-inertia",
+      "term": "physically grounded weight and inertia",
+      "ko": "무게감·관성 묘사",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "'heavy', 'momentum carries him' 같은 표현으로 물체가 둥둥 뜨는 AI 특유의 부유감을 줄인다.",
+      "snippet": "The heavy steel door swings slowly, momentum carrying it shut with a thud",
+      "compare_with": [
+        "fluid-sim"
+      ],
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Wan"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7"
+      ]
+    },
+    {
+      "id": "transformation",
+      "term": "object transformation",
+      "ko": "변신·변형",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "사물이 다른 사물로 변하는 VFX. 시작/끝 프레임과 함께 쓰면 통제력이 커진다.",
+      "snippet": "The paper crane unfolds and transforms into a real bird",
+      "compare_with": [
+        "morph",
+        "start-end-frame"
+      ],
+      "tools": [
+        "Luma Ray",
+        "Kling",
+        "Pika"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://yourstory.com/ai-story/luma-ai-ray3-modify"
+      ]
+    },
+    {
+      "id": "pikaffects",
+      "term": "Pikaffects (melt, inflate, explode, squish)",
+      "ko": "피카 이펙트",
+      "category": "physics-vfx",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Pika의 원클릭 효과로 피사체를 녹이거나 부풀리거나 터뜨리는 등 장난스러운 변형을 적용한다.",
+      "snippet": "(select Pikaffect: Inflate) on uploaded product photo",
+      "compare_with": [
+        "transformation",
+        "morph"
+      ],
+      "tools": [
+        "Pika"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://pika.art"
+      ]
+    },
+    {
+      "id": "hologram",
+      "term": "holographic glitch effect",
+      "ko": "홀로그램·글리치",
+      "category": "physics-vfx",
+      "tags": [
+        "video",
+        "image"
+      ],
+      "effect_ko": "반투명 청색 홀로그램과 디지털 노이즈로 SF 느낌.",
+      "snippet": "A flickering blue hologram of a city map with glitch artifacts",
+      "compare_with": [
+        "particle-fx"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/"
+      ]
+    },
+    {
+      "id": "dialogue-colon-syntax",
+      "term": "Character says: \"line\"",
+      "ko": "대사 문법(콜론+따옴표)",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "말하는 사람+콜론+따옴표 대사로 쓰면 립싱크 음성으로 생성되고 자막 텍스트로 새는 일이 줄어든다.",
+      "snippet": "The old fisherman looks at the camera and says: \"The sea gives, and the sea takes.\"",
+      "compare_with": [
+        "voiceover",
+        "lip-sync"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Sora 2"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "dialogue-block",
+      "term": "Dialogue: block with speaker labels",
+      "ko": "대사 블록",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "프롬프트 아래에 'Dialogue:' 블록을 따로 두고 화자별로 짧게 적는다. 4초면 한두 줄, 8초면 조금 더(Sora 가이드).",
+      "snippet": "Dialogue:\n- Detective: \"You're lying.\"\n- Suspect: \"Prove it.\"",
+      "compare_with": [
+        "dialogue-colon-syntax"
+      ],
+      "tools": [
+        "Sora 2",
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "voiceover",
+      "term": "voiceover / narrator (off-screen)",
+      "ko": "보이스오버·내레이션",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "화면 속 인물이 입을 움직이지 않고 화면 밖 목소리로 나온다. 다큐·광고 내레이션.",
+      "snippet": "A calm narrator says in voiceover: \"Every journey begins in silence.\"",
+      "compare_with": [
+        "dialogue-colon-syntax",
+        "lip-sync"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "sfx-label",
+      "term": "SFX: ...",
+      "ko": "효과음 지정(SFX)",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "'SFX:' 라벨로 특정 효과음을 지시하면 화면 사건과 동기화된 소리가 난다(Veo 공식).",
+      "snippet": "SFX: thunder cracks in the distance",
+      "compare_with": [
+        "ambient-label",
+        "no-music"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "ambient-label",
+      "term": "Ambient noise: ...",
+      "ko": "앰비언스 지정",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "배경 환경음을 지정해 공간감을 만든다. Sora는 'Background Sound:' 섹션을 쓴다.",
+      "snippet": "Ambient noise: the quiet hum of a starship bridge",
+      "compare_with": [
+        "sfx-label",
+        "music-score"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Sora 2",
+        "Kling"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "music-score",
+      "term": "music: ... (score / genre / tempo)",
+      "ko": "배경음악 지정",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio",
+        "music"
+      ],
+      "effect_ko": "장르·악기·템포를 지정하면 장면 분위기에 맞는 배경음악이 생성된다.",
+      "snippet": "Music: a slow, melancholic solo cello",
+      "compare_with": [
+        "no-music",
+        "ambient-label"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "no-music",
+      "term": "no background music, only natural sounds",
+      "ko": "음악 없음(자연음만)",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "모델이 임의로 넣는 BGM을 빼고 현장음만 남긴다. 부정어보다 'only natural sounds' 같은 긍정형이 더 안정적.",
+      "snippet": "Audio: only natural forest sounds and footsteps, no music",
+      "compare_with": [
+        "music-score",
+        "ambient-label"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "voice-tone",
+      "term": "voice description (tone, accent, pace)",
+      "ko": "목소리 톤 지정",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "'in a weary voice', 'whispers', 'with a Scottish accent'처럼 말투를 지정하면 연기 톤이 달라진다. Veo 예시 'says in a weary voice'.",
+      "snippet": "He looks up and says in a weary voice: \"Of all the offices in this town...\"",
+      "compare_with": [
+        "dialogue-colon-syntax"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Sora 2"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "emotion-cue",
+      "term": "Emotion: ...",
+      "ko": "감정 지시",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio"
+      ],
+      "effect_ko": "Veo 타임스탬프 예시처럼 'Emotion:' 라벨로 장면/연기의 감정을 고정한다.",
+      "snippet": "Emotion: Wonder and reverence.",
+      "compare_with": [
+        "voice-tone"
+      ],
+      "tools": [
+        "Veo 3.1"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "singing",
+      "term": "character sings",
+      "ko": "노래하기",
+      "category": "audio-dialogue",
+      "tags": [
+        "video",
+        "audio",
+        "music"
+      ],
+      "effect_ko": "인물이 가사를 노래하며 립싱크한다. Veo 시작/끝 프레임 예시에 등장. 가사는 직접 창작한 것만 사용.",
+      "snippet": "The singer sings 'when you look me in the eyes, I can see a million stars.'",
+      "compare_with": [
+        "dialogue-colon-syntax",
+        "music-score"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "timestamp-prompting",
+      "term": "[00:00-00:02] timestamp segments",
+      "ko": "타임스탬프 프롬프팅",
+      "category": "sequence-structure",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "구간별 타임코드로 샷을 나누면 한 번의 생성에서 멀티샷 시퀀스를 연출할 수 있다(Veo 3.1 공식).",
+      "snippet": "[00:00-00:02] Medium shot from behind... [00:02-00:04] Reverse shot of her face...",
+      "compare_with": [
+        "multi-shot-numbered",
+        "lens-switch"
+      ],
+      "tools": [
+        "Veo 3.1"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "multi-shot-numbered",
+      "term": "Shot 1: / Shot 2: numbered shots",
+      "ko": "번호 매긴 멀티샷",
+      "category": "sequence-structure",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Shot 1, Shot 2처럼 번호로 샷을 나누면 전환이 의도적으로 느껴진다. Kling 3.0·Seedance 가이드 권장.",
+      "snippet": "Shot 1: wide of the cabin in snow. Shot 2: close-up of a hand lighting a match.",
+      "compare_with": [
+        "timestamp-prompting",
+        "lens-switch"
+      ],
+      "tools": [
+        "Kling",
+        "Seedance",
+        "Veo 3.1"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blog.fal.ai/kling-3-0-prompting-guide/",
+        "https://blog.segmind.com/ultimate-seedance-1-0-pro-tutorial/"
+      ]
+    },
+    {
+      "id": "lens-switch",
+      "term": "lens switch",
+      "ko": "렌즈 스위치(Seedance 컷)",
+      "category": "sequence-structure",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Seedance에서 'lens switch' 문구가 한 클립 안의 컷을 유발하며 인물·환경 일관성을 유지한다.",
+      "snippet": "A chef plates a dish in a busy kitchen. Lens switch to a close-up of the sauce drizzling.",
+      "compare_with": [
+        "hard-cut",
+        "multi-shot-numbered"
+      ],
+      "tools": [
+        "Seedance"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.renderforest.com/blog/how-to-use-seedance-2-5",
+        "https://blog.segmind.com/ultimate-seedance-1-0-pro-tutorial/"
+      ]
+    },
+    {
+      "id": "consistent-subject-anchor",
+      "term": "repeated subject description",
+      "ko": "피사체 묘사 고정 반복",
+      "category": "sequence-structure",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "샷마다 같은 인물 묘사(의상·머리색)를 똑같이 반복하면 샷 간 일관성이 높아진다.",
+      "snippet": "the woman in the yellow raincoat with a short black bob (repeat in every shot)",
+      "compare_with": [
+        "ingredients-reference",
+        "character-reference"
+      ],
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Seedance",
+        "Runway Gen-4.5"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blog.fal.ai/kling-3-0-prompting-guide/"
+      ]
+    },
+    {
+      "id": "extend-video",
+      "term": "extend / continue clip",
+      "ko": "영상 연장",
+      "category": "sequence-structure",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "기존 클립의 마지막을 이어 다음 장면을 생성한다. Sora API는 확장 기능 제공(서비스 종료 주의), Veo·Kling·Luma도 연장 기능 보유.",
+      "snippet": "(Extend) The camera continues forward as she opens the door",
+      "compare_with": [
+        "start-end-frame"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray",
+        "Sora 2"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "start-end-frame",
+      "term": "first and last frame (start/end keyframes)",
+      "ko": "시작·끝 프레임",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "시작 이미지와 끝 이미지를 주고 그 사이 전환·무빙만 프롬프트로 설명한다. 두 프레임의 렌즈감·스케일이 맞아야 자연스럽다.",
+      "snippet": "The camera performs a smooth 180-degree arc from the front view to behind her on stage",
+      "compare_with": [
+        "image-to-video",
+        "morph"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray",
+        "Runway Gen-4.5",
+        "Hailuo",
+        "Wan"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "image-to-video",
+      "term": "image-to-video: describe motion only",
+      "ko": "이미지→영상(동작만 묘사)",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "입력 이미지가 첫 프레임이므로 이미지 내용을 다시 설명하지 말고 움직임만 쓴다. 재설명하면 움직임이 줄거나 어긋날 수 있다(Runway·Sora 가이드).",
+      "snippet": "The woman slowly turns her head toward the window as wind moves her hair",
+      "compare_with": [
+        "start-end-frame",
+        "secondary-motion"
+      ],
+      "tools": [
+        "Runway Gen-4.5",
+        "Sora 2",
+        "Kling",
+        "Veo 3.1",
+        "Luma Ray"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://help.runwayml.com/hc/en-us/articles/37425232841875-Getting-Started-with-Generative-Video",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "ingredients-reference",
+      "term": "Ingredients to Video (reference images)",
+      "ko": "재료 이미지 참조(Veo)",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "인물·사물·배경 레퍼런스 이미지를 넣고 프롬프트에서 'Using the provided images for...'로 지칭해 여러 샷에서 일관성을 유지한다.",
+      "snippet": "Using the provided images for the detective, the woman, and the office setting, create a medium shot...",
+      "compare_with": [
+        "character-reference",
+        "consistent-subject-anchor"
+      ],
+      "tools": [
+        "Veo 3.1"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "character-reference",
+      "term": "character / element reference",
+      "ko": "캐릭터 레퍼런스",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Kling Elements, Runway References, Sora characters(최대 2명) 등으로 같은 인물을 반복 등장시킨다. 프롬프트에서 이름으로 지칭.",
+      "snippet": "@Mina walks into the bar and sits next to @Joon",
+      "compare_with": [
+        "ingredients-reference"
+      ],
+      "tools": [
+        "Kling",
+        "Runway Gen-4.5",
+        "Sora 2",
+        "Higgsfield"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://blog.fal.ai/kling-3-0-prompting-guide/"
+      ]
+    },
+    {
+      "id": "motion-brush",
+      "term": "Motion Brush",
+      "ko": "모션 브러시",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "이미지의 특정 영역에 붓으로 이동 경로를 그려 국소 움직임을 지정한다. 고정 물체에 그리면 카메라 무빙으로 오해될 수 있다.",
+      "snippet": "(paint path on the sleeve and leaf only)",
+      "compare_with": [
+        "camera-control-preset",
+        "secondary-motion"
+      ],
+      "tools": [
+        "Kling",
+        "Runway (legacy Gen-3)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "camera-control-preset",
+      "term": "camera control presets",
+      "ko": "카메라 컨트롤 프리셋",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "UI의 카메라 무빙 프리셋(Higgsfield 70여 종, Kling Camera Movement 등)으로 텍스트보다 안정적으로 무빙을 고정한다. 프리셋 이름은 프롬프트 어휘로도 참고 가능.",
+      "snippet": "(preset: Crane Up) + prompt describing what is revealed at the end",
+      "compare_with": [
+        "static-shot",
+        "dolly-zoom"
+      ],
+      "tools": [
+        "Higgsfield",
+        "Kling",
+        "Luma Ray",
+        "Runway Gen-4.5"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "bracket-camera-commands",
+      "term": "[Push in] [Pan left] bracket commands",
+      "ko": "대괄호 카메라 명령(Hailuo)",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Hailuo(Director/02/2.3)에서 [Push in], [Tilt up], [Tracking shot], [Static shot] 등을 대괄호로 쓰면 카메라 명령으로 인식된다. 2~3개 이하로 조합. 후속 모델은 자연어 방식일 수 있음.",
+      "snippet": "[Truck left, Pan right] A samurai walks through the bamboo forest",
+      "compare_with": [
+        "camera-control-preset",
+        "pan"
+      ],
+      "tools": [
+        "Hailuo"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet"
+      ]
+    },
+    {
+      "id": "negative-prompt",
+      "term": "negative prompt field",
+      "ko": "네거티브 프롬프트",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Kling·Wan 등은 별도 negative 입력란에 blur, distortion, morphing 등을 넣을 수 있다. Veo·Luma·Seedance는 본문 부정어보다 원하는 것을 긍정형으로 쓰라고 권장.",
+      "snippet": "Negative: blur, flicker, warped hands, morphing face, extra limbs, text",
+      "compare_with": [
+        "positive-exclusion"
+      ],
+      "tools": [
+        "Kling",
+        "Wan",
+        "Veo 3.1 (API negativePrompt)"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.runcomfy.com/models/kling/kling-2-6/pro/text-to-video",
+        "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7"
+      ]
+    },
+    {
+      "id": "positive-exclusion",
+      "term": "describe absence positively",
+      "ko": "긍정형 배제",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "'no man-made structures' 대신 'a desolate landscape with no buildings or roads'처럼 원하는 상태를 서술하는 편이 잘 지켜진다(Veo 공식).",
+      "snippet": "A desolate landscape with no buildings or roads",
+      "compare_with": [
+        "negative-prompt"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Luma Ray",
+        "Runway Gen-4.5",
+        "Seedance"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "video-to-video-edit",
+      "term": "video-to-video edit (Aleph / Modify)",
+      "ko": "영상→영상 편집",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "기존 영상을 넣고 'change/add/remove/relight/restyle' 동사로 한 가지 변경만 요청한다. 원본의 카메라·동작은 유지된다.",
+      "snippet": "Relight the scene as golden hour, keep everything else the same",
+      "compare_with": [
+        "new-angle-aleph",
+        "remix-one-change"
+      ],
+      "tools": [
+        "Runway Aleph",
+        "Luma Ray3 Modify",
+        "Kling"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph",
+        "https://yourstory.com/ai-story/luma-ai-ray3-modify"
+      ]
+    },
+    {
+      "id": "new-angle-aleph",
+      "term": "Generate a new angle of this shot",
+      "ko": "새 앵글 생성(Aleph)",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "같은 입력 영상으로 앵글 설명만 바꿔가며 리버스·와이드·미디엄 등 커버리지를 만든다.",
+      "snippet": "Generate a medium full shot of the subject",
+      "compare_with": [
+        "video-to-video-edit",
+        "medium-full-shot"
+      ],
+      "tools": [
+        "Runway Aleph"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph"
+      ]
+    },
+    {
+      "id": "remix-one-change",
+      "term": "one controlled change per edit",
+      "ko": "편집당 한 가지 변경",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "결과가 거의 맞으면 그 영상을 고정하고 바꿀 점 하나만 지시한다(Sora edits, Aleph 공통).",
+      "snippet": "Change the color of the monster to orange.",
+      "compare_with": [
+        "video-to-video-edit"
+      ],
+      "tools": [
+        "Sora 2",
+        "Runway Aleph",
+        "Luma Ray3 Modify"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "duration-param",
+      "term": "duration / seconds parameter",
+      "ko": "길이 파라미터",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "'make it longer' 같은 문장은 효과가 없고 UI/API 설정으로 정한다. 짧은 클립일수록 지시 준수율이 높다(Veo 4/6/8초).",
+      "snippet": "(API) seconds=8",
+      "compare_with": [
+        "aspect-ratio",
+        "extend-video"
+      ],
+      "tools": [
+        "Veo 3.1",
+        "Sora 2",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "loop",
+      "term": "seamless loop",
+      "ko": "무한 루프",
+      "category": "model-syntax",
+      "tags": [
+        "video"
+      ],
+      "effect_ko": "Luma의 Loop 옵션이나 동일 시작·끝 프레임으로 처음과 끝이 이어지는 반복 영상을 만든다.",
+      "snippet": "(Loop on) gentle waves lapping a rock",
+      "compare_with": [
+        "start-end-frame"
+      ],
+      "tools": [
+        "Luma Ray",
+        "Kling"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "combo-hero-product",
+      "name_ko": "제품 히어로 샷",
+      "goal_ko": "광고처럼 고급스러운 제품 클로즈업을 원할 때",
+      "term_ids": [
+        "orbit",
+        "macro-lens",
+        "shallow-dof",
+        "rim-light",
+        "commercial-ad"
+      ],
+      "prompt_en": "High-end commercial, slow 180-degree orbit around a glass perfume bottle on black marble, macro lens, shallow depth of field, strong rim light outlining the glass, soft volumetric haze. SFX: a soft glass chime.",
+      "notes_ko": "궤도 무빙 하나만 사용. 제품 뒷면을 모델이 지어내지 않도록 180도 정도로 제한.",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray"
+      ]
+    },
+    {
+      "id": "combo-noir-tension",
+      "name_ko": "누아르 긴장감",
+      "goal_ko": "어둡고 불안한 스릴러 분위기",
+      "term_ids": [
+        "low-key",
+        "dutch-angle",
+        "slow-push-in",
+        "monochrome",
+        "practical-lights"
+      ],
+      "prompt_en": "Black and white film noir, low-key lighting from a single desk lamp, Dutch angle, slow push-in on a detective staring at a ringing phone. SFX: the phone rings twice, then silence.",
+      "notes_ko": "더치 앵글+푸시인은 같은 방향의 불안을 강화. 무빙은 하나만.",
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ]
+    },
+    {
+      "id": "combo-epic-reveal",
+      "name_ko": "웅장한 풍경 리빌",
+      "goal_ko": "스케일이 큰 오프닝",
+      "term_ids": [
+        "aerial-shot",
+        "crane-up",
+        "golden-hour",
+        "extreme-wide-shot",
+        "haze-fog"
+      ],
+      "prompt_en": "Aerial drone shot rising from behind a ridge to reveal an extreme wide view of a misty mountain valley at golden hour, a tiny figure on the summit. Music: swelling orchestral strings.",
+      "notes_ko": "끝에 무엇이 보여야 하는지 명시하면 리빌이 정확해진다.",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Luma Ray"
+      ]
+    },
+    {
+      "id": "combo-sports-ramp",
+      "name_ko": "스포츠 광고 스피드 램프",
+      "goal_ko": "역동적 운동 하이라이트",
+      "term_ids": [
+        "speed-ramp",
+        "low-angle",
+        "tracking-shot",
+        "teal-orange",
+        "particle-fx"
+      ],
+      "prompt_en": "Low angle tracking shot of a basketball player driving to the hoop, speed ramp: real time on the drive, slow motion at the peak of the dunk with sweat droplets in the air, snapping back to real time as he lands. Teal and orange grade.",
+      "notes_ko": "속도 변화를 박자로 구간 지정해야 한다.",
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Seedance"
+      ]
+    },
+    {
+      "id": "combo-doc-interview",
+      "name_ko": "다큐 인터뷰",
+      "goal_ko": "사실적인 인터뷰 영상",
+      "term_ids": [
+        "documentary",
+        "medium-close-up",
+        "soft-window-light",
+        "dialogue-colon-syntax",
+        "ambient-label"
+      ],
+      "prompt_en": "Documentary style, medium close-up of a 70-year-old fisherman in his kitchen, soft window light, handheld with slight movement. He says: \"I've been on these waters since I was ten.\" Ambient noise: gulls and a distant boat engine.",
+      "notes_ko": "대사는 짧게(8초에 1~2문장).",
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ]
+    },
+    {
+      "id": "combo-dialogue-two-shot",
+      "name_ko": "대화 씬 샷-리버스",
+      "goal_ko": "두 인물 대화를 한 클립에 컷으로",
+      "term_ids": [
+        "timestamp-prompting",
+        "over-the-shoulder",
+        "shot-reverse-shot",
+        "dialogue-colon-syntax",
+        "voice-tone"
+      ],
+      "prompt_en": "[00:00-00:04] Over-the-shoulder shot from behind Mina, facing Joon at a kitchen table at night. Joon says quietly: \"I think we should leave tomorrow.\" [00:04-00:08] Reverse shot on Mina's face, she hesitates, then says: \"Then we go at dawn.\" Ambient noise: a ticking clock.",
+      "notes_ko": "Veo 3.1 타임스탬프 문법. 다른 모델은 Shot 1/Shot 2 형식으로 치환.",
+      "tools": [
+        "Veo 3.1"
+      ]
+    },
+    {
+      "id": "combo-dreamy-memory",
+      "name_ko": "몽환적 회상",
+      "goal_ko": "추억·꿈 장면",
+      "term_ids": [
+        "soft-focus",
+        "16mm-film",
+        "slow-motion",
+        "golden-hour",
+        "diffusion-filter"
+      ],
+      "prompt_en": "16mm film, soft focus with Pro-Mist diffusion, a child runs through a sunlit wheat field in slow motion at golden hour, light leaks.",
+      "notes_ko": "그레인+디퓨전 조합은 과하면 디테일이 뭉개지니 하나씩 비교.",
+      "tools": [
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Veo 3.1"
+      ]
+    },
+    {
+      "id": "combo-cyberpunk-chase",
+      "name_ko": "사이버펑크 추격",
+      "goal_ko": "네온 액션 시퀀스",
+      "term_ids": [
+        "night-neon",
+        "fpv-drone",
+        "hyperlapse",
+        "anamorphic",
+        "sfx-label"
+      ],
+      "prompt_en": "FPV drone shot chasing a motorbike through a neon-lit rainy alley at night, anamorphic flares, wet reflections. SFX: engine roar and splashing puddles.",
+      "notes_ko": "FPV는 왜곡이 크므로 단순한 경로 묘사.",
+      "tools": [
+        "Kling",
+        "Higgsfield",
+        "Veo 3.1"
+      ]
+    },
+    {
+      "id": "combo-vertigo-shock",
+      "name_ko": "충격의 순간",
+      "goal_ko": "깨달음·공포의 심리 표현",
+      "term_ids": [
+        "dolly-zoom",
+        "close-up",
+        "low-key",
+        "sfx-label"
+      ],
+      "prompt_en": "Dolly zoom on a woman's face in a dark hallway as the corridor stretches behind her, low-key lighting. SFX: a low rising drone.",
+      "notes_ko": "텍스트만으론 불안정. Higgsfield 프리셋 사용 권장.",
+      "tools": [
+        "Higgsfield",
+        "Kling"
+      ]
+    },
+    {
+      "id": "combo-ugc-ad",
+      "name_ko": "UGC 후기 광고",
+      "goal_ko": "SNS용 자연스러운 셀카 리뷰",
+      "term_ids": [
+        "vlog-ugc",
+        "looks-at-camera",
+        "dialogue-colon-syntax",
+        "aspect-ratio",
+        "practical-lights"
+      ],
+      "prompt_en": "Vertical selfie-style video, handheld phone camera, a woman in her bathroom lit by vanity mirror lights holds up a moisturizer, looks into the camera and says: \"Okay, this one actually works.\" Ambient noise: soft room tone.",
+      "notes_ko": "9:16은 설정에서 지정.",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Seedance"
+      ]
+    },
+    {
+      "id": "combo-product-morph",
+      "name_ko": "제품 변신 전환",
+      "goal_ko": "로고/제품으로 변하는 브랜딩 엔딩",
+      "term_ids": [
+        "start-end-frame",
+        "morph",
+        "particle-fx",
+        "static-shot"
+      ],
+      "prompt_en": "(start frame: coffee beans; end frame: product bag) Static shot. The coffee beans swirl upward into a cloud of particles and seamlessly morph into the coffee bag.",
+      "notes_ko": "두 프레임의 조명·스케일을 맞춰야 깔끔.",
+      "tools": [
+        "Luma Ray",
+        "Kling",
+        "Veo 3.1"
+      ]
+    },
+    {
+      "id": "combo-seedance-multishot",
+      "name_ko": "Seedance 멀티컷 요리",
+      "goal_ko": "한 클립 안에 여러 컷",
+      "term_ids": [
+        "lens-switch",
+        "close-up",
+        "wide-establishing-shot",
+        "fluid-sim"
+      ],
+      "prompt_en": "Wide establishing shot of a chef in a busy restaurant kitchen. Lens switch to an extreme close-up of olive oil drizzling onto the pasta. Lens switch to a medium shot of the chef smiling as the plate leaves the pass.",
+      "notes_ko": "환경·조명을 고정해야 컷 간 일관성이 유지된다.",
+      "tools": [
+        "Seedance"
+      ]
+    },
+    {
+      "id": "combo-hailuo-brackets",
+      "name_ko": "Hailuo 카메라 명령",
+      "goal_ko": "Hailuo에서 정확한 무빙",
+      "term_ids": [
+        "bracket-camera-commands",
+        "tracking-shot",
+        "golden-hour"
+      ],
+      "prompt_en": "[Tracking shot, Push in] A horse gallops along the beach at golden hour, spray flying from its hooves.",
+      "notes_ko": "괄호 명령은 2~3개 이하.",
+      "tools": [
+        "Hailuo"
+      ]
+    },
+    {
+      "id": "combo-aleph-coverage",
+      "name_ko": "Aleph 커버리지 확보",
+      "goal_ko": "촬영본 하나로 여러 앵글",
+      "term_ids": [
+        "new-angle-aleph",
+        "over-the-shoulder",
+        "remix-one-change"
+      ],
+      "prompt_en": "Input: wide shot of two people talking. Prompt 1: Generate an over-the-shoulder shot from behind the man. Prompt 2: Generate a close-up of the woman's face.",
+      "notes_ko": "같은 입력 영상, 앵글 설명만 바꿔 반복.",
+      "tools": [
+        "Runway Aleph"
+      ]
+    },
+    {
+      "id": "combo-i2v-portrait",
+      "name_ko": "인물 사진 살리기",
+      "goal_ko": "정지 이미지를 자연스럽게 움직이기",
+      "term_ids": [
+        "image-to-video",
+        "secondary-motion",
+        "micro-expression",
+        "slow-push-in"
+      ],
+      "prompt_en": "(image input) Slow push-in. She blinks, a faint smile forms, wind gently lifts strands of her hair.",
+      "notes_ko": "이미지 내용 재설명 금지, 동작만.",
+      "tools": [
+        "Runway Gen-4.5",
+        "Kling",
+        "Veo 3.1",
+        "Luma Ray"
+      ]
+    },
+    {
+      "id": "combo-wildlife",
+      "name_ko": "자연 다큐 관찰",
+      "goal_ko": "BBC식 야생동물 장면",
+      "term_ids": [
+        "nature-doc",
+        "telephoto-lens",
+        "voiceover",
+        "haze-fog"
+      ],
+      "prompt_en": "Wildlife documentary, telephoto lens, a red fox steps through morning fog in a frosty meadow, pauses and lifts its head. A calm narrator says in voiceover: \"At first light, the hunt begins.\"",
+      "notes_ko": "보이스오버는 인물 립싱크를 방지.",
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ]
+    },
+    {
+      "id": "combo-timelapse-city",
+      "name_ko": "도시 시간 흐름",
+      "goal_ko": "낮→밤 변화",
+      "term_ids": [
+        "timelapse",
+        "tilt-shift",
+        "birds-eye-view",
+        "blue-hour"
+      ],
+      "prompt_en": "Tilt-shift timelapse from a high angle over a busy intersection as day turns into blue hour and the city lights switch on.",
+      "notes_ko": "고정 카메라 명시가 안정적.",
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Wan"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "tq-one-variable",
+      "name": "Single-variable A/B",
+      "ko": "한 변수 비교법",
+      "how_ko": "기준 원안을 고정하고 한 용어만 교체해 같은 설정(모델·길이·화면비·시드 가능 시 시드)으로 생성. 같은 프롬프트도 결과가 달라지므로 각 2~3회 생성해 경향을 본다.",
+      "when_ko": "용어 효과를 확인하거나 사전 비교 페이지를 만들 때",
+      "example": "Base + 'dolly in' vs Base + 'zoom in'",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "tq-veo-formula",
+      "name": "Veo 5-part formula",
+      "ko": "Veo 5요소 공식",
+      "how_ko": "[Cinematography] + [Subject] + [Action] + [Context] + [Style & Ambiance] 순서로 쓰고 오디오(대사/SFX/Ambient)를 뒤에 붙인다.",
+      "when_ko": "Veo 3.1 기본 구조",
+      "example": "Medium shot, a tired corporate worker, rubbing his temples, in a cluttered 1980s office at night... shot as if on 1980s color film.",
+      "tools": [
+        "Veo 3.1"
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "tq-sora-template",
+      "name": "Sora structured template",
+      "ko": "Sora 구조화 템플릿",
+      "how_ko": "산문 장면 묘사 → Cinematography(Camera shot, Mood) → Actions(박자 목록) → Dialogue → Background Sound 순. 샷당 카메라 무빙 1개, 동작 1개.",
+      "when_ko": "세밀한 통제가 필요할 때(다른 모델에도 응용 가능)",
+      "example": "Camera shot: wide establishing shot, eye level\nMood: tense\nActions:\n- ...",
+      "tools": [
+        "Sora 2"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "tq-kling-order",
+      "name": "Kling layered order",
+      "ko": "Kling 계층 순서",
+      "how_ko": "Subject+Action → Camera → Lighting → Environment → Physics → Style → (Negative) 순으로 절을 나눠 쓰고, 3.0에서는 샷 단위로 시퀀스를 기술한다.",
+      "when_ko": "Kling 2.x/3.x 사용 시",
+      "example": "A boxer throws a jab. Camera: low-angle tracking. Lighting: single overhead spotlight...",
+      "tools": [
+        "Kling"
+      ],
+      "sources": [
+        "https://blog.fal.ai/kling-3-0-prompting-guide/",
+        "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7"
+      ]
+    },
+    {
+      "id": "tq-i2v-motion-only",
+      "name": "Motion-only prompts for I2V",
+      "ko": "이미지→영상은 동작만",
+      "how_ko": "첫 프레임 이미지가 외형을 담당하므로 프롬프트는 카메라 무빙과 피사체 동작만. 간단한 한 문장에서 시작해 요소를 하나씩 추가.",
+      "when_ko": "이미지로 구도·조명을 먼저 고정하고 싶을 때",
+      "example": "The camera slowly pushes in as she lifts the cup to her lips.",
+      "tools": [
+        "Runway Gen-4.5",
+        "Kling",
+        "Luma Ray",
+        "Veo 3.1"
+      ],
+      "sources": [
+        "https://help.runwayml.com/hc/en-us/articles/37425232841875-Getting-Started-with-Generative-Video"
+      ]
+    },
+    {
+      "id": "tq-one-move",
+      "name": "One camera move per clip",
+      "ko": "클립당 무빙 하나",
+      "how_ko": "카메라 무빙 지시가 둘 이상 충돌하면 흔들림·드리프트가 생긴다. 무빙을 원치 않으면 'static shot'을 명시.",
+      "when_ko": "무빙이 이상하게 섞일 때",
+      "example": "Static locked-off shot. / Slow push-in.",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5",
+        "Luma Ray",
+        "Hailuo",
+        "Seedance",
+        "Wan"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "tq-start-end-camera-path",
+      "name": "Describe camera path start→end",
+      "ko": "카메라 경로 서술",
+      "how_ko": "무빙 이름만 쓰지 말고 어디서 시작해, 무엇을 지나, 끝에 무엇이 보이는지 서술한다.",
+      "when_ko": "프리셋 무빙이 밋밋하거나 리빌이 엉뚱할 때",
+      "example": "Camera starts low behind the fence, cranes up past the treetops, ending on a wide view of the castle.",
+      "tools": [
+        "Kling",
+        "Veo 3.1",
+        "Luma Ray"
+      ],
+      "sources": [
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "tq-keyframe-change-only",
+      "name": "Keyframes: describe only the change",
+      "ko": "키프레임은 변화만",
+      "how_ko": "시작/끝 프레임을 쓰면 정적인 요소는 재설명하지 말고 바뀌는 것만 서술. 두 프레임의 렌즈감·스케일을 맞춘다.",
+      "when_ko": "시작·끝 프레임 전환",
+      "example": "The petals close and the flower glows from within.",
+      "tools": [
+        "Luma Ray",
+        "Kling",
+        "Veo 3.1"
+      ],
+      "sources": [
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+        "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement"
+      ]
+    },
+    {
+      "id": "tq-short-clips-stitch",
+      "name": "Short clips, then stitch",
+      "ko": "짧게 생성 후 이어붙이기",
+      "how_ko": "짧은 클립이 지시를 더 잘 따른다. 4초×2가 8초×1보다 나을 수 있음. 편집툴에서 이어 붙이거나 extend 사용.",
+      "when_ko": "긴 장면, 복잡한 동작",
+      "example": "Clip A (4s): he opens the door. Clip B (4s): he steps into the rain.",
+      "tools": [
+        "Sora 2",
+        "Veo 3.1",
+        "Kling"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide"
+      ]
+    },
+    {
+      "id": "tq-audio-layers",
+      "name": "Layered audio cues",
+      "ko": "오디오 레이어 분리",
+      "how_ko": "대사(콜론+따옴표), SFX:, Ambient noise:, Music:을 각각 따로 적어 소리 층을 분리한다.",
+      "when_ko": "Veo·Kling 네이티브 오디오",
+      "example": "He says: \"Run.\" SFX: glass breaking. Ambient noise: heavy rain. Music: none, only natural sound.",
+      "tools": [
+        "Veo 3.1",
+        "Kling"
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "tq-dialogue-length",
+      "name": "Fit dialogue to duration",
+      "ko": "대사 길이 맞추기",
+      "how_ko": "4초엔 한두 마디, 8초엔 몇 줄. 길면 말이 빨라지거나 잘린다. 3명 이상 화자는 귀속이 흔들린다.",
+      "when_ko": "대사 씬",
+      "example": "8s clip: two short lines only.",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Sora 2"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://www.atlascloud.ai/blog/guides/kling-2-6-review"
+      ]
+    },
+    {
+      "id": "tq-positive-phrasing",
+      "name": "Positive phrasing instead of negation",
+      "ko": "긍정형 서술",
+      "how_ko": "'no X' 부정어는 오히려 X를 불러올 수 있다. 원하는 상태를 서술하고, 지원 모델만 별도 네거티브 칸 사용.",
+      "when_ko": "원치 않는 요소가 계속 나올 때",
+      "example": "an empty, quiet beach at dawn (instead of 'no people')",
+      "tools": [
+        "Veo 3.1",
+        "Luma Ray",
+        "Seedance",
+        "Runway Gen-4.5"
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    },
+    {
+      "id": "tq-gemini-enhance",
+      "name": "LLM prompt enhancement",
+      "ko": "LLM으로 프롬프트 확장",
+      "how_ko": "짧은 아이디어를 Gemini 등 LLM에 넣어 촬영 용어가 들어간 상세 프롬프트로 확장한 뒤 다듬는다.",
+      "when_ko": "용어를 모를 때 출발점",
+      "example": "Expand into a cinematic Veo prompt: 'cat on a rainy windowsill'",
+      "tools": [
+        "Veo 3.1"
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "tq-image-first",
+      "name": "Generate keyframe image first",
+      "ko": "이미지 먼저 만들기",
+      "how_ko": "이미지 모델(Nano Banana 등)로 시작·끝·레퍼런스 이미지를 만들어 구도와 룩을 확정한 뒤 영상화한다.",
+      "when_ko": "룩·캐릭터 일관성이 중요할 때",
+      "example": "Nano Banana still → Veo first frame",
+      "tools": [
+        "Veo 3.1",
+        "Kling",
+        "Runway Gen-4.5"
+      ],
+      "sources": [
+        "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1"
+      ]
+    },
+    {
+      "id": "tq-iterate-pin",
+      "name": "Pin and tweak",
+      "ko": "고정 후 미세수정",
+      "how_ko": "근접한 결과를 고정(remix/edit)하고 한 번에 한 가지만 변경한다.",
+      "when_ko": "거의 맞는 결과를 다듬을 때",
+      "example": "Same shot, but make the lighting colder.",
+      "tools": [
+        "Sora 2",
+        "Runway Aleph",
+        "Luma Ray3 Modify"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph"
+      ]
+    },
+    {
+      "id": "tq-length-budget",
+      "name": "Prompt length budget",
+      "ko": "프롬프트 길이 조절",
+      "how_ko": "Veo·Luma는 약 100~150단어 내외 권장 경향. 짧으면 모델 자율성↑, 길면 통제↑이나 일부 무시될 수 있다.",
+      "when_ko": "결과가 지시를 무시하거나 너무 평범할 때",
+      "example": "Trim to subject, action, one camera move, light, style.",
+      "tools": [
+        "Veo 3.1",
+        "Luma Ray",
+        "Sora 2"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+        "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide"
+      ]
+    }
+  ],
+  "sources": [
+    "https://academy.runwayml.com/aleph/generate-new-angles-with-aleph",
+    "https://artificial-intelligence-wiki.com/prompt-engineering/image-generation-prompts/cinematic-prompts-guide/",
+    "https://blog.fal.ai/kling-3-0-prompting-guide/",
+    "https://blog.segmind.com/ultimate-seedance-1-0-pro-tutorial/",
+    "https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1",
+    "https://developers.openai.com/cookbook/examples/sora/sora2_prompting_guide",
+    "https://geo.higgsfield.ai/blog/crane-shot-dolly-zoom-presets-ai-video-generation",
+    "https://github.com/Wan-Video/Wan2.2",
+    "https://hailuoai.video/pages/blog/camera-movement-prompt-cheatsheet",
+    "https://help.runwayml.com/hc/en-us/articles/37425232841875-Getting-Started-with-Generative-Video",
+    "https://help.runwayml.com/hc/en-us/sections/47313458960403-Prompting-Guides-Examples",
+    "https://higgsfield-ai.notion.site/Kling-3-0-Prompting-Guide-Key-Frames-Advanced-300ea9455d11802b9f4cf884ec6ff8c7",
+    "https://lumalabs.ai/learning-center/articles/luma-video-models-field-guide",
+    "https://pika.art",
+    "https://www.atlascloud.ai/blog/guides/kling-2-6-review",
+    "https://www.atlascloud.ai/blog/tips/kling-4-controlled-camera-movement",
+    "https://www.renderforest.com/blog/how-to-use-seedance-2-5",
+    "https://www.runcomfy.com/models/kling/kling-2-6/pro/text-to-video",
+    "https://yourstory.com/ai-story/luma-ai-ray3-modify",
+    "https://zilliz.com/ai-faq/what-is-the-sora-shutdown-timeline"
+  ]
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 10px; }
+  .status { font-size: 12px; padding: 6px 10px; border-radius: 6px; margin-bottom: 14px; display: flex; justify-content: space-between; gap: 8px; }
+  .status.ok { background: #e7f6ee; color: #23784a; } .status.mem { background: #fff4e0; color: #8a5a00; }
+  form { display: flex; gap: 8px; margin-bottom: 16px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  .foot { display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; color: #888; }
+  .foot button { background: none; color: #888; padding: 0; font-size: 12px; text-decoration: underline; }
+  details { margin-top: 12px; font-size: 12px; } pre { background: #1f2430; color: #cfe3ff; padding: 8px; border-radius: 6px; overflow: auto; max-height: 120px; font-size: 11px; }
+  .saved { color: #2e9e5b; opacity: 0; transition: opacity .3s; } .saved.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <div class="status" id="status"></div>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+  <div class="foot"><span id="count"></span><span class="saved" id="saved">✓ 저장됨</span><button id="reset">저장 데이터 초기화</button></div>
+  <details><summary>localStorage 내용 보기 (key: todos.v1)</summary><pre id="raw"></pre></details>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  const KEY = 'todos.v1';
+  const DEFAULTS = [{ id: 1, text: '장보기', done: false }, { id: 2, text: '운동하기', done: true }, { id: 3, text: '보고서 작성', done: false }];
+  // localStorage는 샌드박스·시크릿 모드에서 막힐 수 있으므로 감지 후 메모리로 대체
+  const storage = (() => {
+    try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); return { ok: true, get: k => localStorage.getItem(k), set: (k, v) => localStorage.setItem(k, v), del: k => localStorage.removeItem(k) }; }
+    catch (e) { const m = {}; return { ok: false, get: k => m[k] ?? null, set: (k, v) => { m[k] = v; }, del: k => { delete m[k]; } }; }
+  })();
+  function load() {
+    try { const raw = storage.get(KEY); if (!raw) return structuredClone(DEFAULTS); const data = JSON.parse(raw); return Array.isArray(data.items) ? data.items : structuredClone(DEFAULTS); }
+    catch (e) { console.warn('저장 데이터 손상, 초기값 사용', e); return structuredClone(DEFAULTS); }
+  }
+  function save() {
+    try { storage.set(KEY, JSON.stringify({ version: 1, savedAt: new Date().toISOString(), items: todos })); }
+    catch (e) { console.warn('저장 공간이 부족해 저장하지 못했습니다.', e); }
+    document.getElementById('raw').textContent = storage.get(KEY);
+    const s = document.getElementById('saved'); s.classList.add('show'); clearTimeout(save.t); save.t = setTimeout(() => s.classList.remove('show'), 900);
+  }
+  let todos = load();
+  const st = document.getElementById('status');
+  st.className = 'status ' + (storage.ok ? 'ok' : 'mem');
+  st.innerHTML = storage.ok ? `<span>💾 브라우저에 자동 저장 중 · 새로고침해도 유지됩니다</span><span>${storage.get(KEY) ? '저장된 데이터 불러옴' : '처음 실행'}</span>` : '<span>⚠ 이 환경은 localStorage 접근이 막혀 있어 메모리에만 저장됩니다 (새로고침 시 초기화)</span>';
+  // 다른 탭에서 바꾸면 동기화
+  addEventListener('storage', e => { if (e.key === KEY) { todos = load(); render(false); } });
+  const list = document.getElementById('list');
+  function render(persist = true) {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><button class="del">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+    document.getElementById('count').textContent = `남은 할 일 ${todos.filter(t => !t.done).length}개`;
+    if (persist) save(); else document.getElementById('raw').textContent = storage.get(KEY);
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ id: Date.now(), text: v, done: false }); i.value = ''; render(); });
+  document.getElementById('reset').onclick = () => { storage.del(KEY); todos = structuredClone(DEFAULTS); render(false); document.getElementById('raw').textContent = '(비어 있음)'; };
+  render(false); document.getElementById('raw').textContent = storage.get(KEY) || '(아직 저장된 데이터 없음 — 항목을 추가/체크해 보세요)';
+</script>
+</body>
+</html>

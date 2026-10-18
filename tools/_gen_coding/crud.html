@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 540px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  form.create { display: grid; grid-template-columns: 1fr 110px 120px auto; gap: 6px; margin-bottom: 14px; }
+  input, select, textarea { padding: 8px 9px; border: 1px solid #ccc; border-radius: 6px; font: inherit; font-size: 13px; min-width: 0; }
+  button { padding: 7px 12px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 13px; }
+  button.sec { background: #eef0f5; color: #333; } button.danger { background: #fdecec; color: #c33; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { border: 1px solid #eceef3; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row .t { flex: 1; font-weight: 600; } li.done .t { text-decoration: line-through; color: #999; }
+  .meta { font-size: 12px; color: #888; margin: 4px 0 0 26px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .tag { background: #eef1ff; color: #3b4fd8; padding: 0 7px; border-radius: 999px; }
+  .edit { display: grid; grid-template-columns: 1fr 110px 120px; gap: 6px; margin-top: 8px; }
+  .edit textarea { grid-column: 1 / -1; height: 52px; resize: vertical; }
+  .edit .acts { grid-column: 1 / -1; display: flex; gap: 6px; justify-content: flex-end; }
+  .note { font-size: 13px; color: #555; margin: 6px 0 0 26px; white-space: pre-wrap; }
+  .ops { display: flex; gap: 4px; }
+  .ops button { padding: 4px 8px; font-size: 12px; }
+  .log { margin-top: 12px; font: 11px/1.6 ui-monospace, monospace; background: #111827; color: #a7f3d0; border-radius: 6px; padding: 6px 10px; max-height: 90px; overflow: auto; }
+  .log .u { color: #fde68a; } .log .d { color: #fca5a5; } .log .r { color: #93c5fd; }
+  @media (max-width: 520px) { form.create, .edit { grid-template-columns: 1fr 1fr; } form.create input:first-child { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form class="create" id="create">
+    <input id="title" placeholder="할 일 제목" required>
+    <select id="cat"><option>업무</option><option>개인</option><option>건강</option><option>쇼핑</option></select>
+    <input id="due" type="date">
+    <button>+ 생성</button>
+  </form>
+  <ul id="list"></ul>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  // ── 저장소 계층: create / read / update / delete ──
+  const repo = {
+    rows: [], seq: 0,
+    create(data) { const row = { id: ++this.seq, done: false, note: '', createdAt: new Date().toISOString(), ...data }; this.rows.push(row); log('C', 'CREATE', row); return row; },
+    read(id) { return id ? this.rows.find(r => r.id === id) : [...this.rows]; },
+    update(id, patch) { const r = this.read(id); Object.assign(r, patch, { updatedAt: new Date().toISOString() }); log('U', 'UPDATE', { id, ...patch }); return r; },
+    delete(id) { this.rows = this.rows.filter(r => r.id !== id); log('D', 'DELETE', { id }); }
+  };
+  function log(k, op, obj) { const el = document.getElementById('log'); el.insertAdjacentHTML('afterbegin', `<div class="${k.toLowerCase()}">${op} ${JSON.stringify(obj).slice(0, 110)}</div>`); }
+  const today = d => new Date(Date.now() + d * 864e5).toISOString().slice(0, 10);
+  [['장보기', '쇼핑', 1, '우유, 계란, 원두 200g'], ['보고서 작성', '업무', 3, ''], ['운동하기', '건강', 0, '']].forEach(([title, cat, d, note]) => repo.create({ title, cat, due: today(d), note }));
+  repo.update(3, { done: true });
+  let editing = null, pendingDel = null;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function render() {
+    const rows = repo.read(); log('R', 'READ', { count: rows.length });
+    const list = document.getElementById('list');
+    list.innerHTML = rows.length ? '' : '<li style="text-align:center;color:#999">할 일이 없습니다</li>';
+    rows.forEach(r => {
+      const li = document.createElement('li'); if (r.done) li.className = 'done';
+      if (editing === r.id) {
+        li.innerHTML = `<div class="edit"><input name="title" value="${esc(r.title)}"><select name="cat">${['업무', '개인', '건강', '쇼핑'].map(c => `<option ${c === r.cat ? 'selected' : ''}>${c}</option>`).join('')}</select><input name="due" type="date" value="${r.due}"><textarea name="note" placeholder="메모">${esc(r.note)}</textarea><div class="acts"><button class="sec" data-a="cancel">취소</button><button data-a="save">저장</button></div></div>`;
+      } else {
+        li.innerHTML = `<div class="row"><input type="checkbox" ${r.done ? 'checked' : ''} data-a="toggle"><span class="t">${esc(r.title)}</span><div class="ops"><button class="sec" data-a="edit">수정</button><button class="danger" data-a="del">${pendingDel === r.id ? '정말 삭제?' : '삭제'}</button></div></div><div class="meta"><span class="tag">${r.cat}</span><span>마감 ${r.due || '-'}</span><span>#${r.id}</span>${r.updatedAt ? '<span>수정됨</span>' : ''}</div>${r.note ? `<div class="note">${esc(r.note)}</div>` : ''}`;
+      }
+      li.onclick = e => {
+        const a = e.target.dataset.a; if (!a) return;
+        if (a === 'toggle') repo.update(r.id, { done: e.target.checked });
+        if (a === 'edit') editing = r.id;
+        if (a === 'cancel') editing = null;
+        if (a === 'save') { const f = n => li.querySelector(`[name=${n}]`).value; if (!f('title').trim()) return; repo.update(r.id, { title: f('title').trim(), cat: f('cat'), due: f('due'), note: f('note') }); editing = null; }
+        if (a === 'del') { if (pendingDel === r.id) { repo.delete(r.id); pendingDel = null; } else pendingDel = r.id; } else pendingDel = null;
+        render();
+      };
+      list.appendChild(li);
+    });
+  }
+  document.getElementById('due').value = today(1);
+  bindSubmit(document.getElementById('create'), e => { e.preventDefault(); const t = document.getElementById('title'); repo.create({ title: t.value.trim(), cat: document.getElementById('cat').value, due: document.getElementById('due').value }); t.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

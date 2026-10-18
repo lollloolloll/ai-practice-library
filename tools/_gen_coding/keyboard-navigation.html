@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  form { display: flex; gap: 8px; margin-bottom: 12px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; }
+  ul { list-style: none; padding: 0; margin: 0; outline: none; }
+  li { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 6px; border: 2px solid transparent; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+  ul:focus li.sel, li.sel { border-color: #4a6cf7; background: #eef1ff; }
+  kbd { font: 11px ui-monospace, monospace; background: #f1f1f4; border: 1px solid #ccc; border-bottom-width: 2px; border-radius: 4px; padding: 1px 5px; }
+  .keys { margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px 12px; font-size: 12px; color: #555; background: #fafafa; padding: 10px; border-radius: 6px; }
+  .flash { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); background: #222; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 13px; opacity: 0; transition: opacity .2s; }
+  .flash.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form"><input type="text" id="input" placeholder="할 일 입력 (N 키로 포커스)"><button>추가</button></form>
+  <ul id="list" tabindex="0" aria-label="할 일 목록, 화살표로 이동"></ul>
+  <div class="keys">
+    <div><kbd>↑</kbd> <kbd>↓</kbd> / <kbd>J</kbd> <kbd>K</kbd> 이동</div>
+    <div><kbd>Space</kbd> 완료 토글</div>
+    <div><kbd>N</kbd> 새 할 일</div>
+    <div><kbd>Del</kbd> / <kbd>D</kbd> 삭제</div>
+    <div><kbd>Esc</kbd> 입력창 나가기</div>
+    <div><kbd>Alt</kbd>+<kbd>↑↓</kbd> 순서 이동</div>
+  </div>
+</div>
+<div class="flash" id="flash"></div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }, { text: '이메일 답장', done: false }];
+  let sel = 0;
+  const list = document.getElementById('list'), input = document.getElementById('input');
+  const flash = m => { const f = document.getElementById('flash'); f.textContent = m; f.classList.add('show'); clearTimeout(flash.t); flash.t = setTimeout(() => f.classList.remove('show'), 900); };
+  function render() {
+    sel = Math.max(0, Math.min(sel, todos.length - 1));
+    list.innerHTML = '';
+    todos.forEach((t, i) => {
+      const li = document.createElement('li');
+      li.className = (t.done ? 'done ' : '') + (i === sel ? 'sel' : '');
+      li.innerHTML = '<input type="checkbox" tabindex="-1"' + (t.done ? ' checked' : '') + '><span></span>';
+      li.querySelector('span').textContent = t.text;
+      li.onclick = () => { sel = i; list.focus(); render(); };
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      list.appendChild(li);
+    });
+  }
+  document.addEventListener('keydown', e => {
+    if (document.activeElement === input) { if (e.key === 'Escape') { input.blur(); list.focus(); } return; }
+    const k = e.key.toLowerCase();
+    if (e.altKey && (k === 'arrowup' || k === 'arrowdown')) {
+      const j = sel + (k === 'arrowup' ? -1 : 1);
+      if (j >= 0 && j < todos.length) { [todos[sel], todos[j]] = [todos[j], todos[sel]]; sel = j; render(); flash('순서 이동'); }
+      e.preventDefault(); return;
+    }
+    if (k === 'arrowdown' || k === 'j') { sel++; render(); e.preventDefault(); }
+    else if (k === 'arrowup' || k === 'k') { sel--; render(); e.preventDefault(); }
+    else if (k === ' ' && todos[sel]) { todos[sel].done = !todos[sel].done; render(); flash(todos[sel].done ? '완료 ✓' : '미완료'); e.preventDefault(); }
+    else if (k === 'n') { input.focus(); e.preventDefault(); }
+    else if ((k === 'delete' || k === 'd' || k === 'backspace') && todos[sel]) { flash(`"${todos[sel].text}" 삭제`); todos.splice(sel, 1); render(); e.preventDefault(); }
+  });
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const v = input.value.trim(); if (!v) return; todos.push({ text: v, done: false }); input.value = ''; sel = todos.length - 1; render(); input.blur(); list.focus(); flash('추가됨'); });
+  render(); list.focus();
+</script>
+</body>
+</html>

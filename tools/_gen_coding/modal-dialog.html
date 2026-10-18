@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-bottom: 1px solid #eee; }
+  .logo { font-weight: 700; font-size: 20px; color: #6f4e37; }
+  .hero { text-align: center; padding: 56px 24px; background: #f7f1eb; }
+  .hero h1 { font-size: clamp(26px, 5vw, 36px); margin: 0 0 12px; color: #3e2723; }
+  .hero p { color: #666; margin: 0 0 20px; }
+  .btn { display: inline-block; padding: 12px 24px; background: #6f4e37; color: #fff; border-radius: 8px; border: 0; font-size: 15px; cursor: pointer; }
+  .btn.ghost { background: #fff; color: #6f4e37; border: 1px solid #d7ccc8; }
+  section { padding: 40px 20px; max-width: 960px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .card { padding: 22px; border: 1px solid #eee; border-radius: 10px; text-align: center; }
+  .price { font-size: 26px; font-weight: 700; color: #6f4e37; }
+  dialog { border: 0; border-radius: 16px; padding: 0; width: min(420px, calc(100vw - 32px)); box-shadow: 0 24px 64px rgba(0,0,0,.3); }
+  dialog::backdrop { background: rgba(30,20,15,.55); backdrop-filter: blur(3px); }
+  dialog[open] { animation: up .22s ease-out; } @keyframes up { from { opacity: 0; transform: translateY(16px) scale(.97); } }
+  .mh { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px 0; }
+  .mh h2 { margin: 0; font-size: 19px; color: #3e2723; }
+  .x { border: 0; background: #f3eee9; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 16px; }
+  .mb { padding: 12px 20px; }
+  .sum { background: #fbf8f5; border-radius: 10px; padding: 12px 14px; font-size: 14px; margin-bottom: 14px; }
+  .sum b { color: #6f4e37; }
+  label { display: block; font-size: 13px; font-weight: 600; margin: 10px 0 4px; }
+  input, select { width: 100%; padding: 10px; border: 1px solid #d7ccc8; border-radius: 8px; font-size: 14px; }
+  .mf { display: flex; gap: 8px; justify-content: flex-end; padding: 14px 20px 20px; }
+  .done { text-align: center; padding: 28px 20px; } .done .big { font-size: 48px; }
+</style>
+</head>
+<body>
+<header><div class="logo">☕ 빈하우스</div></header>
+<div class="hero">
+  <h1>매주 신선한 원두를 문 앞까지</h1>
+  <p>로스팅 후 48시간 안에 배송되는 스페셜티 커피 구독</p>
+  <button class="btn" data-plan="스탠다드">지금 구독하기</button>
+</div>
+<section><div class="grid">
+  <div class="card"><h3>라이트</h3><div class="price">₩15,900</div><p>월 200g</p><button class="btn" data-plan="라이트">선택</button></div>
+  <div class="card"><h3>스탠다드</h3><div class="price">₩27,900</div><p>월 400g</p><button class="btn" data-plan="스탠다드">선택</button></div>
+  <div class="card"><h3>프리미엄</h3><div class="price">₩49,900</div><p>월 800g</p><button class="btn" data-plan="프리미엄">선택</button></div>
+</div></section>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <form id="form" novalidate>
+    <div class="mh"><h2 id="dlgTitle">구독 신청</h2><button type="button" class="x" data-close aria-label="닫기">✕</button></div>
+    <div class="mb">
+      <div class="sum">선택한 요금제: <b id="plan"></b> · <span id="price"></span>/월</div>
+      <label for="name">이름</label><input id="name" required placeholder="홍길동">
+      <label for="grind">분쇄도</label>
+      <select id="grind"><option>홀빈 (분쇄 안 함)</option><option>핸드드립용</option><option>에스프레소용</option></select>
+    </div>
+    <div class="mf"><button type="button" class="btn ghost" data-close>취소</button><button class="btn" value="ok" id="ok">신청하기</button></div>
+  </form>
+</dialog>
+<script>
+  const prices = { 라이트: '₩15,900', 스탠다드: '₩27,900', 프리미엄: '₩49,900' };
+  const dlg = document.getElementById('dlg'), form = document.getElementById('form'), original = form.innerHTML;
+  let opener = null;
+  function openFor(plan, btn) {
+    form.innerHTML = original; opener = btn;
+    form.querySelector('#plan').textContent = plan; form.querySelector('#price').textContent = prices[plan];
+    dlg.showModal(); form.querySelector('#name').focus();   // 포커스 이동, Esc 닫기, 포커스 트랩은 <dialog>가 처리
+  }
+  document.querySelectorAll('[data-plan]').forEach(b => b.onclick = () => openFor(b.dataset.plan, b));
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close('cancel'); });   // 바깥 클릭 시 닫기
+  dlg.addEventListener('close', () => opener && opener.focus());                        // 닫으면 원래 버튼으로 포커스 복귀
+  form.addEventListener('click', e => { if (e.target.closest('[data-close]')) dlg.close('cancel'); });
+  // 제출: 폼 submit 대신 버튼 클릭 / Enter 처리 (샌드박스 환경에서도 동작)
+  function submit() {
+    const nameEl = form.querySelector('#name'); if (!nameEl) return;
+    const name = nameEl.value.trim(), plan = form.querySelector('#plan').textContent;
+    if (!name) { nameEl.style.borderColor = '#d64545'; nameEl.placeholder = '이름을 입력해 주세요'; nameEl.focus(); return; }
+    form.innerHTML = `<div class="done"><div class="big">☕</div><h2>${name.replace(/</g, '&lt;')}님, 환영합니다!</h2><p>${plan} 구독이 신청되었어요.<br>첫 원두는 이번 주 금요일에 출발합니다.</p><button type="button" class="btn" data-close>확인</button></div>`;
+    form.querySelector('[data-close]').focus();
+  }
+  form.addEventListener('click', e => { if (e.target.id === 'ok') { e.preventDefault(); submit(); } });
+  form.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing && e.target.tagName === 'INPUT') { e.preventDefault(); submit(); } });
+</script>
+</body>
+</html>

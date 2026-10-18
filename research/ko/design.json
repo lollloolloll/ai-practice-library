@@ -1,0 +1,954 @@
+{
+  "categories": {
+    "design-movement": {
+      "name_ko": "디자인 사조",
+      "desc_ko": "스위스, 바우하우스, 브루탈리즘, 글래스모피즘처럼 전체 분위기를 정하는 스타일 단어예요."
+    },
+    "typography": {
+      "name_ko": "타이포그래피",
+      "desc_ko": "서체 종류, 자간·행간, 글자 위계처럼 글자를 다루는 용어예요."
+    },
+    "layout-grid": {
+      "name_ko": "레이아웃·그리드",
+      "desc_ko": "벤토 그리드, 비대칭, 여백, 시선 흐름처럼 배치를 다루는 용어예요."
+    },
+    "logo-type": {
+      "name_ko": "로고 유형",
+      "desc_ko": "워드마크, 엠블럼, 마스코트 같은 로고 형식과 좋은 로고의 조건이에요."
+    },
+    "color": {
+      "name_ko": "색·팔레트",
+      "desc_ko": "배색 원리, 팔레트 분위기, HEX 지정, 명도 대비를 다뤄요."
+    },
+    "illustration": {
+      "name_ko": "일러스트 스타일",
+      "desc_ko": "플랫, 아이소메트릭, 라인 아트, 3D 같은 그림 스타일이에요."
+    },
+    "print-format": {
+      "name_ko": "포스터·패키지·목업",
+      "desc_ko": "포스터, 패키지, 목업, 인포그래픽처럼 결과물의 형식과 용도예요."
+    },
+    "texture-effect": {
+      "name_ko": "질감·인쇄 효과",
+      "desc_ko": "그레인, 하프톤, 리소, 박, 그라데이션 같은 표면 효과예요."
+    },
+    "ui-component": {
+      "name_ko": "UI 패턴·컴포넌트",
+      "desc_ko": "히어로, CTA, 카드, 모달, 다크 모드, 디자인 토큰 같은 화면 구성 요소예요."
+    },
+    "web-gen": {
+      "name_ko": "웹 생성 요령",
+      "desc_ko": "브리프, 레퍼런스, 기술 스택(shadcn/ui·Tailwind), 폰트·모션을 지정하는 방법이에요."
+    },
+    "text-render": {
+      "name_ko": "이미지 속 글자",
+      "desc_ko": "이미지 안에 글자를 정확히 넣는 표기법이에요."
+    },
+    "vector-output": {
+      "name_ko": "벡터·SVG 출력",
+      "desc_ko": "편집 가능한 벡터, 투명 배경, 아이콘 세트를 받는 조건이에요."
+    }
+  },
+  "base_prompts": {
+    "cafe-logo": {
+      "desc_ko": "로고 유형, 서체, 색, 벡터 용어를 비교하는 카페 로고 원안이에요."
+    },
+    "jazz-poster": {
+      "desc_ko": "디자인 사조, 타이포, 레이아웃, 질감을 비교하는 공연 포스터 원안이에요."
+    },
+    "saas-landing": {
+      "desc_ko": "UI 컴포넌트와 웹 생성 용어를 비교하는 랜딩 페이지 원안이에요(v0/Lovable/Bolt/Claude)."
+    },
+    "tea-packaging": {
+      "desc_ko": "패키지, 목업, 색 팔레트, 인쇄 효과를 비교하는 원안이에요."
+    }
+  },
+  "terms": {
+    "swiss-style": {
+      "ko": "스위스 스타일",
+      "effect_ko": "엄격한 그리드, 왼쪽 정렬 산세리프(헬베티카 계열), 넓은 여백으로 정돈되고 객관적인 인상을 줘요. 장식이 빠지고 정보 위계가 또렷해져요."
+    },
+    "bauhaus": {
+      "ko": "바우하우스",
+      "effect_ko": "원·삼각형·사각형과 빨강·노랑·파랑 원색, 굵은 산세리프로 기능적이고 구성적인 느낌이 나요."
+    },
+    "brutalism-web": {
+      "ko": "브루탈리즘(웹)",
+      "effect_ko": "시스템 폰트, 기본 HTML 같은 테두리, 일부러 거친 배치로 날것의 인상을 줘요. 그림자와 그라데이션은 거의 없어요."
+    },
+    "neo-brutalism": {
+      "ko": "네오 브루탈리즘",
+      "effect_ko": "두꺼운 검정 외곽선, 흐림 없는 오프셋 그림자, 쨍한 단색으로 장난스럽고 강한 UI가 돼요. 요즘 SaaS·포트폴리오에서 자주 보여요."
+    },
+    "memphis": {
+      "ko": "멤피스 디자인",
+      "effect_ko": "지그재그·물결·도트 패턴, 파스텔과 원색의 충돌, 비뚤어진 도형으로 80년대풍의 유쾌하고 요란한 화면이 돼요."
+    },
+    "y2k": {
+      "ko": "Y2K 감성",
+      "effect_ko": "크롬, 홀로그램, 버블 형태, 사이버 느낌 폰트로 2000년 전후의 디지털 낙관주의 분위기가 나요."
+    },
+    "glassmorphism": {
+      "ko": "글래스모피즘",
+      "effect_ko": "뒤가 흐리게 비치는 유리 패널, 얇은 밝은 테두리, 뒤쪽 색 덩어리로 깊이 있는 UI가 돼요. 글자 대비가 약해지기 쉬우니 조심하세요."
+    },
+    "neumorphism": {
+      "ko": "뉴모피즘",
+      "effect_ko": "배경과 같은 색 요소가 밝고 어두운 그림자로 살짝 튀어나오거나 눌려 보여요. 부드럽지만 대비가 낮아 접근성이 떨어질 수 있어요."
+    },
+    "claymorphism": {
+      "ko": "클레이모피즘",
+      "effect_ko": "통통한 점토 같은 3D 형태, 안쪽 그림자, 파스텔 톤으로 귀엽고 만져질 듯한 카드·아이콘이 돼요."
+    },
+    "flat-design": {
+      "ko": "플랫 디자인",
+      "effect_ko": "그림자·질감·그라데이션을 빼고 단색 면과 단순한 형태만 남겨 깔끔하고 가벼워요. 아이콘·인포그래픽에 잘 맞아요."
+    },
+    "skeuomorphism": {
+      "ko": "스큐어모피즘",
+      "effect_ko": "가죽, 나무, 금속 같은 실제 재질과 사실적인 그림자로 진짜 물건처럼 보여요. iOS 6 이전 앱 아이콘 느낌이에요."
+    },
+    "art-deco": {
+      "ko": "아르데코",
+      "effect_ko": "금색 선, 대칭 방사 패턴, 계단식 문양, 대비 강한 세리프로 1920년대풍의 화려하고 고급스러운 인상을 줘요."
+    },
+    "art-nouveau": {
+      "ko": "아르누보",
+      "effect_ko": "덩굴처럼 흐르는 곡선, 장식 테두리, 무하풍 인물로 유기적이고 장식적인 화면이 돼요."
+    },
+    "minimalism": {
+      "ko": "미니멀리즘",
+      "effect_ko": "요소를 줄이고 여백을 크게 써서 핵심 하나에 시선을 모아요. 색은 1~2가지로 줄어드는 편이에요."
+    },
+    "maximalism": {
+      "ko": "맥시멀리즘",
+      "effect_ko": "패턴·색·글자를 겹겹이 채워 풍성하고 에너지 넘치는 화면이 돼요. 미니멀리즘과 비교하면 차이가 확실해요."
+    },
+    "constructivism": {
+      "ko": "러시아 구성주의",
+      "effect_ko": "사선 구도, 빨강·검정, 굵은 산세리프, 사진 콜라주로 선전 포스터 같은 강렬함이 생겨요."
+    },
+    "de-stijl": {
+      "ko": "데 스테일",
+      "effect_ko": "검은 가로세로 선과 원색 사각형(몬드리안풍)으로 아주 정제된 추상 구성이 돼요."
+    },
+    "mid-century-modern": {
+      "ko": "미드센추리 모던",
+      "effect_ko": "50~60년대풍 오렌지·머스터드·청록, 단순한 형태, 살짝 거친 인쇄 질감으로 레트로하면서 세련돼요."
+    },
+    "psychedelic": {
+      "ko": "사이키델릭(60년대)",
+      "effect_ko": "녹아내리듯 휜 글자, 소용돌이 패턴, 강한 보색으로 환각적인 공연 포스터가 돼요. 대신 읽기 어려워져요."
+    },
+    "vaporwave": {
+      "ko": "베이퍼웨이브",
+      "effect_ko": "분홍·보라·청록 네온, 격자 바닥, 석고상, 90년대 윈도 UI로 몽환적인 레트로 인터넷 분위기가 나요."
+    },
+    "retro-futurism": {
+      "ko": "레트로 퓨처리즘",
+      "effect_ko": "옛날 사람들이 상상한 미래(우주 시대, 크롬, 유선형)를 그려 낙관적이고 향수 어린 SF 느낌을 줘요."
+    },
+    "serif": {
+      "ko": "세리프체",
+      "effect_ko": "획 끝의 작은 돌기(세리프)가 전통, 신뢰, 격식을 느끼게 해요. 출판·고급 브랜드에 어울려요."
+    },
+    "sans-serif": {
+      "ko": "산세리프체",
+      "effect_ko": "돌기 없는 획으로 현대적이고 깔끔해요. 화면 UI의 기본 서체예요."
+    },
+    "geometric-sans": {
+      "ko": "기하학적 산세리프",
+      "effect_ko": "원과 직선으로 만든 글자(Futura, Montserrat 계열)로 친근하고 테크 스타트업 같은 느낌이 나요."
+    },
+    "neo-grotesk": {
+      "ko": "그로테스크 산세리프",
+      "effect_ko": "Helvetica·Inter 계열의 중립적인 산세리프예요. 스위스풍의 정보 중심 결과가 나와요."
+    },
+    "humanist-sans": {
+      "ko": "휴머니스트 산세리프",
+      "effect_ko": "손글씨 붓 흐름이 남은 산세리프(Gill Sans, Frutiger 계열)로 따뜻하고 읽기 편해요."
+    },
+    "slab-serif": {
+      "ko": "슬랩 세리프",
+      "effect_ko": "두꺼운 사각 세리프로 단단하고 빈티지한 인상을 줘요. 커피·크래프트 브랜드에 자주 써요."
+    },
+    "didone": {
+      "ko": "디돈(고대비 세리프)",
+      "effect_ko": "굵은 획과 가는 획의 차이가 아주 큰 세리프(Bodoni, Didot)로 패션 잡지 같은 고급스러움이 나요."
+    },
+    "monospace": {
+      "ko": "고정폭 서체",
+      "effect_ko": "모든 글자 폭이 같은 코딩용 서체로 기술적이고 개발자 같은 인상을 줘요."
+    },
+    "display-typeface": {
+      "ko": "디스플레이 서체",
+      "effect_ko": "큰 제목용 개성 강한 서체라 포스터 헤드라인이 눈에 띄어요. 본문 서체와 나누면 위계가 생겨요."
+    },
+    "script-font": {
+      "ko": "필기체·손글씨체",
+      "effect_ko": "필기체나 붓글씨로 따뜻함, 손맛, 우아함(웨딩 등)을 더해요. 길게 쓰면 읽기 어려워요."
+    },
+    "blackletter": {
+      "ko": "블랙레터(고딕 필사체)",
+      "effect_ko": "중세 필사체로 메탈, 스트리트웨어, 전통 양조장 같은 묵직한 분위기가 나요."
+    },
+    "condensed-type": {
+      "ko": "좁은(콘덴스드) 서체",
+      "effect_ko": "폭이 좁고 키 큰 글자라 좁은 공간에 큰 제목을 넣을 수 있어요. 스포츠·잡지 포스터 느낌이 나요."
+    },
+    "kerning": {
+      "ko": "커닝",
+      "effect_ko": "두 글자 사이 간격을 맞추는 거예요. 'tight/clean kerning'을 쓰면 워드마크가 단단해 보여요(이미지 모델은 대략만 반영해요)."
+    },
+    "tracking": {
+      "ko": "트래킹(자간)",
+      "effect_ko": "자간을 넓히면 고급스럽고 여유 있게, 좁히면 강하고 빽빽하게 보여요. 대문자에서 특히 차이가 커요."
+    },
+    "leading": {
+      "ko": "행간",
+      "effect_ko": "줄 간격으로 본문이 얼마나 잘 읽히고 빽빽한지가 달라져요. 웹 생성에선 Tailwind leading 클래스로 반영돼요."
+    },
+    "typographic-hierarchy": {
+      "ko": "글자 위계",
+      "effect_ko": "제목·부제·본문·캡션의 크기와 굵기 차이를 분명히 해서 시선 흐름을 정리해요."
+    },
+    "font-pairing": {
+      "ko": "서체 짝짓기",
+      "effect_ko": "두 서체에 역할을 나눠 대비와 통일감을 함께 얻어요. 웹 생성 툴은 폰트 이름을 주면 그대로 써요."
+    },
+    "oversized-type": {
+      "ko": "초대형 글자",
+      "effect_ko": "글자 자체가 주인공이 돼 포스터나 히어로가 대담해져요. 화면 끝에서 잘리게 할 수도 있어요."
+    },
+    "all-caps": {
+      "ko": "전부 대문자",
+      "effect_ko": "대문자만 쓰면 권위 있고 간판 같은 느낌이 나요. GPT-image 가이드는 넣을 글자를 따옴표나 ALL CAPS로 쓰라고 권해요."
+    },
+    "outline-text": {
+      "ko": "외곽선 글자",
+      "effect_ko": "속이 빈 윤곽선 글자로 가볍고 그래픽한 효과를 줘요. 채운 글자와 섞으면 리듬이 생겨요."
+    },
+    "bento-grid": {
+      "ko": "벤토 그리드",
+      "effect_ko": "크기가 다른 둥근 카드를 도시락처럼 맞춰 넣어 기능이나 대시보드를 한눈에 보여줘요. 애플식 기능 소개 느낌이에요."
+    },
+    "modular-grid": {
+      "ko": "모듈러 그리드",
+      "effect_ko": "행과 열로 나눈 칸에 요소를 맞춰 질서 있는 레이아웃을 만들어요."
+    },
+    "twelve-column-grid": {
+      "ko": "12컬럼 그리드",
+      "effect_ko": "웹 표준 12열에 맞춰 정렬해 화면 크기가 바뀌어도 자연스러워요. 웹 생성 툴이 정확히 반영하는 편이에요."
+    },
+    "baseline-grid": {
+      "ko": "베이스라인 그리드",
+      "effect_ko": "모든 글줄을 같은 기준선 간격에 맞춰 리듬을 정돈해요. 주로 편집 디자인과 웹 코드에서 의미가 있어요."
+    },
+    "asymmetric-layout": {
+      "ko": "비대칭 레이아웃",
+      "effect_ko": "가운데 대신 한쪽에 무게를 둬서 역동적이고 현대적인 긴장감이 생겨요."
+    },
+    "centered-symmetric": {
+      "ko": "중앙 대칭 구도",
+      "effect_ko": "모든 요소를 가운데 축에 맞춰 안정적이고 격식 있는 인상을 줘요. 로고·배지의 기본이에요."
+    },
+    "generous-whitespace": {
+      "ko": "넉넉한 여백",
+      "effect_ko": "여백을 늘리면 고급스럽고 숨 쉬는 화면이 되고 핵심이 돋보여요. 'cluttered'의 반대예요."
+    },
+    "z-pattern": {
+      "ko": "Z 패턴 레이아웃",
+      "effect_ko": "시선이 왼쪽 위→오른쪽 위→왼쪽 아래→오른쪽 아래로 흐르게 로고와 CTA를 둬요. 단순한 랜딩 페이지에 좋아요."
+    },
+    "f-pattern": {
+      "ko": "F 패턴 레이아웃",
+      "effect_ko": "글이 많은 페이지에서 사람들이 왼쪽 위부터 훑는 습관에 맞춰 제목과 요점을 왼쪽에 둬요."
+    },
+    "split-screen": {
+      "ko": "분할 화면 레이아웃",
+      "effect_ko": "화면을 좌우로 나눠 한쪽엔 이미지, 한쪽엔 글이나 폼을 둬요. 히어로·로그인 화면에 흔해요."
+    },
+    "full-bleed": {
+      "ko": "풀블리드",
+      "effect_ko": "이미지나 색면이 여백 없이 끝까지 꽉 차서 몰입감이 커요. 인쇄물이면 재단 여유를 챙기세요."
+    },
+    "masonry": {
+      "ko": "메이슨리(벽돌) 레이아웃",
+      "effect_ko": "높이가 다른 카드가 핀터레스트처럼 엇갈려 쌓여요. 갤러리·포트폴리오에 잘 맞아요."
+    },
+    "golden-ratio": {
+      "ko": "황금비",
+      "effect_ko": "1:1.618 비율로 나눠 로고나 레이아웃에 고전적인 균형감을 노려요. 이미지 모델은 느슨하게 반영해요."
+    },
+    "editorial-layout": {
+      "ko": "잡지형 레이아웃",
+      "effect_ko": "큰 제목, 여러 단 본문, 인용구, 캡션으로 고급 잡지 같은 읽을거리 느낌을 줘요."
+    },
+    "visual-hierarchy": {
+      "ko": "시각적 위계",
+      "effect_ko": "크기·색·위치로 무엇을 먼저 볼지 정해서 메시지가 분명해져요. GPT-image는 'logo top-right'처럼 위치를 적으라고 권해요."
+    },
+    "layered-collage": {
+      "ko": "레이어드 콜라주",
+      "effect_ko": "오린 사진, 종이 질감, 글자를 겹쳐 손으로 만든 듯한 에너지 있는 화면이 돼요."
+    },
+    "wordmark": {
+      "ko": "워드마크",
+      "effect_ko": "브랜드 이름 글자만으로 만든 로고라 서체가 전부예요. 글자 정확도가 중요해서 Ideogram·GPT-image가 유리해요."
+    },
+    "lettermark": {
+      "ko": "레터마크(이니셜)",
+      "effect_ko": "IBM, HBO처럼 이니셜 몇 글자로 만든 로고예요. 긴 이름을 짧게 줄여요."
+    },
+    "monogram": {
+      "ko": "모노그램",
+      "effect_ko": "이니셜을 겹치거나 엮어 하나의 문양으로 만들어요. 고급·패션 브랜드 느낌이 나요."
+    },
+    "pictorial-mark": {
+      "ko": "심볼 마크",
+      "effect_ko": "사과, 새처럼 알아보기 쉬운 사물 하나로 브랜드를 표현해요."
+    },
+    "abstract-mark": {
+      "ko": "추상 마크",
+      "effect_ko": "구체적인 사물 대신 추상 도형에 뜻을 담아요. 독창적이지만 설명이 필요할 수 있어요."
+    },
+    "combination-mark": {
+      "ko": "콤비네이션 마크",
+      "effect_ko": "심볼과 워드마크를 나란히 또는 위아래로 묶어요. 가장 두루 쓰이는 형태예요."
+    },
+    "emblem": {
+      "ko": "엠블럼",
+      "effect_ko": "글자가 방패나 원형 배지 안에 들어가요. 전통 있고 권위 있는 학교·맥주 브랜드 느낌이에요."
+    },
+    "mascot-logo": {
+      "ko": "마스코트 로고",
+      "effect_ko": "캐릭터를 내세워 친근하고 기억에 남아요. 스포츠, 식품, 게임에 흔해요."
+    },
+    "monoline": {
+      "ko": "모노라인 로고",
+      "effect_ko": "같은 굵기 선 하나로만 그려 가볍고 세련돼요. 크게 하든 작게 하든 잘 버텨요."
+    },
+    "negative-space-logo": {
+      "ko": "여백 활용 로고",
+      "effect_ko": "도형 사이 빈 공간이 또 다른 형태를 만드는 숨은 그림 로고예요(FedEx 화살표처럼). 의도대로 나오기 어려워 여러 번 생성해 보세요."
+    },
+    "vintage-badge": {
+      "ko": "빈티지 배지",
+      "effect_ko": "원형·리본 배너, 슬랩 세리프, 창업연도 표기로 수제·로컬·레트로 감성을 줘요."
+    },
+    "geometric-logo": {
+      "ko": "기하학 로고",
+      "effect_ko": "원·사각형·삼각형 같은 기본 도형을 조합해 정확하고 현대적인 마크가 돼요."
+    },
+    "app-icon": {
+      "ko": "앱 아이콘",
+      "effect_ko": "둥근 사각형 안에 심볼을 크게 넣어 작게 봐도 알아보게 해요."
+    },
+    "strong-silhouette": {
+      "ko": "또렷한 실루엣",
+      "effect_ko": "OpenAI 가이드가 권하는 로고 조건이에요. 작게 줄여도 알아볼 수 있는 단순하고 또렷한 형태가 나와요."
+    },
+    "monochrome": {
+      "ko": "흑백",
+      "effect_ko": "색을 빼서 형태와 글자에 집중하게 해요. 고급스럽고 미니멀한 편집 느낌이 나요."
+    },
+    "monochromatic": {
+      "ko": "단색조 팔레트",
+      "effect_ko": "한 색의 밝기와 진하기만 바꿔 써서 통일감 있고 차분해요."
+    },
+    "complementary": {
+      "ko": "보색 대비",
+      "effect_ko": "파랑-주황처럼 색상환 반대 색으로 강한 대비와 에너지를 줘요. 포스터와 CTA에 좋아요."
+    },
+    "analogous": {
+      "ko": "유사색 배색",
+      "effect_ko": "노랑-주황-빨강처럼 이웃한 색으로 부드럽고 조화로운 분위기가 돼요."
+    },
+    "triadic": {
+      "ko": "3색 배색",
+      "effect_ko": "색상환에서 같은 간격의 세 색으로 활기차면서 균형 잡힌 화면이 돼요."
+    },
+    "duotone": {
+      "ko": "듀오톤",
+      "effect_ko": "두 가지 색만으로 이미지를 표현해 강렬하고 그래픽해요(스포티파이 캠페인 느낌)."
+    },
+    "pastel-palette": {
+      "ko": "파스텔 팔레트",
+      "effect_ko": "연하고 밝은 색으로 부드럽고 귀엽고 친근해요."
+    },
+    "earth-tones": {
+      "ko": "어스 톤",
+      "effect_ko": "갈색, 테라코타, 올리브, 베이지 같은 자연색으로 따뜻하고 친환경적인 느낌이 나요."
+    },
+    "neon-palette": {
+      "ko": "네온 컬러",
+      "effect_ko": "어두운 배경 위에 빛나는 형광색으로 밤, 클럽, 사이버 분위기가 나요."
+    },
+    "jewel-tones": {
+      "ko": "주얼 톤",
+      "effect_ko": "에메랄드, 사파이어, 루비처럼 깊고 진한 색으로 고급스럽고 풍성해요."
+    },
+    "muted-palette": {
+      "ko": "차분한 저채도 팔레트",
+      "effect_ko": "채도를 낮춰 무인양품처럼 차분하고 세련된 분위기가 나요."
+    },
+    "limited-palette": {
+      "ko": "색 수 제한 팔레트",
+      "effect_ko": "색 개수를 정해 두면 인쇄·벡터·브랜딩에 맞는 통일된 결과가 나와요. SVG 경로 수도 줄어요."
+    },
+    "hex-color-codes": {
+      "ko": "HEX 색상 코드",
+      "effect_ko": "#1E3A8A 같은 코드로 브랜드 색을 정해요. 웹 생성 툴은 그대로, 이미지 모델은 비슷하게만 반영하고, Recraft API colors나 Ideogram 4.x JSON 프롬프트로 정확도를 높일 수 있어요."
+    },
+    "sixty-thirty-ten": {
+      "ko": "60-30-10 배색",
+      "effect_ko": "주조색 60, 보조색 30, 강조색 10 비율로 균형 잡힌 화면을 만들어요."
+    },
+    "accent-color": {
+      "ko": "포인트 컬러",
+      "effect_ko": "중립 배경에 강조색 하나만 써서 CTA와 핵심에 시선을 모아요. Claude 프론트엔드 가이드도 '주된 색+날카로운 강조색'을 권해요."
+    },
+    "color-contrast-wcag": {
+      "ko": "WCAG 명도 대비",
+      "effect_ko": "본문 대비를 4.5:1 이상으로 요구하면 웹 생성 결과가 더 잘 읽히고 접근성도 좋아져요."
+    },
+    "flat-illustration": {
+      "ko": "플랫 일러스트",
+      "effect_ko": "그림자 없는 단색 면과 단순한 형태로, 웹·앱에 쓰는 깔끔한 그림이에요."
+    },
+    "vector-illustration": {
+      "ko": "벡터 일러스트",
+      "effect_ko": "경계가 선명하고 면이 고른 그래픽 느낌이에요. 진짜 SVG 파일이 필요하면 Recraft나 Illustrator를 쓰세요."
+    },
+    "isometric-illustration": {
+      "ko": "아이소메트릭 일러스트",
+      "effect_ko": "30도 축으로 그려 원근 없이 입체감 있는 도시·사무실·데이터 장면이 돼요."
+    },
+    "line-art": {
+      "ko": "라인 아트",
+      "effect_ko": "색 없이 선만으로 그려 섬세하고 미니멀해요. 인쇄나 각인에 잘 맞아요."
+    },
+    "outline-icons": {
+      "ko": "선 아이콘",
+      "effect_ko": "같은 굵기 선으로 그린 아이콘 세트라 UI에 가볍게 어울려요(lucide, Heroicons 스타일)."
+    },
+    "filled-icons": {
+      "ko": "채운 아이콘",
+      "effect_ko": "속을 채운 실루엣 아이콘이라 작은 크기에서도 묵직하고 잘 보여요."
+    },
+    "hand-drawn-doodle": {
+      "ko": "손그림 낙서",
+      "effect_ko": "삐뚤빼뚤한 펜 낙서로 친근하고 편한 분위기가 나요."
+    },
+    "corporate-memphis": {
+      "ko": "코퍼레이트 멤피스",
+      "effect_ko": "팔다리가 과장된 단색 사람 그림으로 테크 기업 사이트의 전형적인 느낌이에요. 진부해 보일 수 있어서 피하고 싶을 때도 이 이름으로 적어요."
+    },
+    "3d-clay-render": {
+      "ko": "3D 클레이 렌더",
+      "effect_ko": "말랑한 점토 질감 3D 오브젝트로 귀엽고 입체적인 아이콘·히어로 이미지가 돼요."
+    },
+    "paper-cut": {
+      "ko": "페이퍼 컷 아트",
+      "effect_ko": "여러 겹 오린 종이와 그림자로 층이 있는 공예 느낌이 나요."
+    },
+    "low-poly": {
+      "ko": "로우 폴리",
+      "effect_ko": "삼각형 면으로 깎은 3D 형태로 기하학적이고 게임 같은 느낌이 나요."
+    },
+    "pixel-art": {
+      "ko": "픽셀 아트",
+      "effect_ko": "점 단위로 그려 레트로 게임 감성이 나요."
+    },
+    "spot-illustration": {
+      "ko": "스폿 일러스트",
+      "effect_ko": "배경 없는 작은 단독 그림으로 빈 화면, 온보딩, 기능 설명에 써요."
+    },
+    "die-cut-sticker": {
+      "ko": "다이컷 스티커",
+      "effect_ko": "흰 테두리로 따낸 스티커 모양이라 굿즈·SNS 그래픽에 좋아요."
+    },
+    "poster-design": {
+      "ko": "포스터 디자인",
+      "effect_ko": "용도를 '포스터'라고 적으면 제목·날짜·정보 위계가 있는 완성 레이아웃이 나와요. OpenAI 가이드도 용도를 적으라고 권해요."
+    },
+    "packaging-design": {
+      "ko": "패키지 디자인",
+      "effect_ko": "상자, 병, 파우치 같은 포장 시안이 나와요. kraft, matte 같은 재질을 붙이면 더 사실적이에요."
+    },
+    "dieline": {
+      "ko": "다이라인(전개도)",
+      "effect_ko": "포장을 펼친 전개도로 뽑아 보는 방법이에요. 정확한 재단 규격은 AI가 보장하지 않으니 참고용으로만 쓰세요."
+    },
+    "label-design": {
+      "ko": "라벨 디자인",
+      "effect_ko": "병이나 캔에 붙는 라벨 그래픽에 집중해요. 원통형 목업과 함께 쓰면 좋아요."
+    },
+    "mockup": {
+      "ko": "목업",
+      "effect_ko": "디자인을 티셔츠, 머그, 간판 같은 실제 사물에 입혀 보여줘요. 브랜딩 발표에 유용해요."
+    },
+    "device-mockup": {
+      "ko": "기기 목업",
+      "effect_ko": "UI를 노트북이나 스마트폰 화면 안에 넣어 보여줘요. GPT-image 가이드에서 맥락 연출용으로 언급해요."
+    },
+    "brand-identity-board": {
+      "ko": "브랜드 아이덴티티 보드",
+      "effect_ko": "로고, 컬러칩, 서체, 활용 예시를 한 장에 정리한 발표용 결과물이에요."
+    },
+    "mood-board": {
+      "ko": "무드보드",
+      "effect_ko": "사진·색·질감을 콜라주로 모아 방향을 찾을 때 써요."
+    },
+    "business-card": {
+      "ko": "명함 디자인",
+      "effect_ko": "명함 비율과 앞뒷면 구성이 나와요. 작은 글씨는 자주 틀려서 글자는 나중에 직접 넣는 게 좋아요."
+    },
+    "infographic": {
+      "ko": "인포그래픽",
+      "effect_ko": "정보, 수치, 아이콘을 정리한 그림이에요. OpenAI는 high quality 설정, 라벨 전부 나열, 작은 글씨 피하기를 권해요."
+    },
+    "book-cover": {
+      "ko": "책 표지 디자인",
+      "effect_ko": "제목·저자명 위계와 장르 관습이 담긴 표지가 나와요."
+    },
+    "social-post-format": {
+      "ko": "SNS 게시물 규격",
+      "effect_ko": "비율을 정하면 피드·스토리에 맞는 구도가 잡혀요. 비율은 보통 프롬프트가 아니라 설정에서 정해요(Ideogram, MJ --ar)."
+    },
+    "menu-design": {
+      "ko": "메뉴판 디자인",
+      "effect_ko": "카페·식당 메뉴 레이아웃이 나와요. 가격과 항목이 많으면 오류가 늘어나니 짧게 쓰세요."
+    },
+    "grain-noise": {
+      "ko": "그레인 질감",
+      "effect_ko": "고운 입자를 더해 디지털 특유의 매끈함을 줄이고 아날로그 같은 고급스러움을 줘요."
+    },
+    "halftone": {
+      "ko": "하프톤 망점",
+      "effect_ko": "인쇄 망점 무늬로 만화나 레트로 인쇄물 느낌이 나요."
+    },
+    "risograph": {
+      "ko": "리소그래프 인쇄",
+      "effect_ko": "형광 잉크, 살짝 어긋난 판, 거친 입자로 독립 출판물·진(zine) 감성이 나요."
+    },
+    "gradient-mesh": {
+      "ko": "오로라 그라데이션",
+      "effect_ko": "여러 색이 부드럽게 섞인 유기적인 배경으로 요즘 테크 브랜드 느낌이 나요."
+    },
+    "glow": {
+      "ko": "글로우(빛 번짐)",
+      "effect_ko": "요소 주변에 빛이 번져 네온사인이나 다크 UI 강조 효과를 줘요."
+    },
+    "soft-shadow": {
+      "ko": "부드러운 그림자",
+      "effect_ko": "넓고 옅은 그림자로 카드가 살짝 떠 보이는 깊이감을 줘요. 'hard offset shadow'와 비교해 보세요."
+    },
+    "paper-texture": {
+      "ko": "종이 질감",
+      "effect_ko": "배경에 종이 결을 넣어 인쇄물이나 수공예 느낌을 줘요."
+    },
+    "letterpress": {
+      "ko": "활판 인쇄",
+      "effect_ko": "종이에 눌린 자국과 잉크 번짐으로 고급 명함·청첩장 느낌이 나요."
+    },
+    "foil-stamping": {
+      "ko": "금박",
+      "effect_ko": "반짝이는 금속 박으로 프리미엄 패키지·초대장 느낌을 줘요."
+    },
+    "holographic": {
+      "ko": "홀로그램(무지갯빛)",
+      "effect_ko": "보는 각도에 따라 무지갯빛이 도는 재질로 Y2K·화장품 패키지 느낌이 나요."
+    },
+    "hero-section": {
+      "ko": "히어로 섹션",
+      "effect_ko": "페이지 맨 위의 큰 제목·부제·CTA·이미지 영역이에요. 실제 문구를 넣으면 레이아웃 문제를 미리 찾을 수 있어요."
+    },
+    "navbar": {
+      "ko": "내비게이션 바",
+      "effect_ko": "로고, 메뉴, 로그인 버튼이 있는 상단 바예요. sticky, 투명 같은 속성을 붙여 더 구체적으로 정해요."
+    },
+    "cta": {
+      "ko": "CTA 버튼",
+      "effect_ko": "사용자가 해야 할 핵심 행동 버튼이에요. 문구·색·위치를 적으면 전환 중심 페이지가 돼요."
+    },
+    "card": {
+      "ko": "카드",
+      "effect_ko": "정보를 둥근 상자로 묶어 목록과 기능 소개를 정돈해요. Lovable은 카드→배지→hover 순으로 쌓으라고 권해요."
+    },
+    "feature-grid": {
+      "ko": "기능 그리드",
+      "effect_ko": "아이콘·제목·설명을 3~4열로 반복하는 기능 소개 섹션이에요."
+    },
+    "pricing-table": {
+      "ko": "가격표",
+      "effect_ko": "요금제 카드를 나란히 두고 추천 플랜을 강조해요. 플랜 수와 항목 수를 숫자로 정하면 일관돼요."
+    },
+    "testimonials": {
+      "ko": "고객 후기 섹션",
+      "effect_ko": "아바타, 인용문, 이름으로 다른 사람들도 쓴다는 걸 보여주는 섹션이에요."
+    },
+    "logo-cloud": {
+      "ko": "고객사 로고 줄",
+      "effect_ko": "'Trusted by' 고객사 로고를 한 줄로 보여줘 신뢰를 줘요. 가상 로고를 쓰는 게 좋아요."
+    },
+    "faq-accordion": {
+      "ko": "FAQ 아코디언",
+      "effect_ko": "질문을 누르면 답이 펼쳐지는 접이식 목록이에요. shadcn Accordion 컴포넌트로 바로 만들어져요."
+    },
+    "footer": {
+      "ko": "푸터",
+      "effect_ko": "링크 목록, 저작권, SNS 아이콘이 있는 하단 영역이에요."
+    },
+    "modal": {
+      "ko": "모달 창",
+      "effect_ko": "화면 위에 떠서 확인이나 입력을 받는 창이에요."
+    },
+    "toast": {
+      "ko": "토스트 알림",
+      "effect_ko": "잠깐 떴다 사라지는 작은 알림이라 흐름을 방해하지 않아요."
+    },
+    "sidebar-navigation": {
+      "ko": "사이드바 메뉴",
+      "effect_ko": "왼쪽 세로 메뉴로 앱·대시보드 구조를 만들어요(접기 기능 등)."
+    },
+    "dashboard": {
+      "ko": "대시보드",
+      "effect_ko": "KPI 카드, 차트, 표가 있는 관리 화면이에요."
+    },
+    "data-table": {
+      "ko": "데이터 테이블",
+      "effect_ko": "정렬, 필터, 페이지 나누기가 되는 표예요."
+    },
+    "empty-state": {
+      "ko": "빈 화면",
+      "effect_ko": "데이터가 없을 때 보여줄 안내, 그림, 행동 버튼이에요. 따로 적지 않으면 생성 툴이 빠뜨리기 쉬워요."
+    },
+    "skeleton-loading": {
+      "ko": "스켈레톤 로딩",
+      "effect_ko": "로딩 중에 회색 자리 블록을 보여줘 더 빠르게 느껴지게 해요."
+    },
+    "dark-mode": {
+      "ko": "다크 모드",
+      "effect_ko": "어두운 배경 테마예요. 'with light/dark toggle'을 붙이면 테마 전환까지 만들어져요."
+    },
+    "design-tokens": {
+      "ko": "디자인 토큰",
+      "effect_ko": "색·간격·모서리·글꼴을 이름 붙은 변수로 정해 일관성을 지켜요. 웹 생성 결과도 값을 직접 박지 않고 변수로 정리돼요."
+    },
+    "border-radius": {
+      "ko": "모서리 둥글기",
+      "effect_ko": "둥글기 크기로 인상이 크게 바뀌어요. 0은 날카롭고 진지하고, 클수록 친근하고 부드러워요."
+    },
+    "micro-interactions": {
+      "ko": "마이크로 인터랙션",
+      "effect_ko": "마우스를 올리거나 누를 때 작은 움직임과 반응이 붙어 완성도가 높아 보여요."
+    },
+    "responsive-breakpoints": {
+      "ko": "반응형 브레이크포인트",
+      "effect_ko": "'responsive'만 쓰기보다 화면 크기별 동작을 적으면 모바일 결과가 정확해져요."
+    },
+    "sticky-header": {
+      "ko": "고정 헤더",
+      "effect_ko": "스크롤해도 위에 붙어 있는 헤더예요. 스크롤할 때 배경 흐림 같은 세부도 정할 수 있어요."
+    },
+    "badge": {
+      "ko": "배지(태그)",
+      "effect_ko": "작은 라벨로 상태, 신규, 추천을 표시해요."
+    },
+    "product-brief": {
+      "ko": "브리프 형식 첫 프롬프트",
+      "effect_ko": "목표·대상·핵심 행동·섹션·제약·완료 기준을 첫 프롬프트에 담으면 구조가 처음부터 잡히고 수정이 줄어요. Figma Make도 첫 프롬프트는 브리프, 이후엔 바뀐 점만 쓰라고 해요."
+    },
+    "reference-sites": {
+      "ko": "레퍼런스 지정",
+      "effect_ko": "'Linear·Stripe 같은 느낌'이나 스크린샷을 주면 분위기가 빨리 맞춰져요. Claude 가이드는 IDE 테마나 문화적 미감 같은 영감을 언급하라고 권해요."
+    },
+    "shadcn-ui": {
+      "ko": "shadcn/ui",
+      "effect_ko": "Button, Card, Dialog 같은 shadcn 컴포넌트를 쓰게 하면 일관되고 접근성 좋은 React UI가 나와요. v0의 기본 라이브러리이기도 해요."
+    },
+    "tailwind-css": {
+      "ko": "Tailwind CSS",
+      "effect_ko": "유틸리티 클래스로 스타일을 정해요. p-6, rounded-2xl처럼 Tailwind 단위로 말하면 정확히 반영돼요."
+    },
+    "nextjs-app-router": {
+      "ko": "Next.js App Router",
+      "effect_ko": "기술 스택을 정해 두면 툴이 제멋대로 구조를 만들지 않아 실제 프로젝트에 붙이기 쉬워요."
+    },
+    "lucide-react": {
+      "ko": "lucide 아이콘",
+      "effect_ko": "아이콘 라이브러리를 정해 깨진 이미지나 임의 SVG 대신 통일된 선 아이콘을 써요."
+    },
+    "css-variables-theming": {
+      "ko": "CSS 변수 테마",
+      "effect_ko": "bg-background, text-foreground 같은 의미 있는 이름으로 색을 쓰게 하면 다크 모드와 브랜드 교체가 쉬워요. v0 레지스트리도 shadcn CSS 변수 표준을 전제로 해요."
+    },
+    "mobile-first": {
+      "ko": "모바일 퍼스트",
+      "effect_ko": "작은 화면부터 설계하게 해서 모바일 레이아웃 품질이 좋아져요."
+    },
+    "accessibility-a11y": {
+      "ko": "접근성",
+      "effect_ko": "시맨틱 HTML, aria 라벨, 키보드 포커스, 명도 대비를 요구하면 실제로 쓰기 좋은 UI가 돼요."
+    },
+    "real-copy": {
+      "ko": "실제 문구 쓰기",
+      "effect_ko": "실제 헤드라인과 CTA를 넣으면 줄바꿈·길이 문제가 드러나 레이아웃이 현실적이 돼요(Lovable 권장)."
+    },
+    "named-google-fonts": {
+      "ko": "폰트 이름 지정",
+      "effect_ko": "Inter 같은 무난한 기본값 대신 Fraunces + Space Grotesk처럼 폰트를 지정하면 개성이 생겨요. Claude 가이드는 Arial·Inter 같은 흔한 폰트를 피하라고 하고, 한글은 Pretendard·Noto Sans KR 등을 적어 주세요."
+    },
+    "staggered-reveal": {
+      "ko": "순차 등장 애니메이션",
+      "effect_ko": "여기저기 효과를 넣기보다 잘 짜인 로딩 애니메이션 한 번이 더 인상적이에요(Claude 가이드 권장). CSS로 만들라고 적어 주세요."
+    },
+    "avoid-generic-ai-aesthetic": {
+      "ko": "뻔한 AI 디자인 피하기",
+      "effect_ko": "보라색 그라데이션, 흰 배경, Inter 같은 기본값을 쓰지 말라고 하고 대담한 방향을 고르게 하면 개성 있는 결과가 나와요."
+    },
+    "ui-states": {
+      "ko": "UI 상태 정의",
+      "effect_ko": "로그인 전후, 로딩·빈 화면·오류 상태를 적으면 실제 동작에 맞는 UI가 돼요. 보통 두 번째 단계에서 다뤄요."
+    },
+    "quoted-text": {
+      "ko": "따옴표로 문구 지정",
+      "effect_ko": "넣을 글자를 따옴표에 담으면 모델이 그대로 쓰려고 해요. Ideogram·OpenAI 공식 가이드가 함께 권해요."
+    },
+    "text-early": {
+      "ko": "문구는 프롬프트 앞쪽에",
+      "effect_ko": "Ideogram은 글자를 프롬프트 앞부분에 두면 오류가 적다고 안내해요."
+    },
+    "verbatim-text": {
+      "ko": "문구 그대로 한 번만",
+      "effect_ko": "'exactly as written, no extra characters, appears once'를 붙이면 철자가 바뀌거나 글자가 중복되는 일이 줄어요(OpenAI 가이드)."
+    },
+    "letter-by-letter": {
+      "ko": "철자 한 글자씩 쓰기",
+      "effect_ko": "브랜드명이나 특이한 철자는 'N-O-T-E-L-Y'처럼 풀어 쓰면 더 정확해져요."
+    },
+    "font-description": {
+      "ko": "글자 모양 묘사",
+      "effect_ko": "서체 이름보다 'bold condensed sans-serif, white, centered' 같은 묘사가 이미지 모델에 잘 통해요."
+    },
+    "text-placement": {
+      "ko": "글자 위치 지정",
+      "effect_ko": "'top center', 'small footer line', 'curved above the emblem' 같은 위치 표현이 결과를 크게 바꿔요."
+    },
+    "short-text": {
+      "ko": "문구 짧게",
+      "effect_ko": "글이 길고 복잡할수록 오류가 늘어요. 긴 본문은 비워 두고 Canva·Figma에서 나중에 넣는 게 안전해요."
+    },
+    "korean-hangul-text": {
+      "ko": "한글 글자 넣기",
+      "effect_ko": "모델마다 한글 정확도 차이가 커요. Ideogram은 영어가 가장 안정적이라고 하니 한글은 GPT-image 등에서 짧게 시험하고, 정확해야 하면 편집 툴에서 직접 넣으세요."
+    },
+    "svg-vector-output": {
+      "ko": "SVG 벡터 출력",
+      "effect_ko": "프롬프트에 'vector'라고 써도 대부분 PNG가 나와요. 진짜 SVG가 필요하면 Recraft 벡터 모델이나 Illustrator Text to Vector를 쓰거나, 웹 생성 툴·Claude에 SVG 코드를 쓰게 하세요."
+    },
+    "transparent-background": {
+      "ko": "투명 배경",
+      "effect_ko": "로고나 스티커를 배경 없이 받아요. GPT-image는 background=transparent와 PNG/WebP 설정이 필요하고, 프롬프트만으론 체크무늬가 그려질 수 있어요."
+    },
+    "flat-fills-no-gradients": {
+      "ko": "단색 면, 그라데이션 없이",
+      "effect_ko": "벡터 변환, 인쇄, 자수에 유리한 단순한 결과가 나와요. OpenAI 로고 팁도 그라데이션은 필요할 때만 쓰라고 해요."
+    },
+    "limited-color-count": {
+      "ko": "색 개수 제한",
+      "effect_ko": "벡터 경로와 색 레이어가 단순해져 편집이 쉬워요. Recraft API는 colors 파라미터로 팔레트를 정할 수 있어요."
+    },
+    "consistent-stroke-weight": {
+      "ko": "일정한 선 굵기",
+      "effect_ko": "아이콘 세트나 모노라인 로고에 통일감을 줘요."
+    },
+    "isolated-on-white": {
+      "ko": "흰 배경에 단독 배치",
+      "effect_ko": "배경 제거와 벡터 변환이 쉬운 깔끔한 단일 오브젝트가 나와요."
+    },
+    "icon-content-type": {
+      "ko": "아이콘 콘텐츠 유형",
+      "effect_ko": "Illustrator Text to Vector에서 Scene/Subject/Icon 중 Icon을 고르면 배경 없는 단순한 벡터가 나와요. 로고·아이콘 세트에 잘 맞아요."
+    },
+    "favicon-legibility": {
+      "ko": "16px 가독성",
+      "effect_ko": "아주 작은 크기에서도 읽히는 형태를 요구해서 디테일을 줄인 강한 마크가 나와요."
+    }
+  },
+  "combos": {
+    "swiss-poster": {
+      "name_ko": "스위스 타이포 포스터",
+      "goal_ko": "정돈되고 지적인 공연·전시 포스터가 필요할 때",
+      "notes_ko": "문구는 앞쪽에 따옴표로 넣으세요. Ideogram에서 Magic Prompt를 끄면 문구가 잘 유지돼요."
+    },
+    "minimal-cafe-wordmark": {
+      "name_ko": "미니멀 카페 워드마크",
+      "goal_ko": "작게 써도 깔끔한 글자 로고가 필요할 때",
+      "notes_ko": "GPT-image는 API에서 background=transparent를 설정해야 해요."
+    },
+    "vintage-badge-logo": {
+      "name_ko": "빈티지 배지 로고",
+      "goal_ko": "수제·로컬 감성의 클래식 로고가 필요할 때",
+      "notes_ko": "곡선 글자는 자주 틀리니 여러 장 만들어 고르세요."
+    },
+    "vector-icon-set": {
+      "name_ko": "편집 가능한 아이콘 세트",
+      "goal_ko": "앱·웹에 쓸 통일된 SVG 아이콘이 필요할 때",
+      "notes_ko": "Recraft 벡터 모델이나 Illustrator Icon 유형을 쓰세요. 래스터 모델은 SVG를 만들지 않아요."
+    },
+    "neo-brutalist-landing": {
+      "name_ko": "네오 브루탈리즘 랜딩",
+      "goal_ko": "강하고 장난스러운 스타트업 랜딩 페이지를 만들 때",
+      "notes_ko": "섹션별로 나눠 다듬으면 고칠 때 다른 곳이 덜 바뀌어요."
+    },
+    "glass-dark-dashboard": {
+      "name_ko": "글래스 다크 대시보드",
+      "goal_ko": "현대적인 다크 모드 분석 화면을 만들 때",
+      "notes_ko": "글래스모피즘은 대비가 쉽게 떨어지니 접근성 조건을 함께 적어 주세요."
+    },
+    "shadcn-saas": {
+      "name_ko": "shadcn 기본 SaaS 페이지",
+      "goal_ko": "실제 프로젝트에 바로 붙일 깔끔한 코드가 필요할 때",
+      "notes_ko": "v0는 기본이 shadcn/ui예요. 완료 기준은 숫자로 적어 주세요."
+    },
+    "distinctive-editorial-site": {
+      "name_ko": "개성 있는 에디토리얼 웹",
+      "goal_ko": "뻔한 AI 웹사이트처럼 보이지 않게 하고 싶을 때",
+      "notes_ko": "Anthropic 'frontend aesthetics' 쿡북 방식이에요."
+    },
+    "premium-tea-pack": {
+      "name_ko": "프리미엄 차 패키지",
+      "goal_ko": "고급스러운 패키지 시안과 목업이 필요할 때",
+      "notes_ko": "브랜드명은 짧게 쓰고, 성분표 같은 작은 글씨는 나중에 편집하세요."
+    },
+    "riso-zine-poster": {
+      "name_ko": "리소그래프 진 포스터",
+      "goal_ko": "인디·아날로그 감성 포스터가 필요할 때",
+      "notes_ko": "duotone과 risograph를 하나씩 빼서 비교하면 효과 차이가 잘 보여요."
+    },
+    "art-deco-invite": {
+      "name_ko": "아르데코 초대장",
+      "goal_ko": "1920년대풍 고급 행사 그래픽이 필요할 때",
+      "notes_ko": ""
+    },
+    "isometric-infographic": {
+      "name_ko": "아이소메트릭 인포그래픽",
+      "goal_ko": "단계 설명이 분명한 그림이 필요할 때",
+      "notes_ko": "GPT-image에서는 quality=high를 권해요."
+    },
+    "brand-board": {
+      "name_ko": "브랜드 아이덴티티 보드",
+      "goal_ko": "로고·색·서체를 한 장으로 제안할 때",
+      "notes_ko": "색상 라벨 같은 작은 글씨는 틀릴 수 있으니 꼭 확인하세요."
+    },
+    "y2k-merch": {
+      "name_ko": "Y2K 굿즈 스티커",
+      "goal_ko": "트렌디한 SNS·굿즈 그래픽이 필요할 때",
+      "notes_ko": ""
+    },
+    "clay-app-onboarding": {
+      "name_ko": "클레이 3D 온보딩",
+      "goal_ko": "친근한 모바일 앱 온보딩 화면을 만들 때",
+      "notes_ko": "이미지 시안은 GPT-image로, 실제 코드는 Figma Make나 v0로 만드세요."
+    },
+    "korean-cafe-menu": {
+      "name_ko": "한글 카페 메뉴판",
+      "goal_ko": "한글 문구가 들어간 인쇄물을 만들 때",
+      "notes_ko": "모델마다 한글 정확도 차이가 커요. 틀리면 글자 없는 배경을 만들고 편집 툴에서 입력하세요."
+    }
+  },
+  "techniques": {
+    "one-variable-ab": {
+      "ko": "한 용어만 바꿔 비교",
+      "how_ko": "기준 원안(base_prompts)을 고정하고 사조·서체·색 중 하나만 바꿔 생성해요. 가능하면 시드(seed)도 고정하세요.",
+      "when_ko": "어떤 용어가 실제로 결과를 바꾸는지 확인할 때"
+    },
+    "text-first-quoted": {
+      "ko": "따옴표 문구를 맨 앞에",
+      "how_ko": "넣을 문구를 따옴표에 담아 프롬프트 앞쪽에 짧게 두세요. 서체·위치·색도 함께 적어요.",
+      "when_ko": "로고나 포스터처럼 글자가 핵심일 때"
+    },
+    "magic-prompt-off": {
+      "ko": "Magic Prompt 끄기",
+      "how_ko": "Ideogram의 Magic Prompt는 프롬프트를 늘리고 바꿔요. 정확한 문구와 구성이 필요하면 끄고, 아이디어를 찾을 땐 켜 두세요.",
+      "when_ko": "문구와 레이아웃을 그대로 지키고 싶을 때"
+    },
+    "positive-phrasing": {
+      "ko": "원하는 것을 쓰기",
+      "how_ko": "Ideogram은 'no people' 대신 'empty street'처럼 원하는 상태를 쓰라고 안내해요. 가중치 문법(::, --ar)은 일반 단어로 취급되고, Midjourney는 --no 파라미터를 써요.",
+      "when_ko": "원치 않는 요소가 계속 나올 때"
+    },
+    "settings-not-prompt": {
+      "ko": "비율·형식은 설정에서",
+      "how_ko": "비율, 시드, 품질은 툴 설정(Ideogram UI, MJ --ar, GPT-image size/quality/background)으로 정해요. 글자가 많으면 quality를 high로 두세요.",
+      "when_ko": "포스터·SNS 규격이나 투명 PNG가 필요할 때"
+    },
+    "style-reference": {
+      "ko": "스타일 레퍼런스 이미지",
+      "how_ko": "말로 설명하기 어려운 분위기는 이미지로 보여줘요. Midjourney --sref, Recraft 커스텀 스타일, Illustrator Style Picker, Figma Make·Lovable 스크린샷 첨부를 쓸 수 있어요.",
+      "when_ko": "여러 결과물에 브랜드 톤을 똑같이 유지할 때"
+    },
+    "brand-kit": {
+      "ko": "브랜드 키트·색 파라미터",
+      "how_ko": "Canva AI는 Apply Brand로 브랜드 키트를 적용해요. Recraft API는 colors/background_color 파라미터, Ideogram 4.x는 JSON 프롬프트로 HEX를 지정해요.",
+      "when_ko": "브랜드 색과 서체를 정확히 지켜야 할 때"
+    },
+    "brief-then-deltas": {
+      "ko": "첫 프롬프트는 브리프, 다음은 바뀐 점만",
+      "how_ko": "첫 프롬프트에 목표·맥락·요소·동작·제약·완료 기준을 담아요. 다음부터는 무엇을 어떻게 바꿀지만 짧게 써요.",
+      "when_ko": "웹·앱 생성 프로젝트를 시작할 때"
+    },
+    "section-by-section": {
+      "ko": "섹션 하나씩 쌓기",
+      "how_ko": "히어로 → 기능 → 가격 순으로 한 섹션씩 만들고 확인해요. 고칠 때 다른 곳이 덜 바뀌고 크레딧도 아낄 수 있어요.",
+      "when_ko": "페이지가 복잡하거나 수정이 잦을 때"
+    },
+    "scope-lock": {
+      "ko": "수정 범위 정하기",
+      "how_ko": "'이 페이지만', '기존 스타일 유지'처럼 건드리지 말 부분을 적어요. Bolt는 파일 지정·폴더 잠금, Lovable·Bolt는 미리보기에서 요소를 골라 고칠 수 있어요.",
+      "when_ko": "한 곳만 고치려는데 전체가 바뀔 때"
+    },
+    "project-knowledge": {
+      "ko": "스타일 규칙 저장해 두기",
+      "how_ko": "Lovable Knowledge, Bolt Project Prompt, v0 디자인 시스템, Claude CLAUDE.md·시스템 프롬프트에 색·폰트·톤 규칙을 저장해요. 매번 다시 쓰지 않아도 돼요.",
+      "when_ko": "여러 페이지나 세션에서 일관성을 지켜야 할 때"
+    },
+    "design-system-import": {
+      "ko": "디자인 시스템 연결",
+      "how_ko": "v0는 디자인 시스템(스킬)이나 shadcn 레지스트리로 우리 컴포넌트와 토큰을 쓰게 할 수 있어요.",
+      "when_ko": "회사 컴포넌트와 똑같은 프로토타입이 필요할 때"
+    },
+    "ask-clarifying": {
+      "ko": "먼저 질문하게 하기",
+      "how_ko": "프롬프트 끝에 '이해에 필요한 질문을 먼저 해줘'를 붙이고 Plan 모드를 써 보세요.",
+      "when_ko": "요구사항이 모호할 때"
+    },
+    "enhance-prompt": {
+      "ko": "프롬프트 개선 기능 쓰기",
+      "how_ko": "Bolt의 Enhance prompt 같은 기능으로 초안을 구체화한 뒤 직접 다듬어요.",
+      "when_ko": "프롬프트를 어떻게 써야 할지 막막할 때"
+    },
+    "image-to-code": {
+      "ko": "이미지 시안 먼저, 코드는 나중에",
+      "how_ko": "GPT-image나 Midjourney로 분위기와 UI 시안을 만들어요. 그 이미지를 v0·Lovable·Figma Make에 첨부하고 '이 스타일로 구현해줘'라고 요청해요.",
+      "when_ko": "분위기를 먼저 정하고 싶을 때"
+    },
+    "post-edit-text": {
+      "ko": "긴 글은 나중에 편집",
+      "how_ko": "AI 이미지엔 헤드라인만 넣고 본문·가격·연락처 자리는 비워 둬요. 그다음 Canva·Figma에서 실제 폰트로 입력해요.",
+      "when_ko": "인쇄물에 정확한 정보(특히 한글)가 필요할 때"
+    },
+    "vector-pipeline": {
+      "ko": "처음부터 벡터로 만들기",
+      "how_ko": "SVG가 필요하면 PNG를 변환하기보다 Recraft 벡터 모델이나 Illustrator Text to Vector를 쓰세요. 만든 뒤 Recolor와 경로 편집으로 다듬고, 복잡한 벡터는 정리가 필요할 수 있어요.",
+      "when_ko": "로고·아이콘을 실제 작업 파일로 쓸 때"
+    },
+    "iterate-small": {
+      "ko": "조금씩 고치고 버전 되돌리기",
+      "how_ko": "한 번에 한 가지만 바꾸고 잘된 버전은 북마크해 두세요. 되돌릴 땐 AI에게 시키지 말고 버전 복원 기능을 쓰세요.",
+      "when_ko": "결과가 점점 망가질 때"
+    }
+  }
+}

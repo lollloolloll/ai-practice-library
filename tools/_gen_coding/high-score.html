@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 최고 점수</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #eee; }
+  canvas { display: block; touch-action: none; }
+  .hud { position: fixed; top: 8px; left: 12px; right: 12px; display: flex; justify-content: space-between; font-size: 15px; pointer-events: none; }
+  .hud b { color: #ffd93d; }
+  .board { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.6); }
+  .board.show { display: grid; }
+  .card { background: #2a2a40; padding: 20px 24px; border-radius: 14px; width: min(320px, calc(100vw - 32px)); text-align: center; }
+  .card h2 { margin: 0 0 4px; } .new { color: #ffd93d; font-weight: 700; animation: pop .6s infinite alternate; } @keyframes pop { to { transform: scale(1.1); } }
+  ol { text-align: left; padding-left: 24px; margin: 12px 0; font-size: 14px; } ol li { padding: 2px 0; } ol li.me { color: #ffd93d; font-weight: 700; }
+  .card button { padding: 9px 18px; border: 0; border-radius: 8px; background: #6bcb77; color: #111; font-weight: 700; cursor: pointer; }
+  .note { font-size: 11px; color: #999; margin-top: 8px; }
+  .reset { background: none !important; color: #999 !important; font-weight: 400 !important; font-size: 12px; text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="hud"><span>점수 <b id="s">0</b></span><span>🏆 최고 <b id="best">0</b></span></div>
+<canvas id="c"></canvas>
+<div class="board" id="board"><div class="card">
+  <h2>게임 오버</h2><div id="result"></div>
+  <ol id="top"></ol>
+  <button id="again">다시 하기</button> <button class="reset" id="reset">기록 초기화</button>
+  <div class="note" id="note"></div>
+</div></div>
+<script>
+  // ── 저장소: localStorage 우선, 차단된 환경(샌드박스·사생활 보호 모드)에서는 메모리로 대체 ──
+  const KEY = 'bounce.highscores.v1';
+  const Store = (() => {
+    let mem = null, ok = true;
+    try { const t = '__t'; localStorage.setItem(t, t); localStorage.removeItem(t); } catch (e) { ok = false; }
+    return {
+      persistent: ok,
+      load() { try { if (ok) return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {} return mem || []; },
+      save(v) { mem = v; try { if (ok) localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {} }
+    };
+  })();
+  let scores = Store.load();
+  const best = () => scores[0]?.score || 0;
+  document.getElementById('best').textContent = best();
+  document.getElementById('note').textContent = Store.persistent ? '기록은 이 브라우저(localStorage)에 저장됩니다' : '⚠ 저장소 접근이 막혀 있어 이번 세션에만 기록이 유지됩니다';
+
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const ball = { r: 22 }; let score = 0, playing = true;
+  function start() { Object.assign(ball, { x: W / 2, y: H / 3, vx: 120, vy: -200 }); score = 0; playing = true; document.getElementById('board').classList.remove('show'); }
+  canvas.addEventListener('pointerdown', e => {
+    if (!playing) return;
+    if (Math.hypot(e.clientX - ball.x, e.clientY - ball.y) < ball.r + 26) { ball.vy = -640; ball.vx = (ball.x - e.clientX) * 10; score++; ball.r = Math.max(12, 22 - score * .3); }
+  });
+  function gameOver() {
+    playing = false;
+    const isBest = score > best();
+    const entry = { score, date: new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) };
+    scores = [...scores, entry].sort((a, b) => b.score - a.score).slice(0, 5); Store.save(scores);
+    document.getElementById('best').textContent = best();
+    document.getElementById('result').innerHTML = isBest && score > 0 ? `<div class="new">🎉 새 최고 기록! ${score}점</div>` : `${score}점 · 최고 ${best()}점`;
+    document.getElementById('top').innerHTML = scores.map(s => `<li class="${s === entry ? 'me' : ''}">${s.score}점 <small style="color:#888">${s.date}</small></li>`).join('');
+    document.getElementById('board').classList.add('show');
+  }
+  document.getElementById('again').onclick = start;
+  document.getElementById('reset').onclick = () => { scores = []; Store.save(scores); document.getElementById('best').textContent = 0; document.getElementById('top').innerHTML = ''; };
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    if (playing) {
+      ball.vy += 1000 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+      if (ball.x < ball.r || ball.x > W - ball.r) { ball.vx *= -1; ball.x = Math.max(ball.r, Math.min(W - ball.r, ball.x)); }
+      if (ball.y < ball.r) { ball.y = ball.r; ball.vy = Math.abs(ball.vy); }
+      if (ball.y > H + ball.r) gameOver();
+    }
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    if (best() > 0) { ctx.fillStyle = 'rgba(255,217,61,.4)'; ctx.font = '12px system-ui'; ctx.textAlign = 'center'; ctx.fillText(`최고 기록까지 ${Math.max(0, best() - score + 1)}점`, W / 2, H - 14); }
+    ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, 7); ctx.fill();
+    if (playing && score === 0) { ctx.fillStyle = '#999'; ctx.font = '14px system-ui'; ctx.textAlign = 'center'; ctx.fillText('공을 클릭해서 떨어지지 않게 하세요', W / 2, H / 2 + 60); }
+    document.getElementById('s').textContent = score;
+    requestAnimationFrame(loop);
+  }
+  start(); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

@@ -1,0 +1,6035 @@
+{
+  "field": "design",
+  "field_ko": "디자인",
+  "base_prompts": [
+    {
+      "id": "cafe-logo",
+      "prompt_en": "A logo for a small neighborhood coffee shop called \"Morning Bean\".",
+      "desc_ko": "로고 유형·서체·색·벡터 용어 비교용 카페 로고 기준안"
+    },
+    {
+      "id": "jazz-poster",
+      "prompt_en": "A poster for a jazz festival with the headline \"Seoul Jazz Night\" and the date \"2026.11.20\".",
+      "desc_ko": "디자인 사조·타이포·레이아웃·질감 비교용 공연 포스터 기준안"
+    },
+    {
+      "id": "saas-landing",
+      "prompt_en": "A landing page for a note-taking app called Notely, with a hero, features, pricing and footer.",
+      "desc_ko": "UI 컴포넌트·웹 생성 용어 비교용 랜딩 페이지 기준안(v0/Lovable/Bolt/Claude)"
+    },
+    {
+      "id": "tea-packaging",
+      "prompt_en": "Packaging for an organic tea brand called \"Leaf & Co.\".",
+      "desc_ko": "패키지·목업·색 팔레트·인쇄 효과 비교용 기준안"
+    }
+  ],
+  "categories": [
+    {
+      "id": "design-movement",
+      "name_ko": "디자인 사조",
+      "desc_ko": "스위스·바우하우스·브루탈리즘·글래스모피즘 등 전체 미감을 결정하는 스타일 키워드"
+    },
+    {
+      "id": "typography",
+      "name_ko": "타이포그래피",
+      "desc_ko": "서체 분류, 자간·행간, 위계 등 글자 표현 용어"
+    },
+    {
+      "id": "layout-grid",
+      "name_ko": "레이아웃·그리드",
+      "desc_ko": "벤토 그리드, 비대칭, 여백, 시선 흐름 등 배치 용어"
+    },
+    {
+      "id": "logo-type",
+      "name_ko": "로고 유형",
+      "desc_ko": "워드마크·엠블럼·마스코트 등 로고 형식과 품질 조건"
+    },
+    {
+      "id": "color",
+      "name_ko": "색 이론·팔레트",
+      "desc_ko": "배색 이론, 팔레트 무드, HEX 지정, 대비"
+    },
+    {
+      "id": "illustration",
+      "name_ko": "일러스트 스타일",
+      "desc_ko": "플랫·아이소메트릭·라인아트·3D 등 삽화 스타일"
+    },
+    {
+      "id": "print-format",
+      "name_ko": "포스터·패키지·목업",
+      "desc_ko": "산출물 형식과 용도(포스터, 패키지, 목업, 인포그래픽 등)"
+    },
+    {
+      "id": "texture-effect",
+      "name_ko": "질감·인쇄 효과",
+      "desc_ko": "그레인, 하프톤, 리소, 박, 그라데이션 등 표면 효과"
+    },
+    {
+      "id": "ui-component",
+      "name_ko": "UI 패턴·컴포넌트",
+      "desc_ko": "히어로, CTA, 카드, 모달, 다크모드, 디자인 토큰 등 UI 어휘"
+    },
+    {
+      "id": "web-gen",
+      "name_ko": "웹 생성 프롬프트 요령",
+      "desc_ko": "브리프, 레퍼런스, 스택(shadcn/ui·Tailwind), 폰트·모션 지정"
+    },
+    {
+      "id": "text-render",
+      "name_ko": "텍스트 렌더링",
+      "desc_ko": "이미지 안 글자를 정확히 넣기 위한 표기법"
+    },
+    {
+      "id": "vector-output",
+      "name_ko": "벡터·SVG 출력",
+      "desc_ko": "편집 가능한 벡터·투명 배경·아이콘 세트 출력 조건"
+    }
+  ],
+  "terms": [
+    {
+      "id": "swiss-style",
+      "term": "Swiss Style / International Typographic Style",
+      "ko": "스위스 스타일(국제 타이포그래피 양식)",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "엄격한 그리드, 왼쪽 정렬된 산세리프(헬베티카 계열), 넓은 여백, 비대칭 배치로 정돈되고 객관적인 인상이 됩니다. 장식이 사라지고 정보 위계가 또렷해집니다.",
+      "snippet": "Swiss International Typographic Style poster, strict modular grid, flush-left Helvetica-like sans-serif, asymmetric layout, generous white space, red and black on white",
+      "compare_with": [
+        "bauhaus",
+        "minimalism",
+        "modular-grid"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/International_Typographic_Style"
+      ]
+    },
+    {
+      "id": "bauhaus",
+      "term": "Bauhaus",
+      "ko": "바우하우스",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "원·삼각형·사각형 같은 기하 도형과 빨강·노랑·파랑 원색, 굵은 산세리프가 들어가 구성주의적이고 기능적인 느낌이 납니다.",
+      "snippet": "Bauhaus style poster, bold geometric shapes (circles, triangles, rectangles), primary colors red yellow blue, heavy geometric sans-serif, diagonal composition",
+      "compare_with": [
+        "swiss-style",
+        "constructivism",
+        "de-stijl"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Bauhaus"
+      ]
+    },
+    {
+      "id": "brutalism-web",
+      "term": "Brutalist web design",
+      "ko": "브루탈리즘(웹)",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "꾸밈 없는 시스템 폰트, 기본 HTML 느낌의 테두리, 의도적으로 거친 배치로 날것의 반(反)세련된 인상을 줍니다. 그림자·그라데이션이 거의 없습니다.",
+      "snippet": "brutalist web design, raw unstyled look, default system monospace font, visible borders, harsh contrast, no shadows or gradients, intentionally unpolished",
+      "compare_with": [
+        "neo-brutalism",
+        "minimalism",
+        "swiss-style"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://brutalistwebsites.com/"
+      ]
+    },
+    {
+      "id": "neo-brutalism",
+      "term": "Neo-brutalism (neubrutalism)",
+      "ko": "네오 브루탈리즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "두꺼운 검정 외곽선, 오프셋된 딱딱한 그림자(블러 없음), 채도 높은 플랫 컬러로 장난스럽고 강한 UI가 됩니다. 최근 SaaS·포트폴리오에서 자주 보입니다.",
+      "snippet": "neo-brutalist UI, thick 3px black borders, hard offset drop shadows with no blur, bright flat colors (yellow, pink, cyan), chunky bold sans-serif",
+      "compare_with": [
+        "brutalism-web",
+        "flat-design",
+        "memphis"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/neobrutalism/"
+      ]
+    },
+    {
+      "id": "memphis",
+      "term": "Memphis design",
+      "ko": "멤피스 디자인",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "지그재그·물결·도트 같은 패턴, 파스텔과 원색의 충돌, 비뚤어진 기하 도형으로 80년대풍의 유쾌하고 시끄러운 결과가 나옵니다.",
+      "snippet": "Memphis design style, 1980s, squiggles, zigzags, confetti dots, terrazzo pattern, clashing pastel and primary colors, playful geometric shapes",
+      "compare_with": [
+        "corporate-memphis",
+        "maximalism",
+        "y2k"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Memphis_Group"
+      ]
+    },
+    {
+      "id": "y2k",
+      "term": "Y2K aesthetic",
+      "ko": "Y2K 미학",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "크롬·메탈릭, 홀로그램, 버블 형태, 블롭, 사이버 느낌의 폰트로 2000년 전후 디지털 낙관주의 분위기가 납니다.",
+      "snippet": "Y2K aesthetic, chrome liquid metal type, iridescent holographic gradients, bubbly blob shapes, futuristic early-2000s web vibe",
+      "compare_with": [
+        "vaporwave",
+        "retro-futurism",
+        "holographic"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Y2K_aesthetic"
+      ]
+    },
+    {
+      "id": "glassmorphism",
+      "term": "Glassmorphism",
+      "ko": "글래스모피즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "반투명 서리 유리 패널(배경 블러), 얇은 밝은 테두리, 뒤쪽의 컬러 블롭으로 깊이감 있는 현대적 UI가 됩니다. 텍스트 대비가 약해지기 쉬우니 주의.",
+      "snippet": "glassmorphism UI, frosted glass cards with background blur, semi-transparent white fill, subtle 1px light border, colorful gradient blobs behind",
+      "compare_with": [
+        "neumorphism",
+        "claymorphism",
+        "flat-design"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/glassmorphism/"
+      ]
+    },
+    {
+      "id": "neumorphism",
+      "term": "Neumorphism (soft UI)",
+      "ko": "뉴모피즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "배경과 같은 색의 요소가 밝은/어두운 이중 그림자로 살짝 돌출되거나 눌린 듯 보입니다. 부드럽지만 대비가 낮아 접근성이 떨어질 수 있습니다.",
+      "snippet": "neumorphic soft UI, elements same color as light gray background, dual soft shadows (light top-left, dark bottom-right), extruded rounded buttons",
+      "compare_with": [
+        "glassmorphism",
+        "skeuomorphism",
+        "claymorphism"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/skeuomorphism/"
+      ]
+    },
+    {
+      "id": "claymorphism",
+      "term": "Claymorphism",
+      "ko": "클레이모피즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "통통한 3D 점토 같은 형태, 안쪽 그림자, 파스텔 톤으로 귀엽고 손에 잡힐 듯한 카드·아이콘이 됩니다.",
+      "snippet": "claymorphism style, puffy 3D clay-like cards, inner shadows and soft outer shadow, pastel colors, very rounded corners",
+      "compare_with": [
+        "neumorphism",
+        "3d-clay-render",
+        "glassmorphism"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "flat-design",
+      "term": "Flat design",
+      "ko": "플랫 디자인",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "그림자·질감·그라데이션을 빼고 단색 면과 단순한 형태만 남겨 깔끔하고 가볍게 만듭니다. 아이콘·인포그래픽에 적합.",
+      "snippet": "flat design, solid color fills, no gradients, no shadows, simple geometric shapes, clean minimal icons",
+      "compare_with": [
+        "skeuomorphism",
+        "neumorphism",
+        "flat-illustration"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/flat-design/"
+      ]
+    },
+    {
+      "id": "skeuomorphism",
+      "term": "Skeuomorphism",
+      "ko": "스큐어모피즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "실제 재질(가죽, 나무, 금속)과 사실적 그림자·하이라이트를 흉내 내 물리적 사물처럼 보이게 합니다. iOS 6 이전 앱 아이콘 느낌.",
+      "snippet": "skeuomorphic app icon, realistic leather and brushed metal textures, glossy highlights, detailed drop shadows, tactile real-world materials",
+      "compare_with": [
+        "flat-design",
+        "neumorphism"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/skeuomorphism/"
+      ]
+    },
+    {
+      "id": "art-deco",
+      "term": "Art Deco",
+      "ko": "아르데코",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "금색 라인, 대칭 방사형 패턴, 계단식 기하 문양, 고대비 세리프로 1920년대식 화려하고 고급스러운 인상을 줍니다.",
+      "snippet": "Art Deco poster, symmetrical sunburst and stepped geometric patterns, gold foil lines on deep navy, elegant high-contrast display serif",
+      "compare_with": [
+        "art-nouveau",
+        "didone",
+        "jewel-tones"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Art_Deco"
+      ]
+    },
+    {
+      "id": "art-nouveau",
+      "term": "Art Nouveau",
+      "ko": "아르누보",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "식물 덩굴처럼 흐르는 곡선, 장식 테두리, 무하풍 인물로 유기적이고 장식적인 결과가 나옵니다.",
+      "snippet": "Art Nouveau style, flowing organic whiplash curves, ornamental floral borders, Mucha-inspired, muted earthy palette",
+      "compare_with": [
+        "art-deco",
+        "psychedelic"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Art_Nouveau"
+      ]
+    },
+    {
+      "id": "minimalism",
+      "term": "Minimalism",
+      "ko": "미니멀리즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "요소 수를 줄이고 여백을 크게 써 핵심 하나에 시선을 모읍니다. 색은 1~2가지로 제한되는 경향.",
+      "snippet": "minimalist design, single focal element, lots of negative space, limited two-color palette, clean sans-serif",
+      "compare_with": [
+        "maximalism",
+        "swiss-style",
+        "generous-whitespace"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Minimalism"
+      ]
+    },
+    {
+      "id": "maximalism",
+      "term": "Maximalism",
+      "ko": "맥시멀리즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "패턴·색·타입을 겹겹이 채워 풍성하고 에너지 넘치는 화면이 됩니다. 미니멀리즘과 비교하면 차이가 극명합니다.",
+      "snippet": "maximalist design, layered patterns, clashing bold colors, dense collage of type and imagery, more is more",
+      "compare_with": [
+        "minimalism",
+        "memphis",
+        "layered-collage"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Maximalism"
+      ]
+    },
+    {
+      "id": "constructivism",
+      "term": "Russian Constructivism",
+      "ko": "러시아 구성주의",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "사선 구도, 빨강·검정, 굵은 산세리프, 포토몽타주로 선전 포스터 같은 강렬한 힘이 생깁니다.",
+      "snippet": "Russian Constructivist poster, dynamic diagonal composition, red and black, bold condensed sans-serif, photomontage, propaganda style",
+      "compare_with": [
+        "bauhaus",
+        "swiss-style"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Constructivism_(art)"
+      ]
+    },
+    {
+      "id": "de-stijl",
+      "term": "De Stijl",
+      "ko": "데 스테일",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "검은 수직·수평선과 원색 사각면(몬드리안풍)으로 극도로 정제된 추상 구성이 됩니다.",
+      "snippet": "De Stijl composition, Mondrian-inspired black horizontal and vertical lines, primary color rectangles, white background",
+      "compare_with": [
+        "bauhaus",
+        "modular-grid"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/De_Stijl"
+      ]
+    },
+    {
+      "id": "mid-century-modern",
+      "term": "Mid-century modern",
+      "ko": "미드센추리 모던",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "50~60년대 풍의 따뜻한 오렌지·머스타드·틸, 단순화된 형태, 살짝 거친 인쇄 질감으로 레트로하고 세련된 느낌.",
+      "snippet": "mid-century modern illustration, 1950s style, simplified shapes, mustard orange and teal palette, subtle print texture",
+      "compare_with": [
+        "art-deco",
+        "risograph",
+        "earth-tones"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Mid-century_modern"
+      ]
+    },
+    {
+      "id": "psychedelic",
+      "term": "Psychedelic 60s poster",
+      "ko": "사이키델릭(60년대)",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "녹아내리듯 왜곡된 레터링, 소용돌이 패턴, 강한 보색 대비로 환각적인 공연 포스터가 됩니다. 가독성은 낮아짐.",
+      "snippet": "1960s psychedelic concert poster, melting warped hand lettering, swirling patterns, vibrating complementary colors",
+      "compare_with": [
+        "art-nouveau",
+        "maximalism"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Psychedelic_art"
+      ]
+    },
+    {
+      "id": "vaporwave",
+      "term": "Vaporwave",
+      "ko": "베이퍼웨이브",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "핑크·보라·청록 네온, 그리드 바닥, 석고상, 90년대 윈도 UI 요소로 몽환적인 레트로 인터넷 분위기.",
+      "snippet": "vaporwave aesthetic, pink purple and cyan neon gradient, retro grid floor, Greek bust, 90s computer UI windows",
+      "compare_with": [
+        "y2k",
+        "retro-futurism",
+        "neon-palette"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Vaporwave"
+      ]
+    },
+    {
+      "id": "retro-futurism",
+      "term": "Retro-futurism",
+      "ko": "레트로 퓨처리즘",
+      "category": "design-movement",
+      "tags": [
+        "design",
+        "design-movement"
+      ],
+      "effect_ko": "과거가 상상한 미래(우주 시대, 크롬, 유선형)를 그려 낙관적·향수적 SF 느낌을 줍니다.",
+      "snippet": "retro-futurist poster, 1960s space-age optimism, streamlined rockets, chrome details, warm sunset gradients",
+      "compare_with": [
+        "y2k",
+        "vaporwave",
+        "mid-century-modern"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Retrofuturism"
+      ]
+    },
+    {
+      "id": "serif",
+      "term": "serif typeface",
+      "ko": "세리프체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "획 끝의 돌기(세리프)가 전통·신뢰·격식의 인상을 줍니다. 출판·고급 브랜드에 어울립니다.",
+      "snippet": "headline set in an elegant serif typeface",
+      "compare_with": [
+        "sans-serif",
+        "slab-serif",
+        "didone"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://fonts.google.com/knowledge",
+        "https://en.wikipedia.org/wiki/Serif"
+      ]
+    },
+    {
+      "id": "sans-serif",
+      "term": "sans-serif typeface",
+      "ko": "산세리프체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "돌기 없는 획으로 현대적·중립적·깔끔한 인상. 화면 UI 기본값.",
+      "snippet": "clean modern sans-serif typography",
+      "compare_with": [
+        "serif",
+        "geometric-sans",
+        "neo-grotesk"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://fonts.google.com/knowledge",
+        "https://en.wikipedia.org/wiki/Sans-serif"
+      ]
+    },
+    {
+      "id": "geometric-sans",
+      "term": "geometric sans-serif",
+      "ko": "지오메트릭 산세리프",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "원과 직선 기반의 글자(Futura, Montserrat 계열)로 친근하고 현대적이며 테크 스타트업 느낌이 납니다.",
+      "snippet": "geometric sans-serif like Futura, perfectly round O, even stroke weight",
+      "compare_with": [
+        "neo-grotesk",
+        "humanist-sans"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fonts.google.com/knowledge"
+      ]
+    },
+    {
+      "id": "neo-grotesk",
+      "term": "neo-grotesque / grotesk sans",
+      "ko": "(네오)그로테스크 산세리프",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "Helvetica·Inter 계열의 중립적 산세리프. 스위스풍·기업적·정보 중심 결과가 됩니다.",
+      "snippet": "neo-grotesque sans-serif like Helvetica, tight tracking, flush left",
+      "compare_with": [
+        "geometric-sans",
+        "humanist-sans",
+        "swiss-style"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fonts.google.com/knowledge",
+        "https://en.wikipedia.org/wiki/Sans-serif"
+      ]
+    },
+    {
+      "id": "humanist-sans",
+      "term": "humanist sans-serif",
+      "ko": "휴머니스트 산세리프",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "손글씨 붓 흐름이 남은 산세리프(Gill Sans, Frutiger 계열)로 따뜻하고 읽기 쉬운 인상.",
+      "snippet": "humanist sans-serif, warm and readable, calligraphic stroke variation",
+      "compare_with": [
+        "neo-grotesk",
+        "geometric-sans"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://fonts.google.com/knowledge"
+      ]
+    },
+    {
+      "id": "slab-serif",
+      "term": "slab serif",
+      "ko": "슬랩 세리프",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "두꺼운 사각 세리프로 단단하고 빈티지·공업적인 인상. 커피·크래프트 브랜드에 자주 쓰입니다.",
+      "snippet": "bold slab serif lettering, sturdy rectangular serifs",
+      "compare_with": [
+        "serif",
+        "vintage-badge"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Slab_serif"
+      ]
+    },
+    {
+      "id": "didone",
+      "term": "Didone / high-contrast serif",
+      "ko": "디돈(고대비 세리프)",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "굵고 가는 획의 대비가 극단적인 세리프(Bodoni, Didot)로 패션 잡지 같은 럭셔리 느낌.",
+      "snippet": "high-contrast Didone serif like Bodoni, fashion magazine masthead",
+      "compare_with": [
+        "serif",
+        "art-deco"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Didone_(typography)"
+      ]
+    },
+    {
+      "id": "monospace",
+      "term": "monospace font",
+      "ko": "고정폭(모노스페이스) 서체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "모든 글자 폭이 같은 코딩용 서체로 기술적·개발자·브루탈리스트 인상.",
+      "snippet": "monospace typography like a code editor, technical feel",
+      "compare_with": [
+        "brutalism-web",
+        "sans-serif"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Monospaced_font"
+      ]
+    },
+    {
+      "id": "display-typeface",
+      "term": "display typeface",
+      "ko": "디스플레이 서체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "큰 크기 제목용으로 개성이 강한 서체를 쓰게 해 포스터 헤드라인이 눈에 띄게 됩니다. 본문용과 구분하면 위계가 생깁니다.",
+      "snippet": "expressive display typeface for the headline, simple sans-serif for body",
+      "compare_with": [
+        "font-pairing",
+        "oversized-type"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fonts.google.com/knowledge"
+      ]
+    },
+    {
+      "id": "script-font",
+      "term": "script / handwritten lettering",
+      "ko": "스크립트·손글씨체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "필기체·붓글씨로 따뜻함, 수공예, 우아함(웨딩 등)을 더합니다. 길면 가독성 저하.",
+      "snippet": "flowing hand-lettered script logotype, brush calligraphy",
+      "compare_with": [
+        "serif",
+        "blackletter"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Script_typeface"
+      ]
+    },
+    {
+      "id": "blackletter",
+      "term": "blackletter (gothic) type",
+      "ko": "블랙레터(고딕체)",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "중세 고딕 필사체로 메탈·스트리트웨어·전통 양조장 같은 무게감 있는 분위기.",
+      "snippet": "blackletter gothic lettering, streetwear logo",
+      "compare_with": [
+        "script-font",
+        "slab-serif"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Blackletter"
+      ]
+    },
+    {
+      "id": "condensed-type",
+      "term": "condensed / compressed typeface",
+      "ko": "콘덴스드(좁은) 서체",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "폭이 좁고 키 큰 글자로 좁은 공간에 큰 제목을 넣을 수 있고 스포츠·편집 포스터 느낌이 납니다.",
+      "snippet": "tall condensed bold sans-serif headline filling the width",
+      "compare_with": [
+        "oversized-type",
+        "neo-grotesk"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fonts.google.com/knowledge"
+      ]
+    },
+    {
+      "id": "kerning",
+      "term": "tight kerning",
+      "ko": "커닝(자간 쌍 조정)",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "글자 쌍 사이 간격을 조정합니다. 'tight/clean kerning' 지정 시 로고 워드마크가 더 단단하고 프로페셔널하게 보입니다(이미지 모델은 대략적으로 반영).",
+      "snippet": "wordmark with clean, tight kerning",
+      "compare_with": [
+        "tracking",
+        "leading"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kerning",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "tracking",
+      "term": "wide letter-spacing (tracking)",
+      "ko": "트래킹(전체 자간)",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "자간을 넓히면 고급스럽고 여유로운 인상(특히 대문자), 좁히면 강렬하고 밀도 있는 인상.",
+      "snippet": "small uppercase subtitle with wide letter-spacing",
+      "compare_with": [
+        "kerning",
+        "all-caps"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Letter-spacing"
+      ]
+    },
+    {
+      "id": "leading",
+      "term": "line height / leading",
+      "ko": "행간(리딩)",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "줄 간격을 지정해 본문 가독성과 밀도를 바꿉니다. 웹 생성에선 Tailwind leading 클래스로 반영됩니다.",
+      "snippet": "body text with relaxed 1.6 line-height",
+      "compare_with": [
+        "tracking",
+        "typographic-hierarchy"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Leading",
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "typographic-hierarchy",
+      "term": "clear typographic hierarchy",
+      "ko": "타이포 위계",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "제목·부제·본문·캡션의 크기·굵기 차이를 명확히 해 시선 흐름이 정리됩니다.",
+      "snippet": "clear typographic hierarchy: large bold headline, medium subheading, small body text",
+      "compare_with": [
+        "visual-hierarchy",
+        "font-pairing"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "font-pairing",
+      "term": "font pairing (serif headline + sans body)",
+      "ko": "서체 페어링",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "두 서체의 역할을 나눠 대비와 일관성을 동시에 얻습니다. 웹 생성 툴은 구체 폰트명을 주면 그대로 적용합니다.",
+      "snippet": "pair a serif display font for headings with a neutral sans-serif for body",
+      "compare_with": [
+        "named-google-fonts",
+        "display-typeface"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://fonts.google.com/knowledge",
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "oversized-type",
+      "term": "oversized / giant typography",
+      "ko": "초대형 타이포",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "글자 자체가 주 이미지가 되어 포스터·히어로가 대담해집니다. 화면 가장자리에서 잘리게도 지시 가능.",
+      "snippet": "giant oversized headline type bleeding off the edges as the main visual",
+      "compare_with": [
+        "condensed-type",
+        "full-bleed"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "all-caps",
+      "term": "all caps",
+      "ko": "전부 대문자",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "대문자만 쓰면 권위·강조·간판 느낌. GPT-image 가이드는 문자열을 따옴표나 ALL CAPS로 표기하라고 권장합니다.",
+      "snippet": "headline in ALL CAPS: \"GRAND OPENING\"",
+      "compare_with": [
+        "tracking",
+        "quoted-text"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "outline-text",
+      "term": "outlined / stroke-only text",
+      "ko": "외곽선 텍스트",
+      "category": "typography",
+      "tags": [
+        "design",
+        "typography"
+      ],
+      "effect_ko": "속이 빈 윤곽선 글자로 가볍고 그래픽적인 효과. 채운 글자와 섞으면 리듬이 생깁니다.",
+      "snippet": "outlined hollow stroke lettering mixed with solid filled words",
+      "compare_with": [
+        "oversized-type",
+        "monoline"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "bento-grid",
+      "term": "bento grid layout",
+      "ko": "벤토 그리드",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "크기가 다른 둥근 카드들을 도시락처럼 맞춰 배치해 기능 소개·대시보드를 한눈에 보여줍니다. 애플식 기능 섹션 느낌.",
+      "snippet": "features section as a bento grid: rounded cards of varying sizes, one large hero card and smaller tiles",
+      "compare_with": [
+        "modular-grid",
+        "masonry",
+        "card"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "modular-grid",
+      "term": "modular grid",
+      "ko": "모듈러 그리드",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "행과 열로 나뉜 모듈 단위에 요소를 맞춰 질서정연하고 체계적인 레이아웃을 만듭니다.",
+      "snippet": "strict modular grid layout, elements aligned to column and row modules",
+      "compare_with": [
+        "twelve-column-grid",
+        "swiss-style",
+        "bento-grid"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Grid_(graphic_design)"
+      ]
+    },
+    {
+      "id": "twelve-column-grid",
+      "term": "12-column grid",
+      "ko": "12컬럼 그리드",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "웹 표준 12열 기준으로 정렬해 반응형 전환이 자연스러워집니다. 웹 생성 툴에서 정확히 반영되는 편.",
+      "snippet": "content laid out on a 12-column grid with 24px gutters, max-width 1200px container",
+      "compare_with": [
+        "modular-grid",
+        "responsive-breakpoints"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "baseline-grid",
+      "term": "baseline grid",
+      "ko": "베이스라인 그리드",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "모든 텍스트 줄을 일정한 기준선 간격에 맞춰 편집물의 리듬이 정돈됩니다(주로 편집·웹 코드에서 의미 있음).",
+      "snippet": "typography aligned to an 8px baseline grid",
+      "compare_with": [
+        "leading",
+        "modular-grid"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Grid_(graphic_design)"
+      ]
+    },
+    {
+      "id": "asymmetric-layout",
+      "term": "asymmetric layout",
+      "ko": "비대칭 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "중앙 정렬 대신 한쪽으로 무게를 둬 역동적이고 현대적인 긴장감이 생깁니다.",
+      "snippet": "asymmetric composition, headline offset to the left third, image cropped on the right",
+      "compare_with": [
+        "centered-symmetric",
+        "swiss-style"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "centered-symmetric",
+      "term": "centered symmetrical composition",
+      "ko": "중앙 대칭 구도",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "모든 요소를 가운데 축에 정렬해 안정적·클래식·격식 있는 인상. 로고·배지에 기본적.",
+      "snippet": "centered symmetrical layout, everything aligned on the vertical axis",
+      "compare_with": [
+        "asymmetric-layout"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "generous-whitespace",
+      "term": "generous white space / negative space",
+      "ko": "넉넉한 여백",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "여백을 늘리면 고급스럽고 숨 쉬는 화면이 되며 핵심 요소가 돋보입니다. 'cluttered'의 반대.",
+      "snippet": "generous white space, lots of breathing room around elements",
+      "compare_with": [
+        "minimalism",
+        "layered-collage"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "z-pattern",
+      "term": "Z-pattern layout",
+      "ko": "Z 패턴 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "좌상→우상→좌하→우하로 시선이 흐르게 로고·CTA를 배치해 단순한 랜딩 페이지에 효과적.",
+      "snippet": "Z-pattern layout: logo top-left, nav top-right, headline then CTA bottom-right",
+      "compare_with": [
+        "f-pattern",
+        "visual-hierarchy"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "f-pattern",
+      "term": "F-pattern layout",
+      "ko": "F 패턴 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "텍스트 중심 페이지에서 사용자가 왼쪽 위부터 훑는 습성에 맞춰 제목·요점을 왼쪽에 둡니다.",
+      "snippet": "text-heavy page optimized for F-pattern scanning, left-aligned headings and bullet points",
+      "compare_with": [
+        "z-pattern"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/"
+      ]
+    },
+    {
+      "id": "split-screen",
+      "term": "split-screen layout",
+      "ko": "분할 화면 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "화면을 좌우 반으로 나눠 한쪽은 이미지, 한쪽은 텍스트/폼으로 구성. 히어로·로그인에 흔함.",
+      "snippet": "split-screen hero: left half headline and CTA, right half full-height product image",
+      "compare_with": [
+        "hero-section",
+        "asymmetric-layout"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "full-bleed",
+      "term": "full-bleed",
+      "ko": "풀블리드(재단선까지)",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "이미지나 색면이 여백 없이 가장자리까지 꽉 차 몰입감이 큽니다. 인쇄물은 재단 여유 고려.",
+      "snippet": "full-bleed photograph edge to edge, text overlaid",
+      "compare_with": [
+        "generous-whitespace",
+        "poster-design"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Bleed_(printing)"
+      ]
+    },
+    {
+      "id": "masonry",
+      "term": "masonry layout",
+      "ko": "메이슨리(벽돌) 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "높이가 다른 카드가 핀터레스트처럼 엇갈려 쌓여 갤러리·포트폴리오에 적합합니다.",
+      "snippet": "masonry gallery layout, cards of varying heights, Pinterest-style",
+      "compare_with": [
+        "bento-grid",
+        "card"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "golden-ratio",
+      "term": "golden ratio proportions",
+      "ko": "황금비 비례",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "1:1.618 비례 분할을 지시해 로고 구성·레이아웃에 고전적 균형감을 노립니다(이미지 모델은 느슨하게 반영).",
+      "snippet": "logo construction based on golden ratio circles",
+      "compare_with": [
+        "modular-grid",
+        "geometric-logo"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Golden_ratio"
+      ]
+    },
+    {
+      "id": "editorial-layout",
+      "term": "editorial / magazine layout",
+      "ko": "에디토리얼(잡지) 레이아웃",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "큰 제목, 다단 본문, 풀쿼트, 캡션이 있는 잡지 지면 구성으로 고급스러운 읽을거리 느낌.",
+      "snippet": "magazine editorial spread, large serif headline, two-column body text, pull quote, captioned photo",
+      "compare_with": [
+        "swiss-style",
+        "typographic-hierarchy"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "visual-hierarchy",
+      "term": "strong visual hierarchy",
+      "ko": "시각적 위계",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "크기·색·위치로 무엇을 먼저 볼지 정해 메시지가 명확해집니다. GPT-image는 배치 명시(예: logo top-right)를 권장.",
+      "snippet": "strong visual hierarchy: headline first, product second, CTA third; logo top-right",
+      "compare_with": [
+        "typographic-hierarchy",
+        "z-pattern"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "layered-collage",
+      "term": "layered collage composition",
+      "ko": "레이어드 콜라주",
+      "category": "layout-grid",
+      "tags": [
+        "design",
+        "layout-grid"
+      ],
+      "effect_ko": "사진 컷아웃, 종이 질감, 타이포를 겹쳐 손으로 만든 듯한 에너지 있는 화면이 됩니다.",
+      "snippet": "layered collage of cut-out photos, torn paper, tape and bold type",
+      "compare_with": [
+        "maximalism",
+        "paper-cut"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "wordmark",
+      "term": "wordmark / logotype",
+      "ko": "워드마크(로고타입)",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "브랜드명 글자만으로 로고를 만듭니다. 서체 선택이 전부가 되며 텍스트 정확도가 중요해 Ideogram·GPT-image가 유리합니다.",
+      "snippet": "minimal wordmark logo spelling \"Morning Bean\", custom sans-serif lettering, no icon",
+      "compare_with": [
+        "lettermark",
+        "combination-mark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/",
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "lettermark",
+      "term": "lettermark",
+      "ko": "레터마크(이니셜)",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "이니셜 몇 글자(IBM, HBO처럼)로 만든 로고. 긴 이름을 압축합니다.",
+      "snippet": "lettermark logo using the initials \"MB\", bold geometric letters",
+      "compare_with": [
+        "monogram",
+        "wordmark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "monogram",
+      "term": "monogram",
+      "ko": "모노그램",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "이니셜을 서로 겹치거나 엮어 하나의 문양으로 만들어 고급·패션 브랜드 느낌.",
+      "snippet": "elegant interlocking monogram of letters M and B, luxury brand",
+      "compare_with": [
+        "lettermark",
+        "emblem"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "pictorial-mark",
+      "term": "pictorial mark / brand symbol",
+      "ko": "픽토리얼 마크(심볼)",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "사과·새처럼 알아볼 수 있는 사물 아이콘 하나로 브랜드를 표현합니다.",
+      "snippet": "pictorial logo mark: a simple coffee bean icon, no text",
+      "compare_with": [
+        "abstract-mark",
+        "combination-mark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "abstract-mark",
+      "term": "abstract logo mark",
+      "ko": "추상 마크",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "구체 사물이 아닌 추상 도형으로 의미를 담아 독창적이지만 해석이 필요한 로고가 됩니다.",
+      "snippet": "abstract geometric logo mark suggesting warmth and morning, no literal objects",
+      "compare_with": [
+        "pictorial-mark",
+        "geometric-logo"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "combination-mark",
+      "term": "combination mark",
+      "ko": "콤비네이션 마크",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "심볼과 워드마크를 나란히 혹은 위아래로 결합. 가장 범용적인 형태.",
+      "snippet": "combination mark: coffee cup icon on the left, wordmark \"Morning Bean\" on the right",
+      "compare_with": [
+        "wordmark",
+        "pictorial-mark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "emblem",
+      "term": "emblem logo",
+      "ko": "엠블럼",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "텍스트가 방패·원형 배지 안에 들어간 형태로 전통·권위·학교/맥주 브랜드 느낌.",
+      "snippet": "emblem logo, circular badge with text \"MORNING BEAN · EST. 2026\" around the border",
+      "compare_with": [
+        "vintage-badge",
+        "combination-mark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "mascot-logo",
+      "term": "mascot logo",
+      "ko": "마스코트 로고",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "캐릭터를 내세워 친근하고 기억에 남는 로고가 됩니다. 스포츠·식품·게임에 흔함.",
+      "snippet": "friendly mascot logo, cartoon bean character with a smile, bold outlines",
+      "compare_with": [
+        "pictorial-mark",
+        "emblem"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://99designs.com/blog/tips/types-of-logos/"
+      ]
+    },
+    {
+      "id": "monoline",
+      "term": "monoline logo",
+      "ko": "모노라인 로고",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "일정한 두께의 한 줄 선으로만 그려 가볍고 세련되며 확대·축소에 강합니다.",
+      "snippet": "monoline logo, single consistent stroke weight, line-art coffee cup",
+      "compare_with": [
+        "line-art",
+        "consistent-stroke-weight"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "negative-space-logo",
+      "term": "negative space logo",
+      "ko": "네거티브 스페이스 로고",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "도형 사이 빈 공간이 두 번째 형태를 만드는 '숨은 그림' 로고(FedEx 화살표처럼). 모델이 의도대로 만들기 어려워 반복 생성 필요.",
+      "snippet": "clever negative space logo where the empty space between the cup handle forms a leaf",
+      "compare_with": [
+        "abstract-mark",
+        "pictorial-mark"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "vintage-badge",
+      "term": "vintage badge / retro seal",
+      "ko": "빈티지 배지",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "원형·리본 배너, 슬랩 세리프, 창업연도 표기로 수제·로컬·레트로 감성을 줍니다.",
+      "snippet": "vintage retro badge logo, ribbon banner, slab serif, \"EST. 2026\", distressed texture",
+      "compare_with": [
+        "emblem",
+        "slab-serif"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "geometric-logo",
+      "term": "geometric logo",
+      "ko": "지오메트릭 로고",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "원·사각·삼각 같은 기본 도형 조합으로 정확하고 현대적인 마크가 됩니다.",
+      "snippet": "geometric logo built from circles and squares, precise and balanced",
+      "compare_with": [
+        "abstract-mark",
+        "golden-ratio"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "app-icon",
+      "term": "app icon (rounded square)",
+      "ko": "앱 아이콘",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "둥근 사각 틀 안에 심볼을 크게 배치해 작은 크기에서도 읽히게 합니다.",
+      "snippet": "iOS app icon, rounded square, single bold glyph centered, subtle gradient background",
+      "compare_with": [
+        "pictorial-mark",
+        "favicon-legibility"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "strong-silhouette",
+      "term": "strong silhouette, scalable",
+      "ko": "강한 실루엣·확장성",
+      "category": "logo-type",
+      "tags": [
+        "design",
+        "logo-type"
+      ],
+      "effect_ko": "OpenAI 가이드가 권장하는 로고 조건. 작게 줄여도 알아볼 수 있는 단순하고 또렷한 형태가 나옵니다.",
+      "snippet": "clean original logo with a strong silhouette, balanced negative space, scalable from favicon to billboard, generous padding, no background",
+      "compare_with": [
+        "monoline",
+        "favicon-legibility"
+      ],
+      "tools": [
+        "Ideogram",
+        "Recraft",
+        "GPT-image",
+        "Adobe Firefly",
+        "Midjourney",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "monochrome",
+      "term": "monochrome / black and white",
+      "ko": "모노크롬(흑백)",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "색을 제거해 형태·타이포에 집중시킵니다. 고급·미니멀·편집 느낌.",
+      "snippet": "strictly black and white, monochrome",
+      "compare_with": [
+        "monochromatic",
+        "duotone"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Monochrome"
+      ]
+    },
+    {
+      "id": "monochromatic",
+      "term": "monochromatic palette",
+      "ko": "단색조(모노크로매틱) 팔레트",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "한 색상의 명도·채도 변형만 써 통일감 있고 차분한 결과.",
+      "snippet": "monochromatic palette of deep greens, from forest to mint",
+      "compare_with": [
+        "monochrome",
+        "analogous"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_scheme"
+      ]
+    },
+    {
+      "id": "complementary",
+      "term": "complementary colors",
+      "ko": "보색 대비",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "색상환 반대색(파랑-주황 등)으로 강한 대비와 에너지. 포스터·CTA에 효과적.",
+      "snippet": "complementary color scheme, deep blue and vivid orange",
+      "compare_with": [
+        "analogous",
+        "triadic"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Complementary_colors"
+      ]
+    },
+    {
+      "id": "analogous",
+      "term": "analogous colors",
+      "ko": "유사색 배색",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "인접한 색(노랑-주황-빨강)으로 부드럽고 조화로운 분위기.",
+      "snippet": "analogous warm palette of yellow, orange and coral",
+      "compare_with": [
+        "complementary",
+        "monochromatic"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_scheme"
+      ]
+    },
+    {
+      "id": "triadic",
+      "term": "triadic color scheme",
+      "ko": "3색(트라이어딕) 배색",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "색상환 등간격 3색으로 활기차고 균형 잡힌 다채로움.",
+      "snippet": "triadic color scheme of red, yellow and blue",
+      "compare_with": [
+        "complementary",
+        "bauhaus"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Color_scheme"
+      ]
+    },
+    {
+      "id": "duotone",
+      "term": "duotone",
+      "ko": "듀오톤",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "두 가지 색만으로 이미지를 표현해 강렬하고 그래픽적(스포티파이 캠페인 느낌).",
+      "snippet": "duotone image in hot pink and deep navy",
+      "compare_with": [
+        "monochrome",
+        "limited-palette"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Duotone"
+      ]
+    },
+    {
+      "id": "pastel-palette",
+      "term": "pastel palette",
+      "ko": "파스텔 팔레트",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "채도 낮고 밝은 색으로 부드럽고 귀엽고 친근한 인상.",
+      "snippet": "soft pastel palette, mint, lavender, peach, baby blue",
+      "compare_with": [
+        "neon-palette",
+        "muted-palette"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "earth-tones",
+      "term": "earth tones",
+      "ko": "어스 톤",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "갈색·테라코타·올리브·베이지 등 자연색으로 따뜻하고 유기농·친환경 느낌.",
+      "snippet": "earth tone palette: terracotta, olive, sand, warm brown",
+      "compare_with": [
+        "pastel-palette",
+        "jewel-tones"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "neon-palette",
+      "term": "neon colors",
+      "ko": "네온 컬러",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "형광빛 고채도 색, 주로 어두운 배경 위 발광으로 밤·클럽·사이버 분위기.",
+      "snippet": "electric neon magenta and cyan glowing on black",
+      "compare_with": [
+        "pastel-palette",
+        "vaporwave",
+        "glow"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "jewel-tones",
+      "term": "jewel tones",
+      "ko": "주얼 톤",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "에메랄드·사파이어·루비 같은 깊고 진한 색으로 고급스럽고 풍부한 인상.",
+      "snippet": "rich jewel tones: emerald, sapphire, amethyst, gold accents",
+      "compare_with": [
+        "earth-tones",
+        "art-deco"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "muted-palette",
+      "term": "muted / desaturated palette",
+      "ko": "뮤트(저채도) 팔레트",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "채도를 낮춰 차분하고 세련된, 무인양품 같은 분위기.",
+      "snippet": "muted desaturated palette, dusty tones",
+      "compare_with": [
+        "pastel-palette",
+        "neon-palette"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "limited-palette",
+      "term": "limited palette (2-3 colors)",
+      "ko": "제한 팔레트",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "색 수를 명시적으로 제한해 인쇄·벡터·브랜딩에 적합한 통일된 결과. SVG 경로 수도 줄어듭니다.",
+      "snippet": "limited palette of exactly three colors: cream, black, tomato red",
+      "compare_with": [
+        "duotone",
+        "limited-color-count"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2"
+      ]
+    },
+    {
+      "id": "hex-color-codes",
+      "term": "exact HEX color codes",
+      "ko": "HEX 색상 코드 지정",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "#1E3A8A 같은 코드로 브랜드 색을 지시. 웹 생성 툴은 그대로 반영하고, 이미지 모델은 근사치로 반영합니다. Recraft API는 colors 파라미터, Ideogram 4.x는 JSON 프롬프트로 정확도를 높일 수 있습니다.",
+      "snippet": "brand colors: primary #1E3A8A, accent #F59E0B, background #FAFAF9",
+      "compare_with": [
+        "limited-palette",
+        "design-tokens"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "sixty-thirty-ten",
+      "term": "60-30-10 color rule",
+      "ko": "60-30-10 배색 법칙",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "주조색 60, 보조색 30, 강조색 10 비율을 지시해 균형 잡힌 화면이 됩니다.",
+      "snippet": "apply the 60-30-10 rule: 60% off-white, 30% charcoal, 10% coral accent",
+      "compare_with": [
+        "accent-color",
+        "limited-palette"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "accent-color",
+      "term": "single accent color",
+      "ko": "포인트(강조) 컬러",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "중립 배경에 강조색 하나만 써 CTA·핵심에 시선을 모읍니다. Claude 프론트엔드 가이드도 '지배색+날카로운 강조색'을 권장.",
+      "snippet": "neutral grayscale UI with one sharp accent color for CTAs",
+      "compare_with": [
+        "sixty-thirty-ten",
+        "cta"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "color-contrast-wcag",
+      "term": "WCAG AA color contrast",
+      "ko": "WCAG 명도 대비",
+      "category": "color",
+      "tags": [
+        "design",
+        "color"
+      ],
+      "effect_ko": "본문 4.5:1 이상 대비를 요구하면 웹 생성 결과의 가독성·접근성이 좋아집니다.",
+      "snippet": "ensure all text meets WCAG AA contrast (4.5:1 for body text)",
+      "compare_with": [
+        "accessibility-a11y",
+        "dark-mode"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+      ]
+    },
+    {
+      "id": "flat-illustration",
+      "term": "flat illustration",
+      "ko": "플랫 일러스트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "단색 면, 그림자 없는 단순 형태로 웹·앱 삽화에 쓰이는 깔끔한 그림.",
+      "snippet": "flat vector illustration, solid colors, no gradients, simple shapes",
+      "compare_with": [
+        "vector-illustration",
+        "isometric-illustration",
+        "3d-clay-render"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "vector-illustration",
+      "term": "vector illustration",
+      "ko": "벡터 일러스트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "선명한 경계, 균일한 면으로 확대해도 깨지지 않을 듯한 그래픽 룩. 실제 SVG가 필요하면 Recraft·Illustrator를 사용.",
+      "snippet": "clean vector illustration, crisp edges, flat fills",
+      "compare_with": [
+        "flat-illustration",
+        "svg-vector-output"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html"
+      ]
+    },
+    {
+      "id": "isometric-illustration",
+      "term": "isometric illustration",
+      "ko": "아이소메트릭 일러스트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "30도 축의 등각 투영으로 원근 없이 입체감 있는 도시·오피스·데이터 장면.",
+      "snippet": "isometric illustration of a tiny coffee shop, 30-degree angle, clean vector",
+      "compare_with": [
+        "flat-illustration",
+        "low-poly"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Isometric_projection"
+      ]
+    },
+    {
+      "id": "line-art",
+      "term": "line art",
+      "ko": "라인 아트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "채색 없이 선만으로 그려 섬세하고 미니멀하며 인쇄·각인에 적합.",
+      "snippet": "minimal continuous line art, black ink on white",
+      "compare_with": [
+        "monoline",
+        "outline-icons"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Line_art"
+      ]
+    },
+    {
+      "id": "outline-icons",
+      "term": "outline icon set",
+      "ko": "아웃라인 아이콘",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "같은 굵기 선 아이콘 세트로 UI에 가볍게 어울립니다(lucide, Heroicons 스타일).",
+      "snippet": "set of 12 outline icons, 2px consistent stroke, rounded caps, 24x24 grid",
+      "compare_with": [
+        "filled-icons",
+        "consistent-stroke-weight"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html",
+        "https://lucide.dev/"
+      ]
+    },
+    {
+      "id": "filled-icons",
+      "term": "filled / glyph icons",
+      "ko": "필드(글리프) 아이콘",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "속이 채워진 실루엣 아이콘으로 작은 크기에서 더 무게감 있고 눈에 띔.",
+      "snippet": "set of solid filled glyph icons, single color",
+      "compare_with": [
+        "outline-icons"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html"
+      ]
+    },
+    {
+      "id": "hand-drawn-doodle",
+      "term": "hand-drawn doodle",
+      "ko": "손그림 두들",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "삐뚤삐뚤한 펜 낙서로 친근하고 비공식적인 분위기.",
+      "snippet": "hand-drawn doodle illustrations, imperfect pen lines, sketchbook feel",
+      "compare_with": [
+        "line-art",
+        "flat-illustration"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "corporate-memphis",
+      "term": "Corporate Memphis (flat people)",
+      "ko": "코퍼레이트 멤피스",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "과장된 팔다리의 단색 사람 일러스트로 테크 기업 웹사이트의 전형적 룩. 진부해 보일 수 있어 피할 때도 명시합니다.",
+      "snippet": "Corporate Memphis style flat people illustration, exaggerated limbs, bright flat colors",
+      "compare_with": [
+        "memphis",
+        "flat-illustration"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Corporate_Memphis"
+      ]
+    },
+    {
+      "id": "3d-clay-render",
+      "term": "3D clay render",
+      "ko": "3D 클레이 렌더",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "말랑한 점토 질감 3D 오브젝트로 귀엽고 입체적인 아이콘·히어로 이미지.",
+      "snippet": "cute 3D clay render icon, soft matte material, pastel colors, studio lighting",
+      "compare_with": [
+        "claymorphism",
+        "flat-illustration"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "paper-cut",
+      "term": "paper cut-out art",
+      "ko": "페이퍼 컷 아트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "겹겹이 자른 종이와 그림자로 층이 있는 공예적 느낌.",
+      "snippet": "layered paper cut-out illustration, soft shadows between layers",
+      "compare_with": [
+        "layered-collage",
+        "3d-clay-render"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "low-poly",
+      "term": "low poly",
+      "ko": "로우 폴리",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "삼각형 면으로 깎은 3D 형태로 기하학적·게임 느낌.",
+      "snippet": "low poly geometric illustration, faceted triangles",
+      "compare_with": [
+        "isometric-illustration",
+        "geometric-logo"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Low_poly"
+      ]
+    },
+    {
+      "id": "pixel-art",
+      "term": "pixel art",
+      "ko": "픽셀 아트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "도트 단위 그림으로 레트로 게임 감성.",
+      "snippet": "16-bit pixel art icon, limited palette",
+      "compare_with": [
+        "vaporwave",
+        "flat-illustration"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Pixel_art"
+      ]
+    },
+    {
+      "id": "spot-illustration",
+      "term": "spot illustration",
+      "ko": "스폿 일러스트",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "배경 없는 작은 단독 삽화로 빈 상태·온보딩·기능 설명에 씁니다.",
+      "snippet": "small spot illustration on transparent background for an empty state",
+      "compare_with": [
+        "empty-state",
+        "transparent-background"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "die-cut-sticker",
+      "term": "die-cut sticker",
+      "ko": "다이컷 스티커",
+      "category": "illustration",
+      "tags": [
+        "design",
+        "illustration"
+      ],
+      "effect_ko": "흰 테두리로 따낸 스티커 형태로 굿즈·SNS용 그래픽이 됩니다.",
+      "snippet": "die-cut sticker design, thick white border, vibrant colors, isolated",
+      "compare_with": [
+        "transparent-background",
+        "mascot-logo"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "poster-design",
+      "term": "poster design",
+      "ko": "포스터 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "용도를 '포스터'로 명시하면 제목·날짜·정보 위계가 있는 완성된 레이아웃이 나옵니다. OpenAI 가이드도 의도된 용도를 쓰라고 권장.",
+      "snippet": "event poster, A2 portrait, headline \"Seoul Jazz Night\", date and venue in small text at the bottom",
+      "compare_with": [
+        "social-post-format",
+        "infographic"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "packaging-design",
+      "term": "packaging design",
+      "ko": "패키지 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "상자·병·파우치 형태의 제품 포장 시안이 나옵니다. 재질(kraft, matte)을 붙이면 사실성이 올라갑니다.",
+      "snippet": "premium tea packaging design, matte kraft box, minimal label, front view",
+      "compare_with": [
+        "dieline",
+        "label-design",
+        "mockup"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "dieline",
+      "term": "dieline / flat packaging template",
+      "ko": "다이라인(전개도)",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "포장을 펼친 전개도 형태로 출력하려는 시도. 정확한 재단 규격은 AI가 보장하지 않으므로 참고용.",
+      "snippet": "flat packaging dieline layout of a tea box, all panels visible, fold lines",
+      "compare_with": [
+        "packaging-design"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "label-design",
+      "term": "label design",
+      "ko": "라벨 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "병·캔에 붙는 라벨 그래픽에 집중. 원통 곡면 목업과 함께 쓰면 좋습니다.",
+      "snippet": "craft beer can label design, bold illustration, product name \"HOP CLOUD\"",
+      "compare_with": [
+        "packaging-design",
+        "mockup"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "mockup",
+      "term": "product mockup",
+      "ko": "목업",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "디자인을 실제 사물(티셔츠, 머그, 간판)에 입힌 사실적 연출. 브랜딩 프레젠테이션에 유용.",
+      "snippet": "logo applied on a realistic white ceramic mug mockup, soft studio lighting",
+      "compare_with": [
+        "device-mockup",
+        "brand-identity-board"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "device-mockup",
+      "term": "device mockup",
+      "ko": "디바이스 목업",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "UI를 노트북·스마트폰 프레임 안에 넣어 보여줍니다. GPT-image 가이드가 맥락 연출용으로 언급.",
+      "snippet": "mobile app screen shown inside a modern smartphone frame, clean background",
+      "compare_with": [
+        "mockup",
+        "dashboard"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "brand-identity-board",
+      "term": "brand identity board / brand sheet",
+      "ko": "브랜드 아이덴티티 보드",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "로고, 컬러칩, 서체, 응용 예시를 한 장에 정리한 프레젠테이션형 결과.",
+      "snippet": "brand identity board: logo, color swatches with hex codes, typography specimen, business card and cup mockups",
+      "compare_with": [
+        "mood-board",
+        "mockup"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "mood-board",
+      "term": "mood board",
+      "ko": "무드보드",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "사진·색·질감을 콜라주로 모아 방향성을 탐색하는 데 씁니다.",
+      "snippet": "mood board collage for a cozy Scandinavian cafe brand, textures, colors, photos",
+      "compare_with": [
+        "brand-identity-board",
+        "layered-collage"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "business-card",
+      "term": "business card design",
+      "ko": "명함 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "명함 비율·앞뒷면 구성이 나옵니다. 작은 글씨는 오류가 많아 텍스트는 후편집 권장.",
+      "snippet": "minimal business card design, front and back, 85x55mm, letterpress feel",
+      "compare_with": [
+        "letterpress",
+        "brand-identity-board"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "infographic",
+      "term": "infographic",
+      "ko": "인포그래픽",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "정보·수치·아이콘이 정리된 도해. OpenAI는 high quality 설정, 모든 라벨 나열, 작은 글씨 지양을 권장.",
+      "snippet": "clean infographic explaining 4 steps of coffee brewing, flat icons, clear arrows, readable labels, white space",
+      "compare_with": [
+        "flat-illustration",
+        "short-text"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "book-cover",
+      "term": "book cover design",
+      "ko": "책 표지 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "제목·저자명 위계와 장르 관습이 반영된 표지가 됩니다.",
+      "snippet": "minimalist book cover, title \"The Quiet Hour\" in large serif, author name small at bottom",
+      "compare_with": [
+        "poster-design",
+        "typographic-hierarchy"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "social-post-format",
+      "term": "social media post (1:1 / 4:5 / 9:16)",
+      "ko": "SNS 게시물 규격",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "비율을 명시하면 피드·스토리용 구도로 잡힙니다. 비율은 보통 프롬프트가 아니라 설정에서 지정(Ideogram, MJ --ar).",
+      "snippet": "Instagram post, 4:5 portrait, bold headline in the top third",
+      "compare_with": [
+        "poster-design"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://docs.midjourney.com/"
+      ]
+    },
+    {
+      "id": "menu-design",
+      "term": "menu design",
+      "ko": "메뉴판 디자인",
+      "category": "print-format",
+      "tags": [
+        "design",
+        "print-format"
+      ],
+      "effect_ko": "카페·식당 메뉴 리스트 레이아웃이 나옵니다. 가격·항목 텍스트가 많으면 오류가 늘어 짧게.",
+      "snippet": "cafe menu board design, chalkboard style, 6 items with prices",
+      "compare_with": [
+        "short-text",
+        "editorial-layout"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "grain-noise",
+      "term": "subtle grain / noise texture",
+      "ko": "그레인(노이즈) 질감",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "미세한 입자를 더해 디지털의 매끈함을 줄이고 아날로그·고급스러운 느낌.",
+      "snippet": "subtle film grain noise texture over the gradient",
+      "compare_with": [
+        "risograph",
+        "gradient-mesh"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "halftone",
+      "term": "halftone dots",
+      "ko": "하프톤 망점",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "인쇄 망점 패턴으로 만화·레트로 인쇄물 느낌.",
+      "snippet": "halftone dot shading, comic print texture",
+      "compare_with": [
+        "risograph",
+        "duotone"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Halftone"
+      ]
+    },
+    {
+      "id": "risograph",
+      "term": "risograph print",
+      "ko": "리소그래프 인쇄",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "형광 잉크, 살짝 어긋난 판, 거친 입자로 독립 출판물·진(zine) 감성.",
+      "snippet": "risograph print style, fluorescent pink and blue inks, slight misregistration, grainy texture",
+      "compare_with": [
+        "halftone",
+        "grain-noise"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Risograph"
+      ]
+    },
+    {
+      "id": "gradient-mesh",
+      "term": "gradient mesh / aurora gradient",
+      "ko": "그라데이션 메시(오로라)",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "여러 색이 부드럽게 섞인 유기적 그라데이션 배경으로 현대 테크 브랜드 느낌.",
+      "snippet": "soft aurora mesh gradient background, purple to peach",
+      "compare_with": [
+        "flat-fills-no-gradients",
+        "glassmorphism"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "glow",
+      "term": "neon glow",
+      "ko": "글로우(발광)",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "요소 주변에 빛 번짐을 더해 네온사인·다크 UI 강조 효과.",
+      "snippet": "neon glow around the lettering, dark background",
+      "compare_with": [
+        "neon-palette",
+        "dark-mode"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "soft-shadow",
+      "term": "soft drop shadow",
+      "ko": "부드러운 그림자",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "넓고 옅은 그림자로 카드가 살짝 떠 보이는 현대적 UI 깊이감. 'hard offset shadow'와 비교해 보세요.",
+      "snippet": "cards with soft diffused drop shadow",
+      "compare_with": [
+        "neo-brutalism",
+        "flat-design"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "paper-texture",
+      "term": "paper texture",
+      "ko": "종이 질감",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "배경에 종이 결을 넣어 인쇄물·수공예 느낌.",
+      "snippet": "printed on textured cream paper",
+      "compare_with": [
+        "letterpress",
+        "risograph"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "letterpress",
+      "term": "letterpress",
+      "ko": "활판 인쇄(레터프레스)",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "종이에 눌린 듯한 압인과 잉크 번짐으로 고급 명함·청첩장 느낌.",
+      "snippet": "letterpress printed, debossed ink on thick cotton paper",
+      "compare_with": [
+        "paper-texture",
+        "foil-stamping"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Letterpress_printing"
+      ]
+    },
+    {
+      "id": "foil-stamping",
+      "term": "gold foil stamping",
+      "ko": "금박(호일) 박",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "금속성 반사 박으로 프리미엄 패키지·초대장 느낌.",
+      "snippet": "gold foil stamped logo on matte black box",
+      "compare_with": [
+        "letterpress",
+        "art-deco"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "holographic",
+      "term": "holographic / iridescent",
+      "ko": "홀로그램(무지개빛)",
+      "category": "texture-effect",
+      "tags": [
+        "design",
+        "texture-effect"
+      ],
+      "effect_ko": "보는 각도에 따라 무지개빛이 도는 반사 재질로 Y2K·화장품 패키지 느낌.",
+      "snippet": "iridescent holographic foil gradient",
+      "compare_with": [
+        "y2k",
+        "foil-stamping"
+      ],
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Canva AI"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "hero-section",
+      "term": "hero section",
+      "ko": "히어로 섹션",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "페이지 최상단의 큰 제목·부제·CTA·이미지 영역. 구체 문구를 주면 레이아웃 문제를 미리 발견할 수 있습니다.",
+      "snippet": "hero section with headline \"Notes that think with you\", one-line subheading, primary and secondary CTA buttons, product screenshot on the right",
+      "compare_with": [
+        "split-screen",
+        "cta"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "navbar",
+      "term": "navbar / top navigation",
+      "ko": "내비게이션 바",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "로고·메뉴·로그인 버튼이 있는 상단 바. sticky·투명 등 속성을 붙여 세분화.",
+      "snippet": "top navbar with logo left, 4 links center, \"Sign in\" and \"Get started\" buttons right",
+      "compare_with": [
+        "sticky-header",
+        "sidebar-navigation"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://m3.material.io/components"
+      ]
+    },
+    {
+      "id": "cta",
+      "term": "CTA (call-to-action) button",
+      "ko": "CTA 버튼",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "사용자가 해야 할 핵심 행동 버튼. 문구·색·위치를 명시하면 전환 중심 페이지가 됩니다.",
+      "snippet": "prominent primary CTA button \"Start free trial\" in the accent color",
+      "compare_with": [
+        "accent-color",
+        "hero-section"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "card",
+      "term": "card component",
+      "ko": "카드",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "정보를 둥근 박스로 묶어 목록·기능 소개를 정돈. Lovable은 카드→배지→hover 순으로 층을 쌓으라고 권장.",
+      "snippet": "three cards in a row, each with icon, title and short description, rounded-xl, subtle border",
+      "compare_with": [
+        "bento-grid",
+        "feature-grid"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "feature-grid",
+      "term": "feature grid",
+      "ko": "기능 그리드",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "아이콘+제목+설명을 3~4열로 반복하는 기능 소개 섹션.",
+      "snippet": "feature section: centered headline followed by a 3-column grid of icon, title, description",
+      "compare_with": [
+        "bento-grid",
+        "card"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "pricing-table",
+      "term": "pricing table",
+      "ko": "가격표",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "요금제 카드를 나란히 두고 추천 플랜을 강조. 플랜 수와 항목 수를 숫자로 지정하면 일관됨.",
+      "snippet": "pricing section with 3 tiers (Free, Pro, Team), 4 features per tier, highlight the Pro tier as \"Most popular\"",
+      "compare_with": [
+        "card",
+        "badge"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "testimonials",
+      "term": "testimonials section",
+      "ko": "고객 후기 섹션",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "아바타·인용·이름이 있는 사회적 증거 섹션.",
+      "snippet": "testimonials section, 3 quote cards with avatar, name and role",
+      "compare_with": [
+        "logo-cloud",
+        "card"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "logo-cloud",
+      "term": "logo cloud / social proof bar",
+      "ko": "로고 클라우드",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "'Trusted by' 고객사 로고 줄로 신뢰를 보여줍니다(가상 로고 사용 권장).",
+      "snippet": "grayscale logo cloud \"Trusted by teams at\" with 6 placeholder logos",
+      "compare_with": [
+        "testimonials"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "faq-accordion",
+      "term": "FAQ accordion",
+      "ko": "FAQ 아코디언",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "질문을 클릭하면 답이 펼쳐지는 접이식 목록. shadcn Accordion 컴포넌트로 바로 생성됨.",
+      "snippet": "FAQ section using an accordion with 5 questions",
+      "compare_with": [
+        "shadcn-ui",
+        "card"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "footer",
+      "term": "footer",
+      "ko": "푸터",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "링크 열·저작권·SNS 아이콘이 있는 하단 영역.",
+      "snippet": "footer with 4 link columns, newsletter input, social icons, copyright line",
+      "compare_with": [
+        "navbar"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "modal",
+      "term": "modal dialog",
+      "ko": "모달 대화상자",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "화면 위에 뜨는 창으로 확인·입력을 받습니다.",
+      "snippet": "confirmation modal dialog with title, message, Cancel and Delete buttons",
+      "compare_with": [
+        "toast",
+        "empty-state"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/modal-nonmodal-dialog/"
+      ]
+    },
+    {
+      "id": "toast",
+      "term": "toast notification",
+      "ko": "토스트 알림",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "잠깐 떴다 사라지는 작은 알림으로 비침해적 피드백.",
+      "snippet": "show a toast notification \"Saved\" bottom-right after submit",
+      "compare_with": [
+        "modal",
+        "micro-interactions"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://ui.shadcn.com/docs",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "sidebar-navigation",
+      "term": "sidebar navigation",
+      "ko": "사이드바 내비게이션",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "왼쪽 세로 메뉴로 앱·대시보드 구조가 됩니다(접기 가능 등).",
+      "snippet": "collapsible left sidebar navigation with icons and labels",
+      "compare_with": [
+        "navbar",
+        "dashboard"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "term": "admin dashboard",
+      "ko": "대시보드",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "KPI 카드·차트·표가 있는 관리 화면.",
+      "snippet": "analytics dashboard: 4 KPI stat cards on top, line chart, recent orders data table",
+      "compare_with": [
+        "data-table",
+        "bento-grid"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "data-table",
+      "term": "data table",
+      "ko": "데이터 테이블",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "정렬·필터·페이지네이션이 있는 표.",
+      "snippet": "data table with sortable columns, search filter and pagination",
+      "compare_with": [
+        "dashboard"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "term": "empty state",
+      "ko": "빈 상태 화면",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "데이터가 없을 때 보여줄 안내·일러스트·행동 버튼. 지정하지 않으면 생성 툴이 빠뜨리기 쉽습니다.",
+      "snippet": "design the empty state: spot illustration, \"No notes yet\", and a \"Create note\" button",
+      "compare_with": [
+        "skeleton-loading",
+        "ui-states"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/empty-state-interface-design/",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "skeleton-loading",
+      "term": "skeleton loading",
+      "ko": "스켈레톤 로딩",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "로딩 중 회색 자리표시 블록을 보여줘 체감 속도를 높입니다.",
+      "snippet": "show skeleton loaders while data is loading",
+      "compare_with": [
+        "empty-state",
+        "ui-states"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/skeleton-screens/"
+      ]
+    },
+    {
+      "id": "dark-mode",
+      "term": "dark mode",
+      "ko": "다크 모드",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "어두운 배경 테마. 'with light/dark toggle'을 붙이면 테마 전환까지 구현됩니다.",
+      "snippet": "dark mode UI, near-black #0A0A0A background, light/dark theme toggle",
+      "compare_with": [
+        "color-contrast-wcag",
+        "css-variables-theming"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/dark-mode/",
+        "https://tailwindcss.com/docs/dark-mode"
+      ]
+    },
+    {
+      "id": "design-tokens",
+      "term": "design tokens",
+      "ko": "디자인 토큰",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "색·간격·반경·글꼴을 이름 붙인 변수로 정의해 일관성을 강제합니다. 웹 생성 결과가 하드코딩 대신 변수로 정리됩니다.",
+      "snippet": "define design tokens first: --color-primary, --radius-md, spacing scale 4/8/16/24/32, then use them everywhere",
+      "compare_with": [
+        "css-variables-theming",
+        "hex-color-codes"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://m3.material.io/foundations/design-tokens/overview",
+        "https://www.designtokens.org/"
+      ]
+    },
+    {
+      "id": "border-radius",
+      "term": "rounded corners / border radius",
+      "ko": "모서리 둥글기",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "반경 크기로 인상이 크게 바뀝니다: 0은 날카롭고 진지, 큰 값은 친근·부드러움.",
+      "snippet": "rounded-2xl cards and fully rounded pill buttons",
+      "compare_with": [
+        "neo-brutalism",
+        "card"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "micro-interactions",
+      "term": "micro-interactions / hover states",
+      "ko": "마이크로 인터랙션",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "hover·클릭 시 작은 움직임과 피드백이 붙어 완성도가 높아 보입니다.",
+      "snippet": "subtle hover states: buttons lift 2px, cards scale 1.02, 150ms ease-out transitions",
+      "compare_with": [
+        "staggered-reveal",
+        "toast"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/microinteractions/",
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "responsive-breakpoints",
+      "term": "responsive breakpoints",
+      "ko": "반응형 브레이크포인트",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "'responsive'만 쓰기보다 구간별 동작을 적으면 모바일 결과가 정확해집니다.",
+      "snippet": "on mobile (<640px) stack columns vertically and collapse the nav into a hamburger menu",
+      "compare_with": [
+        "mobile-first",
+        "twelve-column-grid"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "sticky-header",
+      "term": "sticky header",
+      "ko": "고정 헤더",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "스크롤해도 상단에 붙어 있는 헤더, 스크롤 시 배경 블러 등 세부 지정 가능.",
+      "snippet": "sticky header that gains a blurred background on scroll",
+      "compare_with": [
+        "navbar",
+        "glassmorphism"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "badge",
+      "term": "badge / pill tag",
+      "ko": "배지(태그)",
+      "category": "ui-component",
+      "tags": [
+        "design",
+        "ui-component"
+      ],
+      "effect_ko": "작은 라벨로 상태·신규·추천을 표시합니다.",
+      "snippet": "small pill badge \"New\" above the hero headline",
+      "compare_with": [
+        "pricing-table",
+        "card"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "product-brief",
+      "term": "product brief / PRD-style first prompt",
+      "ko": "브리프(PRD) 형식 첫 프롬프트",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "목표·대상·핵심 행동·섹션·제약·완료 기준을 첫 프롬프트에 담으면 구조가 처음부터 잡히고 후속 수정이 줄어듭니다(Figma Make: 첫 프롬프트=브리프, 이후=델타).",
+      "snippet": "Goal: ... Audience: ... Key action: ... Sections: ... Constraints: ... Done when: ...",
+      "compare_with": [
+        "reference-sites",
+        "real-copy"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.figma.com/blog/7-tips-for-using-figma-make-credits-more-efficiently/",
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://docs.lovable.dev/tips-tricks/best-practice"
+      ]
+    },
+    {
+      "id": "reference-sites",
+      "term": "reference sites / inspiration",
+      "ko": "레퍼런스 지정",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "'Linear·Stripe 같은 느낌' 혹은 스크린샷을 주면 미감의 방향이 빠르게 맞춰집니다. Claude 가이드는 IDE 테마·문화적 미학 같은 영감 언급을 권장.",
+      "snippet": "visual direction inspired by Linear.app: dark, precise, subtle gradients (do not copy, just the feel)",
+      "compare_with": [
+        "product-brief",
+        "avoid-generic-ai-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+        "https://docs.lovable.dev/tips-tricks/best-practice"
+      ]
+    },
+    {
+      "id": "shadcn-ui",
+      "term": "shadcn/ui components",
+      "ko": "shadcn/ui",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "Button·Card·Dialog 등 shadcn 컴포넌트를 쓰라고 하면 일관되고 접근성 있는 React UI가 됩니다. v0의 기본 라이브러리이기도 합니다.",
+      "snippet": "use shadcn/ui components (Button, Card, Dialog, Tabs, Input)",
+      "compare_with": [
+        "tailwind-css",
+        "design-tokens"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://ui.shadcn.com/docs",
+        "https://v0.app/docs/design-systems-legacy"
+      ]
+    },
+    {
+      "id": "tailwind-css",
+      "term": "Tailwind CSS",
+      "ko": "Tailwind CSS",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "유틸리티 클래스 기반 스타일링을 지정. 간격·색을 Tailwind 스케일로 말하면(p-6, rounded-2xl) 정확히 반영됩니다.",
+      "snippet": "style with Tailwind CSS only, no custom CSS files",
+      "compare_with": [
+        "shadcn-ui",
+        "css-variables-theming"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "nextjs-app-router",
+      "term": "Next.js App Router",
+      "ko": "Next.js App Router",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "스택을 고정하면 툴이 임의 구조를 만들지 않고 실제 프로젝트에 붙이기 쉬워집니다.",
+      "snippet": "stack: Next.js App Router + TypeScript + Tailwind + shadcn/ui",
+      "compare_with": [
+        "tailwind-css",
+        "shadcn-ui"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://nextjs.org/docs/app",
+        "https://support.bolt.new/docs/prompting-effectively"
+      ]
+    },
+    {
+      "id": "lucide-react",
+      "term": "lucide-react icons",
+      "ko": "lucide 아이콘",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "아이콘 라이브러리를 지정해 깨진 이미지·임의 SVG 대신 일관된 선 아이콘을 씁니다.",
+      "snippet": "use lucide-react icons",
+      "compare_with": [
+        "outline-icons",
+        "shadcn-ui"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lucide.dev/"
+      ]
+    },
+    {
+      "id": "css-variables-theming",
+      "term": "CSS variables theming",
+      "ko": "CSS 변수 테마",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "색을 bg-background, text-foreground 같은 시맨틱 토큰으로 쓰게 하면 다크모드·브랜드 교체가 쉬워집니다. v0 레지스트리도 shadcn CSS 변수 표준을 가정.",
+      "snippet": "use semantic theme tokens (bg-background, text-foreground, bg-primary) defined as CSS variables",
+      "compare_with": [
+        "design-tokens",
+        "dark-mode"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://ui.shadcn.com/docs",
+        "https://v0.app/docs/design-systems-legacy"
+      ]
+    },
+    {
+      "id": "mobile-first",
+      "term": "mobile-first",
+      "ko": "모바일 퍼스트",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "작은 화면부터 설계하게 해 모바일 레이아웃 품질이 올라갑니다.",
+      "snippet": "design mobile-first, then enhance for tablet and desktop",
+      "compare_with": [
+        "responsive-breakpoints"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "accessibility-a11y",
+      "term": "accessible (a11y) UI",
+      "ko": "접근성",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "시맨틱 HTML, aria 라벨, 키보드 포커스, 대비를 요구해 실사용 품질을 높입니다.",
+      "snippet": "accessible: semantic HTML, visible focus rings, aria-labels on icon buttons, WCAG AA contrast",
+      "compare_with": [
+        "color-contrast-wcag"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+      ]
+    },
+    {
+      "id": "real-copy",
+      "term": "real copy instead of lorem ipsum",
+      "ko": "실제 문구 사용",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "실제 헤드라인·CTA를 넣으면 줄바꿈·길이 문제가 드러나 레이아웃이 현실적이 됩니다(Lovable 권장).",
+      "snippet": "use this exact copy, no lorem ipsum: headline \"...\", subtext \"...\", CTA \"...\"",
+      "compare_with": [
+        "hero-section",
+        "quoted-text"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "named-google-fonts",
+      "term": "named Google Fonts",
+      "ko": "구체적 폰트명 지정",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "'Inter' 같은 무난한 기본값 대신 특정 폰트(예: Fraunces + Space Grotesk)를 지정하면 개성이 생깁니다. Claude 가이드는 Arial·Inter 같은 흔한 폰트를 피하라고 함. 한글은 Pretendard·Noto Sans KR 등을 명시.",
+      "snippet": "fonts: Fraunces for headings, Space Grotesk for body (load from Google Fonts)",
+      "compare_with": [
+        "font-pairing",
+        "avoid-generic-ai-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+        "https://fonts.google.com/knowledge"
+      ]
+    },
+    {
+      "id": "staggered-reveal",
+      "term": "staggered page-load reveal",
+      "ko": "순차 등장 애니메이션",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "흩어진 효과보다 한 번의 잘 짜인 로딩 애니메이션이 인상적이라는 Claude 가이드 권장. CSS 기반으로 지정.",
+      "snippet": "one orchestrated page-load animation: hero elements fade up with staggered 80ms delays, CSS only",
+      "compare_with": [
+        "micro-interactions"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "avoid-generic-ai-aesthetic",
+      "term": "avoid generic 'AI slop' defaults",
+      "ko": "흔한 AI 기본 미감 피하기",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "보라색 그라데이션+흰 배경+Inter 같은 기본값을 명시적으로 금지하고 대담한 방향을 고르게 하면 개성 있는 결과가 나옵니다.",
+      "snippet": "avoid generic AI aesthetics: no purple-to-blue gradients on white, no Inter/Roboto; commit to a bold, distinctive direction",
+      "compare_with": [
+        "reference-sites",
+        "named-google-fonts"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "ui-states",
+      "term": "loading / empty / error states",
+      "ko": "UI 상태 정의",
+      "category": "web-gen",
+      "tags": [
+        "design",
+        "web-gen"
+      ],
+      "effect_ko": "로그인 전후, 로딩·빈·오류 상태를 묘사하면 실제 동작에 맞는 UI가 됩니다(보통 2차 패스에서).",
+      "snippet": "include loading, empty and error states for the notes list; logged-out view shows a sign-in prompt",
+      "compare_with": [
+        "empty-state",
+        "skeleton-loading"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Figma Make"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "quoted-text",
+      "term": "text in \"double quotes\"",
+      "ko": "따옴표로 문구 지정",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "렌더링할 글자를 따옴표에 넣으면 모델이 그대로 쓰려 합니다. Ideogram·OpenAI 공식 가이드 공통 권장.",
+      "snippet": "a poster with the headline \"SEOUL JAZZ NIGHT\"",
+      "compare_with": [
+        "text-early",
+        "verbatim-text"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "text-early",
+      "term": "put text near the start of the prompt",
+      "ko": "문구를 프롬프트 앞쪽에",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "Ideogram은 텍스트를 프롬프트 앞부분에 둘 때 오류가 적다고 안내합니다.",
+      "snippet": "Text \"Morning Bean\" in bold serif. A cafe logo with ...",
+      "compare_with": [
+        "quoted-text"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "verbatim-text",
+      "term": "render text verbatim, exactly once",
+      "ko": "문구 그대로·한 번만",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "'exactly as written, no extra characters, appears once'를 붙이면 철자 변형·중복 텍스트가 줄어듭니다(OpenAI 가이드).",
+      "snippet": "render the text \"Leaf & Co.\" verbatim, exactly once, no extra characters",
+      "compare_with": [
+        "quoted-text",
+        "letter-by-letter"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "letter-by-letter",
+      "term": "spell tricky words letter by letter",
+      "ko": "철자 한 글자씩 명시",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "브랜드명·특이 철자는 'N-O-T-E-L-Y'처럼 풀어 쓰면 정확도가 올라갑니다.",
+      "snippet": "the brand name \"Notely\" (spelled N-O-T-E-L-Y)",
+      "compare_with": [
+        "verbatim-text"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "font-description",
+      "term": "describe the lettering style",
+      "ko": "글자 스타일 묘사",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "서체 실명보다 'bold condensed sans-serif, white, centered' 같은 묘사가 이미지 모델에 잘 통합니다.",
+      "snippet": "text \"OPEN\" in bold condensed white sans-serif, centered",
+      "compare_with": [
+        "display-typeface",
+        "text-placement"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide",
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "text-placement",
+      "term": "explicit text placement",
+      "ko": "텍스트 위치 지정",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "'top center', 'small footer line', 'curved above the emblem' 등 배치어가 결과를 크게 바꿉니다.",
+      "snippet": "title at top center, date as a small footer line, brand name curved above the emblem",
+      "compare_with": [
+        "visual-hierarchy",
+        "font-description"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "short-text",
+      "term": "keep in-image text short",
+      "ko": "짧은 문구 유지",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "길고 복잡한 텍스트일수록 오류가 늘어납니다. 긴 본문은 비워두고 후편집(Canva·Figma)하는 편이 안전.",
+      "snippet": "only the headline and date as text; leave body copy area empty",
+      "compare_with": [
+        "quoted-text",
+        "infographic"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "korean-hangul-text",
+      "term": "Korean (Hangul) text in images",
+      "ko": "한글 텍스트 렌더링",
+      "category": "text-render",
+      "tags": [
+        "design",
+        "text-render"
+      ],
+      "effect_ko": "모델별 한글 정확도 편차가 큽니다. Ideogram은 영어를 가장 안정적이라 안내하므로 한글은 GPT-image 등에서 짧게 시험하고, 정확해야 하면 이후 편집 툴에서 직접 넣는 것을 권장.",
+      "snippet": "Korean text \"오늘의 커피\" in a clean bold Hangul sans-serif, rendered exactly",
+      "compare_with": [
+        "short-text",
+        "verbatim-text"
+      ],
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft",
+        "Canva AI",
+        "Midjourney"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "svg-vector-output",
+      "term": "SVG / editable vector output",
+      "ko": "SVG 벡터 출력",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "프롬프트에 'vector'를 써도 대부분 래스터 PNG가 나옵니다. 진짜 SVG가 필요하면 Recraft 벡터 모델이나 Illustrator Text to Vector를 사용하거나, 웹 생성 툴/Claude에 SVG 코드를 작성하게 하세요.",
+      "snippet": "generate as editable SVG vector with flat fills and minimal anchor points",
+      "compare_with": [
+        "vector-illustration",
+        "limited-color-count"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html",
+        "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html"
+      ]
+    },
+    {
+      "id": "transparent-background",
+      "term": "transparent background",
+      "ko": "투명 배경",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "로고·스티커를 배경 없이 받습니다. GPT-image는 background=transparent + PNG/WebP 설정이 필요하며 프롬프트만으로는 체커보드가 그려질 수 있습니다.",
+      "snippet": "isolated logo on a fully transparent background, no backdrop, no checkerboard, no shadow",
+      "compare_with": [
+        "isolated-on-white",
+        "die-cut-sticker"
+      ],
+      "tools": [
+        "GPT-image",
+        "Recraft",
+        "Adobe Firefly",
+        "Ideogram"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "flat-fills-no-gradients",
+      "term": "flat fills, no gradients",
+      "ko": "단색 면·그라데이션 없음",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "벡터화·인쇄·자수에 유리한 단순한 결과가 나옵니다. OpenAI 로고 팁도 그라데이션은 필요할 때만.",
+      "snippet": "flat solid color fills only, no gradients, no textures",
+      "compare_with": [
+        "gradient-mesh",
+        "flat-design"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "limited-color-count",
+      "term": "limited number of colors (e.g., 3)",
+      "ko": "색 개수 제한",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "벡터 경로·색 레이어가 단순해져 편집이 쉬워집니다. Recraft API는 colors 파라미터로 팔레트를 지정 가능.",
+      "snippet": "use exactly 3 colors",
+      "compare_with": [
+        "limited-palette",
+        "svg-vector-output"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2"
+      ]
+    },
+    {
+      "id": "consistent-stroke-weight",
+      "term": "consistent stroke weight",
+      "ko": "일정한 선 굵기",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "아이콘 세트·모노라인 로고의 통일감을 확보합니다.",
+      "snippet": "consistent 2px stroke weight, rounded line caps and joins",
+      "compare_with": [
+        "outline-icons",
+        "monoline"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html"
+      ]
+    },
+    {
+      "id": "isolated-on-white",
+      "term": "isolated on plain white background",
+      "ko": "흰 배경 단독 배치",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "배경 제거·트레이싱이 쉬운 깨끗한 단일 오브젝트가 나옵니다.",
+      "snippet": "single centered icon isolated on a plain white background, generous padding",
+      "compare_with": [
+        "transparent-background"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "icon-content-type",
+      "term": "Icon content type + Detail slider (Firefly/Illustrator)",
+      "ko": "아이콘 콘텐츠 유형",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "Illustrator Text to Vector에서 Scene/Subject/Icon 중 Icon을 고르면 배경 없는 저디테일 벡터가 나와 로고·아이콘 세트에 적합합니다.",
+      "snippet": "Content type: Icon, Detail: low, prompt: \"coffee bean with steam\"",
+      "compare_with": [
+        "svg-vector-output",
+        "outline-icons"
+      ],
+      "tools": [
+        "Adobe Illustrator / Firefly"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html",
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html"
+      ]
+    },
+    {
+      "id": "favicon-legibility",
+      "term": "legible at 16px (favicon test)",
+      "ko": "16px 가독성",
+      "category": "vector-output",
+      "tags": [
+        "design",
+        "vector-output"
+      ],
+      "effect_ko": "아주 작은 크기에서도 읽히는 형태를 요구해 디테일을 줄인 강한 마크가 나옵니다.",
+      "snippet": "must remain legible at 16x16 favicon size, minimal detail",
+      "compare_with": [
+        "strong-silhouette",
+        "app-icon"
+      ],
+      "tools": [
+        "Recraft",
+        "Adobe Firefly (Illustrator Text to Vector)",
+        "Ideogram",
+        "GPT-image"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "swiss-poster",
+      "name_ko": "스위스 타이포 포스터",
+      "goal_ko": "정돈되고 지적인 공연·전시 포스터",
+      "term_ids": [
+        "swiss-style",
+        "modular-grid",
+        "neo-grotesk",
+        "asymmetric-layout",
+        "limited-palette",
+        "quoted-text"
+      ],
+      "prompt_en": "Poster with the headline \"SEOUL JAZZ NIGHT\" and the date \"2026.11.20\". Swiss International Typographic Style, strict modular grid, flush-left neo-grotesque sans-serif, asymmetric layout with a large red circle, limited palette of red, black and off-white, generous white space.",
+      "notes_ko": "텍스트는 앞쪽·따옴표. Ideogram에서 Magic Prompt를 끄면 문구 보존에 유리.",
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft"
+      ]
+    },
+    {
+      "id": "minimal-cafe-wordmark",
+      "name_ko": "미니멀 카페 워드마크",
+      "goal_ko": "작은 크기에서도 깔끔한 텍스트 로고",
+      "term_ids": [
+        "wordmark",
+        "kerning",
+        "strong-silhouette",
+        "limited-palette",
+        "transparent-background"
+      ],
+      "prompt_en": "Text \"Morning Bean\". A minimal wordmark logo for a neighborhood coffee shop, custom rounded sans-serif lettering with clean tight kerning, warm espresso brown #4B2E2B, strong silhouette, scalable, centered with generous padding, transparent background, no mockup.",
+      "notes_ko": "GPT-image는 API background=transparent 필요.",
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Recraft"
+      ]
+    },
+    {
+      "id": "vintage-badge-logo",
+      "name_ko": "빈티지 배지 로고",
+      "goal_ko": "수제·로컬 감성의 클래식 로고",
+      "term_ids": [
+        "emblem",
+        "vintage-badge",
+        "slab-serif",
+        "earth-tones",
+        "paper-texture"
+      ],
+      "prompt_en": "Vintage circular emblem logo with the text \"MORNING BEAN\" curved on top and \"EST. 2026\" at the bottom, coffee bean illustration in the center, slab serif lettering, earth tone palette of cream and dark brown, slight letterpress texture.",
+      "notes_ko": "곡선 텍스트는 오류가 잦으니 여러 장 생성 후 선택.",
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Midjourney"
+      ]
+    },
+    {
+      "id": "vector-icon-set",
+      "name_ko": "편집 가능한 아이콘 세트",
+      "goal_ko": "앱·웹용 일관된 SVG 아이콘",
+      "term_ids": [
+        "outline-icons",
+        "consistent-stroke-weight",
+        "svg-vector-output",
+        "limited-color-count",
+        "icon-content-type"
+      ],
+      "prompt_en": "A set of 9 outline icons for a cafe app (cup, bean, croissant, clock, map pin, star, cart, heart, user), consistent 2px stroke, rounded caps, single color #1F2937, 24x24 grid, flat, no fills, SVG vector.",
+      "notes_ko": "Recraft 벡터 모델 또는 Illustrator Icon 유형 사용. 래스터 모델은 SVG를 출력하지 않음.",
+      "tools": [
+        "Recraft",
+        "Adobe Illustrator / Firefly",
+        "Claude artifacts"
+      ]
+    },
+    {
+      "id": "neo-brutalist-landing",
+      "name_ko": "네오 브루탈리즘 랜딩",
+      "goal_ko": "강하고 장난스러운 스타트업 랜딩 페이지",
+      "term_ids": [
+        "neo-brutalism",
+        "hero-section",
+        "cta",
+        "bento-grid",
+        "named-google-fonts",
+        "real-copy"
+      ],
+      "prompt_en": "Build a landing page for Notely, a note-taking app. Neo-brutalist style: thick 3px black borders, hard offset shadows with no blur, bright yellow #FDE047 and pink #F472B6 on cream. Fonts: Space Grotesk for headings. Sections: hero with headline \"Notes that think with you\" and CTA \"Start free\", bento grid of 5 features, 3-tier pricing, footer. Use real copy, no lorem ipsum.",
+      "notes_ko": "섹션별로 나눠 다듬으면 수정이 국소화됨.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts"
+      ]
+    },
+    {
+      "id": "glass-dark-dashboard",
+      "name_ko": "글래스 다크 대시보드",
+      "goal_ko": "현대적인 다크모드 분석 화면",
+      "term_ids": [
+        "glassmorphism",
+        "dark-mode",
+        "dashboard",
+        "gradient-mesh",
+        "color-contrast-wcag"
+      ],
+      "prompt_en": "Analytics dashboard in dark mode: aurora mesh gradient background, frosted glass cards with background blur and 1px white/10 border, 4 KPI cards, a line chart, a recent orders table, collapsible sidebar. Keep all text WCAG AA contrast.",
+      "notes_ko": "글래스모피즘은 대비가 쉽게 떨어지므로 접근성 조건을 함께.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Figma Make",
+        "Claude artifacts"
+      ]
+    },
+    {
+      "id": "shadcn-saas",
+      "name_ko": "shadcn 표준 SaaS 페이지",
+      "goal_ko": "실제 프로젝트에 붙일 수 있는 깔끔한 코드",
+      "term_ids": [
+        "product-brief",
+        "nextjs-app-router",
+        "shadcn-ui",
+        "tailwind-css",
+        "lucide-react",
+        "css-variables-theming"
+      ],
+      "prompt_en": "Goal: marketing site for Notely. Stack: Next.js App Router, TypeScript, Tailwind, shadcn/ui (Button, Card, Badge, Accordion), lucide-react icons. Use semantic theme tokens (bg-background, text-foreground, primary). Sections: navbar, hero, feature grid (6), pricing (3 tiers, 4 features each), FAQ accordion (5), footer. Done when: responsive at 375/768/1280px and light/dark toggle works.",
+      "notes_ko": "v0는 기본이 shadcn/ui. 완료 기준을 숫자로.",
+      "tools": [
+        "v0",
+        "Bolt",
+        "Lovable"
+      ]
+    },
+    {
+      "id": "distinctive-editorial-site",
+      "name_ko": "개성 있는 에디토리얼 웹",
+      "goal_ko": "흔한 AI 웹사이트 같지 않은 결과",
+      "term_ids": [
+        "avoid-generic-ai-aesthetic",
+        "font-pairing",
+        "editorial-layout",
+        "grain-noise",
+        "staggered-reveal",
+        "accent-color"
+      ],
+      "prompt_en": "Design a single-page site for an independent coffee roaster. Commit to a bold editorial aesthetic: Fraunces display serif headlines with a neutral sans body, magazine-like asymmetric layout, warm off-white with subtle grain, one sharp tomato-red accent. One orchestrated page-load animation with staggered reveals, CSS only. Avoid generic AI defaults (no purple gradients, no Inter).",
+      "notes_ko": "Anthropic 'frontend aesthetics' 쿡북 방식.",
+      "tools": [
+        "Claude artifacts",
+        "v0",
+        "Lovable"
+      ]
+    },
+    {
+      "id": "premium-tea-pack",
+      "name_ko": "프리미엄 차 패키지",
+      "goal_ko": "고급스러운 패키지 시안과 목업",
+      "term_ids": [
+        "packaging-design",
+        "minimalism",
+        "jewel-tones",
+        "foil-stamping",
+        "mockup",
+        "quoted-text"
+      ],
+      "prompt_en": "Premium tea packaging for \"Leaf & Co.\": minimalist matte emerald green box, gold foil stamped leaf emblem and wordmark, elegant serif, shown as a realistic product mockup on a stone surface with soft daylight.",
+      "notes_ko": "브랜드명 짧게, 성분표 같은 작은 글씨는 후편집.",
+      "tools": [
+        "GPT-image",
+        "Ideogram",
+        "Midjourney",
+        "Adobe Firefly"
+      ]
+    },
+    {
+      "id": "riso-zine-poster",
+      "name_ko": "리소그래프 진 포스터",
+      "goal_ko": "인디·아날로그 감성 포스터",
+      "term_ids": [
+        "risograph",
+        "halftone",
+        "duotone",
+        "oversized-type",
+        "layered-collage"
+      ],
+      "prompt_en": "Poster with the headline \"SEOUL JAZZ NIGHT\". Risograph print style in fluorescent pink and blue duotone, halftone photo of a saxophone player, giant oversized type bleeding off the edges, layered collage, slight misregistration and grain.",
+      "notes_ko": "duotone과 risograph를 각각 빼서 비교하면 효과 차이가 선명.",
+      "tools": [
+        "Midjourney",
+        "Ideogram",
+        "GPT-image"
+      ]
+    },
+    {
+      "id": "art-deco-invite",
+      "name_ko": "아르데코 초대장",
+      "goal_ko": "1920년대 럭셔리 행사 그래픽",
+      "term_ids": [
+        "art-deco",
+        "didone",
+        "centered-symmetric",
+        "jewel-tones",
+        "foil-stamping"
+      ],
+      "prompt_en": "Gala invitation with the title \"THE GOLDEN NIGHT\", Art Deco style, symmetrical sunburst geometry, gold foil lines on deep navy, high-contrast Didone serif, centered composition.",
+      "notes_ko": "",
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Midjourney"
+      ]
+    },
+    {
+      "id": "isometric-infographic",
+      "name_ko": "아이소메트릭 인포그래픽",
+      "goal_ko": "단계 설명이 명확한 도해",
+      "term_ids": [
+        "infographic",
+        "isometric-illustration",
+        "flat-fills-no-gradients",
+        "pastel-palette",
+        "short-text"
+      ],
+      "prompt_en": "Infographic titled \"How We Roast\" showing 4 steps (Sourcing, Roasting, Cooling, Packing) as isometric flat illustrations connected by clear arrows, pastel palette, short readable labels, plenty of white space, landscape.",
+      "notes_ko": "GPT-image에선 quality=high 권장.",
+      "tools": [
+        "GPT-image",
+        "Ideogram",
+        "Recraft"
+      ]
+    },
+    {
+      "id": "brand-board",
+      "name_ko": "브랜드 아이덴티티 보드",
+      "goal_ko": "로고·컬러·서체를 한 장에 제안",
+      "term_ids": [
+        "brand-identity-board",
+        "combination-mark",
+        "hex-color-codes",
+        "font-pairing",
+        "mockup"
+      ],
+      "prompt_en": "Brand identity board for \"Morning Bean\" cafe: combination mark logo, color swatches labeled #4B2E2B #E9DCC9 #D97706, typography specimen (serif headline, sans body), business card and paper cup mockups, clean grid layout on white.",
+      "notes_ko": "스와치 라벨 같은 작은 텍스트는 틀릴 수 있어 검수 필요.",
+      "tools": [
+        "GPT-image",
+        "Ideogram"
+      ]
+    },
+    {
+      "id": "y2k-merch",
+      "name_ko": "Y2K 굿즈 스티커",
+      "goal_ko": "트렌디한 SNS·굿즈 그래픽",
+      "term_ids": [
+        "y2k",
+        "holographic",
+        "die-cut-sticker",
+        "transparent-background",
+        "outline-text"
+      ],
+      "prompt_en": "Die-cut sticker with the word \"BEAN\" in chrome bubbly Y2K lettering, iridescent holographic highlights, star sparkles, thick white border, isolated on a transparent background.",
+      "notes_ko": "",
+      "tools": [
+        "GPT-image",
+        "Ideogram",
+        "Recraft"
+      ]
+    },
+    {
+      "id": "clay-app-onboarding",
+      "name_ko": "클레이 3D 온보딩",
+      "goal_ko": "친근한 모바일 앱 온보딩 화면",
+      "term_ids": [
+        "claymorphism",
+        "3d-clay-render",
+        "device-mockup",
+        "border-radius",
+        "pastel-palette"
+      ],
+      "prompt_en": "Mobile app onboarding screen for Notely shown in a smartphone frame: cute 3D clay render of a notebook character, puffy claymorphism buttons with very rounded corners, pastel lavender and peach, headline \"Capture every idea\", primary button \"Get started\".",
+      "notes_ko": "이미지 시안은 GPT-image, 실제 코드는 Figma Make/v0로.",
+      "tools": [
+        "GPT-image",
+        "Figma Make",
+        "v0"
+      ]
+    },
+    {
+      "id": "korean-cafe-menu",
+      "name_ko": "한글 카페 메뉴판",
+      "goal_ko": "한글 문구가 들어간 인쇄물",
+      "term_ids": [
+        "menu-design",
+        "korean-hangul-text",
+        "verbatim-text",
+        "short-text",
+        "earth-tones"
+      ],
+      "prompt_en": "Cafe menu board, warm earth tones, clean layout with 4 items. Render these Korean texts exactly once each: \"아메리카노 4,500\", \"카페라떼 5,000\", \"바닐라라떼 5,500\", \"오늘의 디저트\". Bold clean Hangul sans-serif.",
+      "notes_ko": "모델마다 한글 정확도 차이 큼. 틀리면 텍스트 없는 배경을 만들고 편집 툴에서 입력.",
+      "tools": [
+        "GPT-image",
+        "Ideogram",
+        "Canva AI"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "one-variable-ab",
+      "name": "Change one term at a time",
+      "ko": "한 용어만 바꿔 비교",
+      "how_ko": "기준 원안(base_prompts)을 고정하고 사조·서체·색 중 하나만 바꿔 생성. 가능하면 시드(seed) 고정.",
+      "when_ko": "어떤 용어가 실제로 결과를 바꾸는지 확인할 때",
+      "example": "cafe-logo + \"Swiss style\" vs cafe-logo + \"Bauhaus\" (same seed)",
+      "tools": [
+        "Ideogram",
+        "Midjourney",
+        "GPT-image",
+        "Recraft"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "text-first-quoted",
+      "name": "Quoted text first",
+      "ko": "따옴표 문구를 맨 앞에",
+      "how_ko": "렌더링할 문구를 따옴표로 프롬프트 앞부분에 배치하고, 길이는 짧게. 서체·위치·색을 함께 묘사.",
+      "when_ko": "로고·포스터 등 글자가 핵심일 때",
+      "example": "Text \"OPEN DAILY\" in bold white condensed sans, top center. A cafe poster ...",
+      "tools": [
+        "Ideogram",
+        "GPT-image"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "magic-prompt-off",
+      "name": "Turn Magic Prompt off for exact wording",
+      "ko": "Magic Prompt 끄기",
+      "how_ko": "Ideogram의 Magic Prompt는 프롬프트를 확장·변환하므로 정확한 문구·구성이 필요하면 끔. 아이디어 탐색 땐 켜기.",
+      "when_ko": "문구·레이아웃을 그대로 유지하고 싶을 때",
+      "example": "Settings > Magic Prompt: Off",
+      "tools": [
+        "Ideogram"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "positive-phrasing",
+      "name": "Describe what you want, not what you don't",
+      "ko": "부정 대신 긍정 서술",
+      "how_ko": "Ideogram은 'no people' 대신 'empty street'처럼 원하는 상태를 쓰라고 안내. 가중치 문법(::, --ar)은 일반 단어로 취급됨. Midjourney는 --no 파라미터 사용.",
+      "when_ko": "원치 않는 요소가 계속 나올 때",
+      "example": "\"plain empty background\" instead of \"no clutter\"; Midjourney: --no gradient",
+      "tools": [
+        "Ideogram",
+        "Midjourney"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://docs.midjourney.com/"
+      ]
+    },
+    {
+      "id": "settings-not-prompt",
+      "name": "Put aspect ratio/format in settings",
+      "ko": "비율·형식은 설정에서",
+      "how_ko": "비율·시드·품질은 툴 설정(Ideogram UI, MJ --ar, GPT-image size/quality/background)으로 지정. 텍스트 많은 이미지는 quality high.",
+      "when_ko": "포스터·SNS 규격, 투명 PNG가 필요할 때",
+      "example": "gpt-image: size=1024x1536, quality=high, background=transparent",
+      "tools": [
+        "Ideogram",
+        "Midjourney",
+        "GPT-image"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting",
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide"
+      ]
+    },
+    {
+      "id": "style-reference",
+      "name": "Style reference images",
+      "ko": "스타일 레퍼런스 이미지",
+      "how_ko": "말로 설명하기 어려운 미감은 레퍼런스 이미지로. Midjourney --sref, Recraft 커스텀 스타일, Illustrator Style Picker, Figma Make·Lovable 스크린샷 첨부.",
+      "when_ko": "브랜드 톤을 여러 산출물에 일관되게 유지할 때",
+      "example": "prompt ... --sref <image URL> --sw 100",
+      "tools": [
+        "Midjourney",
+        "Recraft",
+        "Adobe Illustrator / Firefly",
+        "Figma Make",
+        "Lovable"
+      ],
+      "sources": [
+        "https://docs.midjourney.com/",
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html",
+        "https://docs.lovable.dev/tips-tricks/best-practice"
+      ]
+    },
+    {
+      "id": "brand-kit",
+      "name": "Brand kit / brand colors parameter",
+      "ko": "브랜드 키트·색 파라미터",
+      "how_ko": "Canva AI는 Apply Brand로 브랜드 키트를 적용, Recraft API는 colors/background_color 파라미터, Ideogram 4.x는 JSON 프롬프트로 HEX 지정.",
+      "when_ko": "브랜드 색·서체를 정확히 지켜야 할 때",
+      "example": "Canva AI: + > Apply Brand > choose Brand Kit, then prompt",
+      "tools": [
+        "Canva AI",
+        "Recraft",
+        "Ideogram"
+      ],
+      "sources": [
+        "https://www.canva.com/help/create-on-brand-designs/",
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "brief-then-deltas",
+      "name": "Brief first, then deltas",
+      "ko": "첫 프롬프트는 브리프, 이후는 차이만",
+      "how_ko": "첫 프롬프트에 목표·맥락·요소·동작·제약·완료 기준을 넣고, 후속 프롬프트는 '무엇을 어떻게 바꿀지'만 짧게.",
+      "when_ko": "웹·앱 생성 프로젝트를 시작할 때",
+      "example": "Follow-up: \"Change only the pricing section: make Pro tier highlighted with a badge.\"",
+      "tools": [
+        "Figma Make",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "sources": [
+        "https://www.figma.com/blog/7-tips-for-using-figma-make-credits-more-efficiently/",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "section-by-section",
+      "name": "Build one section/component at a time",
+      "ko": "섹션 단위로 쌓기",
+      "how_ko": "히어로 → 기능 → 가격 순으로 한 섹션씩 만들고 검토. 수정이 국소화되고 크레딧 낭비가 줄어듦.",
+      "when_ko": "복잡한 페이지, 반복 수정이 많을 때",
+      "example": "\"Now add only the FAQ section below pricing, keep everything else unchanged.\"",
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Figma Make"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/docs/prompting-effectively"
+      ]
+    },
+    {
+      "id": "scope-lock",
+      "name": "Scope boundaries",
+      "ko": "수정 범위 고정",
+      "how_ko": "'이 페이지만', '기존 스타일 유지'처럼 건드리지 말 것을 명시. Bolt는 파일 타겟·폴더 잠금, Lovable·Bolt는 프리뷰에서 요소 선택 편집 지원.",
+      "when_ko": "한 부분만 고치고 싶은데 전체가 바뀔 때",
+      "example": "\"Only change the hero background; do not modify fonts or other sections.\"",
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "Figma Make"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://bolt.new/blog/prompting-guide"
+      ]
+    },
+    {
+      "id": "project-knowledge",
+      "name": "Persistent style rules (knowledge / project prompt)",
+      "ko": "스타일 규칙 상시 저장",
+      "how_ko": "Lovable Knowledge, Bolt Project Prompt, v0 디자인 시스템, Claude CLAUDE.md/시스템 프롬프트에 색·폰트·톤 규칙을 저장해 매번 반복하지 않음.",
+      "when_ko": "여러 페이지·세션에 걸쳐 일관성이 필요할 때",
+      "example": "Knowledge: \"Brand: warm minimal. Fonts: Fraunces/Inter Tight. Primary #4B2E2B. Radius 12px.\"",
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Claude artifacts"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/tips-tricks/best-practice",
+        "https://support.bolt.new/docs/prompting-effectively",
+        "https://v0.app/docs/design-systems",
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "design-system-import",
+      "name": "Connect a design system / registry",
+      "ko": "디자인 시스템 연결",
+      "how_ko": "v0는 디자인 시스템(스킬)이나 shadcn 레지스트리로 자체 컴포넌트·토큰을 쓰게 할 수 있음.",
+      "when_ko": "회사 컴포넌트와 일치하는 프로토타입이 필요할 때",
+      "example": "Attach your team's design-system skill from the v0 prompt toolbar",
+      "tools": [
+        "v0"
+      ],
+      "sources": [
+        "https://v0.app/docs/design-systems",
+        "https://v0.app/docs/design-systems-legacy"
+      ]
+    },
+    {
+      "id": "ask-clarifying",
+      "name": "Ask clarifying questions first",
+      "ko": "먼저 질문하게 하기",
+      "how_ko": "프롬프트 끝에 '이해에 필요한 질문을 먼저 해줘'를 붙이고 Plan 모드 활용.",
+      "when_ko": "요구사항이 모호할 때",
+      "example": "\"Ask me any questions you need before writing code.\"",
+      "tools": [
+        "Lovable",
+        "Claude artifacts",
+        "Bolt"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "enhance-prompt",
+      "name": "Use built-in prompt enhancers",
+      "ko": "프롬프트 개선 기능",
+      "how_ko": "Bolt의 Enhance prompt 등으로 초안을 구체화한 뒤 직접 다듬기.",
+      "when_ko": "프롬프트를 어떻게 써야 할지 막막할 때",
+      "example": "Bolt chatbox + > Enhance prompt",
+      "tools": [
+        "Bolt",
+        "Ideogram (Magic Prompt)",
+        "Illustrator (Prompt Inspiration)"
+      ],
+      "sources": [
+        "https://support.bolt.new/docs/prompting-effectively",
+        "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html"
+      ]
+    },
+    {
+      "id": "image-to-code",
+      "name": "Generate visual first, then code",
+      "ko": "이미지 시안 → 코드",
+      "how_ko": "GPT-image/Midjourney로 무드·UI 시안을 만들고 그 이미지를 v0·Lovable·Figma Make에 첨부해 '이 스타일로 구현'을 요청.",
+      "when_ko": "미감을 먼저 정하고 싶을 때",
+      "example": "[attach mockup.png] \"Implement this landing page style with Tailwind + shadcn/ui.\"",
+      "tools": [
+        "GPT-image",
+        "Midjourney",
+        "v0",
+        "Lovable",
+        "Figma Make"
+      ],
+      "sources": [
+        "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide",
+        "https://docs.lovable.dev/tips-tricks/best-practice"
+      ]
+    },
+    {
+      "id": "post-edit-text",
+      "name": "Leave long text for post-editing",
+      "ko": "긴 글은 후편집",
+      "how_ko": "AI 이미지는 헤드라인만 넣고 본문·가격·연락처 영역은 비워둔 뒤 Canva·Figma에서 실제 폰트로 입력.",
+      "when_ko": "인쇄물에 정확한 정보(특히 한글)가 필요할 때",
+      "example": "\"leave an empty area at the bottom for body text\"",
+      "tools": [
+        "Ideogram",
+        "GPT-image",
+        "Canva AI",
+        "Figma"
+      ],
+      "sources": [
+        "https://docs.ideogram.ai/prompting/prompting"
+      ]
+    },
+    {
+      "id": "vector-pipeline",
+      "name": "Vector-native generation",
+      "ko": "처음부터 벡터로 생성",
+      "how_ko": "SVG가 필요하면 래스터 후 트레이싱보다 Recraft 벡터 모델·Illustrator Text to Vector를 쓰고, 생성 후 Recolor/경로 편집으로 다듬기. 복잡한 벡터는 정리가 필요할 수 있음.",
+      "when_ko": "로고·아이콘을 실제 작업 파일로 쓸 때",
+      "example": "Illustrator: Text to Vector Graphic > Type: Icon > Detail low",
+      "tools": [
+        "Recraft",
+        "Adobe Illustrator / Firefly"
+      ],
+      "sources": [
+        "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+        "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html",
+        "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html"
+      ]
+    },
+    {
+      "id": "iterate-small",
+      "name": "Small iterations with version history",
+      "ko": "작게 반복·버전 복원",
+      "how_ko": "한 번에 한 가지만 바꾸고 잘된 버전은 북마크. 되돌리기는 AI에게 시키지 말고 버전 복원 기능 사용.",
+      "when_ko": "생성 결과가 점점 망가질 때",
+      "example": "Bolt/Lovable: restore previous version instead of prompting 'undo'",
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://bolt.new/blog/prompting-guide"
+      ]
+    }
+  ],
+  "sources": [
+    "https://99designs.com/blog/tips/types-of-logos/",
+    "https://bolt.new/blog/prompting-guide",
+    "https://brutalistwebsites.com/",
+    "https://developers.openai.com/cookbook/examples/multimodal/image-gen-models-prompting-guide",
+    "https://docs.ideogram.ai/prompting/prompting",
+    "https://docs.lovable.dev/prompting/prompting-one",
+    "https://docs.lovable.dev/tips-tricks/best-practice",
+    "https://docs.midjourney.com/",
+    "https://en.wikipedia.org/wiki/Art_Deco",
+    "https://en.wikipedia.org/wiki/Art_Nouveau",
+    "https://en.wikipedia.org/wiki/Bauhaus",
+    "https://en.wikipedia.org/wiki/Blackletter",
+    "https://en.wikipedia.org/wiki/Bleed_(printing)",
+    "https://en.wikipedia.org/wiki/Color_scheme",
+    "https://en.wikipedia.org/wiki/Complementary_colors",
+    "https://en.wikipedia.org/wiki/Constructivism_(art)",
+    "https://en.wikipedia.org/wiki/Corporate_Memphis",
+    "https://en.wikipedia.org/wiki/De_Stijl",
+    "https://en.wikipedia.org/wiki/Didone_(typography)",
+    "https://en.wikipedia.org/wiki/Duotone",
+    "https://en.wikipedia.org/wiki/Golden_ratio",
+    "https://en.wikipedia.org/wiki/Grid_(graphic_design)",
+    "https://en.wikipedia.org/wiki/Halftone",
+    "https://en.wikipedia.org/wiki/International_Typographic_Style",
+    "https://en.wikipedia.org/wiki/Isometric_projection",
+    "https://en.wikipedia.org/wiki/Kerning",
+    "https://en.wikipedia.org/wiki/Leading",
+    "https://en.wikipedia.org/wiki/Letter-spacing",
+    "https://en.wikipedia.org/wiki/Letterpress_printing",
+    "https://en.wikipedia.org/wiki/Line_art",
+    "https://en.wikipedia.org/wiki/Low_poly",
+    "https://en.wikipedia.org/wiki/Maximalism",
+    "https://en.wikipedia.org/wiki/Memphis_Group",
+    "https://en.wikipedia.org/wiki/Mid-century_modern",
+    "https://en.wikipedia.org/wiki/Minimalism",
+    "https://en.wikipedia.org/wiki/Monochrome",
+    "https://en.wikipedia.org/wiki/Monospaced_font",
+    "https://en.wikipedia.org/wiki/Pixel_art",
+    "https://en.wikipedia.org/wiki/Psychedelic_art",
+    "https://en.wikipedia.org/wiki/Retrofuturism",
+    "https://en.wikipedia.org/wiki/Risograph",
+    "https://en.wikipedia.org/wiki/Sans-serif",
+    "https://en.wikipedia.org/wiki/Script_typeface",
+    "https://en.wikipedia.org/wiki/Serif",
+    "https://en.wikipedia.org/wiki/Slab_serif",
+    "https://en.wikipedia.org/wiki/Vaporwave",
+    "https://en.wikipedia.org/wiki/Y2K_aesthetic",
+    "https://fonts.google.com/knowledge",
+    "https://helpx.adobe.com/firefly/generate-vectors/text-to-vector/generate-vectors-using-text-prompts.html",
+    "https://helpx.adobe.com/illustrator/using/text-to-vector-graphic.html",
+    "https://lucide.dev/",
+    "https://m3.material.io/components",
+    "https://m3.material.io/foundations/design-tokens/overview",
+    "https://nextjs.org/docs/app",
+    "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+    "https://support.bolt.new/docs/prompting-effectively",
+    "https://tailwindcss.com/docs",
+    "https://tailwindcss.com/docs/dark-mode",
+    "https://ui.shadcn.com/docs",
+    "https://v0.app/docs/design-systems",
+    "https://v0.app/docs/design-systems-legacy",
+    "https://www.canva.com/help/create-on-brand-designs/",
+    "https://www.designtokens.org/",
+    "https://www.figma.com/blog/7-tips-for-using-figma-make-credits-more-efficiently/",
+    "https://www.nngroup.com/articles/dark-mode/",
+    "https://www.nngroup.com/articles/empty-state-interface-design/",
+    "https://www.nngroup.com/articles/f-shaped-pattern-reading-web-content/",
+    "https://www.nngroup.com/articles/flat-design/",
+    "https://www.nngroup.com/articles/glassmorphism/",
+    "https://www.nngroup.com/articles/microinteractions/",
+    "https://www.nngroup.com/articles/modal-nonmodal-dialog/",
+    "https://www.nngroup.com/articles/neobrutalism/",
+    "https://www.nngroup.com/articles/skeleton-screens/",
+    "https://www.nngroup.com/articles/skeuomorphism/",
+    "https://www.recraft.ai/docs/api-reference/models/recraft-v2",
+    "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+  ]
+}

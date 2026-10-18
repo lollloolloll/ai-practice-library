@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 18px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 21px; margin: 0 0 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .kpi, .panel { background: #fff; padding: 14px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .label { font-size: 12px; color: #777; } .value { font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .panel h2 { font-size: 15px; margin: 0 0 10px; }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .btns button { padding: 9px 14px; border-radius: 8px; border: 0; cursor: pointer; font-weight: 600; font-size: 13px; }
+  .main { background: #fde8e8; color: #b42318; } .work { background: #e7f6ee; color: #2e7d4f; }
+  .live { display: flex; gap: 12px; align-items: center; font-size: 12px; color: #666; margin-bottom: 10px; flex-wrap: wrap; }
+  .track { position: relative; height: 26px; flex: 1; min-width: 160px; background: #f0f2f7; border-radius: 13px; }
+  .dot { position: absolute; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #4a6cf7; }
+  .ticker { font: 700 16px ui-monospace, monospace; color: #222; min-width: 92px; }
+  input[type=text] { padding: 7px 9px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; width: 100%; margin-bottom: 10px; }
+  .out { font: 12px/1.6 ui-monospace, monospace; background: #1f2430; color: #cfd6e6; border-radius: 8px; padding: 10px; min-height: 96px; }
+  .out .g { color: #7ee2a8; } .out .r { color: #ff8a8a; }
+  progress { width: 100%; height: 8px; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<h1>매출 대시보드</h1>
+<div class="kpis">
+  <div class="kpi"><div class="label">분석 대상 거래</div><div class="value">12,000,000건</div></div>
+  <div class="kpi"><div class="label">예측 매출 (다음 달)</div><div class="value" id="fc">—</div></div>
+  <div class="kpi"><div class="label">이상 거래 탐지</div><div class="value" id="an">—</div></div>
+</div>
+<div class="panel">
+  <h2>매출 예측 계산</h2>
+  <div class="live"><span>UI 반응성 →</span><div class="track"><div class="dot" id="dot"></div></div><span class="ticker" id="tick">0</span></div>
+  <input type="text" placeholder="계산 중에 여기 타이핑해 보세요 (메인 스레드면 멈춤)">
+  <div class="btns"><button class="main" id="bMain">메인 스레드에서 계산</button><button class="work" id="bWork">Web Worker에서 계산</button></div>
+  <progress id="prog" max="100" value="0"></progress>
+  <div class="out" id="out">버튼을 눌러 비교해 보세요. 파란 공과 카운터가 멈추면 UI가 블로킹된 것입니다.</div>
+</div>
+
+<script>
+  // 무거운 계산: 1,200만 건 시뮬레이션 + 이상치 탐지 (메인/워커 공용 함수)
+  function heavy(report) {
+    let s = 42, sum = 0, sumSq = 0, anomalies = 0; const N = 12e6, monthly = new Float64Array(12);
+    for (let i = 0; i < N; i++) {
+      s = (s * 16807) % 2147483647; const amt = 20000 + (s % 180000) + Math.sin(i / 1e5) * 15000;
+      monthly[i % 12] += amt; sum += amt; sumSq += amt * amt;
+      if (i % 1200000 === 0) report(Math.round(i / N * 100));
+    }
+    const mean = sum / N, sd = Math.sqrt(sumSq / N - mean * mean);
+    s = 7; for (let i = 0; i < N; i++) { s = (s * 16807) % 2147483647; if (Math.abs(20000 + (s % 180000) - mean) > sd * 1.6) anomalies++; }
+    const trend = (monthly[11] - monthly[0]) / 11;
+    return { forecast: (monthly[11] + trend) / 1000, anomalies };
+  }
+  // 같은 함수를 문자열로 직렬화해 Blob 워커로 실행
+  const src = heavy.toString() + `
+    self.onmessage = () => { const t0 = performance.now(); const r = heavy(p => self.postMessage({ progress: p })); self.postMessage({ done: true, ...r, ms: performance.now() - t0 }); };`;
+  const out = document.getElementById('out'), prog = document.getElementById('prog');
+  // 반응성 표시: rAF 기반 애니메이션 (메인 스레드가 막히면 멈춤)
+  let x = 0, dir = 1, n = 0;
+  (function anim() { const w = document.querySelector('.track').clientWidth - 26; x += dir * 3; if (x > w || x < 0) dir *= -1; document.getElementById('dot').style.left = (3 + x) + 'px'; document.getElementById('tick').textContent = (++n).toLocaleString(); requestAnimationFrame(anim); })();
+  function show(r, where) {
+    document.getElementById('fc').textContent = '₩' + (r.forecast / 1e8).toFixed(1) + '억';
+    document.getElementById('an').textContent = r.anomalies.toLocaleString() + '건';
+    out.innerHTML += `<div class="${where === 'main' ? 'r' : 'g'}">${where === 'main' ? '■ 메인 스레드' : '■ Web Worker'}: ${r.ms.toFixed(0)}ms 소요 — ${where === 'main' ? '그동안 UI 정지 (공·카운터·입력 멈춤)' : 'UI는 계속 반응'}</div>`;
+  }
+  document.getElementById('bMain').onclick = () => {
+    out.innerHTML = '<div>메인 스레드에서 계산 시작…</div>'; prog.value = 0;
+    setTimeout(() => { const t0 = performance.now(); const r = heavy(() => {}); r.ms = performance.now() - t0; prog.value = 100; show(r, 'main'); }, 30);
+  };
+  let worker = null;
+  try { worker = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' }))); } catch (e) { worker = null; }
+  document.getElementById('bWork').onclick = () => {
+    if (!worker) { out.innerHTML = '<div class="r">이 환경에서는 Worker를 만들 수 없습니다 (보안 정책). 일반 브라우저에서 실행해 주세요.</div>'; return; }
+    out.innerHTML = '<div>Web Worker로 작업 전달 (postMessage)…</div>'; prog.value = 0;
+    worker.onmessage = e => { if (e.data.progress !== undefined) prog.value = e.data.progress; if (e.data.done) { prog.value = 100; show(e.data, 'worker'); } };
+    worker.onerror = () => { out.innerHTML += '<div class="r">Worker 실행 오류</div>'; };
+    worker.postMessage('start');
+  };
+</script>
+</body>
+</html>

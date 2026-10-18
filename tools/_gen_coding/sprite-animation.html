@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 스프라이트</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #8fd3ff; font-family: system-ui, sans-serif; color: #123; }
+  canvas#c { display: block; image-rendering: pixelated; }
+  .sheet { position: fixed; top: 8px; left: 8px; background: rgba(255,255,255,.85); padding: 6px 8px; border-radius: 8px; font-size: 11px; }
+  .sheet canvas { display: block; image-rendering: pixelated; width: 256px; height: 32px; margin-top: 4px; border: 1px solid #9ab; background: repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0 / 8px 8px; }
+</style>
+</head>
+<body>
+<div class="sheet">스프라이트 시트 (8프레임 × 32px) · 현재 프레임 <b id="f">0</b> · 클릭 = 점프<canvas id="sheet"></canvas></div>
+<canvas id="c"></canvas>
+<script>
+  // 1) 스프라이트 시트를 오프스크린 캔버스에 픽셀 단위로 그림 (외부 이미지 없이)
+  const FW = 32, FRAMES = 8, sheet = document.getElementById('sheet'), sctx = sheet.getContext('2d');
+  sheet.width = FW * FRAMES; sheet.height = FW;
+  // 0-3: 굴러가기, 4: 착지 찌그러짐, 5: 늘어남(상승), 6-7: 깜빡임
+  for (let f = 0; f < FRAMES; f++) {
+    const ox = f * FW; let sx = 1, sy = 1, eye = 1, mouth = 'o';
+    if (f === 4) { sx = 1.3; sy = .7; mouth = '-'; } if (f === 5) { sx = .8; sy = 1.2; } if (f === 6) eye = .2; if (f === 7) eye = 0;
+    const cx = ox + 16, cy = 16 + (1 - sy) * 12, rx = 11 * sx, ry = 11 * sy;
+    for (let y = 0; y < FW; y++) for (let x = 0; x < FW; x++) {
+      const dx = (ox + x + .5 - cx) / rx, dy = (y + .5 - cy) / ry, d = dx * dx + dy * dy;
+      if (d > 1) continue;
+      let col = '#ff6b6b';
+      if (d > .72) col = '#c0392b';                                   // 외곽선
+      else if (dx < -.2 && dy < -.25 && d < .35) col = '#ffb3a7';      // 하이라이트
+      if (f < 4) { const ang = Math.atan2(dy, dx) + f * Math.PI / 2; if (Math.abs(Math.sin(ang * 2)) < .18 && d < .6 && d > .2) col = '#e74c3c'; } // 회전 무늬
+      sctx.fillStyle = col; sctx.fillRect(ox + x, y, 1, 1);
+    }
+    sctx.fillStyle = '#222';
+    const eh = Math.max(1, Math.round(3 * eye)); sctx.fillRect(cx - 5, cy - 3, 2, eh); sctx.fillRect(cx + 3, cy - 3, 2, eh);
+    if (mouth === 'o') sctx.fillRect(cx - 1, cy + 3, 2, 2); else sctx.fillRect(cx - 3, cy + 3, 6, 1);
+  }
+
+  // 2) 게임: 상태에 따라 애니메이션 클립 선택, 프레임 속도는 독립적으로
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; ctx.imageSmoothingEnabled = false; } addEventListener('resize', resize); resize();
+  const SCALE = 3, clips = { roll: { frames: [0, 1, 2, 3], fps: 10, loop: true }, land: { frames: [4], fps: 1 }, rise: { frames: [5], fps: 1 }, blink: { frames: [6, 7, 6], fps: 14 } };
+  const ball = { x: 80, y: 100, vx: 180, vy: 0, clip: 'roll', t: 0, landT: 0, nextBlink: 2 };
+  canvas.addEventListener('pointerdown', () => { ball.vy = -700; });
+  let last = performance.now();
+  function frameOf(b) { const c = clips[b.clip], i = Math.floor(b.t * c.fps); return c.frames[c.loop ? i % c.frames.length : Math.min(i, c.frames.length - 1)]; }
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    const floor = H - 40, R = 16 * SCALE * .7;
+    ball.vy += 1500 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt; ball.t += dt;
+    if (ball.x < R || ball.x > W - R) { ball.vx *= -1; ball.x = Math.max(R, Math.min(W - R, ball.x)); }
+    if (ball.y > floor - R) { ball.y = floor - R; if (ball.vy > 250) { ball.landT = .09; ball.vy = -ball.vy * .7; } else ball.vy = -800; }
+    // 애니메이션 상태 결정
+    ball.landT -= dt; ball.nextBlink -= dt;
+    let clip = ball.landT > 0 ? 'land' : ball.vy < -300 ? 'rise' : 'roll';
+    if (ball.nextBlink < 0 && clip === 'roll') { clip = 'blink'; if (ball.nextBlink < -.2) ball.nextBlink = 1.5 + Math.random() * 2; }
+    if (clip !== ball.clip) { ball.clip = clip; ball.t = 0; }
+    ctx.fillStyle = '#8fd3ff'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#5cb85c'; ctx.fillRect(0, floor, W, H - floor); ctx.fillStyle = '#4a9a4a'; for (let x = 0; x < W; x += 24) ctx.fillRect(x, floor, 12, 6);
+    const f = frameOf(ball), s = FW * SCALE;
+    ctx.save(); ctx.translate(ball.x, ball.y); if (ball.vx < 0) ctx.scale(-1, 1);
+    ctx.drawImage(sheet, f * FW, 0, FW, FW, -s / 2, -s / 2 - 8, s, s); ctx.restore();
+    document.getElementById('f').textContent = `${f} (${ball.clip})`;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

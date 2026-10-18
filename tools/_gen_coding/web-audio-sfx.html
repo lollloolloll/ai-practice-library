@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 효과음</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; }
+  .bar { position: fixed; top: 8px; left: 8px; right: 8px; display: flex; gap: 8px; align-items: center; font-size: 12px; flex-wrap: wrap; }
+  .bar button { padding: 6px 12px; border-radius: 6px; border: 1px solid #555; background: #2c2c44; color: #fff; cursor: pointer; }
+  .gate { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.55); font-size: 16px; cursor: pointer; text-align: center; }
+  .gate b { display: block; font-size: 40px; }
+</style>
+</head>
+<body>
+<div class="bar"><button id="mute">🔊 소리 켜짐</button><label>볼륨 <input type="range" id="vol" min="0" max="100" value="50"></label><span>클릭: 공 추가 (뿅) · 벽: 통 · 공끼리: 딩</span></div>
+<canvas id="c"></canvas>
+<div class="gate" id="gate"><div><b>🔈</b>클릭해서 소리 켜기<br><small style="color:#aaa">브라우저 정책상 사용자 동작 후에만 오디오가 재생됩니다</small></div></div>
+<script>
+  // ── Web Audio로 효과음을 코드로 합성 (오디오 파일 없음) ──
+  let ac = null, master = null, muted = false;
+  function initAudio() {
+    if (ac) return; const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    ac = new AC(); master = ac.createGain(); master.gain.value = .5;
+    const comp = ac.createDynamicsCompressor(); master.connect(comp); comp.connect(ac.destination);
+  }
+  function tone({ freq = 440, to = freq, dur = .12, type = 'sine', vol = .5, noise = false }) {
+    if (!ac || muted) return; const t = ac.currentTime, g = ac.createGain();
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.001, t + dur); g.connect(master);
+    if (noise) {
+      const buf = ac.createBuffer(1, ac.sampleRate * dur, ac.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      const src = ac.createBufferSource(), f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = freq; src.buffer = buf; src.connect(f); f.connect(g); src.start(t);
+    } else {
+      const o = ac.createOscillator(); o.type = type; o.frequency.setValueAtTime(freq, t); o.frequency.exponentialRampToValueAtTime(Math.max(20, to), t + dur); o.connect(g); o.start(t); o.stop(t + dur);
+    }
+  }
+  const SFX = {
+    spawn: () => { tone({ freq: 300, to: 1200, dur: .15, type: 'square', vol: .15 }); },
+    wall: (speed, size) => { const p = 220 - size * 3; tone({ freq: p * (1 + speed / 1500), to: p * .5, dur: .09, type: 'triangle', vol: Math.min(.6, speed / 900) }); tone({ freq: 900, dur: .03, noise: true, vol: Math.min(.3, speed / 2000) }); },
+    hit: (speed) => { const notes = [523, 587, 659, 784, 880]; tone({ freq: notes[Math.floor(Math.random() * 5)], dur: .25, type: 'sine', vol: Math.min(.4, speed / 1200) }); }
+  };
+  let lastSound = 0;
+  const throttled = fn => (...a) => { const n = performance.now(); if (n - lastSound < 25) return; lastSound = n; fn(...a); }; // 동시 발음 폭주 방지
+  const wallSfx = throttled(SFX.wall), hitSfx = throttled(SFX.hit);
+
+  document.getElementById('gate').onclick = e => { initAudio(); ac && ac.resume(); e.currentTarget.remove(); };
+  document.getElementById('mute').onclick = e => { muted = !muted; e.target.textContent = muted ? '🔇 음소거' : '🔊 소리 켜짐'; };
+  document.getElementById('vol').oninput = e => master && (master.gain.value = e.target.value / 100);
+
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
+  const balls = [];
+  function add(x, y) { const r = 10 + Math.random() * 22; balls.push({ x, y, r, vx: (Math.random() - .5) * 600, vy: (Math.random() - .5) * 600, c: colors[balls.length % 5], ring: 0 }); }
+  for (let i = 0; i < 3; i++) add(W * (.3 + i * .2), H / 2);
+  canvas.addEventListener('pointerdown', e => { initAudio(); ac && ac.resume(); add(e.clientX, e.clientY); SFX.spawn(); });
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    for (const b of balls) {
+      b.x += b.vx * dt; b.y += b.vy * dt; b.ring = Math.max(0, b.ring - dt * 3);
+      if (b.x < b.r || b.x > W - b.r) { b.vx *= -1; b.x = Math.max(b.r, Math.min(W - b.r, b.x)); wallSfx(Math.abs(b.vx), b.r); b.ring = 1; }
+      if (b.y < b.r || b.y > H - b.r) { b.vy *= -1; b.y = Math.max(b.r, Math.min(H - b.r, b.y)); wallSfx(Math.abs(b.vy), b.r); b.ring = 1; }
+    }
+    for (let i = 0; i < balls.length; i++) for (let j = i + 1; j < balls.length; j++) {
+      const a = balls[i], b = balls[j], dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy), m = a.r + b.r;
+      if (d < m && d > 0) { const nx = dx / d, ny = dy / d, rel = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny; const o = (m - d) / 2; a.x -= nx * o; a.y -= ny * o; b.x += nx * o; b.y += ny * o; if (rel < 0) { a.vx += rel * nx; a.vy += rel * ny; b.vx -= rel * nx; b.vy -= rel * ny; hitSfx(-rel); a.ring = b.ring = 1; } }
+    }
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    for (const b of balls) {
+      if (b.ring > 0) { ctx.strokeStyle = b.c; ctx.globalAlpha = b.ring; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(b.x, b.y, b.r + (1 - b.ring) * 24, 0, 7); ctx.stroke(); ctx.globalAlpha = 1; }
+      ctx.fillStyle = b.c; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 7); ctx.fill();
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

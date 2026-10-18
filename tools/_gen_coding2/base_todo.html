@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value;
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  header { position: sticky; top: 0; z-index: 5; display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #fff; border-bottom: 1px solid #eee; transition: transform .3s; }
+  header.hide { transform: translateY(-100%); }
+  .logo { font-weight: 700; font-size: 20px; color: #6f4e37; }
+  .bar { position: absolute; left: 0; bottom: -1px; height: 3px; background: #c8a98c; width: 0; }
+  .hud { position: fixed; right: 10px; bottom: 10px; z-index: 6; background: #3e2723; color: #ffe0b2; font: 12px/1.6 ui-monospace, monospace; padding: 8px 12px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+  .hud b { color: #fff; font-size: 14px; }
+  .hero { text-align: center; padding: 64px 20px; background: #f7f1eb; }
+  .hero h1 { font-size: clamp(26px, 5vw, 36px); margin: 0 0 12px; color: #3e2723; }
+  section { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+  .card { padding: 22px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 16px; opacity: .25; transform: translateX(-20px); transition: opacity .4s, transform .4s; }
+  .card.in { opacity: 1; transform: none; }
+  .card h3 { margin: 0 0 4px; color: #3e2723; }
+  .top { position: fixed; left: 50%; bottom: 14px; transform: translate(-50%, 80px); transition: transform .3s; padding: 10px 16px; background: #6f4e37; color: #fff; border: 0; border-radius: 999px; cursor: pointer; z-index: 6; }
+  .top.show { transform: translate(-50%, 0); }
+</style>
+</head>
+<body>
+<header id="hdr"><div class="logo">☕ 빈하우스</div><span style="font-size:13px;color:#888">스크롤해 보세요 ↓</span><div class="bar" id="bar"></div></header>
+<div class="hud">scroll 이벤트 <b id="raw">0</b>회<br>핸들러 실행 (throttle 100ms) <b id="run">0</b>회<br>절감률 <b id="save">0%</b></div>
+<div class="hero"><h1>매주 신선한 원두를 문 앞까지</h1><p>로스팅 후 48시간 안에 배송되는 스페셜티 커피 구독 서비스</p></div>
+<section id="list"></section>
+<button class="top" id="top">↑ 맨 위로</button>
+<script>
+  // throttle: wait ms마다 최대 1번 실행 (마지막 호출은 trailing으로 보장)
+  function throttle(fn, wait) {
+    let last = 0, timer = null;
+    return (...args) => {
+      const now = performance.now(), remain = wait - (now - last);
+      if (remain <= 0) { clearTimeout(timer); timer = null; last = now; fn(...args); }
+      else if (!timer) timer = setTimeout(() => { last = performance.now(); timer = null; fn(...args); }, remain);
+    };
+  }
+  const items = ['신선함 — 목요일 로스팅, 금요일 발송', '다양한 산지 — 매달 새로운 원두', '무료 배송 — 전 요금제', '언제든 해지 — 위약금 없음', '로스터 노트 — 추출 레시피 카드', '분쇄도 선택 — 5단계', '선물 구독 — 3/6/12개월', '리필 파우치 — 친환경 포장', '구독자 전용 — 한정 원두 우선 구매', '커핑 클래스 — 분기별 초대', '정기 점검 — 그라인더 무료 세척', '포인트 적립 — 결제액 3%'];
+  document.getElementById('list').innerHTML = items.map(t => { const [h, p] = t.split(' — '); return `<div class="card"><h3>${h}</h3><p>${p}</p></div>`; }).join('');
+  let raw = 0, run = 0, lastY = 0;
+  const cards = [...document.querySelectorAll('.card')], hdr = document.getElementById('hdr');
+  // 실제 작업: 레이아웃을 읽는 무거운 처리 (getBoundingClientRect 등)
+  function onScroll() {
+    run++;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    document.getElementById('bar').style.width = (y / max * 100) + '%';
+    hdr.classList.toggle('hide', y > lastY && y > 120); lastY = y;
+    document.getElementById('top').classList.toggle('show', y > 400);
+    cards.forEach(c => { if (c.getBoundingClientRect().top < innerHeight - 40) c.classList.add('in'); });
+    stats();
+  }
+  function stats() { document.getElementById('raw').textContent = raw; document.getElementById('run').textContent = run; document.getElementById('save').textContent = raw ? Math.round((1 - run / raw) * 100) + '%' : '0%'; }
+  const throttled = throttle(onScroll, 100);
+  addEventListener('scroll', () => { raw++; stats(); throttled(); }, { passive: true });
+  document.getElementById('top').onclick = () => scrollTo({ top: 0, behavior: 'smooth' });
+  onScroll();
+</script>
+</body>
+</html>

@@ -1,0 +1,4584 @@
+{
+  "field": "writing",
+  "field_ko": "글쓰기",
+  "base_prompts": [
+    {
+      "id": "story-key",
+      "prompt_en": "Write a 500-word short story about a woman who finds an old key in her late father's desk.",
+      "prompt_ko": "돌아가신 아버지의 책상에서 오래된 열쇠를 발견한 여성에 대한 500단어(약 1,500자) 단편 소설을 써 줘.",
+      "desc_ko": "소설 기법·시점·톤·구조 용어 비교용 기준 원안"
+    },
+    {
+      "id": "copy-bottle",
+      "prompt_en": "Write product page copy for a stainless-steel water bottle that keeps drinks cold for 24 hours.",
+      "prompt_ko": "음료를 24시간 차갑게 유지하는 스테인리스 텀블러의 상품 상세페이지 카피를 써 줘.",
+      "desc_ko": "카피 프레임워크(AIDA/PAS/BAB), USP, CTA, 톤 비교용"
+    },
+    {
+      "id": "blog-running",
+      "prompt_en": "Write a blog post introduction (about 200 words) about starting a morning running habit.",
+      "prompt_ko": "아침 러닝 습관 들이기에 관한 블로그 글 도입부를 200단어 내외로 써 줘.",
+      "desc_ko": "독자 페르소나, 독해 수준, 훅, 포맷, AI 말투 제거 비교용"
+    },
+    {
+      "id": "poem-snow",
+      "prompt_en": "Write a poem about the first snow of winter.",
+      "prompt_ko": "겨울 첫눈에 관한 시를 써 줘.",
+      "desc_ko": "시 형식·운율·이미지 기법 비교용"
+    }
+  ],
+  "categories": [
+    {
+      "id": "tone",
+      "name_ko": "톤·문체",
+      "desc_ko": "글의 분위기와 말투(격식, 유머, 감정 온도)를 지정하는 용어"
+    },
+    {
+      "id": "pov",
+      "name_ko": "시점·서술자",
+      "desc_ko": "누가, 어떤 거리에서 이야기하는지 정하는 용어"
+    },
+    {
+      "id": "narrative",
+      "name_ko": "서사 기법",
+      "desc_ko": "장면 구성, 정보 공개, 긴장 조절을 위한 소설·시나리오 기법"
+    },
+    {
+      "id": "structure",
+      "name_ko": "구조 프레임워크",
+      "desc_ko": "이야기·글·카피의 뼈대를 잡는 검증된 틀"
+    },
+    {
+      "id": "genre",
+      "name_ko": "장르 관습",
+      "desc_ko": "장르명과 하위 장르 관습을 지정해 기대 문법을 불러오는 용어"
+    },
+    {
+      "id": "rhythm",
+      "name_ko": "문장 리듬·어휘 수준",
+      "desc_ko": "문장 길이, 리듬, 어휘 난이도, 가독성 수준 조절"
+    },
+    {
+      "id": "poetry",
+      "name_ko": "시 형식·운율",
+      "desc_ko": "정형시 형식, 운율, 시적 장치"
+    },
+    {
+      "id": "dialogue",
+      "name_ko": "대사·시나리오",
+      "desc_ko": "대사 작성과 대본/스토리보드 포맷 용어"
+    },
+    {
+      "id": "copy",
+      "name_ko": "카피라이팅·마케팅",
+      "desc_ko": "광고·마케팅 문구용 설득 용어와 프레임"
+    },
+    {
+      "id": "audience",
+      "name_ko": "독자·페르소나",
+      "desc_ko": "독자층과 작가 역할을 지정하는 용어"
+    },
+    {
+      "id": "format",
+      "name_ko": "길이·포맷 제약",
+      "desc_ko": "분량, 형식, 출력 구조를 제한하는 지시"
+    },
+    {
+      "id": "llm",
+      "name_ko": "LLM 활용 요령",
+      "desc_ko": "모델 특유의 습관을 제어하고 품질을 끌어올리는 프롬프트 요령"
+    }
+  ],
+  "terms": [
+    {
+      "id": "formal-register",
+      "term": "formal register",
+      "ko": "격식체",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "문어체 어휘와 완결된 문장, 축약·구어 표현 배제로 공문·보고서 같은 무게감이 생긴다.",
+      "snippet": "Write in a formal register suitable for an annual report. / 격식 있는 문어체(합니다체)로 써 줘.",
+      "compare_with": [
+        "conversational-tone",
+        "plain-language"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "conversational-tone",
+      "term": "conversational tone",
+      "ko": "대화체·구어체",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "독자에게 말 걸듯 짧은 문장, 축약, 질문형이 늘어 친근하고 읽기 쉬워진다.",
+      "snippet": "친구에게 설명하듯 대화체로, '~거든요', '~죠' 같은 말투를 섞어 써 줘.",
+      "compare_with": [
+        "formal-register",
+        "second-person"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "witty",
+      "term": "witty",
+      "ko": "재치 있는",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "말장난, 의외의 비유, 가벼운 반전 문장이 들어가 유머 감각이 드러난다. 과하면 산만해지므로 강도 지정이 유용하다.",
+      "snippet": "Make it witty but not slapstick: one clever turn of phrase per paragraph.",
+      "compare_with": [
+        "deadpan",
+        "irreverent",
+        "dry-humor"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "deadpan",
+      "term": "deadpan",
+      "ko": "무표정 유머·데드팬",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "황당한 내용을 감정 없이 담담하게 서술해 웃음이 생긴다. 느낌표와 과장 형용사가 사라진다.",
+      "snippet": "Deadpan tone: report absurd events as if they were completely ordinary. No exclamation marks.",
+      "compare_with": [
+        "witty",
+        "dry-humor",
+        "matter-of-fact"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "dry-humor",
+      "term": "dry humor",
+      "ko": "건조한 유머",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "절제된 표현과 아이러니로 은근히 웃기는 톤. 데드팬보다 서술자의 냉소가 약간 더 보인다.",
+      "snippet": "건조한 영국식 유머로, 과장 없이 살짝 비꼬는 정도로.",
+      "compare_with": [
+        "deadpan",
+        "witty",
+        "sardonic"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "lyrical",
+      "term": "lyrical",
+      "ko": "서정적",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "감각 이미지, 은유, 운율감 있는 긴 문장이 늘어 시적인 산문이 된다.",
+      "snippet": "Lyrical prose with sensory imagery and a gentle, flowing cadence.",
+      "compare_with": [
+        "terse",
+        "purple-prose",
+        "minimalist"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "terse",
+      "term": "terse",
+      "ko": "간결·건조한",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "수식어를 덜어낸 짧은 문장 위주로 속도감과 긴장감이 커진다.",
+      "snippet": "Terse sentences. Few adjectives. No filler.",
+      "compare_with": [
+        "lyrical",
+        "minimalist",
+        "hemingway-style"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "minimalist",
+      "term": "minimalist prose",
+      "ko": "미니멀리즘 문체",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "카버식 생략과 절제: 감정을 직접 말하지 않고 행동·사물로만 암시한다.",
+      "snippet": "미니멀리즘 문체로, 인물의 감정은 한 번도 직접 이름 붙이지 말 것.",
+      "compare_with": [
+        "lyrical",
+        "show-dont-tell",
+        "terse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Minimalism_(literature)"
+      ]
+    },
+    {
+      "id": "hemingway-style",
+      "term": "Hemingway-esque / iceberg theory",
+      "ko": "헤밍웨이식·빙산 이론",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "짧고 평이한 문장, 반복, 표면 아래 감춘 의미(빙산 이론)로 여백이 큰 글이 된다.",
+      "snippet": "Iceberg theory: show only the surface; the real conflict is never stated.",
+      "compare_with": [
+        "minimalist",
+        "subtext",
+        "terse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Iceberg_theory"
+      ]
+    },
+    {
+      "id": "purple-prose",
+      "term": "purple prose (to avoid)",
+      "ko": "과잉 수식 문체",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "과도한 형용사·비유로 장식적인 글. 보통 '피하라'는 금지어로 쓰며, 패러디 목적이면 의도적으로 요청한다.",
+      "snippet": "Avoid purple prose; at most one metaphor per paragraph.",
+      "compare_with": [
+        "lyrical",
+        "plain-language"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Purple_prose"
+      ]
+    },
+    {
+      "id": "matter-of-fact",
+      "term": "matter-of-fact",
+      "ko": "담담한·사실적",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "감탄과 수사를 줄이고 정보 중심으로 차분하게 서술한다(NN/g 톤 축: enthusiastic vs matter-of-fact).",
+      "snippet": "Matter-of-fact tone, no hype words.",
+      "compare_with": [
+        "enthusiastic",
+        "deadpan"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "enthusiastic",
+      "term": "enthusiastic",
+      "ko": "열정적·에너지 있는",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "감탄, 강한 동사, 느낌표가 늘어 들뜬 분위기가 된다. 마케팅·SNS에 흔하지만 과하면 광고 티가 난다.",
+      "snippet": "Enthusiastic but credible: max one exclamation mark.",
+      "compare_with": [
+        "matter-of-fact",
+        "power-words"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "irreverent",
+      "term": "irreverent",
+      "ko": "불손한·삐딱한",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "권위나 관습을 가볍게 비트는 엣지 있는 톤. 브랜드 개성이 강해진다(NN/g 축: respectful vs irreverent).",
+      "snippet": "Irreverent, a little cheeky, but never mean.",
+      "compare_with": [
+        "witty",
+        "respectful"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "respectful",
+      "term": "respectful / empathetic",
+      "ko": "정중·공감형",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "사과, 안내, 민감 주제에서 상대 감정을 먼저 인정하는 문장이 들어간다.",
+      "snippet": "공감적인 톤으로, 고객의 불편을 먼저 인정한 뒤 해결책을 제시해 줘.",
+      "compare_with": [
+        "irreverent",
+        "formal-register"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "sardonic",
+      "term": "sardonic / satirical",
+      "ko": "냉소적·풍자적",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "대상을 비꼬고 과장해 비판한다. 풍자(satire)는 사회적 대상을 겨냥한 구조적 과장이 더해진다.",
+      "snippet": "Satirical op-ed in the style of a fake news column.",
+      "compare_with": [
+        "dry-humor",
+        "irreverent"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Satire"
+      ]
+    },
+    {
+      "id": "noir-voice",
+      "term": "hardboiled voice",
+      "ko": "하드보일드 말투",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "냉소적인 1인칭, 비정한 직유, 짧은 문장. 탐정 누아르의 분위기가 즉시 생긴다.",
+      "snippet": "Hardboiled first-person narration with cynical similes.",
+      "compare_with": [
+        "deadpan",
+        "terse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hardboiled"
+      ]
+    },
+    {
+      "id": "plain-language",
+      "term": "plain language",
+      "ko": "쉬운 말·평이체",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "전문용어를 풀고 짧은 문장, 능동태 위주로 바뀌어 누구나 이해하는 글이 된다.",
+      "snippet": "Use plain language: short sentences, active voice, explain any jargon in parentheses.",
+      "compare_with": [
+        "formal-register",
+        "reading-level"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.plainlanguage.gov/guidelines/"
+      ]
+    },
+    {
+      "id": "brand-voice",
+      "term": "brand voice guide",
+      "ko": "브랜드 보이스",
+      "category": "tone",
+      "tags": [
+        "writing",
+        "tone"
+      ],
+      "effect_ko": "'우리는 X이지만 Y는 아니다' 형식의 보이스 정의를 주면 여러 글의 말투가 일관된다.",
+      "snippet": "Brand voice: confident but not arrogant, playful but not silly, expert but not jargony.",
+      "compare_with": [
+        "persona-role",
+        "style-sample"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/tone-of-voice-dimensions/"
+      ]
+    },
+    {
+      "id": "first-person",
+      "term": "first-person POV",
+      "ko": "1인칭 시점",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "'나'의 내면과 편향이 직접 드러나 몰입과 친밀감이 커지고, 서술자가 모르는 정보는 숨겨진다.",
+      "snippet": "1인칭 주인공 시점으로, 현재 시제로 써 줘.",
+      "compare_with": [
+        "third-limited",
+        "third-omniscient",
+        "second-person"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Narration"
+      ]
+    },
+    {
+      "id": "second-person",
+      "term": "second-person POV",
+      "ko": "2인칭 시점",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "'당신은...' 서술로 독자를 주인공 자리에 앉힌다. 실험적·몰입형 효과, 인터랙티브 픽션·광고에 쓰인다.",
+      "snippet": "Second person, present tense: 'You open the door...'",
+      "compare_with": [
+        "first-person",
+        "third-limited"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Narration"
+      ]
+    },
+    {
+      "id": "third-limited",
+      "term": "third-person limited",
+      "ko": "3인칭 제한 시점",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "한 인물의 지각과 생각만 따라가 1인칭의 친밀감과 3인칭의 거리감을 함께 얻는다.",
+      "snippet": "Third-person limited, staying strictly inside Mina's head; no other character's thoughts.",
+      "compare_with": [
+        "third-omniscient",
+        "first-person",
+        "close-third"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Narration"
+      ]
+    },
+    {
+      "id": "third-omniscient",
+      "term": "third-person omniscient",
+      "ko": "전지적 작가 시점",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "여러 인물의 속마음과 미래까지 아는 서술자가 논평할 수 있어 서사의 스케일이 커진다.",
+      "snippet": "전지적 작가 시점으로, 서술자가 가끔 독자에게 앞날을 암시해도 좋아.",
+      "compare_with": [
+        "third-limited",
+        "third-objective"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Narration"
+      ]
+    },
+    {
+      "id": "third-objective",
+      "term": "objective / camera-eye POV",
+      "ko": "3인칭 관찰자(객관) 시점",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "인물의 생각을 전혀 쓰지 않고 행동과 대사만 보여 줘 영화적이고 건조해진다.",
+      "snippet": "Objective camera-eye narration: only what a camera could record.",
+      "compare_with": [
+        "third-omniscient",
+        "show-dont-tell"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Narration"
+      ]
+    },
+    {
+      "id": "close-third",
+      "term": "close third / free indirect discourse",
+      "ko": "밀착 3인칭·자유간접화법",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "3인칭 문장 속에 인물의 말투와 생각이 스며들어 인용 부호 없이 내면이 드러난다.",
+      "snippet": "Use free indirect discourse so Mina's sarcasm colors the narration.",
+      "compare_with": [
+        "third-limited",
+        "stream-of-consciousness"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Free_indirect_speech"
+      ]
+    },
+    {
+      "id": "unreliable-narrator",
+      "term": "unreliable narrator",
+      "ko": "신뢰할 수 없는 서술자",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "서술자가 거짓말·착각·자기기만을 해서 독자가 행간을 읽게 되고, 결말 반전의 기반이 된다.",
+      "snippet": "The narrator is unreliable: let small contradictions hint that he's lying about that night.",
+      "compare_with": [
+        "first-person",
+        "plot-twist",
+        "dramatic-irony"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Unreliable_narrator"
+      ]
+    },
+    {
+      "id": "stream-of-consciousness",
+      "term": "stream of consciousness",
+      "ko": "의식의 흐름",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "생각이 연상으로 이어지며 문장 부호와 논리 순서가 느슨해져 내면 독백이 생생해진다.",
+      "snippet": "Stream-of-consciousness paragraph, associations jumping, minimal punctuation.",
+      "compare_with": [
+        "close-third",
+        "interior-monologue"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Stream_of_consciousness"
+      ]
+    },
+    {
+      "id": "interior-monologue",
+      "term": "interior monologue",
+      "ko": "내적 독백",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "인물의 생각을 직접 화법으로 보여 줘 감정 동기가 명확해진다. 의식의 흐름보다 정돈되어 있다.",
+      "snippet": "장면 중간중간 이탤릭 내적 독백을 넣어 줘.",
+      "compare_with": [
+        "stream-of-consciousness",
+        "close-third"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Internal_monologue"
+      ]
+    },
+    {
+      "id": "present-tense",
+      "term": "present tense narration",
+      "ko": "현재 시제 서술",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "사건이 '지금' 일어나는 느낌으로 긴박감이 커진다. 과거 시제는 회고적·안정적 느낌.",
+      "snippet": "Present tense throughout.",
+      "compare_with": [
+        "past-tense"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "past-tense",
+      "term": "past tense narration",
+      "ko": "과거 시제 서술",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "전통적인 이야기 낭독 느낌과 회고적 거리감을 준다.",
+      "snippet": "과거 시제(~했다)로 일관되게.",
+      "compare_with": [
+        "present-tense"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "epistolary",
+      "term": "epistolary form",
+      "ko": "서간체·문서 형식",
+      "category": "pov",
+      "tags": [
+        "writing",
+        "pov"
+      ],
+      "effect_ko": "편지, 일기, 메신저 로그 등 문서로 이야기를 전달해 사실감과 공백(빈칸 읽기)이 생긴다.",
+      "snippet": "Tell the story entirely through text messages and voicemail transcripts.",
+      "compare_with": [
+        "frame-story",
+        "first-person"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Epistolary_novel"
+      ]
+    },
+    {
+      "id": "show-dont-tell",
+      "term": "show, don't tell",
+      "ko": "보여주기(말하지 말고 보여줘라)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "'그는 화가 났다' 대신 행동, 감각, 대사로 감정을 드러내 장면이 생생해진다. LLM의 감정 요약 습관을 줄이는 핵심 지시.",
+      "snippet": "Show, don't tell: never name an emotion directly; convey it through action and sensory detail.",
+      "compare_with": [
+        "telling-summary",
+        "minimalist",
+        "subtext"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Show,_don%27t_tell"
+      ]
+    },
+    {
+      "id": "telling-summary",
+      "term": "narrative summary (telling)",
+      "ko": "요약 서술",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "시간 경과나 덜 중요한 사건을 빠르게 넘긴다. 보여주기와 섞어 완급을 조절한다.",
+      "snippet": "Summarize the three years in prison in one paragraph, then slow down for the release scene.",
+      "compare_with": [
+        "show-dont-tell",
+        "scene-vs-sequel"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "in-medias-res",
+      "term": "in medias res",
+      "ko": "사건 중간에서 시작",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "배경 설명 없이 행동 한가운데서 시작해 첫 문장부터 긴장이 생긴다. 설명은 나중에 흘린다.",
+      "snippet": "Start in medias res, mid-chase; no backstory in the first 200 words.",
+      "compare_with": [
+        "slow-burn-opening",
+        "hook-opening",
+        "flashback"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/In_medias_res"
+      ]
+    },
+    {
+      "id": "hook-opening",
+      "term": "opening hook",
+      "ko": "첫 문장 훅",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "질문, 이상한 디테일, 위기 등으로 첫 문장이 독자를 붙잡는다.",
+      "snippet": "Give me 5 alternative opening lines, each with a different kind of hook.",
+      "compare_with": [
+        "in-medias-res",
+        "headline-formulas"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "slow-burn-opening",
+      "term": "slow burn",
+      "ko": "천천히 달아오르는 전개",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "분위기와 인물을 먼저 쌓고 갈등을 늦게 터뜨려 여운과 몰입이 깊어진다.",
+      "snippet": "Slow-burn pacing: the threat only becomes explicit in the final third.",
+      "compare_with": [
+        "in-medias-res",
+        "pacing"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "foreshadowing",
+      "term": "foreshadowing",
+      "ko": "복선",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "앞부분에 미래 사건을 은근히 암시해 결말이 필연적으로 느껴진다.",
+      "snippet": "Plant two subtle pieces of foreshadowing in the first half that pay off in the ending.",
+      "compare_with": [
+        "chekhovs-gun",
+        "red-herring",
+        "plot-twist"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Foreshadowing"
+      ]
+    },
+    {
+      "id": "chekhovs-gun",
+      "term": "Chekhov's gun",
+      "ko": "체호프의 총",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "등장시킨 디테일은 반드시 나중에 쓰이게 해 군더더기를 줄이고 회수의 쾌감을 만든다.",
+      "snippet": "Apply Chekhov's gun: every object described in detail must matter later.",
+      "compare_with": [
+        "foreshadowing",
+        "red-herring"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Chekhov%27s_gun"
+      ]
+    },
+    {
+      "id": "red-herring",
+      "term": "red herring",
+      "ko": "레드 헤링(미끼 단서)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "독자의 의심을 엉뚱한 곳으로 돌려 미스터리 반전을 강화한다.",
+      "snippet": "Include one red herring that points suspicion at the gardener.",
+      "compare_with": [
+        "chekhovs-gun",
+        "plot-twist"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Red_herring"
+      ]
+    },
+    {
+      "id": "plot-twist",
+      "term": "plot twist",
+      "ko": "반전",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "결말 근처에서 전제를 뒤집는다. 복선과 함께 지정하면 억지 반전이 줄어든다.",
+      "snippet": "End with a twist that recontextualizes the opening line, fair-play (clues present).",
+      "compare_with": [
+        "foreshadowing",
+        "unreliable-narrator",
+        "deus-ex-machina"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Plot_twist"
+      ]
+    },
+    {
+      "id": "cliffhanger",
+      "term": "cliffhanger",
+      "ko": "클리프행어",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "결정적 순간에 끊어 다음 회차를 기대하게 만든다. 연재·웹소설·뉴스레터에 유용.",
+      "snippet": "End the chapter on a cliffhanger, mid-action, unresolved.",
+      "compare_with": [
+        "resolution-closed",
+        "open-ending"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cliffhanger"
+      ]
+    },
+    {
+      "id": "flashback",
+      "term": "flashback",
+      "ko": "플래시백(회상)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "과거 장면을 삽입해 동기와 배경을 드러낸다. 현재 장면의 긴장을 끊지 않게 짧게 지시하면 좋다.",
+      "snippet": "Insert one short flashback (under 150 words) triggered by the smell of rain.",
+      "compare_with": [
+        "flash-forward",
+        "in-medias-res",
+        "nonlinear"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Flashback_(narrative)"
+      ]
+    },
+    {
+      "id": "flash-forward",
+      "term": "flash-forward / prolepsis",
+      "ko": "플래시포워드",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "미래 장면을 먼저 보여 줘 '어떻게 거기까지 갔나'라는 궁금증을 만든다.",
+      "snippet": "Open with a flash-forward to the funeral, then return to six months earlier.",
+      "compare_with": [
+        "flashback",
+        "in-medias-res"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Flashforward"
+      ]
+    },
+    {
+      "id": "nonlinear",
+      "term": "nonlinear narrative",
+      "ko": "비선형 서사",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "시간 순서를 섞어 퍼즐 같은 구성. 장면마다 시점 표시를 요청하면 혼란이 줄어든다.",
+      "snippet": "Tell it in nonlinear order; label each section with its date.",
+      "compare_with": [
+        "flashback",
+        "frame-story"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Nonlinear_narrative"
+      ]
+    },
+    {
+      "id": "frame-story",
+      "term": "frame story",
+      "ko": "액자식 구성",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "바깥 이야기 속에서 다른 이야기가 전달되어 화자의 해석이 한 겹 더해진다.",
+      "snippet": "Frame story: an old woman tells this tale to her grandson at a bus stop.",
+      "compare_with": [
+        "epistolary",
+        "nonlinear"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Frame_story"
+      ]
+    },
+    {
+      "id": "dramatic-irony",
+      "term": "dramatic irony",
+      "ko": "극적 아이러니",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "독자는 알고 인물은 모르는 정보로 긴장과 안타까움이 생긴다.",
+      "snippet": "Use dramatic irony: the reader knows the letter is forged; the heroine doesn't.",
+      "compare_with": [
+        "unreliable-narrator",
+        "foreshadowing"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Irony#Dramatic_irony"
+      ]
+    },
+    {
+      "id": "stakes",
+      "term": "raise the stakes",
+      "ko": "판돈(스테이크) 높이기",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "실패하면 잃는 것을 명확히 하고 점점 키워 긴장 곡선이 생긴다.",
+      "snippet": "Make the stakes personal and escalate them in each scene.",
+      "compare_with": [
+        "ticking-clock",
+        "pacing"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "ticking-clock",
+      "term": "ticking clock",
+      "ko": "시한폭탄(마감 압박)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "시간 제한을 걸어 장면 전체에 긴박감을 준다.",
+      "snippet": "Add a ticking clock: she has until dawn.",
+      "compare_with": [
+        "stakes",
+        "cliffhanger"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Ticking_time_bomb_scenario"
+      ]
+    },
+    {
+      "id": "pacing",
+      "term": "pacing control",
+      "ko": "완급 조절",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "장면 길이와 문장 길이로 속도를 조절. 'slow down at X, speed through Y'처럼 지정하면 효과적.",
+      "snippet": "Fast pacing in the action scene (short paragraphs), slow and detailed in the aftermath.",
+      "compare_with": [
+        "sentence-variety",
+        "telling-summary"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "scene-vs-sequel",
+      "term": "scene and sequel",
+      "ko": "장면과 후속(시퀀스)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "목표-갈등-좌절(장면)과 반응-딜레마-결정(후속)을 번갈아 배치하는 Dwight Swain의 기법으로 인과가 탄탄해진다.",
+      "snippet": "Structure each chapter as scene (goal, conflict, disaster) then sequel (reaction, dilemma, decision).",
+      "compare_with": [
+        "three-act",
+        "pacing"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "character-arc",
+      "term": "character arc",
+      "ko": "인물 변화 아크",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "인물이 결함/잘못된 믿음에서 변화하는 궤적이 명확해져 결말에 감정적 보상이 생긴다.",
+      "snippet": "Give the protagonist a clear arc: from 'I can only rely on myself' to accepting help.",
+      "compare_with": [
+        "want-vs-need",
+        "heros-journey"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Character_arc"
+      ]
+    },
+    {
+      "id": "want-vs-need",
+      "term": "want vs need",
+      "ko": "원하는 것 vs 필요한 것",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "겉 목표(want)와 진짜 필요(need)를 충돌시켜 인물에 깊이가 생긴다.",
+      "snippet": "Her want: win the contest. Her need: forgive her sister. Let them conflict.",
+      "compare_with": [
+        "character-arc",
+        "stakes"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "sensory-detail",
+      "term": "sensory detail (five senses)",
+      "ko": "오감 묘사",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "시각 외 소리·냄새·촉감을 넣어 장면 몰입도가 오른다.",
+      "snippet": "Include at least one sound, one smell, and one texture in each scene.",
+      "compare_with": [
+        "show-dont-tell",
+        "specific-detail"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "specific-detail",
+      "term": "concrete, specific detail",
+      "ko": "구체적 디테일",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "'꽃' 대신 '시든 수국'처럼 고유하고 구체적인 디테일로 진부함이 줄어든다.",
+      "snippet": "Replace generic nouns with specific ones (brand, species, street name).",
+      "compare_with": [
+        "sensory-detail",
+        "avoid-cliches"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "deus-ex-machina",
+      "term": "deus ex machina (to avoid)",
+      "ko": "데우스 엑스 마키나(피할 것)",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "갑작스러운 외부 개입으로 해결하는 결말. 금지 지시로 쓰면 인물 스스로 해결하는 결말이 된다.",
+      "snippet": "No deus ex machina: the protagonist must solve it with something set up earlier.",
+      "compare_with": [
+        "chekhovs-gun",
+        "plot-twist"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Deus_ex_machina"
+      ]
+    },
+    {
+      "id": "open-ending",
+      "term": "open / ambiguous ending",
+      "ko": "열린 결말",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "해석 여지를 남겨 여운이 길어진다. LLM은 교훈적으로 깔끔히 닫는 경향이 있어 명시가 필요하다.",
+      "snippet": "End ambiguously; do not resolve whether he got on the train. No moral.",
+      "compare_with": [
+        "resolution-closed",
+        "cliffhanger"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "resolution-closed",
+      "term": "closed resolution",
+      "ko": "닫힌 결말",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "모든 갈등을 정리하고 감정적으로 매듭지어 만족감을 준다.",
+      "snippet": "Tie up every thread; end on a quiet, earned resolution.",
+      "compare_with": [
+        "open-ending"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "macguffin",
+      "term": "MacGuffin",
+      "ko": "맥거핀",
+      "category": "narrative",
+      "tags": [
+        "writing",
+        "narrative"
+      ],
+      "effect_ko": "모두가 쫓지만 자체로는 중요하지 않은 대상으로 플롯을 굴린다.",
+      "snippet": "The briefcase is a MacGuffin; never reveal what's inside.",
+      "compare_with": [
+        "chekhovs-gun"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/MacGuffin"
+      ]
+    },
+    {
+      "id": "three-act",
+      "term": "three-act structure",
+      "ko": "3막 구조",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "설정-대립-해결 3막과 전환점이 뚜렷해져 시나리오·단편의 기본 골격이 잡힌다.",
+      "snippet": "Use three-act structure; mark the inciting incident, midpoint, and climax.",
+      "compare_with": [
+        "save-the-cat",
+        "heros-journey",
+        "kishotenketsu"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Three-act_structure"
+      ]
+    },
+    {
+      "id": "heros-journey",
+      "term": "hero's journey / monomyth",
+      "ko": "영웅의 여정",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "평범한 세계-소명-거부-멘토-시련-귀환 단계로 모험·성장 서사가 된다(Campbell, Vogler 12단계).",
+      "snippet": "Follow the hero's journey (Vogler's 12 stages), compressed into 1,500 words.",
+      "compare_with": [
+        "three-act",
+        "save-the-cat"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Hero%27s_journey"
+      ]
+    },
+    {
+      "id": "save-the-cat",
+      "term": "Save the Cat beat sheet",
+      "ko": "세이브 더 캣 비트 시트",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "Blake Snyder의 15비트(오프닝 이미지, 촉매, B스토리, 중간점, 모든 것을 잃다 등)로 상업 영화형 리듬이 생긴다.",
+      "snippet": "Outline using Blake Snyder's 15-beat Save the Cat beat sheet, with page targets.",
+      "compare_with": [
+        "three-act",
+        "heros-journey"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://savethecat.com/"
+      ]
+    },
+    {
+      "id": "kishotenketsu",
+      "term": "kishōtenketsu (기승전결)",
+      "ko": "기승전결",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "갈등 대신 '전(轉)'의 뜻밖의 전환으로 의미를 만드는 동아시아식 4단 구조. 서양식 갈등 구조와 비교하면 차이가 크다.",
+      "snippet": "기승전결 구조로, '전'에서 갈등 없이 시선이 전환되도록.",
+      "compare_with": [
+        "three-act",
+        "freytag-pyramid"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Kish%C5%8Dtenketsu"
+      ]
+    },
+    {
+      "id": "freytag-pyramid",
+      "term": "Freytag's pyramid",
+      "ko": "프라이탁 피라미드",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "발단-상승-절정-하강-대단원 5단계로 비극적·고전적 곡선이 생긴다.",
+      "snippet": "Follow Freytag's pyramid; put the climax at about 60%.",
+      "compare_with": [
+        "three-act",
+        "kishotenketsu"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Dramatic_structure"
+      ]
+    },
+    {
+      "id": "story-circle",
+      "term": "Dan Harmon story circle",
+      "ko": "댄 하먼 스토리 서클",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "8단계(편안함-욕망-낯선 곳-적응-획득-대가-귀환-변화) 원형으로 에피소드형 이야기에 적합하다.",
+      "snippet": "Structure this sitcom episode on Dan Harmon's 8-step story circle.",
+      "compare_with": [
+        "heros-journey",
+        "three-act"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "aida",
+      "term": "AIDA",
+      "ko": "AIDA(주목-흥미-욕구-행동)",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "Attention-Interest-Desire-Action 순으로 전개되는 고전 광고 문안 흐름.",
+      "snippet": "Write the landing page copy using AIDA, labeled by section.",
+      "compare_with": [
+        "pas",
+        "bab",
+        "four-ps"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/AIDA_(marketing)"
+      ]
+    },
+    {
+      "id": "pas",
+      "term": "PAS (Problem-Agitate-Solution)",
+      "ko": "PAS(문제-자극-해결)",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "고통을 먼저 짚고 증폭한 뒤 해결책을 제시해 AIDA보다 감정적 긴박감이 강하다.",
+      "snippet": "Use PAS: name the problem, agitate it with a vivid example, then present the bottle as the solution.",
+      "compare_with": [
+        "aida",
+        "bab"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "bab",
+      "term": "BAB (Before-After-Bridge)",
+      "ko": "BAB(이전-이후-다리)",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "현재 상태와 바라는 미래를 대비시키고 제품을 다리로 제시해 변화의 그림을 보여 준다.",
+      "snippet": "Before-After-Bridge format, 3 short paragraphs.",
+      "compare_with": [
+        "pas",
+        "aida"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "four-ps",
+      "term": "4Ps (Picture-Promise-Prove-Push)",
+      "ko": "4P 카피 공식",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "장면 묘사-약속-증거-행동 촉구 순으로 증거(후기·수치)가 들어간 설득형 카피가 된다.",
+      "snippet": "Use Picture-Promise-Prove-Push; include one statistic in Prove.",
+      "compare_with": [
+        "aida",
+        "social-proof"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "hook-story-offer",
+      "term": "hook-story-offer",
+      "ko": "훅-스토리-오퍼",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "주목 문장, 짧은 사연, 제안 순으로 SNS·영상 광고·세일즈 글의 흐름이 생긴다(Russell Brunson 방식).",
+      "snippet": "Hook-story-offer for a 60-second Reels script.",
+      "compare_with": [
+        "aida",
+        "pas"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "inverted-pyramid",
+      "term": "inverted pyramid",
+      "ko": "역피라미드",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "가장 중요한 정보(누가/무엇/언제)를 맨 앞에 두는 뉴스 구조. 보도자료·공지에 적합.",
+      "snippet": "Inverted pyramid: the lede answers who/what/when/where in one sentence.",
+      "compare_with": [
+        "bluf",
+        "kishotenketsu"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)"
+      ]
+    },
+    {
+      "id": "bluf",
+      "term": "BLUF (bottom line up front)",
+      "ko": "결론 먼저",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "결론·요청을 첫 줄에 두어 비즈니스 이메일·보고가 빨리 읽힌다.",
+      "snippet": "BLUF: first line states the decision needed.",
+      "compare_with": [
+        "inverted-pyramid",
+        "prep"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/BLUF_(communication)"
+      ]
+    },
+    {
+      "id": "prep",
+      "term": "PREP (Point-Reason-Example-Point)",
+      "ko": "PREP(주장-이유-예시-주장)",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "주장-이유-사례-재주장으로 짧은 칼럼·발표가 논리적으로 정리된다.",
+      "snippet": "PREP 구조로 300자 칼럼.",
+      "compare_with": [
+        "bluf",
+        "oreo"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "listicle",
+      "term": "listicle",
+      "ko": "리스티클(목록형 글)",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "'N가지 방법' 형식으로 훑어 읽기 좋고 SEO·SNS에 강하다.",
+      "snippet": "Listicle: '7 ways to...', each item with a bold one-line takeaway.",
+      "compare_with": [
+        "how-to-guide",
+        "skimmable"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Listicle"
+      ]
+    },
+    {
+      "id": "how-to-guide",
+      "term": "how-to / step-by-step guide",
+      "ko": "하우투 가이드",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "번호 단계, 준비물, 주의점으로 실용 블로그·매뉴얼이 된다.",
+      "snippet": "Step-by-step how-to with prerequisites and a troubleshooting section.",
+      "compare_with": [
+        "listicle"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "oreo",
+      "term": "OREO / essay structure",
+      "ko": "OREO·5단락 에세이",
+      "category": "structure",
+      "tags": [
+        "writing",
+        "structure"
+      ],
+      "effect_ko": "의견-이유-예시-의견 또는 서론-본론3-결론으로 논설문 형식이 갖춰진다.",
+      "snippet": "Classic five-paragraph essay with a clear thesis.",
+      "compare_with": [
+        "prep"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "genre-cozy-mystery",
+      "term": "cozy mystery",
+      "ko": "코지 미스터리",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "잔혹 묘사 없이 작은 마을, 아마추어 탐정, 유머가 있는 미스터리 관습을 불러온다.",
+      "snippet": "Cozy mystery: no gore, small-town bakery, amateur sleuth.",
+      "compare_with": [
+        "genre-noir",
+        "red-herring"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cozy_mystery"
+      ]
+    },
+    {
+      "id": "genre-noir",
+      "term": "noir",
+      "ko": "누아르",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "부패한 도시, 도덕적 회색 주인공, 비관적 결말의 관습이 들어간다.",
+      "snippet": "Neo-noir, rain-soaked Seoul, morally gray detective.",
+      "compare_with": [
+        "genre-cozy-mystery",
+        "noir-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Film_noir"
+      ]
+    },
+    {
+      "id": "genre-gothic",
+      "term": "gothic",
+      "ko": "고딕",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "폐허 저택, 비밀, 억압된 공포, 분위기 중심 묘사가 강해진다.",
+      "snippet": "Gothic atmosphere: decaying manor, family secret, dread over gore.",
+      "compare_with": [
+        "genre-cosmic-horror"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Gothic_fiction"
+      ]
+    },
+    {
+      "id": "genre-cosmic-horror",
+      "term": "cosmic horror",
+      "ko": "코즈믹 호러",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "인간이 이해할 수 없는 존재 앞의 무력감, 직접 묘사하지 않는 공포가 생긴다.",
+      "snippet": "Cosmic horror; never fully describe the entity.",
+      "compare_with": [
+        "genre-gothic"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Lovecraftian_horror"
+      ]
+    },
+    {
+      "id": "genre-romcom",
+      "term": "romantic comedy beats",
+      "ko": "로맨틱 코미디",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "만남-티격태격-오해-고백 관습과 가벼운 톤. 'enemies to lovers' 같은 트로프명도 효과적.",
+      "snippet": "Rom-com, enemies-to-lovers trope, banter-heavy.",
+      "compare_with": [
+        "trope-naming"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "trope-naming",
+      "term": "named tropes",
+      "ko": "트로프 지정",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "'회귀', '계약 연애', '선택받은 자' 같은 트로프명을 넣으면 해당 장르 기대가 즉시 반영된다. 비틀기(subvert)도 지정 가능.",
+      "snippet": "Use the 'found family' trope but subvert the chosen-one trope.",
+      "compare_with": [
+        "genre-romcom",
+        "avoid-cliches"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://tvtropes.org/"
+      ]
+    },
+    {
+      "id": "genre-webnovel",
+      "term": "Korean web novel conventions",
+      "ko": "웹소설 문법",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "짧은 문단, 빠른 사이다 전개, 회귀·빙의·상태창 등 한국 웹소설 관습과 회차 끝 클리프행어가 들어간다.",
+      "snippet": "한국 웹소설 문체: 한두 문장 단락, 회차 끝 클리프행어, 5,000자 내외.",
+      "compare_with": [
+        "cliffhanger",
+        "trope-naming"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "genre-magical-realism",
+      "term": "magical realism",
+      "ko": "마술적 사실주의",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "초자연 현상을 일상처럼 담담히 서술해 환상과 현실이 섞인다.",
+      "snippet": "Magical realism: the grandmother's ghost is treated as an ordinary household fact.",
+      "compare_with": [
+        "deadpan",
+        "genre-gothic"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Magical_realism"
+      ]
+    },
+    {
+      "id": "genre-flash-fiction",
+      "term": "flash fiction",
+      "ko": "엽편·플래시 픽션",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "1,000단어 이하 초단편으로 한 장면·한 반전에 집중한다. '6단어 소설'은 극단형.",
+      "snippet": "Flash fiction under 300 words, single scene, one surprising image at the end.",
+      "compare_with": [
+        "word-count"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Flash_fiction"
+      ]
+    },
+    {
+      "id": "genre-fable",
+      "term": "fable / parable",
+      "ko": "우화",
+      "category": "genre",
+      "tags": [
+        "writing",
+        "genre"
+      ],
+      "effect_ko": "의인화된 동물과 교훈적 결말 구조. 교훈을 명시할지 숨길지도 지정한다.",
+      "snippet": "Aesop-style fable, moral stated in the last line.",
+      "compare_with": [
+        "open-ending"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Fable"
+      ]
+    },
+    {
+      "id": "sentence-variety",
+      "term": "sentence length variety (burstiness)",
+      "ko": "문장 길이 변주",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "짧은 문장과 긴 문장을 섞어 리듬이 생기고 단조로운 'AI 문장'이 줄어든다.",
+      "snippet": "Vary sentence length: mix 3-word punches with 30-word flowing sentences.",
+      "compare_with": [
+        "terse",
+        "lyrical",
+        "avoid-ai-tells"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "reading-level",
+      "term": "reading level (Flesch-Kincaid grade)",
+      "ko": "독해 수준 지정",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "'중학생 수준', 'Grade 6' 처럼 지정하면 어휘·문장 복잡도가 조절된다. 수치는 근사치로만 지켜진다.",
+      "snippet": "Write at a 6th-grade reading level (Flesch-Kincaid).",
+      "compare_with": [
+        "plain-language",
+        "eli5"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests"
+      ]
+    },
+    {
+      "id": "eli5",
+      "term": "ELI5 (explain like I'm five)",
+      "ko": "5살에게 설명하듯",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "비유와 아주 쉬운 단어로 핵심만 설명한다.",
+      "snippet": "ELI5: explain it like I'm five, one analogy only.",
+      "compare_with": [
+        "reading-level",
+        "plain-language"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "active-voice",
+      "term": "active voice",
+      "ko": "능동태",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "주어가 행동하는 문장으로 힘 있고 명확해진다.",
+      "snippet": "Use active voice; avoid '-되어지다' 이중 피동.",
+      "compare_with": [
+        "plain-language"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "strong-verbs",
+      "term": "strong verbs over adverbs",
+      "ko": "강한 동사",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "'빨리 달렸다' 대신 '내달렸다'처럼 부사를 동사로 대체해 문장이 단단해진다.",
+      "snippet": "Prefer strong verbs; cut most adverbs.",
+      "compare_with": [
+        "show-dont-tell",
+        "active-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "parallelism",
+      "term": "parallelism / rule of three",
+      "ko": "병렬 구조·3의 법칙",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "같은 구조를 반복하거나 셋으로 묶어 리듬과 기억에 남는 문장을 만든다. 과용하면 AI 티가 난다.",
+      "snippet": "Use one tricolon in the closing line.",
+      "compare_with": [
+        "anaphora",
+        "avoid-ai-tells"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Rule_of_three_(writing)"
+      ]
+    },
+    {
+      "id": "vocabulary-level",
+      "term": "vocabulary register (Sino-Korean vs native)",
+      "ko": "어휘 층위(한자어/고유어)",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "한자어·전문어 비율을 낮추면 부드럽고 구어적, 높이면 논문·기사체가 된다.",
+      "snippet": "한자어를 줄이고 고유어 위주로 부드럽게.",
+      "compare_with": [
+        "formal-register",
+        "plain-language"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "speech-level-ko",
+      "term": "Korean speech level (해요체/합니다체/반말)",
+      "ko": "높임 등급 지정",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "한국어 종결어미(합쇼체, 해요체, 해라체, 반말)를 명시해야 문장 끝 톤이 일관된다.",
+      "snippet": "전부 해요체로, '~습니다' 섞지 말 것.",
+      "compare_with": [
+        "formal-register",
+        "conversational-tone"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.korean.go.kr/"
+      ]
+    },
+    {
+      "id": "dialect",
+      "term": "dialect / regional voice",
+      "ko": "방언·사투리",
+      "category": "rhythm",
+      "tags": [
+        "writing",
+        "rhythm"
+      ],
+      "effect_ko": "특정 지역 말투로 인물성이 강해진다. 모델의 방언 정확도는 들쭉날쭉해 검수가 필요하다.",
+      "snippet": "할머니 대사는 경상도 사투리로, 과장 없이.",
+      "compare_with": [
+        "dialogue-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "sonnet",
+      "term": "sonnet",
+      "ko": "소네트",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "14행 정형시. 셰익스피어식(ABAB CDCD EFEF GG)과 페트라르카식을 구분 지정하면 정확도가 오른다.",
+      "snippet": "Shakespearean sonnet, ABAB CDCD EFEF GG, iambic pentameter.",
+      "compare_with": [
+        "villanelle",
+        "free-verse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sonnet"
+      ]
+    },
+    {
+      "id": "haiku",
+      "term": "haiku",
+      "ko": "하이쿠",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "5-7-5 음절, 계절어(季語), 순간의 이미지. 영어/한국어 음절 수는 모델이 자주 틀린다.",
+      "snippet": "Haiku (5-7-5), include a kigo for late autumn.",
+      "compare_with": [
+        "sijo",
+        "free-verse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Haiku"
+      ]
+    },
+    {
+      "id": "sijo",
+      "term": "sijo",
+      "ko": "시조",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "3장 6구 45자 내외의 한국 정형시. 종장 첫 음보 3음절 규칙을 명시하면 형식이 살아난다.",
+      "snippet": "평시조 형식으로, 종장 첫 음보는 3음절.",
+      "compare_with": [
+        "haiku",
+        "sonnet"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Sijo"
+      ]
+    },
+    {
+      "id": "villanelle",
+      "term": "villanelle",
+      "ko": "빌라넬",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "19행, 두 개의 후렴구가 반복되는 정형시로 집착·강박의 정서가 강해진다.",
+      "snippet": "Villanelle with two refrains about forgetting.",
+      "compare_with": [
+        "sonnet",
+        "refrain"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Villanelle"
+      ]
+    },
+    {
+      "id": "free-verse",
+      "term": "free verse",
+      "ko": "자유시",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "운율·각운 없이 행갈이와 이미지로 리듬을 만든다. LLM의 강제 각운 습관을 끊을 때 유용.",
+      "snippet": "Free verse, no end rhymes, strong line breaks.",
+      "compare_with": [
+        "sonnet",
+        "rhyme-scheme"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Free_verse"
+      ]
+    },
+    {
+      "id": "prose-poem",
+      "term": "prose poem",
+      "ko": "산문시",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "행갈이 없는 문단 형태의 시로, 서정성과 산문성이 섞인다.",
+      "snippet": "A prose poem in one paragraph.",
+      "compare_with": [
+        "free-verse",
+        "lyrical"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Prose_poetry"
+      ]
+    },
+    {
+      "id": "rhyme-scheme",
+      "term": "rhyme scheme (AABB/ABAB)",
+      "ko": "각운 체계",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "각운 패턴을 지정해 노래·동시처럼 리듬감이 생긴다. 지정 안 하면 영어 시는 AABB로 쏠리기 쉽다.",
+      "snippet": "Rhyme scheme ABAB; avoid forced rhymes.",
+      "compare_with": [
+        "slant-rhyme",
+        "free-verse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Rhyme_scheme"
+      ]
+    },
+    {
+      "id": "slant-rhyme",
+      "term": "slant rhyme",
+      "ko": "불완전 각운",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "완전 각운 대신 비슷한 소리로 맞춰 덜 동요 같고 현대적이다.",
+      "snippet": "Use slant rhymes instead of perfect rhymes.",
+      "compare_with": [
+        "rhyme-scheme"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Half_rhyme"
+      ]
+    },
+    {
+      "id": "meter",
+      "term": "meter (iambic pentameter etc.)",
+      "ko": "운율(약강오보격 등)",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "강세 패턴을 지정해 낭독 리듬이 생긴다. 모델이 정확히 지키지 못하는 경우가 많아 검증 요청이 필요.",
+      "snippet": "Iambic tetrameter; mark stressed syllables after the poem.",
+      "compare_with": [
+        "sonnet",
+        "syllable-count"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Iambic_pentameter"
+      ]
+    },
+    {
+      "id": "syllable-count",
+      "term": "syllable / character count per line",
+      "ko": "행별 음절·글자 수",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "가사·정형시에서 행 길이를 맞춰 멜로디에 얹기 쉬워진다. 토큰 기반이라 직접 세게 하면 정확도가 오른다.",
+      "snippet": "각 행 7~8음절, 행 끝에 (음절 수) 표기.",
+      "compare_with": [
+        "meter",
+        "song-structure"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "enjambment",
+      "term": "enjambment",
+      "ko": "행간 걸침",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "문장을 행 중간에서 끊어 다음 행으로 넘겨 긴장과 의외성이 생긴다.",
+      "snippet": "Use enjambment so sentences spill across line breaks.",
+      "compare_with": [
+        "free-verse"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Enjambment"
+      ]
+    },
+    {
+      "id": "anaphora",
+      "term": "anaphora / refrain",
+      "ko": "두운 반복·후렴",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "행 첫머리나 구절을 반복해 연설·가사 같은 고조감이 생긴다.",
+      "snippet": "Begin each stanza with 'Before the snow,'.",
+      "compare_with": [
+        "parallelism",
+        "refrain"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Anaphora_(rhetoric)"
+      ]
+    },
+    {
+      "id": "refrain",
+      "term": "refrain / hook (lyrics)",
+      "ko": "후렴·훅",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "반복되는 핵심 구절로 가사의 기억성이 높아진다.",
+      "snippet": "A 4-line chorus with a repeatable 3-word hook.",
+      "compare_with": [
+        "song-structure",
+        "anaphora"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Refrain"
+      ]
+    },
+    {
+      "id": "song-structure",
+      "term": "song structure (verse-pre-chorus-chorus-bridge)",
+      "ko": "곡 구조(벌스-프리코러스-코러스-브릿지)",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "섹션 라벨과 구조를 정해 실제 작곡·Suno 등 음악 AI에 넘기기 좋은 가사가 된다.",
+      "snippet": "[Verse 1] [Pre-Chorus] [Chorus] [Verse 2] [Bridge] [Chorus] structure.",
+      "compare_with": [
+        "refrain",
+        "syllable-count"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini",
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Song_structure"
+      ]
+    },
+    {
+      "id": "imagery-metaphor",
+      "term": "extended metaphor / conceit",
+      "ko": "확장 은유",
+      "category": "poetry",
+      "tags": [
+        "writing",
+        "poetry"
+      ],
+      "effect_ko": "하나의 은유를 작품 전체에 걸쳐 밀고 나가 통일된 이미지가 생긴다.",
+      "snippet": "One extended metaphor: winter as a landlord collecting rent.",
+      "compare_with": [
+        "lyrical",
+        "avoid-cliches"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Conceit"
+      ]
+    },
+    {
+      "id": "subtext",
+      "term": "subtext",
+      "ko": "서브텍스트(속뜻)",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "인물이 원하는 것을 직접 말하지 않고 돌려 말해 대사에 긴장과 깊이가 생긴다. LLM의 '감정 직설 대사'를 막는 핵심어.",
+      "snippet": "Dialogue with subtext: they argue about the dishes but it's really about the divorce. No one states their feelings.",
+      "compare_with": [
+        "on-the-nose",
+        "show-dont-tell"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Subtext"
+      ]
+    },
+    {
+      "id": "on-the-nose",
+      "term": "on-the-nose dialogue (to avoid)",
+      "ko": "직설 대사(피할 것)",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "인물이 감정·정보를 노골적으로 설명하는 대사. 금지어로 지정하면 대사가 자연스러워진다.",
+      "snippet": "Avoid on-the-nose dialogue and 'As you know, Bob' exposition.",
+      "compare_with": [
+        "subtext",
+        "exposition-dump"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "exposition-dump",
+      "term": "info-dump / 'As you know, Bob' (to avoid)",
+      "ko": "설명 폭탄(피할 것)",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "배경 설명을 한꺼번에 쏟는 것. 금지하면 정보가 장면 속에 분산된다.",
+      "snippet": "No info-dumps; reveal worldbuilding only when a character needs it.",
+      "compare_with": [
+        "on-the-nose",
+        "in-medias-res"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Exposition_(narrative)"
+      ]
+    },
+    {
+      "id": "dialogue-voice",
+      "term": "distinct character voices",
+      "ko": "인물별 말투 구분",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "인물마다 어휘·문장 길이·버릇을 정해 이름 없이도 누가 말하는지 알 수 있게 된다.",
+      "snippet": "Give each character a distinct voice; a reader should identify the speaker without tags.",
+      "compare_with": [
+        "dialect",
+        "dialogue-tags"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "dialogue-tags",
+      "term": "minimal dialogue tags / action beats",
+      "ko": "대사 태그 최소화·행동 비트",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "'said' 위주로 쓰고 부사 태그 대신 행동 묘사(beat)를 넣어 대사가 깔끔해진다.",
+      "snippet": "Use only 'said'; replace adverb tags with action beats.",
+      "compare_with": [
+        "dialogue-voice",
+        "show-dont-tell"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "banter",
+      "term": "banter / stichomythia",
+      "ko": "티키타카·빠른 응수",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "짧은 대사를 빠르게 주고받아 리듬과 케미가 산다.",
+      "snippet": "Fast banter, lines under 10 words, at least 8 exchanges.",
+      "compare_with": [
+        "genre-romcom",
+        "subtext"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Stichomythia"
+      ]
+    },
+    {
+      "id": "screenplay-format",
+      "term": "screenplay format (sluglines)",
+      "ko": "시나리오 포맷",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "씬 헤딩(INT./EXT.), 지문, 인물명, 대사 블록 형식으로 출력돼 바로 대본처럼 쓸 수 있다.",
+      "snippet": "Standard screenplay format: sluglines, action lines in present tense, character cues in caps.",
+      "compare_with": [
+        "storyboard-shot-list",
+        "beat-sheet"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Screenplay"
+      ]
+    },
+    {
+      "id": "parenthetical",
+      "term": "parentheticals / wrylies",
+      "ko": "지문 괄호(연기 지시)",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "대사 앞 짧은 괄호 지시로 뉘앙스를 준다. 과용하면 아마추어스러워 '최소화'를 함께 지정.",
+      "snippet": "Use parentheticals sparingly, max two per page.",
+      "compare_with": [
+        "screenplay-format",
+        "subtext"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "storyboard-shot-list",
+      "term": "storyboard / shot list",
+      "ko": "스토리보드·샷 리스트",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "컷 번호, 샷 크기(ECU/CU/MS/WS), 카메라 무빙, 화면 설명, 대사/효과음 열로 영상 기획표가 나온다. 이미지·영상 AI 프롬프트로 이어 쓰기 좋다.",
+      "snippet": "Table: shot #, shot size, camera move, visual, audio/VO, duration (s).",
+      "compare_with": [
+        "screenplay-format",
+        "output-table"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Storyboard"
+      ]
+    },
+    {
+      "id": "beat-sheet",
+      "term": "beat sheet / scene outline",
+      "ko": "비트 시트(장면 개요)",
+      "category": "dialogue",
+      "tags": [
+        "writing",
+        "dialogue"
+      ],
+      "effect_ko": "장면을 '비트' 단위로 쪼개 집필 전 구조를 검토할 수 있다.",
+      "snippet": "Give me a beat sheet of 12 beats, one line each, before any prose.",
+      "compare_with": [
+        "outline-first",
+        "save-the-cat"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "usp",
+      "term": "USP (unique selling proposition)",
+      "ko": "USP(고유 판매 제안)",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "경쟁사와 다른 단 하나의 약속에 카피가 집중된다.",
+      "snippet": "Lead with the USP: the only bottle that stays cold 24h AND fits a car cup holder.",
+      "compare_with": [
+        "benefit-vs-feature",
+        "value-proposition"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Unique_selling_proposition"
+      ]
+    },
+    {
+      "id": "benefit-vs-feature",
+      "term": "benefits over features",
+      "ko": "기능보다 혜택",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "'진공 이중벽' 같은 기능을 '여름 오후에도 얼음이 그대로' 같은 고객 이익으로 번역해 설득력이 오른다.",
+      "snippet": "For every feature, state the benefit ('so you can...').",
+      "compare_with": [
+        "usp",
+        "so-what-test"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "so-what-test",
+      "term": "'so what?' test",
+      "ko": "'그래서 뭐?' 테스트",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "모든 문장에 '그래서 고객에게 뭐가 좋은데?'를 적용해 공허한 문구를 걸러 낸다.",
+      "snippet": "Run the 'so what?' test on each line and rewrite any that fail.",
+      "compare_with": [
+        "benefit-vs-feature"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "value-proposition",
+      "term": "value proposition",
+      "ko": "가치 제안",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "대상-문제-해결-차별점을 한 문장으로 압축해 헤드라인·서브헤드의 핵심이 된다.",
+      "snippet": "Write a one-sentence value proposition: For [who] who [need], [product] is [category] that [benefit], unlike [alt].",
+      "compare_with": [
+        "usp",
+        "positioning-statement"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "cta",
+      "term": "CTA (call to action)",
+      "ko": "CTA(행동 유도 문구)",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "구체적 동사와 혜택이 담긴 행동 문구로 클릭·구매를 유도한다.",
+      "snippet": "End with a CTA button text under 5 words, first-person ('Get my...').",
+      "compare_with": [
+        "urgency-scarcity",
+        "aida"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Call_to_action_(marketing)"
+      ]
+    },
+    {
+      "id": "power-words",
+      "term": "power words",
+      "ko": "파워 워드",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "'무료, 즉시, 검증된, 비밀' 같은 감정 반응 단어로 주목도가 오른다. 과용은 스팸처럼 보인다.",
+      "snippet": "Include 2-3 power words (e.g., effortless, proven); no clickbait.",
+      "compare_with": [
+        "enthusiastic",
+        "headline-formulas"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "headline-formulas",
+      "term": "headline formulas (4U)",
+      "ko": "헤드라인 공식(4U)",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "Useful·Urgent·Unique·Ultra-specific 기준이나 숫자·질문·How-to 형식으로 헤드라인 변형을 만든다.",
+      "snippet": "Write 10 headlines scored on the 4 U's (useful, urgent, unique, ultra-specific).",
+      "compare_with": [
+        "hook-opening",
+        "power-words"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "urgency-scarcity",
+      "term": "urgency & scarcity",
+      "ko": "긴급성·희소성",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "기한·수량 제한으로 즉시 행동을 유도한다. 허위 희소성은 법적·신뢰 문제가 있으니 사실만 쓰게 지시.",
+      "snippet": "Add genuine urgency (sale ends Friday); don't invent fake scarcity.",
+      "compare_with": [
+        "cta"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "social-proof",
+      "term": "social proof",
+      "ko": "사회적 증거",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "후기, 수치, 수상, 사용자 수를 넣어 신뢰를 높인다. 모델이 가짜 후기·수치를 지어내지 않도록 자리표시자 요청.",
+      "snippet": "Leave [TESTIMONIAL] placeholders; do not invent reviews or statistics.",
+      "compare_with": [
+        "four-ps"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Social_proof"
+      ]
+    },
+    {
+      "id": "objection-handling",
+      "term": "objection handling",
+      "ko": "반론 처리",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "'비싸지 않나?', '무겁지 않나?' 같은 예상 반론에 미리 답해 전환율형 카피가 된다.",
+      "snippet": "Address the top 3 objections in a short FAQ.",
+      "compare_with": [
+        "pas",
+        "social-proof"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "positioning-statement",
+      "term": "positioning",
+      "ko": "포지셔닝",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "프리미엄/가성비/친환경 등 시장 위치를 정해 카피 톤과 어휘가 그에 맞춰진다.",
+      "snippet": "Position as premium outdoor gear, not a lifestyle accessory.",
+      "compare_with": [
+        "value-proposition",
+        "brand-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "microcopy",
+      "term": "UX microcopy",
+      "ko": "마이크로카피",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "버튼·오류·빈 화면용 짧은 문구. 글자 수 제한과 상황을 주면 실용적이 된다.",
+      "snippet": "Microcopy for an empty cart state: headline ≤ 30 chars + one helper line.",
+      "compare_with": [
+        "cta",
+        "character-limit"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "seo-keyword",
+      "term": "SEO keyword targeting",
+      "ko": "SEO 키워드 지정",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "주요 키워드·관련어를 제목·소제목·첫 문단에 넣는다. '자연스럽게, 반복 최대 N회'로 키워드 남용을 막는다.",
+      "snippet": "Target keyword '아침 러닝 습관' in H1 and first 100 words; use it naturally no more than 4 times.",
+      "compare_with": [
+        "skimmable",
+        "meta-description"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+      ]
+    },
+    {
+      "id": "meta-description",
+      "term": "meta description / title tag",
+      "ko": "메타 설명·타이틀 태그",
+      "category": "copy",
+      "tags": [
+        "writing",
+        "copy"
+      ],
+      "effect_ko": "검색 결과에 노출될 짧은 요약(대략 150자 내외)을 함께 받는다.",
+      "snippet": "Also give a title tag (≤ 60 chars) and meta description (≤ 155 chars).",
+      "compare_with": [
+        "seo-keyword",
+        "character-limit"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "persona-role",
+      "term": "role / persona prompting",
+      "ko": "역할 부여(작가 페르소나)",
+      "category": "audience",
+      "tags": [
+        "writing",
+        "audience"
+      ],
+      "effect_ko": "'당신은 20년 차 카피라이터' 같은 역할을 주면 어휘·관점·품질 기준이 그 직업에 맞춰진다. Anthropic·Google 공식 가이드 권장.",
+      "snippet": "You are a veteran screenwriter who has written for Korean thriller films.",
+      "compare_with": [
+        "target-reader",
+        "style-of-author"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "target-reader",
+      "term": "target reader persona",
+      "ko": "독자 페르소나 지정",
+      "category": "audience",
+      "tags": [
+        "writing",
+        "audience"
+      ],
+      "effect_ko": "'30대 직장인, 운동 초보, 시간 부족' 처럼 구체적 독자를 주면 예시·어휘·고민 포인트가 맞춤화된다.",
+      "snippet": "Reader: a 34-year-old office worker who has failed to keep exercise habits three times.",
+      "compare_with": [
+        "persona-role",
+        "reading-level"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://help.openai.com/en/articles/6654000-best-practices-for-writing-prompts"
+      ]
+    },
+    {
+      "id": "style-of-author",
+      "term": "in the style of [author]",
+      "ko": "특정 작가풍",
+      "category": "audience",
+      "tags": [
+        "writing",
+        "audience"
+      ],
+      "effect_ko": "작가명으로 문체 특징을 빠르게 불러온다. 생존 작가 모방은 저작권·윤리 이슈가 있어 '특징 기술'로 대체하는 편이 안전하고 정확하다.",
+      "snippet": "Not 'in the style of X' but: 'short declarative sentences, wry understatement, working-class settings'.",
+      "compare_with": [
+        "style-sample",
+        "persona-role"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": []
+    },
+    {
+      "id": "audience-awareness",
+      "term": "awareness level (Schwartz)",
+      "ko": "고객 인지 단계",
+      "category": "audience",
+      "tags": [
+        "writing",
+        "audience"
+      ],
+      "effect_ko": "Eugene Schwartz의 5단계(무인지-문제인지-해결인지-제품인지-최고인지)에 따라 카피 시작점이 달라진다.",
+      "snippet": "Audience is problem-aware but not solution-aware; open with the problem.",
+      "compare_with": [
+        "target-reader",
+        "pas"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": []
+    },
+    {
+      "id": "age-rating",
+      "term": "age / content rating",
+      "ko": "연령 등급",
+      "category": "audience",
+      "tags": [
+        "writing",
+        "audience"
+      ],
+      "effect_ko": "'전체관람가', '청소년', '성인 독자'를 지정해 소재·어휘 수위가 조절된다.",
+      "snippet": "Suitable for readers aged 8-10; no violence beyond slapstick.",
+      "compare_with": [
+        "reading-level"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "word-count",
+      "term": "word / character count target",
+      "ko": "분량 지정",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "단어·글자 수 목표를 주면 길이가 맞춰진다. 정확한 수 대신 범위(예: 800~1,000자)가 더 잘 지켜진다.",
+      "snippet": "800~1,000자(공백 포함) 분량으로.",
+      "compare_with": [
+        "paragraph-count",
+        "character-limit"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://help.openai.com/en/articles/6654000-best-practices-for-writing-prompts"
+      ]
+    },
+    {
+      "id": "paragraph-count",
+      "term": "paragraph / section count",
+      "ko": "문단·섹션 수 지정",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "단어 수보다 문단 수 지정이 더 정확하게 지켜지는 경향이 있다.",
+      "snippet": "Exactly 4 paragraphs, each 2-3 sentences.",
+      "compare_with": [
+        "word-count"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "character-limit",
+      "term": "platform character limit",
+      "ko": "플랫폼 글자 제한",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "X(트위터)·광고 헤드라인 등 제한에 맞춰 압축한다. 모델이 글자 수를 잘못 세므로 표기를 요청한다.",
+      "snippet": "Google Ads headline ≤ 30 characters; show the count in brackets.",
+      "compare_with": [
+        "microcopy",
+        "word-count"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "prose-not-bullets",
+      "term": "flowing prose (no bullets)",
+      "ko": "줄글로(불릿 금지)",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "불릿·헤더 남발 대신 연결된 문단으로 쓴다. Claude 공식 가이드는 '하지 마'보다 '이렇게 써'로 지시하라고 권한다.",
+      "snippet": "Write in smoothly flowing prose paragraphs, not bullet points.",
+      "compare_with": [
+        "skimmable",
+        "positive-instruction"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "skimmable",
+      "term": "skimmable formatting",
+      "ko": "훑어 읽기 좋은 포맷",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "소제목, 굵은 핵심 문장, 짧은 문단으로 블로그 가독성이 오른다.",
+      "snippet": "H2 subheadings every ~200 words, one bolded key sentence per section.",
+      "compare_with": [
+        "prose-not-bullets",
+        "listicle"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "output-table",
+      "term": "table output",
+      "ko": "표 형식 출력",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "비교·샷 리스트·카피 변형을 열 구조로 받아 검토가 쉬워진다.",
+      "snippet": "Return a table: variant, headline, angle, target emotion.",
+      "compare_with": [
+        "storyboard-shot-list",
+        "multiple-variants"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "multiple-variants",
+      "term": "N variants with different angles",
+      "ko": "변형안 N개",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "각기 다른 각도(감성/논리/유머)로 여러 안을 받아 비교·선택할 수 있다.",
+      "snippet": "Give 5 variants, each using a different angle; label the angle.",
+      "compare_with": [
+        "output-table",
+        "headline-formulas"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": []
+    },
+    {
+      "id": "xml-tags",
+      "term": "XML tags for structure",
+      "ko": "XML 태그 구조화",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "<context>, <style_sample>, <draft> 등 태그로 지시·자료·예시를 분리해 모델이 헷갈리지 않는다. 출력도 태그로 감싸게 할 수 있다.",
+      "snippet": "<brief>...</brief> <style_sample>...</style_sample> Write the story inside <story> tags.",
+      "compare_with": [
+        "style-sample",
+        "delimiters"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "delimiters",
+      "term": "delimiters (### / \"\"\")",
+      "ko": "구분자",
+      "category": "format",
+      "tags": [
+        "writing",
+        "format"
+      ],
+      "effect_ko": "지시와 원문을 ###나 \"\"\"로 구분하라는 OpenAI 권장 방식. 원문을 지시로 오해하는 일이 줄어든다.",
+      "snippet": "Rewrite the text below in a warmer tone.\n###\n{text}\n###",
+      "compare_with": [
+        "xml-tags"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://help.openai.com/en/articles/6654000-best-practices-for-writing-prompts"
+      ]
+    },
+    {
+      "id": "style-sample",
+      "term": "style sample / few-shot examples",
+      "ko": "문체 예시 제공(퓨샷)",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "원하는 문체의 예문 2~5개를 주면 형용사 지시보다 훨씬 정확히 톤이 복제된다. 다양한 예시를 줘야 특정 예시 내용을 베끼지 않는다.",
+      "snippet": "<examples><example>...</example></examples> Match the voice of these examples, not their content.",
+      "compare_with": [
+        "style-of-author",
+        "brand-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+        "https://developers.openai.com/api/docs/guides/prompt-engineering",
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "negative-list",
+      "term": "banned words/phrases list",
+      "ko": "금지 표현 목록",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "'혁신적인, 여정, ~의 세계로, 결론적으로' 등 진부한 표현을 명시적으로 금지해 상투성을 줄인다. 너무 길면 오히려 그 단어가 떠오르니 대안도 함께 제시.",
+      "snippet": "Banned: 'delve', 'tapestry', 'in today's fast-paced world', '결론적으로', '~의 여정'.",
+      "compare_with": [
+        "avoid-ai-tells",
+        "positive-instruction"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing"
+      ]
+    },
+    {
+      "id": "avoid-ai-tells",
+      "term": "avoid 'AI voice' tells",
+      "ko": "AI 말투 피하기",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "과도한 em dash, '단순히 X가 아니라 Y', 3개 나열, 뻔한 마무리 요약, 과장 형용사 등 AI 글 특징을 피하게 해 사람 글처럼 만든다.",
+      "snippet": "Avoid AI tells: no 'not just X but Y', no tidy summary paragraph at the end, no em dashes, no rule-of-three lists.",
+      "compare_with": [
+        "negative-list",
+        "sentence-variety"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing"
+      ]
+    },
+    {
+      "id": "positive-instruction",
+      "term": "say what to do, not what not to do",
+      "ko": "긍정형 지시",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "'마크다운 쓰지 마' 대신 '흐르는 문단으로 써'처럼 원하는 행동을 말하면 더 잘 따른다(Anthropic 공식).",
+      "snippet": "Instead of 'Don't be boring': 'Use one surprising, concrete detail per paragraph.'",
+      "compare_with": [
+        "negative-list",
+        "prose-not-bullets"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "explain-why",
+      "term": "give the reason (context/motivation)",
+      "ko": "이유 설명하기",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "지시의 이유를 붙이면 모델이 원칙을 일반화한다. 예: '음성으로 읽히니 말줄임표를 쓰지 마'.",
+      "snippet": "This will be read aloud on a podcast, so avoid parentheses and ellipses.",
+      "compare_with": [
+        "positive-instruction"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "match-prompt-style",
+      "term": "match prompt style to output",
+      "ko": "프롬프트 문체 맞추기",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "프롬프트를 원하는 출력 문체로 쓰면 출력도 닮는다. 마크다운 없는 프롬프트는 마크다운 적은 출력을 낳는다(Anthropic 공식).",
+      "snippet": "캐주얼한 글을 원하면 프롬프트 자체도 캐주얼하게 작성.",
+      "compare_with": [
+        "style-sample"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "avoid-cliches",
+      "term": "avoid clichés / first-idea suppression",
+      "ko": "클리셰 피하기",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "'처음 떠오르는 뻔한 선택을 버려라', '가장 흔한 비유 3개를 먼저 적고 쓰지 마라'로 독창성을 끌어올린다.",
+      "snippet": "List the 3 most predictable directions for this story, then write one that uses none of them.",
+      "compare_with": [
+        "negative-list",
+        "specific-detail"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "outline-first",
+      "term": "outline first",
+      "ko": "개요 먼저",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "본문 전에 개요·비트를 받아 승인 후 집필하면 장문 구조가 탄탄해지고 수정 비용이 줄어든다.",
+      "snippet": "First give a numbered outline only. Wait for my approval before writing.",
+      "compare_with": [
+        "beat-sheet",
+        "draft-critique-revise"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "draft-critique-revise",
+      "term": "draft → critique → revise loop",
+      "ko": "초안-비평-수정 루프",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "초안 후 기준에 따라 자기 비평하고 고쳐 쓰게 하면 품질이 오른다(프롬프트 체이닝·자기 교정).",
+      "snippet": "Write a draft, critique it against the brief in 5 bullets, then output a revised version.",
+      "compare_with": [
+        "outline-first",
+        "rubric"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "rubric",
+      "term": "evaluation rubric / success criteria",
+      "ko": "평가 기준표",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "'훅 강도, 구체성, 브랜드 보이스 일치'처럼 채점 기준을 주면 비평과 수정이 그 기준에 맞춰진다.",
+      "snippet": "Score each variant 1-5 on clarity, originality, voice match; revise the lowest.",
+      "compare_with": [
+        "draft-critique-revise"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developers.openai.com/api/docs/guides/prompt-engineering"
+      ]
+    },
+    {
+      "id": "prefill-start",
+      "term": "prefill / start the output",
+      "ko": "첫머리 선제시(프리필)",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "출력의 시작 문장을 주고 이어 쓰게 하면 형식·톤이 고정된다. Gemini는 'prefix'로 권장. 최신 Claude 모델에서는 API 어시스턴트 프리필 지원이 줄어 사용자 메시지에 '이 문장으로 시작해'로 넣는 방식을 권장.",
+      "snippet": "Begin your story with exactly this sentence: 'The key was warmer than it should have been.'",
+      "compare_with": [
+        "style-sample"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "temperature",
+      "term": "temperature / creativity setting",
+      "ko": "온도(창의성) 설정",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "API에서 temperature를 높이면 어휘 선택이 다양·의외적이 되고, 낮추면 일관·보수적이 된다. 일부 최신/추론 모델은 조정 불가.",
+      "snippet": "temperature=1.0 for brainstorming; 0.3 for brand-consistent rewrites.",
+      "compare_with": [
+        "multiple-variants"
+      ],
+      "tools": [
+        "OpenAI API",
+        "Claude API",
+        "Gemini API"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developers.openai.com/api/docs/guides/prompt-engineering"
+      ]
+    },
+    {
+      "id": "persistent-style",
+      "term": "custom styles / custom instructions",
+      "ko": "고정 스타일 설정",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "Claude의 Styles, ChatGPT의 Custom Instructions·Projects, Gemini의 Gems에 문체 지침과 예문을 저장해 매번 반복하지 않아도 된다.",
+      "snippet": "(Claude Styles에 샘플 글 업로드 → 커스텀 스타일 생성)",
+      "compare_with": [
+        "style-sample",
+        "brand-voice"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://support.anthropic.com/"
+      ]
+    },
+    {
+      "id": "constraint-writing",
+      "term": "creative constraints",
+      "ko": "창작 제약",
+      "category": "llm",
+      "tags": [
+        "writing",
+        "llm"
+      ],
+      "effect_ko": "'형용사 금지', '모든 문장 10단어 이하', '특정 단어 반드시 포함' 같은 제약이 오히려 독창성을 끌어낸다(울리포식).",
+      "snippet": "Constraint: no adjectives, and the word 'salt' must appear exactly three times.",
+      "compare_with": [
+        "avoid-cliches",
+        "sentence-variety"
+      ],
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Oulipo"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "literary-short-story",
+      "name_ko": "문학적 단편",
+      "goal_ko": "감정을 직접 말하지 않는 여운 있는 문예지풍 단편",
+      "term_ids": [
+        "third-limited",
+        "show-dont-tell",
+        "minimalist",
+        "subtext",
+        "open-ending",
+        "negative-list"
+      ],
+      "prompt_en": "Write a 1,200-word literary short story about a woman who finds an old key in her late father's desk. Third-person limited, past tense. Show, don't tell: never name an emotion. Minimalist prose, concrete objects carry the grief. Dialogue with subtext. End ambiguously, no moral. Banned: 'tapestry', 'whisper of', 'a testament to'.",
+      "notes_ko": "열린 결말과 금지어가 LLM의 교훈적 마무리 습관을 막는다.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "thriller-chapter",
+      "name_ko": "스릴러 챕터",
+      "goal_ko": "다음 화를 안 읽고는 못 배기는 긴박한 챕터",
+      "term_ids": [
+        "in-medias-res",
+        "present-tense",
+        "ticking-clock",
+        "pacing",
+        "cliffhanger",
+        "foreshadowing"
+      ],
+      "prompt_en": "In medias res, present tense, first person. She has until dawn (ticking clock). Short paragraphs in action, one longer reflective paragraph mid-chapter. Plant one detail that will matter later. End on a cliffhanger mid-action. ~2,000 words.",
+      "notes_ko": "웹소설이라면 genre-webnovel을 추가.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "twist-mystery",
+      "name_ko": "반전 미스터리",
+      "goal_ko": "공정한 단서가 있는 반전 결말",
+      "term_ids": [
+        "unreliable-narrator",
+        "red-herring",
+        "foreshadowing",
+        "plot-twist",
+        "chekhovs-gun"
+      ],
+      "prompt_en": "1인칭 신뢰할 수 없는 서술자로 쓰는 3,000자 미스터리. 정원사를 의심하게 만드는 레드 헤링 1개, 진짜 범인을 가리키는 복선 2개를 앞부분에 심고, 마지막 문단에서 첫 문장의 의미가 뒤집히는 반전. 자세히 묘사한 물건은 모두 결말에서 쓰일 것.",
+      "notes_ko": "결말 후 '복선 위치 목록'을 따로 달라고 하면 공정성 검증이 쉽다.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "kishotenketsu-vs-3act",
+      "name_ko": "기승전결 vs 3막 비교",
+      "goal_ko": "같은 소재로 구조 차이를 체험",
+      "term_ids": [
+        "kishotenketsu",
+        "three-act"
+      ],
+      "prompt_en": "같은 소재(열쇠 이야기)로 두 버전을 써 줘. A: 기승전결, '전'에서 갈등 없이 시선이 전환. B: 3막 구조, 촉발 사건·중간점·절정을 명확히. 각 800자, 끝에 구조 라벨 표기.",
+      "notes_ko": "사이드바이사이드 비교용 대표 실험.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "landing-aida",
+      "name_ko": "AIDA 랜딩페이지",
+      "goal_ko": "전환형 상세페이지 카피",
+      "term_ids": [
+        "aida",
+        "usp",
+        "benefit-vs-feature",
+        "social-proof",
+        "cta",
+        "target-reader"
+      ],
+      "prompt_en": "Write landing page copy for the 24h-cold bottle using AIDA (label each section). Reader: commuters who hate lukewarm water by noon. Lead with the USP. Convert every feature into a benefit. Leave [TESTIMONIAL] placeholders, don't invent reviews. End with a first-person CTA under 5 words.",
+      "notes_ko": "가짜 후기·수치 생성 방지 지시를 반드시 포함.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "pas-ad",
+      "name_ko": "PAS 짧은 광고",
+      "goal_ko": "SNS 광고용 짧고 감정적인 카피",
+      "term_ids": [
+        "pas",
+        "conversational-tone",
+        "character-limit",
+        "multiple-variants"
+      ],
+      "prompt_en": "PAS 구조로 인스타그램 광고 문구 3안. 각 125자 이내, 대화체, 각 안의 감정 각도(짜증/불안/유머)를 라벨로 표시하고 글자 수를 괄호로.",
+      "notes_ko": "BAB로 바꿔 비교해 보면 톤 차이가 뚜렷하다.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "bab-email",
+      "name_ko": "BAB 이메일",
+      "goal_ko": "변화의 그림을 보여주는 뉴스레터",
+      "term_ids": [
+        "bab",
+        "second-person",
+        "bluf",
+        "cta"
+      ],
+      "prompt_en": "Write a 150-word promotional email using Before-After-Bridge, second person. Subject line + preview text first. One CTA.",
+      "notes_ko": "",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "human-blog",
+      "name_ko": "사람 같은 블로그 글",
+      "goal_ko": "AI 티 안 나는 정보성 블로그",
+      "term_ids": [
+        "target-reader",
+        "hook-opening",
+        "sentence-variety",
+        "avoid-ai-tells",
+        "negative-list",
+        "specific-detail",
+        "speech-level-ko"
+      ],
+      "prompt_en": "아침 러닝 블로그 도입부. 독자: 운동 습관 세 번 실패한 30대 직장인. 첫 문장은 구체적 장면 훅. 해요체 통일. 문장 길이를 섞고, '단순히 ~가 아니라', '오늘날 바쁜 현대인', '결론적으로', 3개 나열, 마지막 요약 문단 금지. 실제 있을 법한 구체 디테일 1개 이상.",
+      "notes_ko": "금지 목록이 너무 길면 역효과가 날 수 있어 5~8개 정도로.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "seo-listicle",
+      "name_ko": "SEO 리스티클",
+      "goal_ko": "검색 유입용 구조화 글",
+      "term_ids": [
+        "listicle",
+        "seo-keyword",
+        "skimmable",
+        "meta-description",
+        "reading-level"
+      ],
+      "prompt_en": "Write a listicle '7 ways to build a morning running habit'. Keyword in H1 and first 100 words, used naturally ≤ 4 times. H2 per item, one bolded takeaway each. 8th-grade reading level. Add title tag (≤ 60 chars) and meta description (≤ 155 chars).",
+      "notes_ko": "글자 수 제한은 모델이 틀리기 쉬우니 수를 표기하게.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "sonnet-strict",
+      "name_ko": "엄격한 정형시",
+      "goal_ko": "형식을 정확히 지킨 소네트",
+      "term_ids": [
+        "sonnet",
+        "meter",
+        "rhyme-scheme",
+        "imagery-metaphor"
+      ],
+      "prompt_en": "Shakespearean sonnet about the first snow, iambic pentameter, ABAB CDCD EFEF GG, one extended metaphor (snow as a letter never sent). After the poem, list each line's rhyme sound and syllable count.",
+      "notes_ko": "형식 자가 점검 출력을 요청해야 정확도가 오른다.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "modern-free-verse",
+      "name_ko": "현대 자유시",
+      "goal_ko": "각운 없는 현대시",
+      "term_ids": [
+        "free-verse",
+        "enjambment",
+        "specific-detail",
+        "avoid-cliches"
+      ],
+      "prompt_en": "첫눈에 관한 자유시. 각운 금지, 행간 걸침 적극 사용, '하얀 세상', '순수' 같은 상투어 금지, 구체적 사물 3개 등장.",
+      "notes_ko": "",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "kpop-lyrics",
+      "name_ko": "가사 작성",
+      "goal_ko": "곡에 얹기 쉬운 가사",
+      "term_ids": [
+        "song-structure",
+        "refrain",
+        "syllable-count",
+        "rhyme-scheme"
+      ],
+      "prompt_en": "[Verse 1][Pre-Chorus][Chorus][Verse 2][Bridge][Chorus] 구조의 한국어 가사. 코러스는 3단어 훅 반복, 각 행 7~9음절(행 끝 음절 수 표기), 벌스는 AABB 각운.",
+      "notes_ko": "Suno 같은 음악 AI에 그대로 넣을 수 있게 섹션 태그 유지.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini",
+        "Suno"
+      ]
+    },
+    {
+      "id": "subtext-scene",
+      "name_ko": "서브텍스트 대사 장면",
+      "goal_ko": "말하지 않는 갈등이 있는 대화",
+      "term_ids": [
+        "subtext",
+        "dialogue-voice",
+        "dialogue-tags",
+        "on-the-nose",
+        "screenplay-format"
+      ],
+      "prompt_en": "Screenplay format, one scene: a couple washing dishes after a funeral. They argue about the dishes; it's really about who called the father last. No one states their feelings. Distinct voices, minimal parentheticals.",
+      "notes_ko": "",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "storyboard-ad",
+      "name_ko": "광고 스토리보드",
+      "goal_ko": "15초 광고 영상 기획",
+      "term_ids": [
+        "storyboard-shot-list",
+        "hook-story-offer",
+        "output-table",
+        "cta"
+      ],
+      "prompt_en": "15초 텀블러 광고 스토리보드를 표로: 컷#, 샷 크기, 카메라 무빙, 화면, 오디오/내레이션, 초. 훅(0~2초)-스토리-오퍼 구조, 마지막 컷에 CTA.",
+      "notes_ko": "결과의 '화면' 열을 영상 AI 프롬프트로 재사용 가능.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "voice-clone",
+      "name_ko": "내 문체 복제",
+      "goal_ko": "내가 쓴 글과 같은 말투로",
+      "term_ids": [
+        "style-sample",
+        "xml-tags",
+        "match-prompt-style",
+        "draft-critique-revise"
+      ],
+      "prompt_en": "<style_samples>(내 글 3편)</style_samples> 이 글들의 내용이 아닌 문체(문장 길이, 어미, 유머 방식)를 분석해 5줄로 요약한 뒤, 그 문체로 러닝 블로그 도입부를 써 줘. 쓰고 나서 샘플과 다른 점 3가지를 짚고 수정본을 내 줘.",
+      "notes_ko": "Claude Styles/ChatGPT 프로젝트에 저장하면 재사용 가능.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "outline-loop-novel",
+      "name_ko": "장편 집필 루프",
+      "goal_ko": "장편·연재의 구조적 집필",
+      "term_ids": [
+        "outline-first",
+        "beat-sheet",
+        "save-the-cat",
+        "character-arc",
+        "rubric"
+      ],
+      "prompt_en": "Step 1: Save the Cat 15-beat outline only, with the protagonist's want/need and arc. Wait for approval. Step 2: write chapter 1. Step 3: critique against the beats and a rubric (hook, stakes, voice), then revise.",
+      "notes_ko": "단계마다 사용자 승인을 받는 대화형 진행.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    },
+    {
+      "id": "deadpan-vs-witty",
+      "name_ko": "유머 톤 비교",
+      "goal_ko": "같은 내용을 다른 유머 톤으로",
+      "term_ids": [
+        "deadpan",
+        "witty",
+        "dry-humor",
+        "irreverent"
+      ],
+      "prompt_en": "Rewrite the same 404-error message four ways: deadpan, witty, dry British humor, irreverent. Keep the information identical.",
+      "notes_ko": "NN/g 톤 축 실험의 글쓰기 버전.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "one-variable-ab",
+      "name": "Single-variable A/B comparison",
+      "ko": "한 변수만 바꿔 비교",
+      "how_ko": "같은 기준 원안에 용어 하나만 바꿔 넣고, 새 대화(컨텍스트 초기화)에서 각각 생성해 나란히 비교한다. 온도 등 설정은 고정.",
+      "when_ko": "어떤 용어가 실제로 무엇을 바꾸는지 확인할 때",
+      "example": "원안 + 'Third-person limited' vs 원안 + 'First person, present tense'",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "few-shot-style",
+      "name": "Few-shot style transfer",
+      "ko": "예시로 문체 전이",
+      "how_ko": "원하는 문체 예문 3~5개를 <example> 태그로 감싸 제공하고, '내용 말고 문체만 따르라'고 명시. 예시는 서로 다양하게.",
+      "when_ko": "형용사 지시(따뜻하게, 세련되게)로 원하는 톤이 안 나올 때",
+      "example": "<examples><example>…</example></examples> Match the voice, not the content.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+        "https://developers.openai.com/api/docs/guides/prompt-engineering",
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "style-extraction",
+      "name": "Style analysis then apply",
+      "ko": "문체 분석 후 적용",
+      "how_ko": "먼저 샘플 글의 문체 특징(문장 길이, 어휘, 리듬, 유머)을 목록으로 추출하게 한 뒤, 그 목록을 지침으로 새 글을 쓰게 한다.",
+      "when_ko": "작가풍·브랜드 보이스를 재현하거나 저작권 우려 없이 특징만 가져올 때",
+      "example": "Analyze the style of this text in 8 bullet points. Then write a new piece following those bullets.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": []
+    },
+    {
+      "id": "outline-approve",
+      "name": "Outline → approve → draft",
+      "ko": "개요 승인 후 집필",
+      "how_ko": "개요/비트 시트만 먼저 받고 수정·승인한 뒤 섹션별로 본문을 생성한다.",
+      "when_ko": "장편, 시나리오, 긴 블로그처럼 구조 실패 비용이 클 때",
+      "example": "Give a 10-beat outline only. Don't write prose until I say 'go'.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "self-critique",
+      "name": "Draft → critique → revise",
+      "ko": "자기 비평·수정 루프",
+      "how_ko": "초안 생성 → 기준(브리프, 루브릭, 금지어 목록) 대비 비평 → 수정본 출력을 한 번 또는 체인으로 실행.",
+      "when_ko": "첫 결과가 평범하거나 브리프를 놓칠 때",
+      "example": "Critique your draft as a harsh editor in 5 bullets, then rewrite.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "ai-tell-scrub",
+      "name": "AI-tell scrub pass",
+      "ko": "AI 말투 제거 패스",
+      "how_ko": "완성본에 대해 'AI 글 특징 목록'(과다 em dash, 'not just X but Y', 3개 나열, 판에 박힌 결론, 과장 형용사)을 찾아 표시하고 고치게 하는 별도 단계.",
+      "when_ko": "블로그·에세이를 사람 글처럼 다듬을 때",
+      "example": "Find every AI-writing tell in this text, list them, then output a cleaned version.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing"
+      ]
+    },
+    {
+      "id": "variants-then-pick",
+      "name": "Generate many, then select",
+      "ko": "대량 생성 후 선별",
+      "how_ko": "헤드라인·훅·첫 문장을 10~20개 뽑고 기준으로 채점 후 상위안을 확장.",
+      "when_ko": "카피, 제목, 오프닝 라인처럼 짧고 중요한 문구",
+      "example": "20 headlines → score on 4U → expand top 3.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": []
+    },
+    {
+      "id": "predictable-first",
+      "name": "List the obvious, then avoid it",
+      "ko": "뻔한 안 먼저 적고 버리기",
+      "how_ko": "가장 예측 가능한 전개/비유를 먼저 나열하게 하고, 그것을 금지 조건으로 다시 쓰게 한다.",
+      "when_ko": "LLM 결과가 클리셰로 수렴할 때",
+      "example": "List the 5 most predictable endings, then write an ending that is none of them.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "positive-reframe",
+      "name": "Reframe 'don't' as 'do'",
+      "ko": "금지를 긍정 지시로",
+      "how_ko": "'~하지 마'를 원하는 행동 묘사로 바꾸고, 꼭 필요한 금지어만 짧은 목록으로 남긴다. 지시의 이유도 덧붙인다.",
+      "when_ko": "금지 지시가 잘 안 먹히거나 오히려 그 표현이 나올 때",
+      "example": "Not 'no markdown' but 'write in flowing prose paragraphs'.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+      ]
+    },
+    {
+      "id": "structured-brief",
+      "name": "Structured creative brief (XML)",
+      "ko": "구조화된 크리에이티브 브리프",
+      "how_ko": "<goal>, <audience>, <voice>, <constraints>, <examples>, <format> 태그로 브리프를 나눠 제공. 긴 참고자료는 위에, 지시는 아래에.",
+      "when_ko": "요소가 많은 마케팅·시나리오 의뢰",
+      "example": "<audience>…</audience><voice>…</voice><format>…</format>",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+        "https://ai.google.dev/gemini-api/docs/prompting-strategies"
+      ]
+    },
+    {
+      "id": "persistent-styles",
+      "name": "Save style as preset",
+      "ko": "스타일 프리셋 저장",
+      "how_ko": "Claude Styles(샘플 업로드로 커스텀 스타일), ChatGPT Custom Instructions/Projects, Gemini Gems에 보이스·금지어·예문을 저장.",
+      "when_ko": "같은 보이스로 반복 작업할 때",
+      "example": "(설정) 커스텀 스타일: 내 블로그 글 3편 업로드",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": []
+    },
+    {
+      "id": "count-verification",
+      "name": "Ask for counts/labels",
+      "ko": "수치·형식 자가 표기",
+      "how_ko": "글자 수, 음절 수, 각운, 구조 라벨을 결과 옆에 표기하게 해 형식 준수를 강제하고 검증한다. 토큰 단위로 처리하는 모델 특성상 수치는 직접 재확인.",
+      "when_ko": "정형시, 가사, 광고 글자 제한",
+      "example": "After each line, write (syllables) and the rhyme letter.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": []
+    },
+    {
+      "id": "role-reader-test",
+      "name": "Simulated reader feedback",
+      "ko": "가상 독자 피드백",
+      "how_ko": "타깃 독자 페르소나로 결과를 읽고 지루한 곳·이해 안 되는 곳을 지적하게 한 뒤 수정.",
+      "when_ko": "독자 반응이 중요한 카피·교육 콘텐츠",
+      "example": "As a skeptical 34-year-old office worker, mark where you'd stop reading and why.",
+      "tools": [
+        "Claude",
+        "ChatGPT",
+        "Gemini"
+      ],
+      "sources": []
+    }
+  ],
+  "sources": [
+    "https://ai.google.dev/gemini-api/docs/prompting-strategies",
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+    "https://developers.openai.com/api/docs/guides/prompt-engineering",
+    "https://en.wikipedia.org/wiki/AIDA_(marketing)",
+    "https://en.wikipedia.org/wiki/Anaphora_(rhetoric)",
+    "https://en.wikipedia.org/wiki/BLUF_(communication)",
+    "https://en.wikipedia.org/wiki/Call_to_action_(marketing)",
+    "https://en.wikipedia.org/wiki/Character_arc",
+    "https://en.wikipedia.org/wiki/Chekhov%27s_gun",
+    "https://en.wikipedia.org/wiki/Cliffhanger",
+    "https://en.wikipedia.org/wiki/Conceit",
+    "https://en.wikipedia.org/wiki/Cozy_mystery",
+    "https://en.wikipedia.org/wiki/Deus_ex_machina",
+    "https://en.wikipedia.org/wiki/Dramatic_structure",
+    "https://en.wikipedia.org/wiki/Enjambment",
+    "https://en.wikipedia.org/wiki/Epistolary_novel",
+    "https://en.wikipedia.org/wiki/Exposition_(narrative)",
+    "https://en.wikipedia.org/wiki/Fable",
+    "https://en.wikipedia.org/wiki/Film_noir",
+    "https://en.wikipedia.org/wiki/Flash_fiction",
+    "https://en.wikipedia.org/wiki/Flashback_(narrative)",
+    "https://en.wikipedia.org/wiki/Flashforward",
+    "https://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests",
+    "https://en.wikipedia.org/wiki/Foreshadowing",
+    "https://en.wikipedia.org/wiki/Frame_story",
+    "https://en.wikipedia.org/wiki/Free_indirect_speech",
+    "https://en.wikipedia.org/wiki/Free_verse",
+    "https://en.wikipedia.org/wiki/Gothic_fiction",
+    "https://en.wikipedia.org/wiki/Haiku",
+    "https://en.wikipedia.org/wiki/Half_rhyme",
+    "https://en.wikipedia.org/wiki/Hardboiled",
+    "https://en.wikipedia.org/wiki/Hero%27s_journey",
+    "https://en.wikipedia.org/wiki/Iambic_pentameter",
+    "https://en.wikipedia.org/wiki/Iceberg_theory",
+    "https://en.wikipedia.org/wiki/In_medias_res",
+    "https://en.wikipedia.org/wiki/Internal_monologue",
+    "https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)",
+    "https://en.wikipedia.org/wiki/Irony#Dramatic_irony",
+    "https://en.wikipedia.org/wiki/Kish%C5%8Dtenketsu",
+    "https://en.wikipedia.org/wiki/Listicle",
+    "https://en.wikipedia.org/wiki/Lovecraftian_horror",
+    "https://en.wikipedia.org/wiki/MacGuffin",
+    "https://en.wikipedia.org/wiki/Magical_realism",
+    "https://en.wikipedia.org/wiki/Minimalism_(literature)",
+    "https://en.wikipedia.org/wiki/Narration",
+    "https://en.wikipedia.org/wiki/Nonlinear_narrative",
+    "https://en.wikipedia.org/wiki/Oulipo",
+    "https://en.wikipedia.org/wiki/Plot_twist",
+    "https://en.wikipedia.org/wiki/Prose_poetry",
+    "https://en.wikipedia.org/wiki/Purple_prose",
+    "https://en.wikipedia.org/wiki/Red_herring",
+    "https://en.wikipedia.org/wiki/Refrain",
+    "https://en.wikipedia.org/wiki/Rhyme_scheme",
+    "https://en.wikipedia.org/wiki/Rule_of_three_(writing)",
+    "https://en.wikipedia.org/wiki/Satire",
+    "https://en.wikipedia.org/wiki/Screenplay",
+    "https://en.wikipedia.org/wiki/Show,_don%27t_tell",
+    "https://en.wikipedia.org/wiki/Sijo",
+    "https://en.wikipedia.org/wiki/Social_proof",
+    "https://en.wikipedia.org/wiki/Song_structure",
+    "https://en.wikipedia.org/wiki/Sonnet",
+    "https://en.wikipedia.org/wiki/Stichomythia",
+    "https://en.wikipedia.org/wiki/Storyboard",
+    "https://en.wikipedia.org/wiki/Stream_of_consciousness",
+    "https://en.wikipedia.org/wiki/Subtext",
+    "https://en.wikipedia.org/wiki/Three-act_structure",
+    "https://en.wikipedia.org/wiki/Ticking_time_bomb_scenario",
+    "https://en.wikipedia.org/wiki/Unique_selling_proposition",
+    "https://en.wikipedia.org/wiki/Unreliable_narrator",
+    "https://en.wikipedia.org/wiki/Villanelle",
+    "https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing",
+    "https://help.openai.com/en/articles/6654000-best-practices-for-writing-prompts",
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+    "https://savethecat.com/",
+    "https://support.anthropic.com/",
+    "https://tvtropes.org/",
+    "https://www.korean.go.kr/",
+    "https://www.nngroup.com/articles/tone-of-voice-dimensions/",
+    "https://www.plainlanguage.gov/guidelines/"
+  ]
+}

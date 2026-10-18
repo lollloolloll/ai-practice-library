@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 픽셀아트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0b14; display: grid; place-items: center; }
+  /* 저해상도 캔버스(160x120)를 정수배로 확대, 보간 없이 */
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+</style>
+</head>
+<body>
+<canvas id="c" width="160" height="120"></canvas>
+<script>
+  const VW = 160, VH = 120, canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  function fit() { const s = Math.max(1, Math.floor(Math.min(innerWidth / VW, innerHeight / VH))); canvas.style.width = VW * s + 'px'; canvas.style.height = VH * s + 'px'; }
+  addEventListener('resize', fit); fit();
+  // PICO-8 풍 16색 팔레트만 사용
+  const PAL = ['#000000', '#1d2b53', '#7e2553', '#008751', '#ab5236', '#5f574f', '#c2c3c7', '#fff1e8', '#ff004d', '#ffa300', '#ffec27', '#00e436', '#29adff', '#83769c', '#ff77a8', '#ffccaa'];
+  // 8x8 공 스프라이트 (팔레트 인덱스)
+  const BALL = ['..8888..', '.8ffe88.', '8ff88888', '8f888888', '88888882', '88888822', '.888222.', '..2222..'].map(r => r.split(''));
+  const idx = { '8': 8, 'f': 15, 'e': 14, '2': 2 };
+  const balls = [{ x: 30, y: 20, vx: 1.3, vy: 0 }, { x: 90, y: 40, vx: -1.1, vy: 0 }];
+  canvas.addEventListener('click', e => { const r = canvas.getBoundingClientRect(); balls.push({ x: (e.clientX - r.left) / r.width * VW - 4, y: (e.clientY - r.top) / r.height * VH - 4, vx: (Math.random() - .5) * 3, vy: -2 }); });
+  let t = 0, score = 0;
+  function px(x, y, c) { ctx.fillStyle = PAL[c]; ctx.fillRect(x | 0, y | 0, 1, 1); }
+  function sprite(x, y, squash) {
+    x = Math.round(x); y = Math.round(y);  // 서브픽셀 금지 → 흐림 없음
+    for (let j = 0; j < 8; j++) for (let i = 0; i < 8; i++) { const c = BALL[j][i]; if (c !== '.') px(x + i, y + j + (squash && j < 2 ? 1 : 0), idx[c]); }
+  }
+  function loop() {
+    t++;
+    ctx.fillStyle = PAL[1]; ctx.fillRect(0, 0, VW, VH);
+    // 별 (디더링 깜빡임)
+    for (let i = 0; i < 30; i++) { const sx = (i * 37) % VW, sy = (i * 23) % 70; if ((t >> 4) + i & 1) px(sx, sy, i % 3 ? 6 : 7); }
+    // 바닥 타일 (체커 패턴)
+    for (let x = 0; x < VW; x++) for (let y = 104; y < VH; y++) px(x, y, y === 104 ? 11 : ((x >> 2) + (y >> 2)) & 1 ? 3 : 5);
+    for (const b of balls) {
+      b.vy += .12; b.x += b.vx; b.y += b.vy; b.sq = 0;
+      if (b.y > 96) { b.y = 96; b.vy = -Math.max(2.6, Math.abs(b.vy) * .85); b.sq = 1; score++; }
+      if (b.x < 0 || b.x > VW - 8) { b.vx *= -1; b.x = Math.max(0, Math.min(VW - 8, b.x)); }
+      // 그림자
+      for (let i = 1; i < 7; i++) px(Math.round(b.x) + i, 105, 5);
+      sprite(b.x, b.y, b.sq);
+    }
+    ctx.font = '8px "Press Start 2P", monospace'; ctx.textBaseline = 'top';
+    ctx.fillStyle = PAL[0]; ctx.fillText('SCORE ' + String(score).padStart(4, '0'), 5, 5); ctx.fillStyle = PAL[10]; ctx.fillText('SCORE ' + String(score).padStart(4, '0'), 4, 4);
+    if ((t >> 5) & 1) { ctx.fillStyle = PAL[7]; ctx.fillText('CLICK!', 110, 4); }
+    requestAnimationFrame(loop);
+  }
+  loop();
+</script>
+</body>
+</html>

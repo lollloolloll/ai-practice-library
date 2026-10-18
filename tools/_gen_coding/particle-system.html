@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 파티클</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #12121c; font-family: system-ui, sans-serif; color: #ccc; }
+  canvas { display: block; }
+  .hint { position: fixed; top: 10px; left: 12px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="hint">클릭: 공 추가 + 폭죽 · 파티클 <b id="n">0</b>개</div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const colors = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
+  const balls = [], particles = [];
+
+  // 이미터: 위치·색·개수·속도·수명 범위를 받아 파티클 생성
+  function emit(x, y, color, { count = 18, speed = 220, life = .7, size = 3, spread = Math.PI * 2, angle = 0, gravity = 500 } = {}) {
+    for (let i = 0; i < count; i++) {
+      const a = angle + (Math.random() - .5) * spread, s = speed * (.4 + Math.random() * .8);
+      particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: life * (.6 + Math.random() * .6), max: 0, size: size * (.6 + Math.random()), color, g: gravity });
+      particles[particles.length - 1].max = particles[particles.length - 1].life;
+    }
+  }
+  function addBall(x, y) { balls.push({ x, y, r: 12 + Math.random() * 12, vx: (Math.random() - .5) * 500, vy: (Math.random() - .5) * 500, c: colors[balls.length % 5] }); }
+  for (let i = 0; i < 4; i++) addBall(W * (.2 + i * .2), H / 2);
+  canvas.addEventListener('click', e => { addBall(e.clientX, e.clientY); emit(e.clientX, e.clientY, '#fff', { count: 60, speed: 380, life: 1.1, size: 3.5 }); colors.forEach(c => emit(e.clientX, e.clientY, c, { count: 14, speed: 300, life: 1 })); });
+
+  function update(dt) {
+    for (const b of balls) {
+      b.x += b.vx * dt; b.y += b.vy * dt;
+      // 벽에 튈 때마다 충돌 방향 반대로 파티클 분출
+      if (b.x < b.r) { b.x = b.r; b.vx *= -1; emit(b.x - b.r, b.y, b.c, { angle: 0, spread: 1.6 }); }
+      if (b.x > W - b.r) { b.x = W - b.r; b.vx *= -1; emit(b.x + b.r, b.y, b.c, { angle: Math.PI, spread: 1.6 }); }
+      if (b.y < b.r) { b.y = b.r; b.vy *= -1; emit(b.x, b.y - b.r, b.c, { angle: Math.PI / 2, spread: 1.6 }); }
+      if (b.y > H - b.r) { b.y = H - b.r; b.vy *= -1; emit(b.x, b.y + b.r, b.c, { angle: -Math.PI / 2, spread: 1.6 }); }
+      // 꼬리: 매 프레임 작은 연기 입자
+      if (Math.random() < .6) emit(b.x, b.y, b.c, { count: 1, speed: 20, life: .45, size: b.r * .35, gravity: -30 });
+    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i]; p.life -= dt;
+      if (p.life <= 0) { particles[i] = particles[particles.length - 1]; particles.pop(); continue; } // swap-remove
+      p.vy += p.g * dt; p.vx *= .985; p.x += p.vx * dt; p.y += p.vy * dt;
+    }
+  }
+  function draw() {
+    ctx.fillStyle = 'rgba(18,18,28,.35)'; ctx.fillRect(0, 0, W, H);   // 잔상
+    ctx.globalCompositeOperation = 'lighter';
+    for (const p of particles) {
+      const t = p.life / p.max; ctx.globalAlpha = t; ctx.fillStyle = p.color;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * (.4 + t * .6), 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    for (const b of balls) { ctx.fillStyle = b.c; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill(); }
+    document.getElementById('n').textContent = particles.length;
+  }
+  let last = performance.now();
+  (function loop(now) { const dt = Math.min(.033, (now - last) / 1000); last = now; update(dt); draw(); requestAnimationFrame(loop); })(last);
+</script>
+</body>
+</html>

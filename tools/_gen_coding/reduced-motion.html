@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #eee; gap: 10px; flex-wrap: wrap; }
+  .logo { font-weight: 700; font-size: 20px; color: #6f4e37; }
+  .motion { font-size: 12px; border: 1px solid #d7ccc8; border-radius: 999px; padding: 6px 12px; background: #fff; cursor: pointer; }
+  .hero { position: relative; overflow: hidden; text-align: center; padding: 64px 24px; background: #f7f1eb; }
+  .hero h1 { font-size: clamp(26px, 5vw, 38px); margin: 0 0 12px; color: #3e2723; position: relative; }
+  .hero p { font-size: 17px; color: #666; margin: 0 0 24px; position: relative; }
+  .bean { position: absolute; width: 26px; height: 36px; background: #8d6e63; border-radius: 50%; opacity: .35; animation: float 6s ease-in-out infinite; }
+  .bean::after { content: ''; position: absolute; left: 12px; top: 4px; width: 2px; height: 28px; background: #4e342e; border-radius: 2px; transform: rotate(10deg); }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-30px) rotate(40deg); } }
+  .steam { display: inline-block; font-size: 40px; animation: wob 2s ease-in-out infinite; }
+  @keyframes wob { 50% { transform: translateY(-6px) scale(1.08); } }
+  .btn { display: inline-block; padding: 12px 28px; background: #6f4e37; color: #fff; border-radius: 8px; text-decoration: none; position: relative; animation: pulse 2s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(111,78,55,.5); } 100% { box-shadow: 0 0 0 18px rgba(111,78,55,0); } }
+  section { padding: 40px 20px; max-width: 960px; margin: 0 auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .card { padding: 20px; border: 1px solid #eee; border-radius: 10px; text-align: center; transition: transform .4s; }
+  .card:hover { transform: translateY(-6px) rotate(-1deg); }
+  .ticker { overflow: hidden; white-space: nowrap; background: #3e2723; color: #f7f1eb; padding: 10px 0; font-size: 14px; }
+  .ticker span { display: inline-block; padding-left: 100%; animation: tick 14s linear infinite; }
+  @keyframes tick { to { transform: translateX(-100%); } }
+  .status { font-size: 12px; color: #6f4e37; text-align: center; padding: 8px; background: #fbf8f5; }
+
+  /* OS 설정이 '동작 줄이기'면 움직임을 제거하고 페이드/정적 상태로 대체 */
+  @media (prefers-reduced-motion: reduce) {
+    html:not(.force-motion) *, html:not(.force-motion) *::after { animation: none !important; transition: opacity .2s !important; }
+    html:not(.force-motion) .ticker span { padding-left: 0; white-space: normal; }
+    html:not(.force-motion) .card:hover { transform: none; }
+  }
+  /* 사이트 내 토글 (OS 설정과 무관하게 테스트·선택 가능) */
+  html.reduce *, html.reduce *::after { animation: none !important; transition: opacity .2s !important; }
+  html.reduce .ticker span { padding-left: 0; white-space: normal; }
+  html.reduce .card:hover { transform: none; }
+  html.reduce .ticker { text-align: center; }
+</style>
+</head>
+<body>
+<header><div class="logo">☕ 빈하우스</div><button class="motion" id="toggle" aria-pressed="false"></button></header>
+<div class="status" id="status"></div>
+<div class="hero">
+  <div class="bean" style="left:8%;top:20%"></div><div class="bean" style="left:84%;top:30%;animation-delay:-2s"></div><div class="bean" style="left:20%;top:70%;animation-delay:-4s"></div><div class="bean" style="left:72%;top:72%;animation-delay:-1s"></div>
+  <div class="steam">☕</div>
+  <h1>매주 신선한 원두를 문 앞까지</h1>
+  <p>로스팅 후 48시간 안에 배송되는 스페셜티 커피 구독</p>
+  <a class="btn" href="#plans">지금 구독하기</a>
+</div>
+<div class="ticker"><span>🎁 첫 달 50% 할인 · 무료 배송 · 언제든 해지 가능 · 매달 새로운 산지 원두</span></div>
+<section id="plans"><div class="grid">
+  <div class="card"><h3>라이트</h3><b>₩15,900</b><p>월 200g</p></div>
+  <div class="card"><h3>스탠다드</h3><b>₩27,900</b><p>월 400g</p></div>
+  <div class="card"><h3>프리미엄</h3><b>₩49,900</b><p>월 800g</p></div>
+</div></section>
+<script>
+  const mq = matchMedia('(prefers-reduced-motion: reduce)'), html = document.documentElement, btn = document.getElementById('toggle');
+  let reduce = mq.matches;
+  function apply() {
+    html.classList.toggle('reduce', reduce); html.classList.toggle('force-motion', !reduce);
+    btn.textContent = reduce ? '🐢 모션 줄이기: 켜짐' : '✨ 모션 줄이기: 꺼짐'; btn.setAttribute('aria-pressed', reduce);
+    document.getElementById('status').textContent = `OS 설정(prefers-reduced-motion): ${mq.matches ? 'reduce' : 'no-preference'} · 현재: ${reduce ? '움직임 최소화' : '전체 애니메이션'}`;
+  }
+  btn.onclick = () => { reduce = !reduce; apply(); };
+  mq.addEventListener('change', () => { reduce = mq.matches; apply(); });
+  apply();
+</script>
+</body>
+</html>

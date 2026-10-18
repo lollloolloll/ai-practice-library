@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #333; line-height: 1.6; }
+  img, svg { max-width: 100%; display: block; }
+  .wrap { width: min(1100px, 100% - 32px); margin-inline: auto; }
+  header { position: relative; background: #fff; border-bottom: 1px solid #eee; }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+  .logo { font-weight: 800; font-size: 20px; color: #6f4e37; }
+  .burger { display: none; width: 44px; height: 44px; border: 0; background: none; font-size: 24px; cursor: pointer; }
+  nav { display: flex; gap: 20px; }
+  nav a { color: #555; text-decoration: none; font-size: 15px; }
+  .hero { background: #f7f1eb; padding-block: clamp(40px, 8vw, 96px); }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(20px, 4vw, 56px); align-items: center; }
+  .hero h1 { font-size: clamp(28px, 5vw, 52px); line-height: 1.2; margin: 0 0 12px; color: #3e2723; }
+  .hero p { font-size: clamp(16px, 2vw, 19px); color: #666; margin: 0 0 24px; }
+  .btn { display: inline-block; padding: 14px 28px; background: #6f4e37; color: #fff; border-radius: 8px; text-decoration: none; border: 0; font-size: 16px; cursor: pointer; }
+  section { padding-block: clamp(40px, 6vw, 72px); }
+  h2 { text-align: center; color: #3e2723; font-size: clamp(22px, 3.2vw, 32px); margin: 0 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px; }
+  .card { padding: 24px; border: 1px solid #eee; border-radius: 12px; text-align: center; }
+  .card h3 { margin-top: 0; }
+  .price { font-size: 28px; font-weight: 700; color: #6f4e37; }
+  footer { text-align: center; padding: 24px; background: #3e2723; color: #d7ccc8; font-size: 14px; }
+  .bp { position: fixed; right: 10px; bottom: 10px; background: #111; color: #fff; font: 11px ui-monospace, monospace; padding: 4px 8px; border-radius: 4px; opacity: .8; }
+  .bp::after { content: '🖥 데스크톱 ≥ 1024px'; }
+  /* 태블릿 */
+  @media (max-width: 1023px) { .bp::after { content: '💻 태블릿 768–1023px'; } .hero .wrap { grid-template-columns: 1fr 1fr; } }
+  /* 모바일: 햄버거 메뉴 + 1열 */
+  @media (max-width: 767px) {
+    .bp::after { content: '📱 모바일 < 768px'; }
+    .burger { display: block; }
+    nav { display: none; position: absolute; top: 60px; left: 0; right: 0; flex-direction: column; gap: 0; background: #fff; border-bottom: 1px solid #eee; box-shadow: 0 8px 16px rgba(0,0,0,.06); z-index: 5; }
+    nav.open { display: flex; }
+    nav a { padding: 14px 20px; border-top: 1px solid #f2f2f2; }
+    .hero .wrap { grid-template-columns: 1fr; text-align: center; }
+    .hero svg { order: -1; max-width: 220px; margin: 0 auto; }
+    .btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="logo">☕ 빈하우스</div>
+  <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false">☰</button>
+  <nav id="nav"><a href="#features">특징</a><a href="#plans">요금제</a><a href="#plans">구독하기</a></nav>
+</div></header>
+<div class="hero"><div class="wrap">
+  <div>
+    <h1>매주 신선한 원두를<br>문 앞까지</h1>
+    <p>로스팅 후 48시간 안에 배송되는 스페셜티 커피 구독 서비스</p>
+    <a class="btn" href="#plans">지금 구독하기</a>
+  </div>
+  <svg viewBox="0 0 200 160" aria-hidden="true"><ellipse cx="100" cy="140" rx="80" ry="12" fill="#e8dccf"/><path d="M45 60h100l-10 70a10 10 0 0 1-10 9H65a10 10 0 0 1-10-9z" fill="#6f4e37"/><path d="M145 75h12a18 18 0 0 1 0 36h-16" stroke="#6f4e37" stroke-width="10" fill="none"/><ellipse cx="95" cy="60" rx="50" ry="8" fill="#3e2723"/><path d="M80 45c-8-10 8-14 0-26M100 45c-8-10 8-14 0-26M120 45c-8-10 8-14 0-26" stroke="#c8a98c" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+</div></div>
+<section id="features"><div class="wrap">
+  <h2>왜 빈하우스인가요?</h2>
+  <div class="grid">
+    <div class="card"><h3>🌱 신선함</h3><p>주문 후 로스팅해 바로 발송합니다.</p></div>
+    <div class="card"><h3>🌍 다양한 산지</h3><p>매달 새로운 산지의 원두를 소개합니다.</p></div>
+    <div class="card"><h3>🚚 무료 배송</h3><p>모든 구독은 배송비가 무료입니다.</p></div>
+  </div>
+</div></section>
+<section id="plans" style="background:#fbf8f5"><div class="wrap">
+  <h2>요금제</h2>
+  <div class="grid">
+    <div class="card"><h3>라이트</h3><div class="price">₩15,900</div><p>월 200g</p><button class="btn">선택</button></div>
+    <div class="card"><h3>스탠다드</h3><div class="price">₩27,900</div><p>월 400g</p><button class="btn">선택</button></div>
+    <div class="card"><h3>프리미엄</h3><div class="price">₩49,900</div><p>월 800g</p><button class="btn">선택</button></div>
+  </div>
+</div></section>
+<footer>© 2024 빈하우스 커피</footer>
+<div class="bp" aria-hidden="true"></div>
+<script>
+  const b = document.getElementById('burger'), nav = document.getElementById('nav');
+  b.onclick = () => { const o = nav.classList.toggle('open'); b.textContent = o ? '✕' : '☰'; b.setAttribute('aria-expanded', o); };
+  nav.onclick = e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); b.textContent = '☰'; } };
+</script>
+</body>
+</html>

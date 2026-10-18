@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>할 일</title>
+<style>
+  /* 모바일 기본 스타일 → 넓은 화면에서 확장 */
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #f2f3f7; color: #1c1c1e; min-height: 100vh; }
+  .bar { position: sticky; top: 0; background: rgba(242,243,247,.92); backdrop-filter: blur(8px); padding: 14px 16px 8px; z-index: 2; }
+  h1 { font-size: 28px; margin: 0; font-weight: 800; }
+  .sub { font-size: 13px; color: #8e8e93; }
+  ul { list-style: none; margin: 8px 12px 96px; padding: 0; background: #fff; border-radius: 14px; overflow: hidden; }
+  li { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border-bottom: 1px solid #ececf0; font-size: 17px; }
+  li:last-child { border-bottom: 0; }
+  .chk { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #c7c7cc; flex: none; display: grid; place-items: center; color: #fff; font-size: 15px; background: none; }
+  li.done .chk { background: #34c759; border-color: #34c759; }
+  li span { flex: 1; padding: 16px 0; }
+  li.done span { color: #aeaeb2; text-decoration: line-through; }
+  .del { width: 44px; height: 44px; border: 0; background: none; color: #ff3b30; font-size: 20px; }
+  /* 하단 고정 입력창: 엄지가 닿는 위치 */
+  form { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #e5e5ea; }
+  input { flex: 1; min-width: 0; height: 48px; border-radius: 24px; border: 1px solid #d1d1d6; padding: 0 18px; font-size: 16px; background: #f7f7f9; }
+  .add { width: 48px; height: 48px; border-radius: 50%; border: 0; background: #007aff; color: #fff; font-size: 26px; line-height: 1; }
+  @media (min-width: 720px) {
+    body { padding: 32px; }
+    .bar, ul, form { max-width: 560px; margin-left: auto; margin-right: auto; }
+    .bar { position: static; background: none; }
+    form { position: static; border-radius: 14px; border: 0; margin-top: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    ul { margin-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="bar"><h1>할 일</h1><div class="sub" id="count"></div></div>
+<ul id="list"></ul>
+<form id="form"><input id="input" placeholder="새로운 할 일" enterkeyhint="done" autocomplete="off"><button class="add" aria-label="추가">+</button></form>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }];
+  const list = document.getElementById('list');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<button class="chk" aria-label="완료">' + (t.done ? '✓' : '') + '</button><span></span><button class="del" aria-label="삭제">✕</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('.chk').onclick = () => { t.done = !t.done; render(); };
+      li.querySelector('span').onclick = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+    document.getElementById('count').textContent = `${todos.filter(t => !t.done).length}개 남음`;
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

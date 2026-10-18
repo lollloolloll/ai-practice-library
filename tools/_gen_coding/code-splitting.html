@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 18px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 21px; margin: 0 0 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .kpi, .panel { background: #fff; padding: 14px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .label { font-size: 12px; color: #777; } .value { font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+  .tabs button { padding: 8px 14px; border: 0; background: #e6e9f2; border-radius: 8px 8px 0 0; cursor: pointer; font-size: 13px; }
+  .tabs button.on { background: #fff; font-weight: 700; box-shadow: 0 -1px 3px rgba(0,0,0,.05); }
+  .cw { position: relative; height: 240px; }
+  .loading { height: 240px; display: grid; place-items: center; color: #888; font-size: 13px; }
+  .net { margin-top: 12px; font: 11px/1.7 ui-monospace, monospace; background: #1f2430; color: #cfd6e6; border-radius: 8px; padding: 8px 10px; }
+  .net .n { color: #7ee2a8; } .net .c { color: #ffd479; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; } td, th { padding: 7px 4px; border-bottom: 1px solid #f0f0f0; text-align: left; } td:last-child, th:last-child { text-align: right; }
+  textarea { width: 100%; height: 150px; font: 11px ui-monospace, monospace; }
+</style>
+</head>
+<body>
+<h1>매출 대시보드</h1>
+<div class="kpis">
+  <div class="kpi"><div class="label">총 매출</div><div class="value">₩48,250,000</div></div>
+  <div class="kpi"><div class="label">주문 수</div><div class="value">1,284</div></div>
+  <div class="kpi"><div class="label">초기 로드 JS</div><div class="value" style="color:#2e9e5b">~3 KB</div></div>
+</div>
+<div class="tabs" id="tabs"><button data-t="table" class="on">요약 표</button><button data-t="chart">📈 차트</button><button data-t="report">📄 리포트</button></div>
+<div class="panel" id="view"></div>
+<div class="net" id="net"><div class="n">● 초기: index.html (인라인 JS ~3KB) — 차트 라이브러리는 아직 로드하지 않음</div></div>
+<script>
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const sales = [3200, 3500, 3100, 3900, 4200, 4000, 4500, 4700, 4300, 4900, 5200, 4825];
+  const net = m => document.getElementById('net').insertAdjacentHTML('beforeend', `<div class="c">${m}</div>`);
+  const cache = {};
+  // 필요할 때만 청크 로드 (한 번 로드하면 캐시)
+  function loadScript(url) {
+    return cache[url] ||= new Promise((res, rej) => { const t0 = performance.now(); const s = document.createElement('script'); s.src = url; s.onload = () => { net(`↓ ${url.split('/npm/')[1]} — ${Math.round(performance.now() - t0)}ms (차트 탭 첫 진입 시)`); res(); }; s.onerror = rej; document.head.appendChild(s); });
+  }
+  // 리포트 모듈: 별도 청크라고 가정 (여기서는 지연 생성으로 흉내)
+  function loadReportModule() {
+    return cache.report ||= new Promise(res => setTimeout(() => { net('↓ chunk-report.js (가상 청크, 지연 로드)'); res({ toCSV: rows => ['월,매출(만원)', ...rows.map(([m, v]) => `${m},${v}`)].join('\n') }); }, 400));
+  }
+  const views = {
+    table: async el => { el.innerHTML = `<table><tr><th>월</th><th>매출 (만원)</th></tr>${months.map((m, i) => `<tr><td>${m}</td><td>${sales[i].toLocaleString()}</td></tr>`).join('')}</table>`; },
+    chart: async el => {
+      el.innerHTML = '<div class="loading">⏳ 차트 모듈 불러오는 중… (chart.js)</div>';
+      try { await loadScript('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js'); }
+      catch (e) { el.innerHTML = '<div class="loading">차트 모듈을 불러오지 못했습니다. <button onclick="show(\'chart\')">다시 시도</button></div>'; return; }
+      if (current !== 'chart') return;
+      el.innerHTML = '<div class="cw"><canvas id="cv"></canvas></div>';
+      new Chart(document.getElementById('cv'), { type: 'bar', data: { labels: months, datasets: [{ data: sales, backgroundColor: '#4a6cf7', borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+    },
+    report: async el => {
+      el.innerHTML = '<div class="loading">⏳ 리포트 모듈 불러오는 중…</div>';
+      const mod = await loadReportModule(); if (current !== 'report') return;
+      el.innerHTML = `<div class="label" style="margin-bottom:6px">CSV 미리보기</div><textarea readonly>${mod.toCSV(months.map((m, i) => [m, sales[i]]))}</textarea>`;
+    }
+  };
+  let current = 'table';
+  function show(t) { current = t; document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === t)); views[t](document.getElementById('view')); }
+  document.getElementById('tabs').onclick = e => e.target.dataset.t && show(e.target.dataset.t);
+  // 사용자가 탭에 마우스를 올리면 미리 받아두기 (prefetch)
+  document.querySelector('[data-t=chart]').addEventListener('pointerenter', () => { if (!cache['https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js']) net('… hover 감지 → chart.js 프리패치 시작'); loadScript('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js').catch(() => {}); }, { once: true });
+  show('table');
+</script>
+</body>
+</html>

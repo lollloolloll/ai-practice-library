@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 24px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  h1 { font-size: 22px; margin: 0; }
+  .open { background: #f1f2f6; color: #555; border: 1px solid #ddd; font-size: 12px; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+  kbd { font: 11px ui-monospace, monospace; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 0 4px; }
+  form { display: flex; gap: 8px; margin-bottom: 16px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  .add { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  .del { background: none; border: 0; color: #c33; cursor: pointer; }
+  .overlay { position: fixed; inset: 0; background: rgba(15,18,30,.45); display: none; align-items: flex-start; justify-content: center; padding-top: 12vh; z-index: 10; }
+  .overlay.show { display: flex; animation: f .15s; } @keyframes f { from { opacity: 0; } }
+  .pal { width: min(520px, calc(100vw - 32px)); background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.3); overflow: hidden; animation: s .15s; }
+  @keyframes s { from { transform: scale(.97) translateY(-6px); } }
+  .pal input { width: 100%; border: 0; border-bottom: 1px solid #eee; padding: 14px 16px; font-size: 16px; outline: none; }
+  .res { max-height: 260px; overflow: auto; padding: 6px; }
+  .opt { display: flex; justify-content: space-between; padding: 9px 10px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  .opt.act { background: #eef1ff; color: #2f47d0; }
+  .opt small { color: #999; }
+  .grp { font-size: 11px; color: #999; padding: 8px 10px 2px; }
+  .foot { font-size: 11px; color: #888; padding: 8px 12px; border-top: 1px solid #eee; background: #fafafa; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><h1>할 일 목록</h1><button class="open" id="open">⌘/Ctrl <kbd>K</kbd> 명령</button></div>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button class="add">추가</button></form>
+  <ul id="list"></ul>
+</div>
+<div class="overlay" id="ov">
+  <div class="pal" role="dialog" aria-label="명령 팔레트">
+    <input id="q" placeholder="명령 또는 할 일 검색… (예: 완료, 삭제, 장보기)" autocomplete="off">
+    <div class="res" id="res"></div>
+    <div class="foot">↑↓ 이동 · Enter 실행 · Esc 닫기</div>
+  </div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }, { text: '이메일 답장', done: false }];
+  const list = document.getElementById('list'), ov = document.getElementById('ov'), q = document.getElementById('q'), res = document.getElementById('res');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><button class="del">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      list.appendChild(li);
+    });
+  }
+  function commands(query) {
+    const cmds = [
+      { g: '명령', label: '새 할 일 추가', key: 'N', run: () => document.getElementById('input').focus() },
+      { g: '명령', label: '모두 완료로 표시', run: () => todos.forEach(t => t.done = true) },
+      { g: '명령', label: '완료 항목 삭제', run: () => todos = todos.filter(t => !t.done) },
+      { g: '명령', label: '이름순 정렬', run: () => todos.sort((a, b) => a.text.localeCompare(b.text, 'ko')) },
+      ...todos.map(t => ({ g: '할 일', label: (t.done ? '되돌리기: ' : '완료: ') + t.text, run: () => t.done = !t.done })),
+      ...todos.map(t => ({ g: '할 일', label: '삭제: ' + t.text, run: () => todos = todos.filter(x => x !== t) }))
+    ];
+    if (query && !cmds.some(c => c.label.includes(query))) cmds.unshift({ g: '빠른 추가', label: `"${query}" 할 일로 추가`, run: () => todos.push({ text: query, done: false }) });
+    return cmds.filter(c => !query || c.label.toLowerCase().includes(query.toLowerCase()) || c.g === '빠른 추가');
+  }
+  let act = 0, cur = [];
+  function draw() {
+    cur = commands(q.value.trim()); act = Math.min(act, cur.length - 1);
+    let last = ''; res.innerHTML = '';
+    cur.forEach((c, i) => {
+      if (c.g !== last) { res.insertAdjacentHTML('beforeend', `<div class="grp">${c.g}</div>`); last = c.g; }
+      const d = document.createElement('div'); d.className = 'opt' + (i === act ? ' act' : '');
+      d.innerHTML = `<span></span><small>${c.key || ''}</small>`; d.firstChild.textContent = c.label;
+      d.onmouseenter = () => { act = i; draw(); }; d.onclick = () => exec(i);
+      res.appendChild(d);
+    });
+  }
+  function exec(i) { cur[i]?.run(); close(); render(); }
+  function openP() { ov.classList.add('show'); q.value = ''; act = 0; draw(); q.focus(); }
+  function close() { ov.classList.remove('show'); }
+  document.getElementById('open').onclick = openP;
+  ov.onclick = e => { if (e.target === ov) close(); };
+  q.oninput = () => { act = 0; draw(); };
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); ov.classList.contains('show') ? close() : openP(); return; }
+    if (!ov.classList.contains('show')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowDown') { act = (act + 1) % cur.length; draw(); e.preventDefault(); }
+    if (e.key === 'ArrowUp') { act = (act - 1 + cur.length) % cur.length; draw(); e.preventDefault(); }
+    if (e.key === 'Enter') exec(act);
+  });
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,1788 @@
+@@term react todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. 리액트(React)로, 함수형 컴포넌트와 훅을 사용해서 만들어줘.
+@@code
+const { useState, useEffect } = React;
+
+const FILTERS = [['all', '전체'], ['active', '진행 중'], ['done', '완료']];
+
+function App() {
+  const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos') || '[]'));
+  const [text, setText] = useState('');
+  const [filter, setFilter] = useState('all');
+
+  // todos가 바뀔 때마다 localStorage에 저장
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
+
+  const addTodo = (e) => {
+    e.preventDefault();
+    if (!text.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: text.trim(), done: false }]);
+    setText('');
+  };
+  const toggle = (id) => setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  const remove = (id) => setTodos(todos.filter((t) => t.id !== id));
+
+  const visible = todos.filter((t) => (filter === 'all' ? true : filter === 'done' ? t.done : !t.done));
+  const left = todos.filter((t) => !t.done).length;
+
+  return (
+    <div className="app">
+      <h1>할 일 목록</h1>
+      <form onSubmit={addTodo}>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+        <button type="submit">추가</button>
+      </form>
+      <div className="filters">
+        {FILTERS.map(([key, label]) => (
+          <button key={key} className={filter === key ? 'active' : ''} onClick={() => setFilter(key)}>
+            {label}
+          </button>
+        ))}
+      </div>
+      <ul>
+        {visible.map((t) => (
+          <li key={t.id} className={t.done ? 'done' : ''}>
+            <input type="checkbox" checked={t.done} onChange={() => toggle(t.id)} />
+            <span>{t.text}</span>
+            <button onClick={() => remove(t.id)}>삭제</button>
+          </li>
+        ))}
+      </ul>
+      {todos.length === 0 && <p className="empty">아직 할 일이 없어요.</p>}
+      <p className="count">남은 할 일 {left}개</p>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+@@html=react
+
+@@term tailwind todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 스타일은 전부 테일윈드 CSS(Tailwind CSS) 유틸리티 클래스로만 해줘. 별도 CSS 파일은 쓰지 마.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+</head>
+<body class="min-h-screen bg-slate-100 flex justify-center px-4 py-12 font-sans">
+  <main class="w-full max-w-md bg-white rounded-2xl shadow-lg ring-1 ring-slate-200 p-6">
+    <h1 class="text-2xl font-bold text-slate-900">할 일 목록</h1>
+    <p id="count" class="mt-1 text-sm text-slate-500"></p>
+    <form id="form" class="mt-5 flex gap-2">
+      <input id="input" placeholder="할 일을 입력하세요"
+        class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+      <button class="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 active:scale-95 transition">추가</button>
+    </form>
+    <ul id="list" class="mt-5 divide-y divide-slate-100"></ul>
+    <p id="empty" class="hidden py-10 text-center text-sm text-slate-400">할 일이 없습니다 🎉</p>
+  </main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+
+  function save() { localStorage.setItem('todos', JSON.stringify(todos)); }
+
+  function render() {
+    $('list').innerHTML = '';
+    todos.forEach((t) => {
+      const li = document.createElement('li');
+      li.className = 'group flex items-center gap-3 py-3';
+      li.innerHTML = `
+        <input type="checkbox" class="h-5 w-5 rounded border-slate-300 accent-indigo-600 cursor-pointer" ${t.done ? 'checked' : ''}>
+        <span class="flex-1 text-sm ${t.done ? 'line-through text-slate-400' : 'text-slate-800'}"></span>
+        <button class="opacity-0 group-hover:opacity-100 text-xs text-rose-500 hover:text-rose-700 transition">삭제</button>`;
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos = todos.filter((x) => x !== t); save(); render(); };
+      $('list').appendChild(li);
+    });
+    const left = todos.filter((t) => !t.done).length;
+    $('count').textContent = `남은 할 일 ${left}개 / 전체 ${todos.length}개`;
+    $('empty').classList.toggle('hidden', todos.length > 0);
+  }
+
+  $('form').onsubmit = (e) => {
+    e.preventDefault();
+    const text = $('input').value.trim();
+    if (!text) return;
+    todos.push({ id: Date.now(), text, done: false });
+    $('input').value = '';
+    save(); render();
+  };
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term plain-css-variables todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 색·간격·둥글기는 순수 CSS 변수(plain CSS with custom properties)로 정의해서 써줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  :root {
+    --color-bg: #f6f5f2;
+    --color-surface: #ffffff;
+    --color-text: #1c1b19;
+    --color-muted: #8a867e;
+    --color-border: #e6e3dc;
+    --color-accent: #3d5afe;
+    --color-danger: #d64545;
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+    --radius-sm: 6px; --radius-lg: 14px;
+    --shadow: 0 1px 2px rgb(0 0 0 / .04), 0 8px 24px rgb(0 0 0 / .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: #141413; --color-surface: #1f1e1c; --color-text: #f1efe9;
+      --color-muted: #9b978e; --color-border: #34322e; --color-accent: #7b8cff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: var(--space-6) var(--space-4); background: var(--color-bg); color: var(--color-text);
+         font: 15px/1.5 system-ui, sans-serif; display: flex; justify-content: center; }
+  .card { width: 100%; max-width: 400px; background: var(--color-surface); border: 1px solid var(--color-border);
+          border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: var(--space-6); }
+  h1 { margin: 0 0 var(--space-4); font-size: 22px; }
+  form { display: flex; gap: var(--space-2); }
+  input[type=text] { flex: 1; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border);
+         border-radius: var(--radius-sm); background: transparent; color: inherit; font: inherit; }
+  input[type=text]:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+  .btn { padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-sm);
+         background: var(--color-accent); color: #fff; font: inherit; cursor: pointer; }
+  ul { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+  li { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+  li span { flex: 1; }
+  li.done span { color: var(--color-muted); text-decoration: line-through; }
+  .del { border: 0; background: none; color: var(--color-danger); cursor: pointer; font: inherit; font-size: 13px; }
+  input[type=checkbox] { accent-color: var(--color-accent); width: 18px; height: 18px; }
+  .count { margin: var(--space-3) 0 0; color: var(--color-muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>할 일 목록</h1>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button class="btn">추가</button></form>
+  <ul id="list"></ul>
+  <p class="count" id="count"></p>
+</main>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+  const list = document.getElementById('list');
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+
+  function render() {
+    list.innerHTML = '';
+    for (const t of todos) {
+      const li = document.createElement('li');
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox"><span></span><button class="del">삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; save(); render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter((x) => x !== t); save(); render(); };
+      list.appendChild(li);
+    }
+    document.getElementById('count').textContent = `남은 할 일 ${todos.filter((t) => !t.done).length}개`;
+  }
+
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    if (!input.value.trim()) return;
+    todos.push({ text: input.value.trim(), done: false });
+    input.value = '';
+    save(); render();
+  };
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term alpinejs todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 상호작용은 일반 HTML에 Alpine.js 속성(x-data, x-show 등)으로 붙여줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.5/dist/cdn.min.js"></script>
+<style>
+  [x-cloak] { display: none !important; }
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  .app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  form { display: flex; gap: 8px; } form input { flex: 1; padding: 8px; }
+  button { padding: 6px 10px; cursor: pointer; border: 1px solid #d4d4d8; background: #fff; border-radius: 6px; }
+  .tabs button.on { background: #18181b; color: #fff; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #aaa; }
+  .muted { color: #71717a; font-size: 13px; }
+</style>
+<script>
+  function todoApp() {
+    return {
+      todos: JSON.parse(localStorage.getItem('todos') || '[]'),
+      text: '',
+      filter: 'all',
+      get filtered() {
+        if (this.filter === 'active') return this.todos.filter((t) => !t.done);
+        if (this.filter === 'done') return this.todos.filter((t) => t.done);
+        return this.todos;
+      },
+      get left() { return this.todos.filter((t) => !t.done).length; },
+      add() {
+        if (!this.text.trim()) return;
+        this.todos.push({ id: Date.now(), text: this.text.trim(), done: false });
+        this.text = '';
+        this.save();
+      },
+      remove(id) { this.todos = this.todos.filter((t) => t.id !== id); this.save(); },
+      save() { localStorage.setItem('todos', JSON.stringify(this.todos)); },
+    };
+  }
+</script>
+</head>
+<body>
+<div class="app" x-data="todoApp()" x-cloak>
+  <h1>할 일 목록</h1>
+  <form @submit.prevent="add()">
+    <input x-model="text" placeholder="할 일을 입력하세요">
+    <button type="submit">추가</button>
+  </form>
+  <p class="tabs">
+    <button :class="{ on: filter === 'all' }" @click="filter = 'all'">전체</button>
+    <button :class="{ on: filter === 'active' }" @click="filter = 'active'">진행 중</button>
+    <button :class="{ on: filter === 'done' }" @click="filter = 'done'">완료</button>
+  </p>
+  <ul>
+    <template x-for="todo in filtered" :key="todo.id">
+      <li :class="{ done: todo.done }">
+        <input type="checkbox" x-model="todo.done" @change="save()">
+        <span x-text="todo.text"></span>
+        <button @click="remove(todo.id)">삭제</button>
+      </li>
+    </template>
+  </ul>
+  <p class="muted" x-show="todos.length === 0">할 일이 없어요.</p>
+  <p class="muted" x-show="todos.length > 0" x-text="`남은 할 일 ${left}개`"></p>
+</div>
+</body>
+</html>
+@@html=code
+
+@@term cdn-no-build todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. npm 설치나 빌드 없이, 필요한 라이브러리는 CDN에서 불러와서(load libraries from CDN) 파일 하나로 열리게 해줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<!-- 빌드 없이 Vue 3 글로벌 빌드를 CDN에서 직접 로드 (버전 고정) -->
+<script src="https://cdn.jsdelivr.net/npm/vue@3.4.21/dist/vue.global.prod.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  #app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  form { display: flex; gap: 8px; } form input { flex: 1; padding: 8px; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #aaa; }
+  .muted { color: #71717a; font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>할 일 목록</h1>
+  <form @submit.prevent="add">
+    <input v-model.trim="text" placeholder="할 일을 입력하세요">
+    <button>추가</button>
+  </form>
+  <ul>
+    <li v-for="t in todos" :key="t.id" :class="{ done: t.done }">
+      <input type="checkbox" v-model="t.done">
+      <span>{{ t.text }}</span>
+      <button @click="remove(t.id)">삭제</button>
+    </li>
+  </ul>
+  <p class="muted">남은 할 일 {{ left }}개</p>
+</div>
+<script>
+  const { createApp, ref, computed, watch } = Vue;
+  createApp({
+    setup() {
+      const todos = ref(JSON.parse(localStorage.getItem('todos') || '[]'));
+      const text = ref('');
+      const left = computed(() => todos.value.filter((t) => !t.done).length);
+      watch(todos, (v) => localStorage.setItem('todos', JSON.stringify(v)), { deep: true });
+      function add() {
+        if (!text.value) return;
+        todos.value.push({ id: Date.now(), text: text.value, done: false });
+        text.value = '';
+      }
+      const remove = (id) => { todos.value = todos.value.filter((t) => t.id !== id); };
+      return { todos, text, left, add, remove };
+    },
+  }).mount('#app');
+</script>
+</body>
+</html>
+@@html=code
+
+@@term lucide-icons todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 버튼에는 이모지 대신 전부 Lucide 아이콘(Lucide icons)을 써줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; color: #18181b; }
+  .app { background: #fff; padding: 24px; border-radius: 12px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  h1 { display: flex; align-items: center; gap: 8px; font-size: 22px; margin: 0 0 16px; }
+  form { display: flex; gap: 8px; } form input { flex: 1; padding: 8px 10px; border: 1px solid #d4d4d8; border-radius: 8px; }
+  .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #e4e4e7; background: #fff; border-radius: 8px; cursor: pointer; color: #52525b; }
+  .icon-btn.primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+  .icon-btn.danger:hover { color: #dc2626; border-color: #fecaca; }
+  .icon-btn svg, h1 svg { width: 18px; height: 18px; }
+  ul { list-style: none; padding: 0; margin: 12px 0 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f4f4f5; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #a1a1aa; }
+  .check { width: 28px; height: 28px; border: 0; background: none; cursor: pointer; color: #a1a1aa; padding: 0; }
+  li.done .check { color: #16a34a; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1><i data-lucide="list-checks"></i> 할 일 목록</h1>
+  <form id="form">
+    <input id="input" placeholder="할 일을 입력하세요">
+    <button class="icon-btn primary" aria-label="추가"><i data-lucide="plus"></i></button>
+  </form>
+  <ul id="list"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+
+  function render() {
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    todos.forEach((t) => {
+      const li = document.createElement('li');
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = `
+        <button class="check" aria-label="완료 전환"><i data-lucide="${t.done ? 'circle-check' : 'circle'}"></i></button>
+        <span></span>
+        <button class="icon-btn danger" aria-label="삭제"><i data-lucide="trash-2"></i></button>`;
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('.check').onclick = () => { t.done = !t.done; save(); render(); };
+      li.querySelector('.danger').onclick = () => { todos = todos.filter((x) => x !== t); save(); render(); };
+      list.appendChild(li);
+    });
+    lucide.createIcons(); // <i data-lucide> 를 SVG로 교체
+  }
+
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    if (!input.value.trim()) return;
+    todos.push({ text: input.value.trim(), done: false });
+    input.value = '';
+    save(); render();
+  };
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term shadcn-ui todo-app tsx
+@@prompt
+할 일 목록 앱을 만들어줘. UI는 shadcn/ui 컴포넌트(Button, Card, Input, Checkbox)와 Tailwind로 만들어줘.
+@@code
+"use client";
+
+import { useState } from "react";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+
+type Todo = { id: string; text: string; done: boolean };
+
+export default function TodoApp() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [text, setText] = useState("");
+
+  const add = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!text.trim()) return;
+    setTodos((prev) => [...prev, { id: crypto.randomUUID(), text: text.trim(), done: false }]);
+    setText("");
+  };
+  const left = todos.filter((t) => !t.done).length;
+
+  return (
+    <Card className="mx-auto mt-12 w-full max-w-md">
+      <CardHeader>
+        <CardTitle>할 일 목록</CardTitle>
+        <CardDescription>오늘 할 일을 정리해 보세요.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <form onSubmit={add} className="flex gap-2">
+          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+          <Button type="submit">추가</Button>
+        </form>
+        <ul className="divide-y rounded-md border">
+          {todos.map((t) => (
+            <li key={t.id} className="flex items-center gap-3 px-3 py-2">
+              <Checkbox
+                id={t.id}
+                checked={t.done}
+                onCheckedChange={() => setTodos((p) => p.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))}
+              />
+              <label htmlFor={t.id} className={`flex-1 text-sm ${t.done ? "text-muted-foreground line-through" : ""}`}>
+                {t.text}
+              </label>
+              <Button variant="ghost" size="icon" onClick={() => setTodos((p) => p.filter((x) => x.id !== t.id))}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </li>
+          ))}
+          {todos.length === 0 && <li className="px-3 py-6 text-center text-sm text-muted-foreground">할 일이 없습니다.</li>}
+        </ul>
+        <Badge variant="secondary">남은 할 일 {left}개</Badge>
+      </CardContent>
+    </Card>
+  );
+}
+@@transcript
+shadcn/ui는 npm 패키지가 아니라 **컴포넌트 소스를 프로젝트에 복사**하는 방식입니다. 먼저 필요한 컴포넌트를 추가하세요.
+
+```bash
+npx shadcn@latest init
+npx shadcn@latest add button card input checkbox badge
+```
+
+그다음 `components/todo-app.tsx`를 아래처럼 작성합니다. 색상은 shadcn 테마 변수(`text-muted-foreground` 등)를 따르므로 다크 모드도 자동으로 맞춰집니다.
+@@file components/ui/button.tsx
+// shadcn CLI가 생성 — 직접 수정 가능한 소스로 프로젝트에 복사됨
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-input bg-background shadow-sm hover:bg-accent",
+      },
+      size: { default: "h-9 px-4 py-2", icon: "h-9 w-9" },
+    },
+    defaultVariants: { variant: "default", size: "default" },
+  }
+);
+// ... Button 컴포넌트 export
+@@file lib/utils.ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+@@html=react-tw
+@@css
+body { margin: 0; background: #fafafa; font-family: ui-sans-serif, system-ui, sans-serif; }
+@@reactsrc
+// 미리보기용: shadcn/ui 컴포넌트 모양을 Tailwind로 재현 (실제 프로젝트는 components/ui/* 사용)
+const { useState } = React;
+const cn = (...c) => c.filter(Boolean).join(' ');
+const Button = ({ variant = 'default', size = 'default', className, ...p }) => (
+  <button className={cn('inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950',
+    variant === 'default' && 'bg-zinc-900 text-zinc-50 shadow hover:bg-zinc-900/90',
+    variant === 'ghost' && 'hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900',
+    size === 'default' ? 'h-9 px-4 py-2' : 'h-8 w-8', className)} {...p} />
+);
+const Card = ({ className, ...p }) => <div className={cn('rounded-xl border border-zinc-200 bg-white text-zinc-950 shadow', className)} {...p} />;
+const Input = (p) => <input className="flex h-9 w-full rounded-md border border-zinc-200 bg-transparent px-3 py-1 text-sm shadow-sm placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950" {...p} />;
+const Checkbox = ({ checked, onCheckedChange, id }) => (
+  <button id={id} role="checkbox" aria-checked={checked} onClick={onCheckedChange}
+    className={cn('h-4 w-4 shrink-0 rounded-sm border border-zinc-900 shadow flex items-center justify-center', checked && 'bg-zinc-900 text-white')}>
+    {checked && <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="3"><path d="M20 6 9 17l-5-5" /></svg>}
+  </button>
+);
+const Trash = () => <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" /></svg>;
+
+function TodoApp() {
+  const [todos, setTodos] = useState([{ id: 'a', text: 'shadcn/ui 설치하기', done: true }, { id: 'b', text: '할 일 목록 만들기', done: false }]);
+  const [text, setText] = useState('');
+  const add = (e) => { e.preventDefault(); if (!text.trim()) return; setTodos((p) => [...p, { id: String(Date.now()), text: text.trim(), done: false }]); setText(''); };
+  const left = todos.filter((t) => !t.done).length;
+  return (
+    <div className="px-4">
+      <Card className="mx-auto mt-12 w-full max-w-md">
+        <div className="flex flex-col space-y-1.5 p-6">
+          <h3 className="font-semibold leading-none tracking-tight">할 일 목록</h3>
+          <p className="text-sm text-zinc-500">오늘 할 일을 정리해 보세요.</p>
+        </div>
+        <div className="p-6 pt-0 space-y-4">
+          <form onSubmit={add} className="flex gap-2">
+            <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+            <Button type="submit">추가</Button>
+          </form>
+          <ul className="divide-y divide-zinc-200 rounded-md border border-zinc-200">
+            {todos.map((t) => (
+              <li key={t.id} className="flex items-center gap-3 px-3 py-2">
+                <Checkbox id={t.id} checked={t.done} onCheckedChange={() => setTodos((p) => p.map((x) => x.id === t.id ? { ...x, done: !x.done } : x))} />
+                <label htmlFor={t.id} className={cn('flex-1 text-sm', t.done && 'text-zinc-500 line-through')}>{t.text}</label>
+                <Button variant="ghost" size="icon" onClick={() => setTodos((p) => p.filter((x) => x.id !== t.id))}><Trash /></Button>
+              </li>
+            ))}
+            {todos.length === 0 && <li className="px-3 py-6 text-center text-sm text-zinc-500">할 일이 없습니다.</li>}
+          </ul>
+          <span className="inline-flex items-center rounded-md bg-zinc-100 px-2.5 py-0.5 text-xs font-semibold text-zinc-900">남은 할 일 {left}개</span>
+        </div>
+      </Card>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<TodoApp />);
+
+@@term typescript todo-app ts
+@@prompt
+할 일 목록 앱을 만들어줘. 타입스크립트(TypeScript) strict 모드로 작성하고, 모든 데이터 모델에 타입을 정의해줘.
+@@file tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "lib": ["ES2020", "DOM"],
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}
+@@file src/types.ts
+export type TodoId = string;
+
+export interface Todo {
+  id: TodoId;
+  text: string;
+  done: boolean;
+  createdAt: number;
+}
+
+export type Filter = "all" | "active" | "done";
+
+export interface AppState {
+  todos: Todo[];
+  filter: Filter;
+}
+@@file src/store.ts
+import type { AppState, Filter, Todo, TodoId } from "./types";
+
+const STORAGE_KEY = "todos";
+
+function isTodo(value: unknown): value is Todo {
+  if (typeof value !== "object" || value === null) return false;
+  const v = value as Record<string, unknown>;
+  return typeof v.id === "string" && typeof v.text === "string" && typeof v.done === "boolean";
+}
+
+export function loadTodos(): Todo[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    return Array.isArray(parsed) ? parsed.filter(isTodo) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveTodos(todos: readonly Todo[]): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+export const addTodo = (state: AppState, text: string): AppState => ({
+  ...state,
+  todos: [...state.todos, { id: crypto.randomUUID(), text, done: false, createdAt: Date.now() }],
+});
+
+export const toggleTodo = (state: AppState, id: TodoId): AppState => ({
+  ...state,
+  todos: state.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)),
+});
+
+export const removeTodo = (state: AppState, id: TodoId): AppState => ({
+  ...state,
+  todos: state.todos.filter((t) => t.id !== id),
+});
+
+export function visibleTodos({ todos, filter }: AppState): Todo[] {
+  const predicates: Record<Filter, (t: Todo) => boolean> = {
+    all: () => true,
+    active: (t) => !t.done,
+    done: (t) => t.done,
+  };
+  return todos.filter(predicates[filter]);
+}
+@@file src/main.ts
+import { addTodo, loadTodos, removeTodo, saveTodos, toggleTodo, visibleTodos } from "./store";
+import type { AppState } from "./types";
+
+function $<T extends HTMLElement>(selector: string): T {
+  const el = document.querySelector<T>(selector);
+  if (!el) throw new Error(`Element not found: ${selector}`);
+  return el;
+}
+
+const form = $<HTMLFormElement>("#form");
+const input = $<HTMLInputElement>("#input");
+const list = $<HTMLUListElement>("#list");
+
+let state: AppState = { todos: loadTodos(), filter: "all" };
+
+function setState(next: AppState): void {
+  state = next;
+  saveTodos(state.todos);
+  render();
+}
+
+function render(): void {
+  list.replaceChildren(
+    ...visibleTodos(state).map((todo) => {
+      const li = document.createElement("li");
+      li.classList.toggle("done", todo.done);
+      const box = document.createElement("input");
+      box.type = "checkbox";
+      box.checked = todo.done;
+      box.addEventListener("change", () => setState(toggleTodo(state, todo.id)));
+      const label = document.createElement("span");
+      label.textContent = todo.text;
+      const del = document.createElement("button");
+      del.textContent = "삭제";
+      del.addEventListener("click", () => setState(removeTodo(state, todo.id)));
+      li.append(box, label, del);
+      return li;
+    })
+  );
+}
+
+form.addEventListener("submit", (e: SubmitEvent) => {
+  e.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+  setState(addTodo(state, text));
+  input.value = "";
+});
+
+render();
+@@file index.html
+<!DOCTYPE html>
+<html lang="ko">
+<body>
+  <h1>할 일 목록</h1>
+  <form id="form"><input id="input" placeholder="할 일을 입력하세요" /><button>추가</button></form>
+  <ul id="list"></ul>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+
+@@term vite todo-app ts
+@@prompt
+할 일 목록 앱을 만들어줘. Vite + React + TypeScript 싱글 페이지 앱(SPA)으로 프로젝트를 구성해줘.
+@@transcript
+Vite 템플릿으로 프로젝트를 만들고, 할 일 목록을 구현했습니다.
+
+```bash
+npm create vite@latest todo-app -- --template react-ts
+cd todo-app
+npm install
+npm run dev   # http://localhost:5173
+```
+
+구조:
+- `src/App.tsx` — 화면과 상태
+- `src/components/TodoItem.tsx` — 항목 한 줄
+- `src/types.ts` — Todo 타입
+- `npm run build` 하면 `dist/`에 정적 파일이 생성되어 어디든 배포할 수 있습니다.
+@@file package.json
+{
+  "name": "todo-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
+  }
+}
+@@file vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+  plugins: [react()],
+});
+@@file index.html
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>할 일 목록</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+@@file src/main.tsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+@@file src/types.ts
+export interface Todo {
+  id: number;
+  text: string;
+  done: boolean;
+}
+@@file src/App.tsx
+import { useEffect, useState } from "react";
+import TodoItem from "./components/TodoItem";
+import type { Todo } from "./types";
+
+export default function App() {
+  const [todos, setTodos] = useState<Todo[]>(() => JSON.parse(localStorage.getItem("todos") ?? "[]"));
+  const [text, setText] = useState("");
+
+  useEffect(() => localStorage.setItem("todos", JSON.stringify(todos)), [todos]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: text.trim(), done: false }]);
+    setText("");
+  }
+
+  return (
+    <main className="app">
+      <h1>할 일 목록</h1>
+      <form onSubmit={handleSubmit}>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+        <button type="submit">추가</button>
+      </form>
+      <ul>
+        {todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggle={() => setTodos(todos.map((t) => (t.id === todo.id ? { ...t, done: !t.done } : t)))}
+            onDelete={() => setTodos(todos.filter((t) => t.id !== todo.id))}
+          />
+        ))}
+      </ul>
+    </main>
+  );
+}
+@@file src/components/TodoItem.tsx
+import type { Todo } from "../types";
+
+interface Props {
+  todo: Todo;
+  onToggle: () => void;
+  onDelete: () => void;
+}
+
+export default function TodoItem({ todo, onToggle, onDelete }: Props) {
+  return (
+    <li className={todo.done ? "done" : ""}>
+      <input type="checkbox" checked={todo.done} onChange={onToggle} />
+      <span>{todo.text}</span>
+      <button onClick={onDelete}>삭제</button>
+    </li>
+  );
+}
+@@file src/index.css
+body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; }
+.app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; }
+li.done span { text-decoration: line-through; color: #a1a1aa; }
+
+@@term nextjs todo-app tsx
+@@prompt
+할 일 목록 앱을 만들어줘. Next.js 앱 라우터(App Router)로, 가능한 곳은 서버 컴포넌트를 써줘.
+@@transcript
+Next.js App Router 구조로 만들었습니다. 목록은 **서버 컴포넌트**에서 읽고, 추가·완료·삭제는 **Server Actions**로 처리합니다. 상호작용이 필요한 입력 폼과 체크박스만 클라이언트 컴포넌트(`"use client"`)입니다.
+
+예시는 간단히 하려고 메모리 배열(`lib/todos.ts`)에 저장하지만, 실제로는 이 파일만 DB(Prisma, Supabase 등) 호출로 바꾸면 됩니다.
+
+```bash
+npx create-next-app@latest todo-app --ts --app --tailwind
+npm run dev
+```
+@@file app/layout.tsx
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = { title: "할 일 목록" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ko">
+      <body className="min-h-screen bg-zinc-50 antialiased">{children}</body>
+    </html>
+  );
+}
+@@file app/page.tsx
+// 서버 컴포넌트: 서버에서 데이터를 읽어 HTML로 렌더링
+import { getTodos } from "@/lib/todos";
+import AddTodoForm from "./add-todo-form";
+import TodoItem from "./todo-item";
+
+export default async function Page() {
+  const todos = await getTodos();
+  const left = todos.filter((t) => !t.done).length;
+
+  return (
+    <main className="mx-auto max-w-md p-6">
+      <h1 className="text-2xl font-bold">할 일 목록</h1>
+      <p className="text-sm text-zinc-500">남은 할 일 {left}개</p>
+      <AddTodoForm />
+      <ul className="mt-4 divide-y rounded-lg border bg-white">
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} todo={todo} />
+        ))}
+      </ul>
+    </main>
+  );
+}
+@@file app/actions.ts
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { createTodo, deleteTodo, toggleTodo } from "@/lib/todos";
+
+export async function addTodoAction(formData: FormData) {
+  const text = String(formData.get("text") ?? "").trim();
+  if (!text) return;
+  await createTodo(text);
+  revalidatePath("/");
+}
+
+export async function toggleTodoAction(id: string) {
+  await toggleTodo(id);
+  revalidatePath("/");
+}
+
+export async function deleteTodoAction(id: string) {
+  await deleteTodo(id);
+  revalidatePath("/");
+}
+@@file app/add-todo-form.tsx
+"use client";
+
+import { useRef } from "react";
+import { useFormStatus } from "react-dom";
+import { addTodoAction } from "./actions";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button disabled={pending} className="rounded-md bg-black px-4 py-2 text-sm text-white disabled:opacity-50">
+      {pending ? "추가 중…" : "추가"}
+    </button>
+  );
+}
+
+export default function AddTodoForm() {
+  const ref = useRef<HTMLFormElement>(null);
+  return (
+    <form
+      ref={ref}
+      action={async (formData) => {
+        await addTodoAction(formData);
+        ref.current?.reset();
+      }}
+      className="mt-4 flex gap-2"
+    >
+      <input name="text" placeholder="할 일을 입력하세요" className="flex-1 rounded-md border px-3 py-2 text-sm" />
+      <SubmitButton />
+    </form>
+  );
+}
+@@file app/todo-item.tsx
+"use client";
+
+import { useTransition } from "react";
+import type { Todo } from "@/lib/todos";
+import { deleteTodoAction, toggleTodoAction } from "./actions";
+
+export default function TodoItem({ todo }: { todo: Todo }) {
+  const [isPending, startTransition] = useTransition();
+  return (
+    <li className={`flex items-center gap-3 px-3 py-2 ${isPending ? "opacity-50" : ""}`}>
+      <input type="checkbox" checked={todo.done} onChange={() => startTransition(() => toggleTodoAction(todo.id))} />
+      <span className={`flex-1 text-sm ${todo.done ? "text-zinc-400 line-through" : ""}`}>{todo.text}</span>
+      <button onClick={() => startTransition(() => deleteTodoAction(todo.id))} className="text-xs text-red-500">
+        삭제
+      </button>
+    </li>
+  );
+}
+@@file lib/todos.ts
+// 데이터 계층: 지금은 메모리, 나중에 DB로 교체
+export type Todo = { id: string; text: string; done: boolean };
+
+let todos: Todo[] = [];
+
+export async function getTodos() {
+  return todos;
+}
+export async function createTodo(text: string) {
+  todos = [...todos, { id: crypto.randomUUID(), text, done: false }];
+}
+export async function toggleTodo(id: string) {
+  todos = todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+}
+export async function deleteTodo(id: string) {
+  todos = todos.filter((t) => t.id !== id);
+}
+
+@@term supabase todo-app tsx
+@@prompt
+할 일 목록 앱을 만들어줘. 백엔드는 Supabase를 써서 로그인과 Postgres `todos` 테이블, 행 수준 보안(RLS)까지 설정해줘.
+@@transcript
+Supabase를 백엔드로 쓰는 구성입니다. 순서대로 진행하세요.
+
+1. supabase.com에서 프로젝트 생성 → **SQL Editor**에서 `supabase/migrations/001_todos.sql` 실행
+2. **Authentication → Providers**에서 Email(매직 링크) 활성화
+3. `.env.example`을 `.env.local`로 복사하고 Project URL과 **anon key**를 입력 (service_role 키는 절대 클라이언트에 넣지 마세요)
+4. `npm install @supabase/supabase-js` 후 `npm run dev`
+
+RLS 정책 덕분에 각 사용자는 **자기 할 일만** 읽고 쓸 수 있습니다. 클라이언트 코드가 노출되어도 다른 사람 데이터에는 접근할 수 없습니다.
+@@file supabase/migrations/001_todos.sql
+create table public.todos (
+  id          bigint generated always as identity primary key,
+  user_id     uuid not null references auth.users (id) on delete cascade default auth.uid(),
+  text        text not null check (char_length(text) between 1 and 200),
+  done        boolean not null default false,
+  created_at  timestamptz not null default now()
+);
+
+alter table public.todos enable row level security;
+
+create policy "본인 할 일만 조회" on public.todos
+  for select using (auth.uid() = user_id);
+create policy "본인 할 일만 추가" on public.todos
+  for insert with check (auth.uid() = user_id);
+create policy "본인 할 일만 수정" on public.todos
+  for update using (auth.uid() = user_id);
+create policy "본인 할 일만 삭제" on public.todos
+  for delete using (auth.uid() = user_id);
+
+create index todos_user_id_idx on public.todos (user_id);
+@@file .env.example
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
+@@file src/lib/supabase.ts
+import { createClient } from "@supabase/supabase-js";
+
+export const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+export type Todo = { id: number; text: string; done: boolean; created_at: string };
+@@file src/App.tsx
+import { useEffect, useState } from "react";
+import type { Session } from "@supabase/supabase-js";
+import { supabase, type Todo } from "./lib/supabase";
+
+export default function App() {
+  const [session, setSession] = useState<Session | null>(null);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    return () => data.subscription.unsubscribe();
+  }, []);
+  return session ? <Todos /> : <Login />;
+}
+
+function Login() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  async function login(e: React.FormEvent) {
+    e.preventDefault();
+    const { error } = await supabase.auth.signInWithOtp({ email });
+    if (!error) setSent(true);
+  }
+  if (sent) return <p>메일함에서 로그인 링크를 확인하세요.</p>;
+  return (
+    <form onSubmit={login}>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" required />
+      <button>로그인 링크 받기</button>
+    </form>
+  );
+}
+
+function Todos() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [text, setText] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  async function load() {
+    const { data, error } = await supabase.from("todos").select("*").order("created_at");
+    if (error) setError(error.message);
+    else setTodos(data);
+  }
+  useEffect(() => { load(); }, []);
+
+  async function add(e: React.FormEvent) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    const { error } = await supabase.from("todos").insert({ text: text.trim() });
+    if (error) return setError(error.message);
+    setText("");
+    load();
+  }
+  async function toggle(t: Todo) {
+    await supabase.from("todos").update({ done: !t.done }).eq("id", t.id);
+    load();
+  }
+  async function remove(id: number) {
+    await supabase.from("todos").delete().eq("id", id);
+    load();
+  }
+
+  return (
+    <main>
+      <h1>할 일 목록</h1>
+      <button onClick={() => supabase.auth.signOut()}>로그아웃</button>
+      {error && <p role="alert">{error}</p>}
+      <form onSubmit={add}>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+        <button>추가</button>
+      </form>
+      <ul>
+        {todos.map((t) => (
+          <li key={t.id}>
+            <input type="checkbox" checked={t.done} onChange={() => toggle(t)} />
+            <span>{t.text}</span>
+            <button onClick={() => remove(t.id)}>삭제</button>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
+
+@@term python-cli todo-app python
+@@prompt
+할 일 목록 앱을 만들어줘. 파이썬 CLI 스크립트(Python CLI script, argparse)로, --dry-run 옵션과 main() 진입점을 넣어줘.
+@@transcript
+터미널에서 쓰는 할 일 관리 스크립트입니다. 데이터는 홈 폴더의 `~/.todos.json`에 저장됩니다.
+
+```bash
+python todo.py add "우유 사기"
+python todo.py list
+python todo.py done 1
+python todo.py remove 1 --dry-run   # 실제로 지우지 않고 무엇이 바뀔지만 출력
+```
+@@file todo.py
+#!/usr/bin/env python3
+"""간단한 할 일 목록 CLI."""
+import argparse
+import json
+import sys
+from pathlib import Path
+
+DB_PATH = Path.home() / ".todos.json"
+
+
+def load() -> list[dict]:
+    if not DB_PATH.exists():
+        return []
+    try:
+        return json.loads(DB_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        print(f"경고: {DB_PATH} 파일이 손상되어 빈 목록으로 시작합니다.", file=sys.stderr)
+        return []
+
+
+def save(todos: list[dict], dry_run: bool) -> None:
+    if dry_run:
+        print("[dry-run] 저장하지 않았습니다.")
+        return
+    DB_PATH.write_text(json.dumps(todos, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def get_index(todos: list[dict], number: int) -> int:
+    if not 1 <= number <= len(todos):
+        sys.exit(f"오류: {number}번 할 일이 없습니다. (1~{len(todos)})")
+    return number - 1
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="할 일 목록 관리")
+    parser.add_argument("--dry-run", action="store_true", help="변경 내용을 저장하지 않고 미리보기")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_add = sub.add_parser("add", help="할 일 추가")
+    p_add.add_argument("text", help="할 일 내용")
+    sub.add_parser("list", help="목록 보기")
+    for name, help_text in (("done", "완료 처리"), ("remove", "삭제")):
+        p = sub.add_parser(name, help=help_text)
+        p.add_argument("number", type=int, help="list에 표시된 번호")
+
+    args = parser.parse_args(argv)
+    todos = load()
+
+    if args.command == "add":
+        todos.append({"text": args.text, "done": False})
+        print(f"추가: {args.text}")
+        save(todos, args.dry_run)
+    elif args.command == "list":
+        if not todos:
+            print("할 일이 없습니다.")
+        for i, t in enumerate(todos, 1):
+            print(f"{i:>3}. [{'x' if t['done'] else ' '}] {t['text']}")
+    elif args.command == "done":
+        i = get_index(todos, args.number)
+        todos[i]["done"] = True
+        print(f"완료: {todos[i]['text']}")
+        save(todos, args.dry_run)
+    elif args.command == "remove":
+        i = get_index(todos, args.number)
+        removed = todos.pop(i)
+        print(f"삭제: {removed['text']}")
+        save(todos, args.dry_run)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+
+@@term threejs bouncing-ball-game html
+@@prompt
+브라우저에서 공이 튀는 게임을 만들어줘. Three.js로 3D로 렌더링하고, 원근 카메라(PerspectiveCamera)·방향광·OrbitControls를 써줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D 공 튀기기</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0f172a; font-family: system-ui, sans-serif; }
+  #hud { position: fixed; top: 12px; left: 12px; color: #fff; font-size: 14px; line-height: 1.6; pointer-events: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="hud">점수: <b id="score">0</b> · 최고: <b id="best">0</b><br>공을 클릭해 다시 띄우세요 · 드래그로 시점 회전</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0f172a);
+const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(6, 5, 8);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.target.set(0, 1, 0);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+const sun = new THREE.DirectionalLight(0xffffff, 1.5);
+sun.position.set(5, 10, 4);
+sun.castShadow = true;
+scene.add(sun);
+
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(12, 12), new THREE.MeshStandardMaterial({ color: 0x334155 }));
+floor.rotation.x = -Math.PI / 2;
+floor.receiveShadow = true;
+scene.add(floor);
+const grid = new THREE.GridHelper(12, 12, 0x64748b, 0x475569);
+grid.position.y = 0.01;
+scene.add(grid);
+
+const R = 0.5, HALF = 6, GRAVITY = -18;
+const ball = new THREE.Mesh(new THREE.SphereGeometry(R, 32, 32), new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.35 }));
+ball.castShadow = true;
+scene.add(ball);
+
+const pos = new THREE.Vector3(0, 4, 0);
+const vel = new THREE.Vector3(2.5, 0, 1.5);
+let score = 0, best = 0, restTime = 0;
+const $score = document.getElementById('score'), $best = document.getElementById('best');
+
+function kick() {
+  vel.set((Math.random() - 0.5) * 6, 9 + Math.random() * 3, (Math.random() - 0.5) * 6);
+  score++; best = Math.max(best, score);
+  $score.textContent = score; $best.textContent = best;
+}
+
+const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
+renderer.domElement.addEventListener('pointerdown', (e) => {
+  pointer.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  raycaster.setFromCamera(pointer, camera);
+  if (raycaster.intersectObject(ball).length) kick();
+});
+
+const clock = new THREE.Clock();
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.033);
+  vel.y += GRAVITY * dt;
+  pos.addScaledVector(vel, dt);
+  if (pos.y < R) {
+    pos.y = R; vel.y = -vel.y * 0.7; vel.x *= 0.97; vel.z *= 0.97;
+    if (Math.abs(vel.y) < 1.2) vel.y = 0;
+  }
+  for (const axis of ['x', 'z']) {
+    if (Math.abs(pos[axis]) > HALF - R) { pos[axis] = Math.sign(pos[axis]) * (HALF - R); vel[axis] *= -1; }
+  }
+  // 공이 바닥에 멈춘 채 1.5초가 지나면 점수 초기화
+  restTime = vel.y === 0 && pos.y === R ? restTime + dt : 0;
+  if (restTime > 1.5 && score > 0) { score = 0; $score.textContent = 0; }
+  ball.position.copy(pos);
+  ball.rotation.x += vel.z * dt * 2;
+  ball.rotation.z -= vel.x * dt * 2;
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>
+@@html=code
+
+@@term p5js bouncing-ball-game html
+@@prompt
+브라우저에서 공이 튀는 게임을 만들어줘. p5.js 스케치(setup()과 draw())로 작성해줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공 튀기기 - p5.js</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+  body { margin: 0; background: #020617; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  canvas { border-radius: 12px; touch-action: none; }
+</style>
+</head>
+<body>
+<script>
+let ball, paddleX, score = 0, best = 0, playing = false;
+const PADDLE_W = 100, PADDLE_H = 14;
+
+function setup() {
+  createCanvas(min(windowWidth - 32, 480), min(windowHeight - 32, 600));
+  paddleX = width / 2;
+  resetBall();
+  textFont('system-ui');
+}
+
+function resetBall() {
+  ball = { x: width / 2, y: 120, vx: random([-1, 1]) * 3, vy: 0, r: 12 };
+}
+
+function draw() {
+  background(15, 23, 42);
+  paddleX = constrain(mouseX, PADDLE_W / 2, width - PADDLE_W / 2);
+  const paddleY = height - 40;
+
+  if (playing) {
+    ball.vy += 0.35;                 // 중력
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+    if (ball.x < ball.r || ball.x > width - ball.r) {
+      ball.vx *= -1;
+      ball.x = constrain(ball.x, ball.r, width - ball.r);
+    }
+    const hitPaddle = ball.vy > 0 && ball.y + ball.r >= paddleY && ball.y - ball.r <= paddleY + PADDLE_H &&
+                      abs(ball.x - paddleX) < PADDLE_W / 2 + ball.r;
+    if (hitPaddle) {
+      ball.y = paddleY - ball.r;
+      ball.vy = -(11 + min(score * 0.15, 4));
+      ball.vx = constrain(ball.vx + (ball.x - paddleX) * 0.08, -8, 8);
+      score++;
+    }
+    if (ball.y > height + ball.r) {
+      playing = false;
+      best = max(best, score);
+    }
+  }
+
+  noStroke();
+  fill(249, 115, 22);
+  circle(ball.x, ball.y, ball.r * 2);
+  fill(226, 232, 240);
+  rectMode(CENTER);
+  rect(paddleX, paddleY + PADDLE_H / 2, PADDLE_W, PADDLE_H, 7);
+
+  fill(255);
+  textSize(18);
+  textAlign(LEFT, TOP);
+  text(`점수 ${score}   최고 ${best}`, 16, 16);
+
+  if (!playing) {
+    fill(0, 0, 0, 140);
+    rectMode(CORNER);
+    rect(0, 0, width, height);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(26);
+    text(score > 0 ? `게임 오버! ${score}점` : '공 튀기기', width / 2, height / 2 - 20);
+    textSize(16);
+    text('클릭(터치)해서 시작 · 마우스로 패들 이동', width / 2, height / 2 + 20);
+  }
+}
+
+function mousePressed() {
+  if (!playing) {
+    score = 0;
+    resetBall();
+    playing = true;
+  }
+}
+</script>
+</body>
+</html>
+@@html=code
+
+@@term matter-js bouncing-ball-game html
+@@prompt
+브라우저에서 공이 튀는 게임을 만들어줘. 물리는 Matter.js 물리 엔진(중력, 반발력, 마찰)을 써줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공 떨어뜨리기 - Matter.js</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<style>
+  body { margin: 0; background: #0f172a; color: #fff; font-family: system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 16px; }
+  #hud { margin-bottom: 8px; font-size: 15px; }
+  canvas { border-radius: 12px; max-width: 100%; cursor: crosshair; }
+</style>
+</head>
+<body>
+<div id="hud">위쪽을 클릭해 공을 떨어뜨리세요 · 가운데 바구니에 넣으면 +1 · 점수 <b id="score">0</b></div>
+<div id="stage"></div>
+<script>
+const { Engine, Render, Runner, Bodies, Composite, Events } = Matter;
+const W = 480, H = 640;
+
+const engine = Engine.create();
+engine.gravity.y = 1;
+const render = Render.create({
+  element: document.getElementById('stage'),
+  engine,
+  options: { width: W, height: H, wireframes: false, background: '#1e293b' },
+});
+
+const wall = (x, y, w, h, angle = 0) =>
+  Bodies.rectangle(x, y, w, h, { isStatic: true, angle, render: { fillStyle: '#475569' } });
+
+// 벽 + 경사 판 + 핀
+const statics = [
+  wall(W / 2, H + 20, W, 40), wall(-20, H / 2, 40, H), wall(W + 20, H / 2, 40, H),
+  wall(120, 260, 180, 12, 0.35), wall(360, 360, 180, 12, -0.35),
+  wall(W / 2 - 50, H - 50, 10, 100), wall(W / 2 + 50, H - 50, 10, 100),
+];
+for (let row = 0; row < 3; row++) {
+  for (let col = 0; col < 6; col++) {
+    const x = 60 + col * 72 + (row % 2) * 36;
+    statics.push(Bodies.circle(x, 430 + row * 50, 6, { isStatic: true, render: { fillStyle: '#94a3b8' } }));
+  }
+}
+// 바구니 안쪽 센서: 공이 닿으면 점수
+const goal = Bodies.rectangle(W / 2, H - 20, 90, 20, { isStatic: true, isSensor: true, label: 'goal', render: { fillStyle: '#22c55e55' } });
+Composite.add(engine.world, [...statics, goal]);
+
+let score = 0;
+Events.on(engine, 'collisionStart', (e) => {
+  for (const { bodyA, bodyB } of e.pairs) {
+    const ball = bodyA.label === 'goal' ? bodyB : bodyB.label === 'goal' ? bodyA : null;
+    if (ball && !ball.scored) {
+      ball.scored = true;
+      ball.render.fillStyle = '#22c55e';
+      document.getElementById('score').textContent = ++score;
+    }
+  }
+});
+
+const COLORS = ['#f97316', '#eab308', '#38bdf8', '#f472b6', '#a78bfa'];
+render.canvas.addEventListener('pointerdown', (e) => {
+  const rect = render.canvas.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * W;
+  const ball = Bodies.circle(x, 30, 14, {
+    restitution: 0.8,   // 반발력
+    friction: 0.01,
+    frictionAir: 0.002,
+    render: { fillStyle: COLORS[Math.floor(Math.random() * COLORS.length)] },
+  });
+  Composite.add(engine.world, ball);
+});
+
+// 공이 너무 많아지면 오래된 것부터 제거
+Events.on(engine, 'afterUpdate', () => {
+  const balls = Composite.allBodies(engine.world).filter((b) => !b.isStatic);
+  if (balls.length > 40) Composite.remove(engine.world, balls[0]);
+});
+
+Render.run(render);
+Runner.run(Runner.create(), engine);
+</script>
+</body>
+</html>
+@@html=code
+
+@@term phaser bouncing-ball-game js
+@@prompt
+브라우저에서 공이 튀는 게임을 만들어줘. Phaser 3 게임 엔진과 Arcade Physics를 쓰고, Boot·Game·GameOver 씬으로 나눠줘.
+@@code
+class Boot extends Phaser.Scene {
+  constructor() { super('Boot'); }
+  create() {
+    // 이미지 파일 없이 그래픽으로 텍스처 생성
+    const g = this.make.graphics({ x: 0, y: 0, add: false });
+    g.fillStyle(0xf97316).fillCircle(12, 12, 12).generateTexture('ball', 24, 24);
+    g.clear().fillStyle(0xe2e8f0).fillRoundedRect(0, 0, 110, 16, 8).generateTexture('paddle', 110, 16);
+    g.destroy();
+    this.scene.start('Game');
+  }
+}
+
+class Game extends Phaser.Scene {
+  constructor() { super('Game'); }
+  create() {
+    this.score = 0;
+    this.scoreText = this.add.text(16, 16, '점수 0', { fontSize: '20px', color: '#ffffff' });
+
+    this.paddle = this.physics.add.image(240, 580, 'paddle').setImmovable(true);
+    this.paddle.body.allowGravity = false;
+
+    this.ball = this.physics.add.image(240, 150, 'ball')
+      .setCollideWorldBounds(true)
+      .setBounce(1, 1)
+      .setVelocity(Phaser.Math.Between(-180, 180), 0);
+
+    this.physics.world.checkCollision.down = false; // 바닥은 뚫려 있음
+    this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
+    this.input.on('pointermove', (p) => { this.paddle.x = Phaser.Math.Clamp(p.x, 55, 425); });
+  }
+  hitPaddle(ball, paddle) {
+    this.score++;
+    this.scoreText.setText('점수 ' + this.score);
+    ball.setVelocity((ball.x - paddle.x) * 8, -520 - this.score * 8);
+    this.cameras.main.shake(60, 0.004);
+  }
+  update() {
+    if (this.ball.y > 660) this.scene.start('GameOver', { score: this.score });
+  }
+}
+
+class GameOver extends Phaser.Scene {
+  constructor() { super('GameOver'); }
+  create(data) {
+    const style = { fontSize: '20px', color: '#cbd5e1' };
+    this.add.text(240, 260, '게임 오버', { fontSize: '42px', color: '#ffffff' }).setOrigin(0.5);
+    this.add.text(240, 320, `점수: ${data.score}`, style).setOrigin(0.5);
+    this.add.text(240, 380, '클릭해서 다시 시작', style).setOrigin(0.5);
+    this.input.once('pointerdown', () => this.scene.start('Game'));
+  }
+}
+
+new Phaser.Game({
+  type: Phaser.AUTO,
+  width: 480,
+  height: 640,
+  backgroundColor: '#0f172a',
+  parent: 'game',
+  physics: { default: 'arcade', arcade: { gravity: { x: 0, y: 600 } } },
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [Boot, Game, GameOver],
+});
+@@html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공 튀기기 - Phaser 3</title>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+<style>html, body { margin: 0; height: 100%; background: #020617; } #game { width: 100%; height: 100%; }</style>
+</head>
+<body>
+<div id="game"></div>
+<script>
+class Boot extends Phaser.Scene {
+  constructor() { super('Boot'); }
+  create() {
+    const g = this.make.graphics({ x: 0, y: 0, add: false });
+    g.fillStyle(0xf97316).fillCircle(12, 12, 12).generateTexture('ball', 24, 24);
+    g.clear().fillStyle(0xe2e8f0).fillRoundedRect(0, 0, 110, 16, 8).generateTexture('paddle', 110, 16);
+    g.destroy();
+    this.scene.start('Game');
+  }
+}
+class Game extends Phaser.Scene {
+  constructor() { super('Game'); }
+  create() {
+    this.score = 0;
+    this.scoreText = this.add.text(16, 16, '점수 0', { fontSize: '20px', color: '#ffffff' });
+    this.paddle = this.physics.add.image(240, 580, 'paddle').setImmovable(true);
+    this.paddle.body.allowGravity = false;
+    this.ball = this.physics.add.image(240, 150, 'ball').setCollideWorldBounds(true).setBounce(1, 1)
+      .setVelocity(Phaser.Math.Between(-180, 180), 0);
+    this.physics.world.checkCollision.down = false;
+    this.physics.add.collider(this.ball, this.paddle, this.hitPaddle, null, this);
+    this.input.on('pointermove', (p) => { this.paddle.x = Phaser.Math.Clamp(p.x, 55, 425); });
+  }
+  hitPaddle(ball, paddle) {
+    this.score++;
+    this.scoreText.setText('점수 ' + this.score);
+    ball.setVelocity((ball.x - paddle.x) * 8, -520 - this.score * 8);
+    this.cameras.main.shake(60, 0.004);
+  }
+  update() { if (this.ball.y > 660) this.scene.start('GameOver', { score: this.score }); }
+}
+class GameOver extends Phaser.Scene {
+  constructor() { super('GameOver'); }
+  create(data) {
+    const style = { fontSize: '20px', color: '#cbd5e1' };
+    this.add.text(240, 260, '게임 오버', { fontSize: '42px', color: '#ffffff' }).setOrigin(0.5);
+    this.add.text(240, 320, `점수: ${data.score}`, style).setOrigin(0.5);
+    this.add.text(240, 380, '클릭해서 다시 시작', style).setOrigin(0.5);
+    this.input.once('pointerdown', () => this.scene.start('Game'));
+  }
+}
+new Phaser.Game({
+  type: Phaser.AUTO, width: 480, height: 640, backgroundColor: '#0f172a', parent: 'game',
+  physics: { default: 'arcade', arcade: { gravity: { x: 0, y: 600 } } },
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [Boot, Game, GameOver],
+});
+</script>
+</body>
+</html>
+
+@@term chart-library sales-dashboard html
+@@prompt
+매출 대시보드를 만들어줘. 데이터는 차트 라이브러리(Chart.js)로 툴팁이 있는 선 그래프와 막대 그래프로 시각화해줘.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px 16px; background: #f8fafc; color: #0f172a; font-family: system-ui, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+  .kpi .label { font-size: 13px; color: #64748b; }
+  .kpi .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .kpi .delta { font-size: 12px; margin-top: 2px; }
+  .up { color: #16a34a; } .down { color: #dc2626; }
+  .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+  .card h2 { font-size: 15px; margin: 0 0 12px; }
+  .chart-box { position: relative; height: 280px; }
+  @media (max-width: 760px) { .charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>매출 대시보드 · 2026년</h1>
+  <div class="kpis" id="kpis"></div>
+  <div class="charts">
+    <div class="card"><h2>월별 매출 추이 (만원)</h2><div class="chart-box"><canvas id="line"></canvas></div></div>
+    <div class="card"><h2>채널별 매출</h2><div class="chart-box"><canvas id="bar"></canvas></div></div>
+  </div>
+</div>
+<script>
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const revenue = [3200, 2900, 3500, 3900, 4200, 4100, 4600, 4800, 4400, 5100, 5600, 6200];
+  const lastYear = [2800, 2700, 3000, 3300, 3500, 3600, 3900, 4000, 3800, 4200, 4500, 5000];
+  const channels = { '온라인몰': 21400, '오프라인': 14800, '앱': 11200, '도매': 4200 };
+
+  const won = (v) => (v * 10000).toLocaleString('ko-KR') + '원';
+  const total = revenue.reduce((a, b) => a + b, 0);
+  const totalLast = lastYear.reduce((a, b) => a + b, 0);
+  const kpis = [
+    { label: '연 매출', value: won(total), delta: (total / totalLast - 1) * 100 },
+    { label: '월 평균', value: won(Math.round(total / 12)), delta: (total / totalLast - 1) * 100 },
+    { label: '12월 매출', value: won(revenue[11]), delta: (revenue[11] / revenue[10] - 1) * 100 },
+    { label: '최고 채널', value: '온라인몰', delta: null },
+  ];
+  document.getElementById('kpis').innerHTML = kpis.map((k) => `
+    <div class="card kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div>
+    ${k.delta === null ? '' : `<div class="delta ${k.delta >= 0 ? 'up' : 'down'}">${k.delta >= 0 ? '▲' : '▼'} ${Math.abs(k.delta).toFixed(1)}% 전년(전월) 대비</div>`}</div>`).join('');
+
+  Chart.defaults.font.family = 'system-ui, sans-serif';
+  const tooltip = { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${won(ctx.raw)}` } };
+
+  new Chart(document.getElementById('line'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [
+        { label: '올해', data: revenue, borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,.12)', fill: true, tension: 0.35, pointRadius: 3 },
+        { label: '작년', data: lastYear, borderColor: '#94a3b8', borderDash: [5, 5], pointRadius: 0, tension: 0.35 },
+      ],
+    },
+    options: { maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, plugins: { tooltip }, scales: { y: { beginAtZero: false } } },
+  });
+
+  new Chart(document.getElementById('bar'), {
+    type: 'bar',
+    data: {
+      labels: Object.keys(channels),
+      datasets: [{ label: '매출', data: Object.values(channels), backgroundColor: ['#2563eb', '#0ea5e9', '#14b8a6', '#a3a3a3'], borderRadius: 6 }],
+    },
+    options: { maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false }, tooltip } },
+  });
+</script>
+</body>
+</html>
+@@html=code
+
+@@term motion-library todo-app tsx
+@@prompt
+할 일 목록 앱을 만들어줘. 항목이 나타나고 사라지고 순서가 바뀔 때 Motion 애니메이션 라이브러리(motion/react)로 스프링 전환을 넣어줘.
+@@transcript
+`motion` 패키지를 설치하고(`npm install motion`), 리스트 항목에 진입/퇴장/재정렬 애니메이션을 붙였습니다.
+
+- `AnimatePresence` — 삭제되는 항목이 바로 사라지지 않고 퇴장 애니메이션을 재생
+- `layout` 속성 — 완료된 항목이 아래로 정렬될 때 위치가 부드럽게 이동
+- `transition={{ type: "spring" }}` — 딱딱한 easing 대신 스프링 물리
+@@file src/App.tsx
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+
+type Todo = { id: number; text: string; done: boolean };
+const spring = { type: "spring", stiffness: 500, damping: 35 } as const;
+
+export default function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [text, setText] = useState("");
+
+  // 완료된 항목은 아래로 → layout 애니메이션으로 이동
+  const sorted = [...todos].sort((a, b) => Number(a.done) - Number(b.done));
+
+  function add(e: React.FormEvent) {
+    e.preventDefault();
+    if (!text.trim()) return;
+    setTodos((p) => [{ id: Date.now(), text: text.trim(), done: false }, ...p]);
+    setText("");
+  }
+
+  return (
+    <main className="app">
+      <h1>할 일 목록</h1>
+      <form onSubmit={add}>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+        <motion.button whileTap={{ scale: 0.92 }} whileHover={{ scale: 1.04 }}>추가</motion.button>
+      </form>
+      <ul>
+        <AnimatePresence initial={false}>
+          {sorted.map((t) => (
+            <motion.li
+              key={t.id}
+              layout
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              animate={{ opacity: t.done ? 0.5 : 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 40, transition: { duration: 0.18 } }}
+              transition={spring}
+            >
+              <input
+                type="checkbox"
+                checked={t.done}
+                onChange={() => setTodos((p) => p.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))}
+              />
+              <span style={{ textDecoration: t.done ? "line-through" : "none" }}>{t.text}</span>
+              <button onClick={() => setTodos((p) => p.filter((x) => x.id !== t.id))}>삭제</button>
+            </motion.li>
+          ))}
+        </AnimatePresence>
+      </ul>
+    </main>
+  );
+}

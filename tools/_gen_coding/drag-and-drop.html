@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 24px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .tip { font-size: 12px; color: #888; margin: 0 0 14px; }
+  form { display: flex; gap: 8px; margin-bottom: 16px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  ul { list-style: none; padding: 0; margin: 0; position: relative; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 8px; margin-bottom: 6px; background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; touch-action: none; transition: transform .18s ease, box-shadow .18s; user-select: none; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  .grip { cursor: grab; color: #b0b5c0; font-size: 18px; line-height: 1; padding: 4px 2px; letter-spacing: -2px; }
+  li.dragging { transition: none; box-shadow: 0 12px 28px rgba(0,0,0,.18); z-index: 5; position: relative; background: #fbfcff; border-color: #4a6cf7; }
+  li.dragging .grip { cursor: grabbing; color: #4a6cf7; }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  .order { margin-top: 10px; font-size: 12px; color: #666; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <p class="tip">⠿ 손잡이를 끌어서 순서를 바꿔 보세요 (마우스·터치 모두 지원)</p>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+  <div class="order" id="order"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ text: '장보기', done: false }, { text: '운동하기', done: true }, { text: '보고서 작성', done: false }, { text: '이메일 답장', done: false }, { text: '책 읽기', done: false }];
+  const list = document.getElementById('list');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach((t, i) => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = '<span class="grip" aria-label="끌어서 이동">⠿</span><input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><button class="del">삭제</button>';
+      li.querySelectorAll('span')[1].textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos.splice(i, 1); render(); };
+      li.querySelector('.grip').addEventListener('pointerdown', e => startDrag(e, li, i));
+      list.appendChild(li);
+    });
+    document.getElementById('order').textContent = '현재 순서: ' + todos.map((t, i) => `${i + 1}.${t.text}`).join(' → ');
+  }
+  // Pointer Events 기반 정렬: 다른 항목은 transform으로 밀려나며 애니메이션
+  function startDrag(e, li, from) {
+    e.preventDefault();
+    const items = [...list.children], h = li.offsetHeight + 6, startY = e.clientY;
+    let to = from;
+    li.classList.add('dragging'); li.setPointerCapture(e.pointerId);
+    const move = ev => {
+      const dy = ev.clientY - startY; li.style.transform = `translateY(${dy}px) scale(1.02)`;
+      to = Math.max(0, Math.min(items.length - 1, from + Math.round(dy / h)));
+      items.forEach((el, j) => {
+        if (el === li) return;
+        let shift = 0;
+        if (from < to && j > from && j <= to) shift = -h;
+        if (from > to && j < from && j >= to) shift = h;
+        el.style.transform = shift ? `translateY(${shift}px)` : '';
+      });
+    };
+    const up = () => {
+      li.removeEventListener('pointermove', move); li.removeEventListener('pointerup', up); li.removeEventListener('pointercancel', up);
+      const [m] = todos.splice(from, 1); todos.splice(to, 0, m); render();
+    };
+    li.addEventListener('pointermove', move); li.addEventListener('pointerup', up); li.addEventListener('pointercancel', up);
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

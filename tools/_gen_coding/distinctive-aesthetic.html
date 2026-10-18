@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 — 원두 정기배송</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #1b120d; --paper: #efe6d8; --rust: #b4471f; --moss: #4b5a3a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "IBM Plex Sans KR", sans-serif; line-height: 1.6; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: .18; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  header { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 5vw; border-bottom: 1px solid var(--ink); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+  .mark { font-family: "Fraunces", serif; font-size: 22px; letter-spacing: 0; text-transform: none; font-weight: 700; }
+  .hero { display: grid; grid-template-columns: 1.4fr 1fr; border-bottom: 1px solid var(--ink); }
+  .hero .l { padding: 6vw 5vw 4vw; border-right: 1px solid var(--ink); position: relative; }
+  .issue { font-size: 12px; letter-spacing: .14em; color: var(--rust); }
+  h1 { font-family: "Gowun Batang", serif; font-weight: 700; font-size: clamp(40px, 8vw, 104px); line-height: .98; margin: 14px 0 22px; letter-spacing: -.03em; }
+  h1 em { font-family: "Fraunces", serif; font-style: italic; font-weight: 300; color: var(--rust); }
+  .hero p { max-width: 30ch; font-size: 15px; }
+  .stamp { position: absolute; right: 5vw; bottom: 3vw; width: 112px; height: 112px; border: 1.5px solid var(--rust); border-radius: 50%; display: grid; place-items: center; text-align: center; color: var(--rust); font: 700 11px/1.3 "IBM Plex Sans KR"; transform: rotate(-12deg); }
+  .stamp b { font: 700 28px "Fraunces", serif; display: block; }
+  .hero .r { background: var(--ink); color: var(--paper); padding: 5vw 4vw; display: flex; flex-direction: column; justify-content: space-between; }
+  .origin { font-family: "Fraunces", serif; font-size: clamp(54px, 9vw, 120px); font-weight: 300; line-height: .9; }
+  .notes { font-size: 13px; border-top: 1px solid rgba(239,230,216,.35); padding-top: 14px; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; }
+  .notes span { opacity: .55; }
+  .cta { display: inline-flex; gap: 12px; align-items: center; margin-top: 8px; padding: 14px 22px; background: var(--rust); color: var(--paper); text-decoration: none; font-weight: 600; border-radius: 0; transition: gap .2s; }
+  .cta:hover { gap: 20px; }
+  .rows section { display: grid; grid-template-columns: 80px 1fr 1fr; gap: 3vw; padding: 34px 5vw; border-bottom: 1px solid var(--ink); align-items: start; }
+  .no { font: 300 44px "Fraunces", serif; color: var(--moss); line-height: 1; }
+  .rows h3 { font-family: "Gowun Batang", serif; font-size: 24px; margin: 0; }
+  .rows p { margin: 0; font-size: 14px; max-width: 42ch; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .plan { padding: 30px 5vw 34px; border-right: 1px solid var(--ink); }
+  .plan:last-child { border-right: 0; background: var(--moss); color: var(--paper); }
+  .plan .g { font: 300 56px "Fraunces", serif; line-height: 1; }
+  .plan .p { font-size: 14px; margin-top: 8px; }
+  footer { padding: 18px 5vw; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; display: flex; justify-content: space-between; border-top: 1px solid var(--ink); }
+  @media (max-width: 720px) {
+    .hero, .plans { grid-template-columns: 1fr; } .hero .l { border-right: 0; border-bottom: 1px solid var(--ink); padding-bottom: 140px; }
+    .rows section { grid-template-columns: 50px 1fr; } .rows section p { grid-column: 2; } .plan { border-right: 0; border-bottom: 1px solid var(--ink); }
+  }
+</style>
+</head>
+<body>
+<header><span class="mark">Beanhouse.</span><span>Vol. 37 — 10월의 원두</span></header>
+<div class="hero">
+  <div class="l">
+    <div class="issue">ROASTED THURSDAY · SHIPPED FRIDAY</div>
+    <h1>커피는<br><em>신선할 때</em><br>다르다.</h1>
+    <p>볶은 지 48시간 이내의 원두만 보냅니다. 마트 선반에서 몇 달을 기다린 커피와는 향의 결이 다릅니다.</p>
+    <a class="cta" href="#plans">정기배송 시작 <span>→</span></a>
+    <div class="stamp"><div><b>48h</b>로스팅<br>후 도착</div></div>
+  </div>
+  <div class="r">
+    <div><div class="issue" style="color:#e9a27c">이번 달의 산지</div><div class="origin">Gedeb,<br>Ethiopia</div></div>
+    <div class="notes"><span>프로세스</span>워시드<span>고도</span>2,100m<span>노트</span>자스민 · 베르가못 · 백도</div>
+  </div>
+</div>
+<div class="rows">
+  <section><div class="no">01</div><h3>매주 목요일 로스팅</h3><p>주문량만큼만 볶습니다. 남은 재고를 할인하는 일은 없습니다.</p></section>
+  <section><div class="no">02</div><h3>한 달에 한 산지</h3><p>농장 이름까지 적힌 카드와 함께. 왜 이 원두를 골랐는지 로스터가 직접 씁니다.</p></section>
+  <section><div class="no">03</div><h3>멈추고 싶으면 멈추세요</h3><p>건너뛰기·해지는 버튼 한 번. 위약금도, 전화 상담도 없습니다.</p></section>
+</div>
+<div class="plans" id="plans">
+  <div class="plan"><div class="g">200g</div><div class="p">한 사람, 하루 한 잔 · ₩15,900/월</div></div>
+  <div class="plan"><div class="g">400g</div><div class="p">둘이서, 혹은 하루 두 잔 · ₩27,900/월</div></div>
+  <div class="plan"><div class="g">800g</div><div class="p">사무실과 진심인 사람들 · ₩49,900/월</div></div>
+</div>
+<footer><span>© Beanhouse Roasters</span><span>Seoul, Seongsu</span></footer>
+</body>
+</html>

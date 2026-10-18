@@ -1,0 +1,1420 @@
+@@term component-based todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. 컴포넌트 기반 구조(component-based architecture)로, Header·TodoInput·FilterBar·TodoList·TodoItem처럼 작고 재사용 가능한 컴포넌트로 나눠줘.
+@@transcript
+화면을 역할별 컴포넌트 5개로 나눴습니다. 상태(`todos`, `filter`)는 최상위 `App`에만 두고, 하위 컴포넌트는 props로 데이터와 콜백만 받습니다.
+
+```
+App
+├─ Header        (제목 + 남은 개수)
+├─ TodoInput     (입력 폼)
+├─ FilterBar     (전체/진행 중/완료)
+└─ TodoList
+   └─ TodoItem   (체크박스 + 텍스트 + 삭제)
+```
+@@code
+// src/App.jsx
+import { useEffect, useState } from 'react';
+import Header from './components/Header';
+import TodoInput from './components/TodoInput';
+import FilterBar from './components/FilterBar';
+import TodoList from './components/TodoList';
+
+export default function App() {
+  const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos') || '[]'));
+  const [filter, setFilter] = useState('all');
+  useEffect(() => localStorage.setItem('todos', JSON.stringify(todos)), [todos]);
+
+  const add = (text) => setTodos((p) => [...p, { id: Date.now(), text, done: false }]);
+  const toggle = (id) => setTodos((p) => p.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  const remove = (id) => setTodos((p) => p.filter((t) => t.id !== id));
+  const visible = todos.filter((t) => (filter === 'all' ? true : filter === 'done' ? t.done : !t.done));
+
+  return (
+    <div className="app">
+      <Header left={todos.filter((t) => !t.done).length} />
+      <TodoInput onAdd={add} />
+      <FilterBar value={filter} onChange={setFilter} />
+      <TodoList todos={visible} onToggle={toggle} onRemove={remove} />
+    </div>
+  );
+}
+@@file src/App.jsx
+(위 코드)
+@@file src/components/Header.jsx
+export default function Header({ left }) {
+  return (
+    <header>
+      <h1>할 일 목록</h1>
+      <p className="count">남은 할 일 {left}개</p>
+    </header>
+  );
+}
+@@file src/components/TodoInput.jsx
+import { useState } from 'react';
+
+export default function TodoInput({ onAdd }) {
+  const [text, setText] = useState('');
+  const submit = (e) => {
+    e.preventDefault();
+    if (!text.trim()) return;
+    onAdd(text.trim());
+    setText('');
+  };
+  return (
+    <form onSubmit={submit}>
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+      <button type="submit">추가</button>
+    </form>
+  );
+}
+@@file src/components/FilterBar.jsx
+const OPTIONS = [['all', '전체'], ['active', '진행 중'], ['done', '완료']];
+
+export default function FilterBar({ value, onChange }) {
+  return (
+    <div className="filters">
+      {OPTIONS.map(([key, label]) => (
+        <button key={key} className={value === key ? 'active' : ''} onClick={() => onChange(key)}>
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+@@file src/components/TodoList.jsx
+import TodoItem from './TodoItem';
+
+export default function TodoList({ todos, onToggle, onRemove }) {
+  if (todos.length === 0) return <p className="empty">표시할 할 일이 없어요.</p>;
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} onToggle={onToggle} onRemove={onRemove} />
+      ))}
+    </ul>
+  );
+}
+@@file src/components/TodoItem.jsx
+export default function TodoItem({ todo, onToggle, onRemove }) {
+  return (
+    <li className={todo.done ? 'done' : ''}>
+      <input type="checkbox" checked={todo.done} onChange={() => onToggle(todo.id)} />
+      <span>{todo.text}</span>
+      <button onClick={() => onRemove(todo.id)}>삭제</button>
+    </li>
+  );
+}
+@@html=react
+@@reactsrc
+const { useEffect, useState } = React;
+
+function Header({ left }) {
+  return (<header><h1>할 일 목록</h1><p className="count">남은 할 일 {left}개</p></header>);
+}
+function TodoInput({ onAdd }) {
+  const [text, setText] = useState('');
+  const submit = (e) => { e.preventDefault(); if (!text.trim()) return; onAdd(text.trim()); setText(''); };
+  return (
+    <form onSubmit={submit}>
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+      <button type="submit">추가</button>
+    </form>
+  );
+}
+const OPTIONS = [['all', '전체'], ['active', '진행 중'], ['done', '완료']];
+function FilterBar({ value, onChange }) {
+  return (
+    <div className="filters">
+      {OPTIONS.map(([key, label]) => (
+        <button key={key} className={value === key ? 'active' : ''} onClick={() => onChange(key)}>{label}</button>
+      ))}
+    </div>
+  );
+}
+function TodoItem({ todo, onToggle, onRemove }) {
+  return (
+    <li className={todo.done ? 'done' : ''}>
+      <input type="checkbox" checked={todo.done} onChange={() => onToggle(todo.id)} />
+      <span>{todo.text}</span>
+      <button onClick={() => onRemove(todo.id)}>삭제</button>
+    </li>
+  );
+}
+function TodoList({ todos, onToggle, onRemove }) {
+  if (todos.length === 0) return <p className="empty">표시할 할 일이 없어요.</p>;
+  return <ul>{todos.map((t) => <TodoItem key={t.id} todo={t} onToggle={onToggle} onRemove={onRemove} />)}</ul>;
+}
+function App() {
+  const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos') || '[]'));
+  const [filter, setFilter] = useState('all');
+  useEffect(() => localStorage.setItem('todos', JSON.stringify(todos)), [todos]);
+  const add = (text) => setTodos((p) => [...p, { id: Date.now(), text, done: false }]);
+  const toggle = (id) => setTodos((p) => p.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  const remove = (id) => setTodos((p) => p.filter((t) => t.id !== id));
+  const visible = todos.filter((t) => (filter === 'all' ? true : filter === 'done' ? t.done : !t.done));
+  return (
+    <div className="app">
+      <Header left={todos.filter((t) => !t.done).length} />
+      <TodoInput onAdd={add} />
+      <FilterBar value={filter} onChange={setFilter} />
+      <TodoList todos={visible} onToggle={toggle} onRemove={remove} />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+@@term monolithic-file todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. 일단은 모든 코드를 컴포넌트 하나, 파일 하나에 몰아넣어줘(keep everything in one component/file).
+@@transcript
+요청하신 대로 `App` 컴포넌트 하나에 상태·로직·스타일을 모두 넣었습니다. 파일 하나만 보면 전체를 이해할 수 있어서 초기 실험에는 편하지만, 기능이 늘어나면 그때 컴포넌트로 나누는 걸 추천합니다.
+@@code
+const { useState, useEffect } = React;
+
+function App() {
+  const [todos, setTodos] = useState(() => JSON.parse(localStorage.getItem('todos') || '[]'));
+  const [text, setText] = useState('');
+  useEffect(() => localStorage.setItem('todos', JSON.stringify(todos)), [todos]);
+
+  const s = {
+    page: { fontFamily: 'system-ui, sans-serif', background: '#f4f4f5', minHeight: '100vh', display: 'flex', justifyContent: 'center', padding: '40px 16px', boxSizing: 'border-box' },
+    card: { background: '#fff', padding: 24, borderRadius: 10, width: '100%', maxWidth: 380, height: 'fit-content', boxShadow: '0 2px 10px rgba(0,0,0,.08)' },
+    row: { display: 'flex', gap: 8, alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #eee' },
+  };
+
+  return (
+    <div style={s.page}>
+      <div style={s.card}>
+        <h1 style={{ marginTop: 0 }}>할 일 목록</h1>
+        <form
+          style={{ display: 'flex', gap: 8 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!text.trim()) return;
+            setTodos([...todos, { id: Date.now(), text: text.trim(), done: false }]);
+            setText('');
+          }}
+        >
+          <input style={{ flex: 1, padding: 8 }} value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+          <button>추가</button>
+        </form>
+        <ul style={{ listStyle: 'none', padding: 0 }}>
+          {todos.map((t) => (
+            <li key={t.id} style={s.row}>
+              <input type="checkbox" checked={t.done} onChange={() => setTodos(todos.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))} />
+              <span style={{ flex: 1, textDecoration: t.done ? 'line-through' : 'none', color: t.done ? '#aaa' : 'inherit' }}>{t.text}</span>
+              <button onClick={() => setTodos(todos.filter((x) => x.id !== t.id))}>삭제</button>
+            </li>
+          ))}
+        </ul>
+        <p style={{ color: '#71717a', fontSize: 13 }}>남은 할 일 {todos.filter((t) => !t.done).length}개</p>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+@@html=react
+@@css
+body { margin: 0; }
+
+@@term modular-files todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 코드는 책임별로 ES 모듈 파일을 나눠줘(split into modules by responsibility): state.js, storage.js, render.js, input.js.
+@@transcript
+책임별로 5개 모듈로 나눴습니다. ES 모듈(`type="module"`)이라 `file://`로 직접 열면 CORS 오류가 나니, `npx serve .` 같은 로컬 서버로 열어주세요.
+
+| 파일 | 책임 |
+|---|---|
+| `state.js` | 할 일 배열과 변경 함수 (유일하게 데이터를 바꾸는 곳) |
+| `storage.js` | localStorage 읽기/쓰기 |
+| `render.js` | 상태 → DOM 그리기 |
+| `input.js` | 폼·클릭 이벤트 연결 |
+| `main.js` | 위 모듈을 조립하는 진입점 |
+@@file index.html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>할 일 목록</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>할 일 목록</h1>
+    <form id="form"><input id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+    <ul id="list"></ul>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+@@file js/storage.js
+const KEY = 'todos';
+
+export function load() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY)) ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export function save(todos) {
+  localStorage.setItem(KEY, JSON.stringify(todos));
+}
+@@file js/state.js
+let todos = [];
+const listeners = new Set();
+
+export const getTodos = () => todos;
+
+export function setTodos(next) {
+  todos = next;
+  listeners.forEach((fn) => fn(todos));
+}
+
+export function subscribe(fn) {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+export const addTodo = (text) => setTodos([...todos, { id: Date.now(), text, done: false }]);
+export const toggleTodo = (id) => setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+export const removeTodo = (id) => setTodos(todos.filter((t) => t.id !== id));
+@@file js/render.js
+const list = document.getElementById('list');
+
+export function render(todos) {
+  list.replaceChildren(
+    ...todos.map((t) => {
+      const li = document.createElement('li');
+      li.dataset.id = t.id;
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox" data-action="toggle"><span></span><button data-action="remove">삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      return li;
+    })
+  );
+}
+@@file js/input.js
+import { addTodo, removeTodo, toggleTodo } from './state.js';
+
+export function bindInput() {
+  const form = document.getElementById('form');
+  const input = document.getElementById('input');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    addTodo(text);
+    input.value = '';
+  });
+
+  // 이벤트 위임: 항목마다 리스너를 달지 않음
+  document.getElementById('list').addEventListener('click', (e) => {
+    const action = e.target.dataset.action;
+    const id = Number(e.target.closest('li')?.dataset.id);
+    if (action === 'toggle') toggleTodo(id);
+    if (action === 'remove') removeTodo(id);
+  });
+}
+@@file js/main.js
+import { load, save } from './storage.js';
+import { setTodos, subscribe } from './state.js';
+import { render } from './render.js';
+import { bindInput } from './input.js';
+
+subscribe(render);
+subscribe(save);
+bindInput();
+setTodos(load());
+
+@@term separation-of-concerns todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. 관심사 분리(separation of concerns)를 지켜서 비즈니스 로직, 화면 렌더링, 저장(persistence)을 서로 분리해줘.
+@@transcript
+세 계층으로 분리했습니다. 핵심은 **`todo-logic.js`가 DOM도 localStorage도 모른다**는 점입니다. 그래서 이 파일은 브라우저 없이 바로 테스트할 수 있고, 나중에 저장소를 서버 API로 바꿔도 로직과 화면 코드는 그대로입니다.
+
+- `todo-logic.js` — 순수 함수 (입력 → 새 배열)
+- `todo-storage.js` — 저장소 어댑터 (`load`/`save` 인터페이스만 지키면 교체 가능)
+- `todo-view.js` — DOM 렌더링과 사용자 입력 → 콜백 호출
+- `app.js` — 세 계층을 연결
+@@file src/todo-logic.js
+// 비즈니스 규칙만. DOM·저장소 의존성 없음.
+export const MAX_LENGTH = 100;
+
+export function createTodo(todos, rawText) {
+  const text = rawText.trim();
+  if (!text) return { todos, error: '내용을 입력하세요.' };
+  if (text.length > MAX_LENGTH) return { todos, error: `${MAX_LENGTH}자 이하로 입력하세요.` };
+  return { todos: [...todos, { id: crypto.randomUUID(), text, done: false }], error: null };
+}
+
+export const toggleTodo = (todos, id) => todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+export const deleteTodo = (todos, id) => todos.filter((t) => t.id !== id);
+export const countRemaining = (todos) => todos.filter((t) => !t.done).length;
+@@file src/todo-storage.js
+// 저장 책임만. 나중에 서버 API 어댑터로 교체 가능.
+export const localStorageAdapter = {
+  load() {
+    try {
+      const data = JSON.parse(localStorage.getItem('todos'));
+      return Array.isArray(data) ? data : [];
+    } catch {
+      return [];
+    }
+  },
+  save(todos) {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  },
+};
+@@file src/todo-view.js
+// 화면 책임만. 데이터를 받아 그리고, 사용자 의도를 콜백으로 알린다.
+export function createView(root, { onAdd, onToggle, onDelete }) {
+  const form = root.querySelector('form');
+  const input = root.querySelector('input[name=text]');
+  const list = root.querySelector('ul');
+  const status = root.querySelector('.status');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    onAdd(input.value);
+  });
+
+  return {
+    render(todos, remaining, error) {
+      list.replaceChildren(...todos.map((t) => {
+        const li = document.createElement('li');
+        li.className = t.done ? 'done' : '';
+        const box = Object.assign(document.createElement('input'), { type: 'checkbox', checked: t.done });
+        box.onchange = () => onToggle(t.id);
+        const span = Object.assign(document.createElement('span'), { textContent: t.text });
+        const del = Object.assign(document.createElement('button'), { textContent: '삭제' });
+        del.onclick = () => onDelete(t.id);
+        li.append(box, span, del);
+        return li;
+      }));
+      status.textContent = error ?? `남은 할 일 ${remaining}개`;
+      status.classList.toggle('error', Boolean(error));
+      if (!error) input.value = '';
+    },
+  };
+}
+@@file src/app.js
+import { createTodo, toggleTodo, deleteTodo, countRemaining } from './todo-logic.js';
+import { localStorageAdapter as storage } from './todo-storage.js';
+import { createView } from './todo-view.js';
+
+let todos = storage.load();
+
+function update(next, error = null) {
+  todos = next;
+  storage.save(todos);
+  view.render(todos, countRemaining(todos), error);
+}
+
+const view = createView(document.getElementById('app'), {
+  onAdd: (text) => {
+    const result = createTodo(todos, text);
+    update(result.todos, result.error);
+  },
+  onToggle: (id) => update(toggleTodo(todos, id)),
+  onDelete: (id) => update(deleteTodo(todos, id)),
+});
+
+update(todos);
+
+@@term mvc todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. MVC 패턴(Model-View-Controller)으로, Model은 할 일 데이터, View는 렌더링, Controller는 이벤트 연결을 맡게 해줘.
+@@transcript
+MVC 세 클래스로 나눴습니다. View와 Model은 서로를 전혀 모르고, Controller만 둘을 압니다.
+
+- **Model** — 할 일 배열 보관, 변경 시 `onChange` 콜백 호출, localStorage 저장
+- **View** — DOM 생성과 이벤트 바인딩 메서드(`bindAdd`, `bindToggle`, `bindDelete`) 제공
+- **Controller** — View 이벤트 → Model 메서드 호출, Model 변경 → View 렌더
+@@file js/model.js
+export class TodoModel {
+  constructor() {
+    this.todos = JSON.parse(localStorage.getItem('todos') || '[]');
+    this.onChange = () => {};
+  }
+  #commit() {
+    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.onChange(this.todos);
+  }
+  add(text) {
+    this.todos.push({ id: Date.now(), text, done: false });
+    this.#commit();
+  }
+  toggle(id) {
+    this.todos = this.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+    this.#commit();
+  }
+  remove(id) {
+    this.todos = this.todos.filter((t) => t.id !== id);
+    this.#commit();
+  }
+}
+@@file js/view.js
+export class TodoView {
+  constructor(root) {
+    this.form = root.querySelector('form');
+    this.input = root.querySelector('input');
+    this.list = root.querySelector('ul');
+    this.count = root.querySelector('.count');
+  }
+  render(todos) {
+    this.list.innerHTML = '';
+    for (const t of todos) {
+      const li = document.createElement('li');
+      li.dataset.id = t.id;
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      this.list.append(li);
+    }
+    this.count.textContent = `남은 할 일 ${todos.filter((t) => !t.done).length}개`;
+  }
+  bindAdd(handler) {
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = this.input.value.trim();
+      if (text) { handler(text); this.input.value = ''; }
+    });
+  }
+  bindToggle(handler) {
+    this.list.addEventListener('change', (e) => handler(Number(e.target.closest('li').dataset.id)));
+  }
+  bindDelete(handler) {
+    this.list.addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') handler(Number(e.target.closest('li').dataset.id));
+    });
+  }
+}
+@@file js/controller.js
+export class TodoController {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+    model.onChange = (todos) => view.render(todos);
+    view.bindAdd((text) => model.add(text));
+    view.bindToggle((id) => model.toggle(id));
+    view.bindDelete((id) => model.remove(id));
+    view.render(model.todos);
+  }
+}
+@@file js/app.js
+import { TodoModel } from './model.js';
+import { TodoView } from './view.js';
+import { TodoController } from './controller.js';
+
+new TodoController(new TodoModel(), new TodoView(document.getElementById('app')));
+@@html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록 (MVC)</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  #app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  form { display: flex; gap: 8px; } form input { flex: 1; padding: 8px; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #aaa; }
+  .count { color: #71717a; font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>할 일 목록</h1>
+  <form><input placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul></ul>
+  <p class="count"></p>
+</div>
+<script>
+class TodoModel {
+  constructor() { this.todos = JSON.parse(localStorage.getItem('todos') || '[]'); this.onChange = () => {}; }
+  commit() { localStorage.setItem('todos', JSON.stringify(this.todos)); this.onChange(this.todos); }
+  add(text) { this.todos.push({ id: Date.now(), text, done: false }); this.commit(); }
+  toggle(id) { this.todos = this.todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)); this.commit(); }
+  remove(id) { this.todos = this.todos.filter((t) => t.id !== id); this.commit(); }
+}
+class TodoView {
+  constructor(root) {
+    this.form = root.querySelector('form'); this.input = root.querySelector('form input');
+    this.list = root.querySelector('ul'); this.count = root.querySelector('.count');
+  }
+  render(todos) {
+    this.list.innerHTML = '';
+    for (const t of todos) {
+      const li = document.createElement('li');
+      li.dataset.id = t.id; li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      this.list.append(li);
+    }
+    this.count.textContent = `남은 할 일 ${todos.filter((t) => !t.done).length}개`;
+  }
+  bindAdd(handler) {
+    this.form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = this.input.value.trim();
+      if (text) { handler(text); this.input.value = ''; }
+    });
+  }
+  bindToggle(handler) { this.list.addEventListener('change', (e) => handler(Number(e.target.closest('li').dataset.id))); }
+  bindDelete(handler) {
+    this.list.addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON') handler(Number(e.target.closest('li').dataset.id)); });
+  }
+}
+class TodoController {
+  constructor(model, view) {
+    model.onChange = (todos) => view.render(todos);
+    view.bindAdd((text) => model.add(text));
+    view.bindToggle((id) => model.toggle(id));
+    view.bindDelete((id) => model.remove(id));
+    view.render(model.todos);
+  }
+}
+new TodoController(new TodoModel(), new TodoView(document.getElementById('app')));
+</script>
+</body>
+</html>
+
+@@term state-management todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. 상태는 useReducer로 중앙에서 관리(centralized state management)하고, 컴포넌트들은 하나의 스토어에서 읽게 해줘.
+@@transcript
+모든 상태 변경을 `todoReducer` 한 곳에 모았습니다. 컴포넌트는 `useTodos()`로 상태를 읽고 `dispatch({ type })`로 "무슨 일이 일어났는지"만 알립니다. props를 여러 단계로 내려보내는 일(prop drilling)이 사라지고, 상태가 어떻게 바뀌는지는 reducer만 보면 됩니다.
+
+액션 목록: `added` · `toggled` · `deleted` · `filterChanged` · `clearedCompleted`
+@@code
+const { createContext, useContext, useReducer, useEffect, useState } = React;
+
+// ── 스토어: 상태 변경은 오직 여기서 ──
+const initialState = { todos: JSON.parse(localStorage.getItem('todos') || '[]'), filter: 'all' };
+
+function todoReducer(state, action) {
+  switch (action.type) {
+    case 'added':
+      return { ...state, todos: [...state.todos, { id: Date.now(), text: action.text, done: false }] };
+    case 'toggled':
+      return { ...state, todos: state.todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t)) };
+    case 'deleted':
+      return { ...state, todos: state.todos.filter((t) => t.id !== action.id) };
+    case 'clearedCompleted':
+      return { ...state, todos: state.todos.filter((t) => !t.done) };
+    case 'filterChanged':
+      return { ...state, filter: action.filter };
+    default:
+      throw new Error('알 수 없는 액션: ' + action.type);
+  }
+}
+
+const TodoContext = createContext(null);
+
+function TodoProvider({ children }) {
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+  useEffect(() => localStorage.setItem('todos', JSON.stringify(state.todos)), [state.todos]);
+  return <TodoContext.Provider value={{ state, dispatch }}>{children}</TodoContext.Provider>;
+}
+const useTodos = () => useContext(TodoContext);
+
+// ── 컴포넌트: 스토어에서 읽고, 액션만 보낸다 ──
+function AddForm() {
+  const { dispatch } = useTodos();
+  const [text, setText] = useState('');
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); if (text.trim()) { dispatch({ type: 'added', text: text.trim() }); setText(''); } }}>
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일을 입력하세요" />
+      <button type="submit">추가</button>
+    </form>
+  );
+}
+
+function Filters() {
+  const { state, dispatch } = useTodos();
+  return (
+    <div className="filters">
+      {[['all', '전체'], ['active', '진행 중'], ['done', '완료']].map(([f, label]) => (
+        <button key={f} className={state.filter === f ? 'active' : ''} onClick={() => dispatch({ type: 'filterChanged', filter: f })}>{label}</button>
+      ))}
+    </div>
+  );
+}
+
+function List() {
+  const { state, dispatch } = useTodos();
+  const visible = state.todos.filter((t) => state.filter === 'all' || (state.filter === 'done' ? t.done : !t.done));
+  return (
+    <ul>
+      {visible.map((t) => (
+        <li key={t.id} className={t.done ? 'done' : ''}>
+          <input type="checkbox" checked={t.done} onChange={() => dispatch({ type: 'toggled', id: t.id })} />
+          <span>{t.text}</span>
+          <button onClick={() => dispatch({ type: 'deleted', id: t.id })}>삭제</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Footer() {
+  const { state, dispatch } = useTodos();
+  const left = state.todos.filter((t) => !t.done).length;
+  return (
+    <p className="count">
+      남은 할 일 {left}개{' '}
+      {left < state.todos.length && <button onClick={() => dispatch({ type: 'clearedCompleted' })}>완료 항목 지우기</button>}
+    </p>
+  );
+}
+
+function App() {
+  return (
+    <TodoProvider>
+      <div className="app">
+        <h1>할 일 목록</h1>
+        <AddForm />
+        <Filters />
+        <List />
+        <Footer />
+      </div>
+    </TodoProvider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+@@html=react
+
+@@term single-source-of-truth todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 단일 진실 공급원(single source of truth) 원칙으로, 개수나 필터된 목록은 todos 배열 하나에서 계산해서 쓰고 중복 상태는 저장하지 마.
+@@transcript
+상태는 `todos` 배열과 `filter` 문자열 **두 개뿐**입니다. 남은 개수, 완료 개수, 진행률, 필터된 목록은 모두 `derive()`에서 매번 계산합니다. `remainingCount` 같은 변수를 따로 저장했다가 갱신을 깜빡해서 숫자가 어긋나는 버그가 구조적으로 생기지 않습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  .app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  form { display: flex; gap: 8px; } form input { flex: 1; padding: 8px; }
+  .stats { display: flex; justify-content: space-between; font-size: 13px; color: #71717a; margin: 12px 0 6px; }
+  .bar { height: 6px; background: #e4e4e7; border-radius: 3px; overflow: hidden; }
+  .bar div { height: 100%; background: #22c55e; transition: width .3s; }
+  .tabs { margin: 12px 0 0; display: flex; gap: 6px; } .tabs button.on { background: #18181b; color: #fff; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; gap: 8px; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #aaa; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form"><input id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <div class="stats"><span id="remaining"></span><span id="percent"></span></div>
+  <div class="bar"><div id="progress"></div></div>
+  <div class="tabs" id="tabs">
+    <button data-filter="all">전체</button><button data-filter="active">진행 중</button><button data-filter="done">완료</button>
+  </div>
+  <ul id="list"></ul>
+</div>
+<script>
+  // ── 유일한 상태 ──
+  const state = {
+    todos: JSON.parse(localStorage.getItem('todos') || '[]'),
+    filter: 'all',
+  };
+
+  // ── 파생 값: 저장하지 않고 항상 계산 ──
+  function derive({ todos, filter }) {
+    const doneCount = todos.filter((t) => t.done).length;
+    return {
+      visible: todos.filter((t) => filter === 'all' || (filter === 'done' ? t.done : !t.done)),
+      remaining: todos.length - doneCount,
+      percent: todos.length ? Math.round((doneCount / todos.length) * 100) : 0,
+    };
+  }
+
+  // ── 상태 변경은 이 함수 하나로 ──
+  function update(mutator) {
+    mutator(state);
+    localStorage.setItem('todos', JSON.stringify(state.todos));
+    render();
+  }
+
+  function render() {
+    const { visible, remaining, percent } = derive(state);
+    document.getElementById('remaining').textContent = `남은 할 일 ${remaining}개`;
+    document.getElementById('percent').textContent = `${percent}% 완료`;
+    document.getElementById('progress').style.width = percent + '%';
+    document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.filter === state.filter));
+
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    for (const t of visible) {
+      const li = document.createElement('li');
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox"><span></span><button>삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => update((s) => { t.done = !t.done; });
+      li.querySelector('button').onclick = () => update((s) => { s.todos = s.todos.filter((x) => x.id !== t.id); });
+      list.appendChild(li);
+    }
+  }
+
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    const text = input.value.trim();
+    if (!text) return;
+    update((s) => s.todos.push({ id: Date.now(), text, done: false }));
+    input.value = '';
+  };
+  document.getElementById('tabs').onclick = (e) => {
+    if (e.target.dataset.filter) update((s) => { s.filter = e.target.dataset.filter; });
+  };
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term custom-hooks todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. 재사용 가능한 로직은 커스텀 훅(custom hooks: useLocalStorage, useKeyboardShortcut 등)으로 뽑아줘.
+@@transcript
+로직을 훅 3개로 분리했습니다. `App`에는 화면만 남습니다.
+
+- `useLocalStorage(key, initial)` — `useState`와 같은 사용법인데 자동 저장 (다른 앱에도 그대로 재사용 가능)
+- `useTodos()` — 추가/토글/삭제/남은 개수
+- `useKeyboardShortcut(key, handler)` — `/` 키를 누르면 입력창에 포커스
+
+```
+src/
+├─ hooks/
+│  ├─ useLocalStorage.js
+│  ├─ useKeyboardShortcut.js
+│  └─ useTodos.js
+└─ App.jsx
+```
+(아래는 미리보기를 위해 한 파일로 합친 코드이며, 주석의 파일 경로대로 나누면 됩니다.)
+@@code
+const { useState, useEffect, useRef, useCallback } = React;
+
+// hooks/useLocalStorage.js
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() => {
+    try {
+      const stored = localStorage.getItem(key);
+      return stored !== null ? JSON.parse(stored) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
+}
+
+// hooks/useKeyboardShortcut.js
+function useKeyboardShortcut(key, handler) {
+  const saved = useRef(handler);
+  saved.current = handler;
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === key && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        saved.current(e);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [key]);
+}
+
+// hooks/useTodos.js
+function useTodos() {
+  const [todos, setTodos] = useLocalStorage('todos', []);
+  const add = useCallback((text) => setTodos((p) => [...p, { id: Date.now(), text, done: false }]), [setTodos]);
+  const toggle = useCallback((id) => setTodos((p) => p.map((t) => (t.id === id ? { ...t, done: !t.done } : t))), [setTodos]);
+  const remove = useCallback((id) => setTodos((p) => p.filter((t) => t.id !== id)), [setTodos]);
+  const remaining = todos.filter((t) => !t.done).length;
+  return { todos, add, toggle, remove, remaining };
+}
+
+// App.jsx — 화면만
+function App() {
+  const { todos, add, toggle, remove, remaining } = useTodos();
+  const [text, setText] = useState('');
+  const inputRef = useRef(null);
+  useKeyboardShortcut('/', () => inputRef.current?.focus());
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!text.trim()) return;
+    add(text.trim());
+    setText('');
+  };
+
+  return (
+    <div className="app">
+      <h1>할 일 목록</h1>
+      <form onSubmit={submit}>
+        <input ref={inputRef} value={text} onChange={(e) => setText(e.target.value)} placeholder="할 일 입력 ( / 키로 포커스)" />
+        <button type="submit">추가</button>
+      </form>
+      <ul>
+        {todos.map((t) => (
+          <li key={t.id} className={t.done ? 'done' : ''}>
+            <input type="checkbox" checked={t.done} onChange={() => toggle(t.id)} />
+            <span>{t.text}</span>
+            <button onClick={() => remove(t.id)}>삭제</button>
+          </li>
+        ))}
+      </ul>
+      <p className="count">남은 할 일 {remaining}개</p>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+@@html=react
+
+@@term monorepo todo-app ts
+@@prompt
+할 일 목록 앱을 만들어줘. pnpm 워크스페이스 모노레포(monorepo)로 apps/web, apps/api, packages/shared-types를 나눠서 구성해줘.
+@@transcript
+프런트엔드(web)와 백엔드(api)가 **같은 타입 패키지**를 공유하는 모노레포입니다. `Todo` 타입을 한 곳에서 바꾸면 양쪽에서 동시에 타입 오류가 나서, API 응답과 화면이 어긋나는 문제를 빌드 단계에서 잡을 수 있습니다.
+
+```bash
+pnpm install
+pnpm dev        # web(5173) + api(3001) 동시 실행
+pnpm -r build   # 모든 패키지 빌드
+```
+@@file pnpm-workspace.yaml
+packages:
+  - "apps/*"
+  - "packages/*"
+@@file package.json
+{
+  "name": "todo-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r exec tsc --noEmit"
+  },
+  "devDependencies": { "typescript": "^5.5.3" }
+}
+@@file packages/shared-types/package.json
+{
+  "name": "@todo/shared-types",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts"
+}
+@@file packages/shared-types/src/index.ts
+export interface Todo {
+  id: string;
+  text: string;
+  done: boolean;
+  createdAt: string;
+}
+
+export type CreateTodoInput = Pick<Todo, "text">;
+export type UpdateTodoInput = Partial<Pick<Todo, "text" | "done">>;
+@@file apps/api/package.json
+{
+  "name": "@todo/api",
+  "scripts": { "dev": "tsx watch src/server.ts" },
+  "dependencies": { "@todo/shared-types": "workspace:*", "express": "^4.19.2", "cors": "^2.8.5" },
+  "devDependencies": { "tsx": "^4.16.2", "@types/express": "^4.17.21", "@types/cors": "^2.8.17" }
+}
+@@file apps/api/src/server.ts
+import express from "express";
+import cors from "cors";
+import type { CreateTodoInput, Todo, UpdateTodoInput } from "@todo/shared-types";
+
+const app = express();
+app.use(cors(), express.json());
+let todos: Todo[] = [];
+
+app.get("/todos", (_req, res) => res.json(todos));
+
+app.post("/todos", (req, res) => {
+  const { text } = req.body as CreateTodoInput;
+  if (!text?.trim()) return res.status(400).json({ error: "text is required" });
+  const todo: Todo = { id: crypto.randomUUID(), text: text.trim(), done: false, createdAt: new Date().toISOString() };
+  todos.push(todo);
+  res.status(201).json(todo);
+});
+
+app.patch("/todos/:id", (req, res) => {
+  const patch = req.body as UpdateTodoInput;
+  const todo = todos.find((t) => t.id === req.params.id);
+  if (!todo) return res.sendStatus(404);
+  Object.assign(todo, patch);
+  res.json(todo);
+});
+
+app.delete("/todos/:id", (req, res) => {
+  todos = todos.filter((t) => t.id !== req.params.id);
+  res.sendStatus(204);
+});
+
+app.listen(3001, () => console.log("API on http://localhost:3001"));
+@@file apps/web/package.json
+{
+  "name": "@todo/web",
+  "scripts": { "dev": "vite", "build": "tsc -b && vite build" },
+  "dependencies": { "@todo/shared-types": "workspace:*", "react": "^18.3.1", "react-dom": "^18.3.1" },
+  "devDependencies": { "vite": "^5.4.1", "@vitejs/plugin-react": "^4.3.1" }
+}
+@@file apps/web/src/api.ts
+import type { CreateTodoInput, Todo, UpdateTodoInput } from "@todo/shared-types";
+
+const BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
+
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(BASE + path, { headers: { "Content-Type": "application/json" }, ...init });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return res.status === 204 ? (undefined as T) : res.json();
+}
+
+export const api = {
+  list: () => request<Todo[]>("/todos"),
+  create: (input: CreateTodoInput) => request<Todo>("/todos", { method: "POST", body: JSON.stringify(input) }),
+  update: (id: string, input: UpdateTodoInput) => request<Todo>(`/todos/${id}`, { method: "PATCH", body: JSON.stringify(input) }),
+  remove: (id: string) => request<void>(`/todos/${id}`, { method: "DELETE" }),
+};
+@@file apps/web/src/App.tsx
+import { useEffect, useState } from "react";
+import type { Todo } from "@todo/shared-types";
+import { api } from "./api";
+
+export default function App() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [text, setText] = useState("");
+  const reload = () => api.list().then(setTodos);
+  useEffect(() => { reload(); }, []);
+
+  return (
+    <main>
+      <h1>할 일 목록</h1>
+      <form onSubmit={async (e) => { e.preventDefault(); await api.create({ text }); setText(""); reload(); }}>
+        <input value={text} onChange={(e) => setText(e.target.value)} />
+        <button>추가</button>
+      </form>
+      <ul>
+        {todos.map((t) => (
+          <li key={t.id}>
+            <input type="checkbox" checked={t.done} onChange={async () => { await api.update(t.id, { done: !t.done }); reload(); }} />
+            {t.text}
+            <button onClick={async () => { await api.remove(t.id); reload(); }}>삭제</button>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
+}
+
+@@term client-side-routing todo-app jsx
+@@prompt
+할 일 목록 앱을 만들어줘. React Router로 클라이언트 라우팅(client-side routing)을 넣어서 목록(/), 상세(/todos/:id), 설정(/settings) 페이지를 나눠줘.
+@@transcript
+`react-router-dom` v6로 3개 페이지를 만들었습니다. 페이지 이동 시 새로고침 없이 화면만 바뀌고, 주소창 URL도 바뀌어서 상세 페이지를 북마크·공유할 수 있습니다.
+
+| 경로 | 화면 |
+|---|---|
+| `/` | 할 일 목록 |
+| `/todos/:id` | 상세 (메모 편집, 삭제 후 목록으로) |
+| `/settings` | 완료 항목 숨기기 설정 |
+| `*` | 404 페이지 |
+
+정적 호스팅(Netlify, Vercel 등)에 배포할 때는 모든 경로를 `index.html`로 보내는 리라이트 설정이 필요합니다.
+@@file src/main.jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { TodoProvider } from './store';
+import Layout from './Layout';
+import TodoListPage from './pages/TodoListPage';
+import TodoDetailPage from './pages/TodoDetailPage';
+import SettingsPage from './pages/SettingsPage';
+import NotFound from './pages/NotFound';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { index: true, element: <TodoListPage /> },
+      { path: 'todos/:id', element: <TodoDetailPage /> },
+      { path: 'settings', element: <SettingsPage /> },
+      { path: '*', element: <NotFound /> },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <TodoProvider>
+    <RouterProvider router={router} />
+  </TodoProvider>
+);
+@@file src/Layout.jsx
+import { NavLink, Outlet } from 'react-router-dom';
+
+export default function Layout() {
+  return (
+    <div className="app">
+      <nav>
+        <NavLink to="/" end>목록</NavLink>
+        <NavLink to="/settings">설정</NavLink>
+      </nav>
+      <Outlet />
+    </div>
+  );
+}
+@@file src/pages/TodoListPage.jsx
+import { Link } from 'react-router-dom';
+import { useTodoStore } from '../store';
+
+export default function TodoListPage() {
+  const { todos, settings, toggle } = useTodoStore();
+  const visible = settings.hideDone ? todos.filter((t) => !t.done) : todos;
+  return (
+    <>
+      <h1>할 일 목록</h1>
+      <ul>
+        {visible.map((t) => (
+          <li key={t.id}>
+            <input type="checkbox" checked={t.done} onChange={() => toggle(t.id)} />
+            <Link to={`/todos/${t.id}`}>{t.text}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+@@file src/pages/TodoDetailPage.jsx
+import { useNavigate, useParams } from 'react-router-dom';
+import { useTodoStore } from '../store';
+
+export default function TodoDetailPage() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { todos, update, remove } = useTodoStore();
+  const todo = todos.find((t) => String(t.id) === id);
+
+  if (!todo) return <p>존재하지 않는 할 일입니다.</p>;
+  return (
+    <article>
+      <h1>{todo.text}</h1>
+      <textarea value={todo.note ?? ''} onChange={(e) => update(todo.id, { note: e.target.value })} placeholder="메모" />
+      <button onClick={() => { remove(todo.id); navigate('/'); }}>삭제</button>
+    </article>
+  );
+}
+@@file src/pages/SettingsPage.jsx
+import { useTodoStore } from '../store';
+
+export default function SettingsPage() {
+  const { settings, setSettings } = useTodoStore();
+  return (
+    <>
+      <h1>설정</h1>
+      <label>
+        <input type="checkbox" checked={settings.hideDone} onChange={(e) => setSettings({ hideDone: e.target.checked })} />
+        완료된 항목 숨기기
+      </label>
+    </>
+  );
+}
+
+@@term design-tokens todo-app css
+@@prompt
+할 일 목록 앱을 만들어줘. 색·간격·둥글기·글꼴을 디자인 토큰(design tokens)으로 CSS 변수에 정의하고, 스타일에는 토큰만 쓰게 해줘.
+@@transcript
+토큰을 두 단계로 나눴습니다.
+
+1. **기본 토큰(primitive)** — `--gray-900`, `--blue-600`, `--space-4`처럼 값 자체
+2. **의미 토큰(semantic)** — `--color-text`, `--color-action`, `--radius-control`처럼 용도
+
+컴포넌트 CSS는 **의미 토큰만** 참조합니다. 브랜드 색을 바꾸려면 `--color-action` 한 줄, 다크 모드는 의미 토큰만 재정의하면 됩니다. 하드코딩된 `#hex`나 `px` 값은 토큰 블록 밖에 하나도 없습니다.
+@@file tokens.json
+{
+  "color": {
+    "gray": { "50": "#f8fafc", "200": "#e2e8f0", "500": "#64748b", "900": "#0f172a" },
+    "blue": { "600": "#2563eb", "700": "#1d4ed8" },
+    "red": { "600": "#dc2626" }
+  },
+  "space": { "1": "4px", "2": "8px", "3": "12px", "4": "16px", "6": "24px" },
+  "radius": { "sm": "6px", "lg": "16px" },
+  "font": { "sans": "Pretendard, system-ui, sans-serif", "size-sm": "13px", "size-md": "15px", "size-xl": "24px" }
+}
+@@code
+/* ── 1단계: 기본 토큰 ── */
+:root {
+  --gray-50: #f8fafc; --gray-200: #e2e8f0; --gray-500: #64748b; --gray-900: #0f172a;
+  --blue-600: #2563eb; --blue-700: #1d4ed8; --red-600: #dc2626; --white: #ffffff;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+  --radius-sm: 6px; --radius-lg: 16px;
+  --font-sans: Pretendard, system-ui, sans-serif;
+  --font-size-sm: 13px; --font-size-md: 15px; --font-size-xl: 24px;
+}
+
+/* ── 2단계: 의미 토큰 (컴포넌트는 이것만 사용) ── */
+:root {
+  --color-bg: var(--gray-50);
+  --color-surface: var(--white);
+  --color-text: var(--gray-900);
+  --color-text-muted: var(--gray-500);
+  --color-border: var(--gray-200);
+  --color-action: var(--blue-600);
+  --color-action-hover: var(--blue-700);
+  --color-on-action: var(--white);
+  --color-danger: var(--red-600);
+  --radius-card: var(--radius-lg);
+  --radius-control: var(--radius-sm);
+  --gap-inline: var(--space-2);
+  --pad-card: var(--space-6);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: var(--gray-900);
+    --color-surface: #1e293b;
+    --color-text: var(--gray-50);
+    --color-border: #334155;
+  }
+}
+
+/* ── 컴포넌트: 토큰만 참조 ── */
+body { margin: 0; padding: var(--space-6) var(--space-4); background: var(--color-bg); color: var(--color-text);
+       font-family: var(--font-sans); font-size: var(--font-size-md); display: flex; justify-content: center; }
+.card { width: 100%; max-width: 400px; background: var(--color-surface); border: 1px solid var(--color-border);
+        border-radius: var(--radius-card); padding: var(--pad-card); }
+.title { margin: 0 0 var(--space-4); font-size: var(--font-size-xl); }
+.form { display: flex; gap: var(--gap-inline); }
+.input { flex: 1; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-control);
+         background: transparent; color: inherit; font: inherit; }
+.btn { padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-control); background: var(--color-action);
+       color: var(--color-on-action); font: inherit; cursor: pointer; }
+.btn:hover { background: var(--color-action-hover); }
+.list { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.item span { flex: 1; }
+.item.done span { color: var(--color-text-muted); text-decoration: line-through; }
+.link-danger { border: 0; background: none; color: var(--color-danger); font: inherit; font-size: var(--font-size-sm); cursor: pointer; }
+.meta { margin: var(--space-3) 0 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+@@html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+:root {
+  --gray-50: #f8fafc; --gray-200: #e2e8f0; --gray-500: #64748b; --gray-900: #0f172a;
+  --blue-600: #2563eb; --blue-700: #1d4ed8; --red-600: #dc2626; --white: #ffffff;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px;
+  --radius-sm: 6px; --radius-lg: 16px;
+  --font-sans: Pretendard, system-ui, sans-serif;
+  --font-size-sm: 13px; --font-size-md: 15px; --font-size-xl: 24px;
+}
+:root {
+  --color-bg: var(--gray-50); --color-surface: var(--white); --color-text: var(--gray-900);
+  --color-text-muted: var(--gray-500); --color-border: var(--gray-200);
+  --color-action: var(--blue-600); --color-action-hover: var(--blue-700); --color-on-action: var(--white);
+  --color-danger: var(--red-600);
+  --radius-card: var(--radius-lg); --radius-control: var(--radius-sm);
+  --gap-inline: var(--space-2); --pad-card: var(--space-6);
+}
+@media (prefers-color-scheme: dark) {
+  :root { --color-bg: var(--gray-900); --color-surface: #1e293b; --color-text: var(--gray-50); --color-border: #334155; }
+}
+body { margin: 0; padding: var(--space-6) var(--space-4); background: var(--color-bg); color: var(--color-text);
+       font-family: var(--font-sans); font-size: var(--font-size-md); display: flex; justify-content: center; }
+.card { width: 100%; max-width: 400px; background: var(--color-surface); border: 1px solid var(--color-border);
+        border-radius: var(--radius-card); padding: var(--pad-card); box-sizing: border-box; }
+.title { margin: 0 0 var(--space-4); font-size: var(--font-size-xl); }
+.form { display: flex; gap: var(--gap-inline); }
+.input { flex: 1; min-width: 0; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-control);
+         background: transparent; color: inherit; font: inherit; }
+.btn { padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-control); background: var(--color-action);
+       color: var(--color-on-action); font: inherit; cursor: pointer; }
+.btn:hover { background: var(--color-action-hover); }
+.list { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border); }
+.item span { flex: 1; }
+.item.done span { color: var(--color-text-muted); text-decoration: line-through; }
+.link-danger { border: 0; background: none; color: var(--color-danger); font: inherit; font-size: var(--font-size-sm); cursor: pointer; }
+.meta { margin: var(--space-3) 0 0; color: var(--color-text-muted); font-size: var(--font-size-sm); }
+</style>
+</head>
+<body>
+<main class="card">
+  <h1 class="title">할 일 목록</h1>
+  <form class="form" id="form"><input class="input" id="input" placeholder="할 일을 입력하세요"><button class="btn">추가</button></form>
+  <ul class="list" id="list"></ul>
+  <p class="meta" id="meta"></p>
+</main>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+  function render() {
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    for (const t of todos) {
+      const li = document.createElement('li');
+      li.className = 'item' + (t.done ? ' done' : '');
+      li.innerHTML = '<input type="checkbox"><span></span><button class="link-danger">삭제</button>';
+      li.querySelector('input').checked = t.done;
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos = todos.filter((x) => x !== t); save(); render(); };
+      list.appendChild(li);
+    }
+    document.getElementById('meta').textContent = `남은 할 일 ${todos.filter((t) => !t.done).length}개`;
+  }
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    if (!input.value.trim()) return;
+    todos.push({ text: input.value.trim(), done: false });
+    input.value = ''; save(); render();
+  };
+  render();
+</script>
+</body>
+</html>
+
+@@term event-driven bouncing-ball-game html
+@@prompt
+브라우저에서 공이 튀는 게임을 만들어줘. 이벤트 기반 구조(event-driven, pub-sub)로, 게임이 'bounce'·'score'·'gameover' 이벤트를 내보내면 UI와 효과음이 구독하게 해줘.
+@@transcript
+게임 로직은 화면 UI나 소리를 **직접 호출하지 않고** 이벤트만 발행합니다. 구독자는 서로를 모릅니다.
+
+```
+Game ──emit──▶ bus ──▶ HUD(점수 표시)
+                  ├──▶ Sound(효과음)
+                  └──▶ Stats(최고 점수 저장)
+```
+
+새 기능(예: 진동, 파티클)을 추가할 때 게임 코드를 건드리지 않고 `bus.on('bounce', ...)` 한 줄로 붙일 수 있습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공 튀기기 - 이벤트 기반</title>
+<style>
+  body { margin: 0; background: #0f172a; color: #fff; font-family: system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 16px; }
+  #hud { display: flex; gap: 16px; font-size: 15px; margin-bottom: 8px; }
+  canvas { background: #1e293b; border-radius: 12px; max-width: 100%; touch-action: none; }
+  #msg { margin-top: 8px; color: #94a3b8; }
+</style>
+</head>
+<body>
+<div id="hud"><span>점수 <b id="score">0</b></span><span>최고 <b id="best">0</b></span></div>
+<canvas id="c" width="420" height="560"></canvas>
+<p id="msg">클릭해서 시작 · 마우스/터치로 패들 이동</p>
+<script>
+// ── 이벤트 버스 ──
+const bus = {
+  handlers: {},
+  on(type, fn) { (this.handlers[type] ||= []).push(fn); },
+  emit(type, payload) { (this.handlers[type] || []).forEach((fn) => fn(payload)); },
+};
+
+// ── 게임: 상태 계산 + 이벤트 발행만 ──
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const game = { ball: null, paddleX: 210, score: 0, running: false };
+
+function start() {
+  Object.assign(game, { ball: { x: 210, y: 100, vx: 3, vy: 0, r: 11 }, score: 0, running: true });
+  bus.emit('start');
+}
+
+function step() {
+  const b = game.ball;
+  if (game.running) {
+    b.vy += 0.3; b.x += b.vx; b.y += b.vy;
+    if (b.x < b.r || b.x > canvas.width - b.r) { b.vx *= -1; b.x = Math.max(b.r, Math.min(canvas.width - b.r, b.x)); bus.emit('bounce', { kind: 'wall' }); }
+    const py = canvas.height - 30;
+    if (b.vy > 0 && b.y + b.r >= py && b.y < py + 12 && Math.abs(b.x - game.paddleX) < 50 + b.r) {
+      b.y = py - b.r; b.vy = -11; b.vx += (b.x - game.paddleX) * 0.06;
+      game.score++;
+      bus.emit('bounce', { kind: 'paddle' });
+      bus.emit('score', game.score);
+    }
+    if (b.y > canvas.height + 20) { game.running = false; bus.emit('gameover', game.score); }
+  }
+  draw();
+  requestAnimationFrame(step);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#e2e8f0';
+  ctx.fillRect(game.paddleX - 50, canvas.height - 30, 100, 12);
+  if (game.ball) {
+    ctx.fillStyle = '#f97316';
+    ctx.beginPath(); ctx.arc(game.ball.x, game.ball.y, game.ball.r, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+canvas.addEventListener('pointermove', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  game.paddleX = ((e.clientX - rect.left) / rect.width) * canvas.width;
+});
+canvas.addEventListener('pointerdown', () => { if (!game.running) start(); });
+
+// ── 구독자 1: HUD ──
+const $ = (id) => document.getElementById(id);
+bus.on('start', () => { $('score').textContent = 0; $('msg').textContent = '패들로 공을 받아내세요!'; });
+bus.on('score', (s) => { $('score').textContent = s; });
+bus.on('gameover', (s) => { $('msg').textContent = `게임 오버 — ${s}점. 클릭해서 다시 시작`; });
+
+// ── 구독자 2: 효과음 (Web Audio) ──
+let audio;
+bus.on('start', () => { audio ||= new AudioContext(); });
+bus.on('bounce', ({ kind }) => {
+  if (!audio) return;
+  const osc = audio.createOscillator(), gain = audio.createGain();
+  osc.frequency.value = kind === 'paddle' ? 660 : 330;
+  gain.gain.setValueAtTime(0.15, audio.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.12);
+  osc.connect(gain).connect(audio.destination);
+  osc.start(); osc.stop(audio.currentTime + 0.12);
+});
+
+// ── 구독자 3: 최고 점수 저장 ──
+let best = Number(localStorage.getItem('best') || 0);
+$('best').textContent = best;
+bus.on('gameover', (s) => {
+  if (s > best) { best = s; localStorage.setItem('best', best); $('best').textContent = best; }
+});
+
+step();
+</script>
+</body>
+</html>
+@@html=code

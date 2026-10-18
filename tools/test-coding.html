@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>coding results smoke test</title>
+<body style="font:13px monospace">
+<div id="out">running…</div>
+<div id="stage" style="width:960px;height:720px"></div>
+<script src="../data/results-coding.js"></script>
+<script src="../data/results-coding-2.js"></script>
+<script>
+(async () => {
+  const R = window.PD_RESULTS.coding;
+  const jobs = [];
+  Object.entries(R.base).forEach(([k, v]) => v.html && jobs.push(['base:' + k, v.html]));
+  Object.entries(R.terms).forEach(([k, arr]) => arr.forEach((v, i) => v.html && jobs.push([k + '#' + i, v.html])));
+  const hook = '<script>(function(){function M(){var d={};return{getItem:function(k){return Object.prototype.hasOwnProperty.call(d,k)?d[k]:null},setItem:function(k,v){d[k]=String(v)},removeItem:function(k){delete d[k]},clear:function(){d={}},key:function(i){return Object.keys(d)[i]||null},get length(){return Object.keys(d).length}}}["localStorage","sessionStorage"].forEach(function(n){try{window[n].getItem("x")}catch(e){try{Object.defineProperty(window,n,{value:M(),configurable:true})}catch(_){}}});})()<\/script><script>window.onerror=function(m,s,l){parent.postMessage({t:"err",m:String(m)+" @"+l},"*")};window.addEventListener("unhandledrejection",function(e){parent.postMessage({t:"err",m:"reject "+(e.reason&&e.reason.message||e.reason)},"*")});setTimeout(function(){var b=document.body;parent.postMessage({t:"ok",n:b?b.innerText.length:0,c:document.querySelectorAll("canvas").length,el:document.querySelectorAll("*").length},"*")},3500)<\/script>';
+  const results = [];
+  const runOne = ([name, html]) => new Promise((done) => {
+      const errs = [];
+      let info = null;
+      const f = document.createElement('iframe');
+      f.sandbox = 'allow-scripts';
+      f.style.cssText = 'width:480px;height:360px;border:0';
+      const on = (e) => { if (e.source !== f.contentWindow) return; if (e.data.t === 'err') errs.push(e.data.m); else info = e.data; };
+      addEventListener('message', on);
+      f.srcdoc = /<head[^>]*>/i.test(html) ? html.replace(/<head[^>]*>/i, (m) => m + hook) : hook + html;
+      document.getElementById('stage').append(f);
+      setTimeout(() => { removeEventListener('message', on); f.remove(); done({ name, errs, info }); }, 6000);
+    });
+  const queue = jobs.slice();
+  const worker = async () => { while (queue.length) { const j = queue.shift(); results.push(await runOne(j)); document.getElementById('out').textContent = results.length + '/' + jobs.length; } };
+  await Promise.all([worker(), worker(), worker(), worker(), worker(), worker()]);
+  window.__results = results;
+  const bad = results.filter((r) => r.errs.length || !r.info || r.info.el < 8);
+  document.getElementById('out').textContent = 'done ' + results.length + ' bad ' + bad.length + '\n' + JSON.stringify(bad, null, 1);
+})();
+</script>

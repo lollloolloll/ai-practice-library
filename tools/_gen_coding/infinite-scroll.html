@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 22px; margin: 0 0 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .panel { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .label { font-size: 13px; color: #777; } .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .panel h2 { font-size: 16px; margin: 0 0 4px; display: flex; justify-content: space-between; align-items: baseline; }
+  .panel h2 small { font-size: 12px; color: #888; font-weight: 400; }
+  .feed { height: 300px; overflow-y: auto; margin: 8px -16px -16px; border-top: 1px solid #eee; }
+  .row { display: grid; grid-template-columns: 70px 1fr auto; gap: 10px; align-items: center; padding: 10px 16px; border-bottom: 1px solid #f2f2f2; font-size: 14px; animation: in .3s; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } }
+  .id { color: #999; font: 12px ui-monospace, monospace; }
+  .who small { display: block; color: #999; font-size: 12px; }
+  .amt { font-weight: 700; text-align: right; } .amt small { display: block; font-weight: 400; font-size: 11px; }
+  .paid { color: #2e9e5b; } .ship { color: #4a6cf7; } .ref { color: #d64545; }
+  .sentinel { padding: 16px; text-align: center; color: #888; font-size: 13px; }
+  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #ddd; border-top-color: #4a6cf7; border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<h1>매출 대시보드</h1>
+<div class="kpis">
+  <div class="kpi"><div class="label">오늘 매출</div><div class="value">₩3,482,000</div></div>
+  <div class="kpi"><div class="label">오늘 주문</div><div class="value">96건</div></div>
+  <div class="kpi"><div class="label">불러온 주문</div><div class="value" id="loaded">0건</div></div>
+</div>
+<div class="panel">
+  <h2>주문 내역 <small>스크롤하면 자동으로 더 불러옵니다</small></h2>
+  <div class="feed" id="feed"><div id="rows"></div><div class="sentinel" id="sentinel"></div></div>
+</div>
+<script>
+  const names = ['김민지','이준호','박서연','최도윤','정하은','강지후','윤서준','임수아','한예준','오지민','서하린','신우진'];
+  const items = ['에티오피아 예가체프 200g','콜롬비아 수프리모 400g','과테말라 안티구아 200g','하우스 블렌드 1kg','디카페인 블렌드 400g','드립백 30개입'];
+  const status = [['결제완료','paid'],['배송중','ship'],['환불','ref']];
+  const TOTAL = 240, PAGE = 20; let page = 0, loading = false;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  // 가짜 페이지네이션 API (cursor 기반)
+  const fetchOrders = p => new Promise(r => setTimeout(() => r(Array.from({ length: Math.min(PAGE, TOTAL - p * PAGE) }, (_, i) => {
+    const n = p * PAGE + i, s = status[rnd() < .75 ? 0 : rnd() < .7 ? 1 : 2];
+    return { id: 'A' + (20480 - n), who: names[Math.floor(rnd() * names.length)], item: items[Math.floor(rnd() * items.length)], amt: Math.round((15 + rnd() * 120)) * 1000, s, t: `${String(23 - Math.floor(n / 10) % 24).padStart(2, '0')}:${String(59 - n % 60).padStart(2, '0')}` };
+  })), 700));
+  async function more() {
+    if (loading || page * PAGE >= TOTAL) return;
+    loading = true; const sen = document.getElementById('sentinel'); sen.innerHTML = '<span class="spinner"></span>불러오는 중…';
+    const list = await fetchOrders(page++);
+    document.getElementById('rows').insertAdjacentHTML('beforeend', list.map(o => `<div class="row"><span class="id">#${o.id}<br>${o.t}</span><span class="who">${o.who}<small>${o.item}</small></span><span class="amt">₩${o.amt.toLocaleString()}<small class="${o.s[1]}">${o.s[0]}</small></span></div>`).join(''));
+    document.getElementById('loaded').textContent = `${Math.min(page * PAGE, TOTAL)} / ${TOTAL}건`;
+    loading = false;
+    sen.textContent = page * PAGE >= TOTAL ? '✓ 모든 주문을 불러왔습니다' : '';
+    // 화면이 아직 안 찼으면 계속 로드
+    const feed = document.getElementById('feed'); if (feed.scrollHeight <= feed.clientHeight + 10) more();
+  }
+  new IntersectionObserver(es => es[0].isIntersecting && more(), { root: document.getElementById('feed'), rootMargin: '100px' }).observe(document.getElementById('sentinel'));
+  more();
+</script>
+</body>
+</html>

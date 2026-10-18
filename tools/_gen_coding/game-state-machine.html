@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 상태 머신</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #eee; }
+  canvas { display: block; touch-action: none; }
+  .state { position: fixed; bottom: 8px; left: 8px; display: flex; gap: 4px; font: 11px ui-monospace, monospace; }
+  .state span { padding: 3px 7px; border-radius: 4px; background: #2a2a40; color: #777; }
+  .state span.on { background: #6bcb77; color: #111; font-weight: 700; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="state" id="st"></div>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+
+  // ── 상태 머신: 각 상태가 enter / update / draw / input 을 가짐 ──
+  const game = { score: 0, best: 0, lives: 3, t: 0 };
+  const ball = { x: 0, y: 0, r: 16, vx: 0, vy: 0 };
+  const States = {
+    MENU: {
+      enter() { game.t = 0; },
+      update(dt) { game.t += dt; },
+      draw() {
+        title('튀는 공', H / 2 - 50, 40);
+        const y = H / 2 + 10 + Math.abs(Math.sin(game.t * 3)) * -30;
+        circle(W / 2, y, 16, '#ff6b6b');
+        text('클릭하거나 Space로 시작', H / 2 + 60, 16, Math.sin(game.t * 4) > 0 ? '#fff' : '#888');
+        if (game.best) text(`최고 점수 ${game.best}`, H / 2 + 90, 13, '#ffd93d');
+      },
+      input() { change('PLAYING'); }
+    },
+    PLAYING: {
+      enter(from) { if (from !== 'PAUSED') { Object.assign(game, { score: 0, lives: 3 }); spawn(); } },
+      update(dt) {
+        ball.vy += 900 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+        if (ball.x < ball.r || ball.x > W - ball.r) { ball.vx *= -1; ball.x = Math.max(ball.r, Math.min(W - ball.r, ball.x)); }
+        if (ball.y < ball.r) { ball.y = ball.r; ball.vy = Math.abs(ball.vy); }
+        if (ball.y > H + ball.r) { game.lives--; if (game.lives <= 0) change('GAME_OVER'); else spawn(); }
+      },
+      draw() {
+        circle(ball.x, ball.y, ball.r, '#ff6b6b');
+        ctx.fillStyle = '#fff'; ctx.font = 'bold 16px system-ui'; ctx.textAlign = 'left';
+        ctx.fillText(`점수 ${game.score}   ${'❤'.repeat(game.lives)}`, 12, 26);
+        ctx.textAlign = 'right'; ctx.fillStyle = '#888'; ctx.font = '12px system-ui'; ctx.fillText('공을 클릭해 띄우기 · P 일시정지', W - 12, 24);
+      },
+      input(e) {
+        if (e.key === 'p' || e.key === 'Escape') return change('PAUSED');
+        if (e.clientX !== undefined && Math.hypot(e.clientX - ball.x, e.clientY - ball.y) < ball.r + 30) {
+          ball.vy = -620; ball.vx = (ball.x - e.clientX) * 12 + (Math.random() - .5) * 100; game.score++;
+        }
+      }
+    },
+    PAUSED: {
+      update() {},
+      draw() { States.PLAYING.draw(); dim(); title('일시정지', H / 2 - 10, 32); text('P / 클릭으로 계속 · M 메뉴로', H / 2 + 26, 14); },
+      input(e) { if (e.key === 'm') change('MENU'); else change('PLAYING'); }
+    },
+    GAME_OVER: {
+      enter() { game.best = Math.max(game.best, game.score); game.t = 0; },
+      update(dt) { game.t += dt; },
+      draw() { dim(); title('게임 오버', H / 2 - 30, 36, '#ff6b6b'); text(`점수 ${game.score} · 최고 ${game.best}`, H / 2 + 10, 17); if (game.t > .8) text('클릭해서 메뉴로', H / 2 + 44, 14, '#aaa'); },
+      input() { if (game.t > .8) change('MENU'); }   // 실수 클릭 방지
+    }
+  };
+  let current = 'MENU';
+  function change(next) { const from = current; current = next; States[next].enter?.(from); renderStates(); }
+  function spawn() { Object.assign(ball, { x: W / 2, y: H / 3, vx: (Math.random() - .5) * 300, vy: -300 }); }
+  function circle(x, y, r, c) { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); }
+  function title(s, y, size, c = '#fff') { ctx.fillStyle = c; ctx.font = `800 ${size}px system-ui`; ctx.textAlign = 'center'; ctx.fillText(s, W / 2, y); }
+  function text(s, y, size, c = '#ddd') { ctx.fillStyle = c; ctx.font = `${size}px system-ui`; ctx.textAlign = 'center'; ctx.fillText(s, W / 2, y); }
+  function dim() { ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(0, 0, W, H); }
+  function renderStates() { document.getElementById('st').innerHTML = Object.keys(States).map(s => `<span class="${s === current ? 'on' : ''}">${s}</span>`).join('→'); }
+  canvas.addEventListener('pointerdown', e => States[current].input({ clientX: e.clientX, clientY: e.clientY }));
+  addEventListener('keydown', e => { if (e.key === ' ') e.preventDefault(); States[current].input({ key: e.key.toLowerCase() === ' ' ? 'space' : e.key.toLowerCase() }); });
+  let last = performance.now();
+  function loop(now) { const dt = Math.min(.033, (now - last) / 1000); last = now; States[current].update(dt); ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H); States[current].draw(); requestAnimationFrame(loop); }
+  change('MENU'); requestAnimationFrame(loop);
+</script>
+</body>
+</html>

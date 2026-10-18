@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 60fps 예산</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas#c { display: block; }
+  .perf { position: fixed; top: 8px; right: 8px; width: 180px; background: rgba(0,0,0,.7); border-radius: 8px; padding: 8px; font: 11px/1.5 ui-monospace, monospace; }
+  .perf canvas { display: block; width: 164px; height: 48px; margin-top: 4px; }
+  .ok { color: #6bcb77; } .warn { color: #ffd93d; } .bad { color: #ff6b6b; }
+  .hint { position: fixed; top: 8px; left: 12px; font-size: 12px; color: #999; max-width: 50vw; }
+</style>
+</head>
+<body>
+<div class="hint">클릭 = 공 +50 · 예산(16.7ms/프레임)을 넘으면 자동으로 품질을 낮춥니다</div>
+<div class="perf"><div id="txt"></div><canvas id="graph" width="164" height="48"></canvas></div>
+<canvas id="c"></canvas>
+<script>
+  // 성능 예산: 프레임당 16.7ms(60fps). 업데이트+렌더 시간을 측정하고 예산 초과 시 품질 단계 하향
+  const BUDGET = 1000 / 60;
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d', { alpha: false });
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  const QUALITY = [
+    { name: '높음', shadow: true, trail: true, step: 1 },
+    { name: '중간', shadow: false, trail: true, step: 1 },
+    { name: '낮음', shadow: false, trail: false, step: 1 },
+  ];
+  let q = 0;
+  const N = 3000, xs = new Float32Array(N), ys = new Float32Array(N), vx = new Float32Array(N), vy = new Float32Array(N), rs = new Float32Array(N); let n = 0; // 타입 배열 = 캐시 친화적
+  function add(k, x, y) { for (let i = 0; i < k && n < N; i++, n++) { xs[n] = x ?? Math.random() * W; ys[n] = y ?? Math.random() * H; vx[n] = (Math.random() - .5) * 300; vy[n] = (Math.random() - .5) * 300; rs[n] = 4 + Math.random() * 8; } }
+  add(200);
+  canvas.addEventListener('click', e => add(50, e.clientX, e.clientY));
+  const hist = new Float32Array(82); let hi = 0, overCount = 0, underCount = 0, frames = 0, ft = 0, fps = 60;
+  const gctx = document.getElementById('graph').getContext('2d');
+  // 같은 색끼리 묶어 한 번에 그리기 (draw call 감소)
+  const COLORS = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); ft += now - last; last = now; frames++;
+    const t0 = performance.now(), Q = QUALITY[q];
+    for (let i = 0; i < n; i++) {
+      xs[i] += vx[i] * dt; ys[i] += vy[i] * dt;
+      if (xs[i] < rs[i] || xs[i] > W - rs[i]) vx[i] *= -1;
+      if (ys[i] < rs[i] || ys[i] > H - rs[i]) vy[i] *= -1;
+    }
+    ctx.fillStyle = Q.trail ? 'rgba(30,30,46,.35)' : '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    if (Q.shadow) { ctx.shadowBlur = 12; ctx.shadowColor = 'rgba(255,255,255,.4)'; } else ctx.shadowBlur = 0;
+    for (let c = 0; c < 5; c++) {
+      ctx.fillStyle = COLORS[c]; ctx.beginPath();
+      for (let i = c; i < n; i += 5) { ctx.moveTo(xs[i] + rs[i], ys[i]); ctx.arc(xs[i], ys[i], rs[i], 0, 6.283); }
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+    const cost = performance.now() - t0;
+    hist[hi = (hi + 1) % hist.length] = cost;
+    // 적응형 품질: 30프레임 연속 초과 시 하향, 120프레임 여유 시 상향
+    if (cost > BUDGET * .8) { overCount++; underCount = 0; } else if (cost < BUDGET * .4) { underCount++; overCount = 0; }
+    if (overCount > 30 && q < QUALITY.length - 1) { q++; overCount = 0; }
+    if (underCount > 120 && q > 0) { q--; underCount = 0; }
+    if (ft > 500) { fps = Math.round(frames * 1000 / ft); frames = 0; ft = 0; }
+    const cls = cost < BUDGET * .6 ? 'ok' : cost < BUDGET ? 'warn' : 'bad';
+    document.getElementById('txt').innerHTML = `FPS <span class="${fps >= 55 ? 'ok' : fps >= 40 ? 'warn' : 'bad'}">${fps}</span> / 목표 60<br>프레임 작업 <span class="${cls}">${cost.toFixed(2)}ms</span> / 예산 16.7ms<br>공 ${n} · 품질 <b>${Q.name}</b>`;
+    gctx.clearRect(0, 0, 164, 48);
+    gctx.fillStyle = 'rgba(255,107,107,.25)'; gctx.fillRect(0, 0, 164, 48 - BUDGET * 2);
+    for (let i = 0; i < hist.length; i++) { const v = hist[(hi + 1 + i) % hist.length]; gctx.fillStyle = v > BUDGET ? '#ff6b6b' : v > BUDGET * .6 ? '#ffd93d' : '#6bcb77'; gctx.fillRect(i * 2, 48 - Math.min(48, v * 2), 2, Math.min(48, v * 2)); }
+    gctx.strokeStyle = '#fff'; gctx.beginPath(); gctx.moveTo(0, 48 - BUDGET * 2); gctx.lineTo(164, 48 - BUDGET * 2); gctx.stroke();
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

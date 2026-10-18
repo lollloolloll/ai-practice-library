@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>튀는 공 — 입력 처리</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; user-select: none; -webkit-user-select: none; }
+  canvas { display: block; touch-action: none; }
+  .hud { position: fixed; top: 8px; left: 8px; font: 11px/1.6 ui-monospace, monospace; background: rgba(0,0,0,.5); padding: 6px 9px; border-radius: 6px; }
+  .keys { display: flex; gap: 3px; margin-top: 3px; }
+  .keys span { min-width: 22px; text-align: center; padding: 2px 4px; border: 1px solid #555; border-radius: 4px; color: #888; }
+  .keys span.on { background: #6bcb77; color: #111; border-color: #6bcb77; }
+  .jump { position: fixed; right: 22px; bottom: 26px; width: 74px; height: 74px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); background: rgba(255,255,255,.08); color: #fff; font: 700 14px system-ui; touch-action: none; }
+  .jump.on { background: rgba(107,203,119,.5); }
+</style>
+</head>
+<body>
+<div class="hud">
+  <div>키보드: ← → / A D 이동 · Space / W 점프</div>
+  <div>터치·마우스: 왼쪽 아래 드래그 = 조이스틱</div>
+  <div class="keys" id="keys"></div>
+  <div id="src">입력 장치: -</div>
+</div>
+<canvas id="c"></canvas>
+<button class="jump" id="jump">점프</button>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+
+  // ── 입력 계층: 장치별 이벤트 → 공통 "액션" 상태 (moveX: -1..1, jump: 눌림 엣지) ──
+  const Input = { keys: new Set(), stick: null, jumpHeld: false, jumpPressed: false, source: '-',
+    get moveX() {
+      let x = 0; if (this.keys.has('arrowleft') || this.keys.has('a')) x -= 1; if (this.keys.has('arrowright') || this.keys.has('d')) x += 1;
+      if (this.stick) x = Math.max(-1, Math.min(1, (this.stick.x - this.stick.ox) / 50));
+      return x;
+    } };
+  const JUMP_KEYS = [' ', 'w', 'arrowup'];
+  addEventListener('keydown', e => {
+    const k = e.key.toLowerCase(); if (JUMP_KEYS.includes(k) || k.startsWith('arrow')) e.preventDefault();
+    if (e.repeat) return;                                   // 키 반복 무시
+    Input.keys.add(k); Input.source = '키보드';
+    if (JUMP_KEYS.includes(k)) Input.jumpPressed = true;
+  });
+  addEventListener('keyup', e => Input.keys.delete(e.key.toLowerCase()));
+  addEventListener('blur', () => Input.keys.clear());       // 포커스 잃으면 키 고착 방지
+  canvas.addEventListener('pointerdown', e => {
+    canvas.setPointerCapture(e.pointerId);
+    Input.stick = { id: e.pointerId, ox: e.clientX, oy: e.clientY, x: e.clientX, y: e.clientY };
+    Input.source = e.pointerType === 'touch' ? '터치' : e.pointerType === 'pen' ? '펜' : '마우스';
+  });
+  canvas.addEventListener('pointermove', e => { if (Input.stick && Input.stick.id === e.pointerId) { Input.stick.x = e.clientX; Input.stick.y = e.clientY; if (Input.stick.oy - e.clientY > 60 && !Input.stick.flick) { Input.jumpPressed = true; Input.stick.flick = true; } } });
+  const endStick = e => { if (Input.stick && Input.stick.id === e.pointerId) Input.stick = null; };
+  canvas.addEventListener('pointerup', endStick); canvas.addEventListener('pointercancel', endStick);
+  const jb = document.getElementById('jump');
+  jb.addEventListener('pointerdown', e => { e.preventDefault(); Input.jumpPressed = true; jb.classList.add('on'); Input.source = e.pointerType === 'touch' ? '터치' : '마우스'; });
+  jb.addEventListener('pointerup', () => jb.classList.remove('on')); jb.addEventListener('pointerleave', () => jb.classList.remove('on'));
+
+  const ball = { x: 120, y: 100, vx: 0, vy: 0, r: 18 }; let coyote = 0, buffer = 0;
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(.033, (now - last) / 1000); last = now;
+    const floor = H - 30, mx = Input.moveX;
+    ball.vx += (mx * 380 - ball.vx) * Math.min(1, dt * 10);
+    if (Input.jumpPressed) { buffer = .12; Input.jumpPressed = false; }   // 점프 버퍼: 착지 직전 입력도 인정
+    buffer -= dt; coyote -= dt;
+    ball.vy += 1500 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+    if (ball.y > floor - ball.r) { ball.y = floor - ball.r; ball.vy = Math.abs(ball.vy) > 200 ? -ball.vy * .45 : 0; coyote = .1; }
+    if (buffer > 0 && coyote > 0) { ball.vy = -720; buffer = 0; coyote = 0; }
+    if (ball.x < ball.r) { ball.x = ball.r; ball.vx *= -.5; } if (ball.x > W - ball.r) { ball.x = W - ball.r; ball.vx *= -.5; }
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#2f2f4a'; ctx.fillRect(0, floor, W, H - floor);
+    ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, 7); ctx.fill();
+    if (Input.stick) {   // 가상 조이스틱
+      const s = Input.stick, dx = Math.max(-50, Math.min(50, s.x - s.ox));
+      ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(s.ox, s.oy, 50, 0, 7); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.beginPath(); ctx.arc(s.ox + dx, s.oy, 22, 0, 7); ctx.fill();
+    }
+    document.getElementById('keys').innerHTML = [['←', 'arrowleft'], ['→', 'arrowright'], ['A', 'a'], ['D', 'd'], ['␣', ' '], ['W', 'w']].map(([l, k]) => `<span class="${Input.keys.has(k) ? 'on' : ''}">${l}</span>`).join('') + `<span class="on" style="background:none;color:#ddd;border-color:#444">moveX ${mx.toFixed(2)}</span>`;
+    document.getElementById('src').textContent = '입력 장치: ' + Input.source;
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+</script>
+</body>
+</html>

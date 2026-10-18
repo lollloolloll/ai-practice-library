@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈하우스 커피 구독</title>
+<style>
+  /* 팔레트: 주조색 딥그린 70% · 중립 크림 25% · 강조 오렌지 5% (CTA와 핵심 숫자에만) */
+  :root { --main: #0e3b2e; --main-2: #145040; --main-3: #1d6650; --cream: #f3ecd9; --accent: #ff5a1f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--main); color: var(--cream); line-height: 1.6; }
+  header { display: flex; justify-content: space-between; align-items: center; padding: 18px 24px; }
+  .logo { font-weight: 800; font-size: 20px; }
+  .logo i { color: var(--accent); font-style: normal; }
+  nav a { margin-left: 18px; color: rgba(243,236,217,.7); text-decoration: none; font-size: 14px; }
+  .hero { padding: 56px 24px 72px; max-width: 980px; margin: 0 auto; }
+  .hero h1 { font-size: clamp(32px, 6vw, 60px); line-height: 1.12; margin: 0 0 18px; letter-spacing: -.02em; }
+  .hero h1 .hl { color: var(--accent); }
+  .hero p { font-size: 18px; color: rgba(243,236,217,.75); max-width: 520px; margin: 0 0 28px; }
+  .btn { display: inline-block; padding: 15px 30px; background: var(--accent); color: var(--main); font-weight: 800; border-radius: 999px; text-decoration: none; border: 0; font-size: 16px; cursor: pointer; box-shadow: 0 0 0 0 var(--accent); transition: box-shadow .2s, transform .2s; }
+  .btn:hover { box-shadow: 0 0 0 6px rgba(255,90,31,.25); transform: translateY(-1px); }
+  .btn.sec { background: transparent; color: var(--cream); border: 1.5px solid rgba(243,236,217,.4); font-weight: 600; box-shadow: none; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--main-2); }
+  .stats div { padding: 26px 24px; border-right: 1px solid var(--main-3); }
+  .stats b { display: block; font-size: 34px; color: var(--accent); line-height: 1.1; }
+  .stats span { font-size: 13px; color: rgba(243,236,217,.7); }
+  .light { background: var(--cream); color: var(--main); padding: 56px 24px; }
+  .light h2 { max-width: 980px; margin: 0 auto 24px; font-size: 28px; }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 980px; margin: 0 auto; }
+  .plan { background: #fff; border: 1.5px solid rgba(14,59,46,.15); border-radius: 16px; padding: 24px; }
+  .plan.best { background: var(--main); color: var(--cream); border-color: var(--main); position: relative; }
+  .plan.best::before { content: '가장 인기'; position: absolute; top: -12px; left: 24px; background: var(--accent); color: var(--main); font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
+  .plan h3 { margin: 0 0 6px; }
+  .price { font-size: 30px; font-weight: 800; }
+  .plan ul { padding-left: 18px; font-size: 14px; opacity: .85; }
+  .plan .btn { width: 100%; text-align: center; margin-top: 8px; }
+  .plan:not(.best) .btn { background: var(--main); color: var(--cream); }
+  footer { padding: 24px; text-align: center; font-size: 13px; color: rgba(243,236,217,.6); }
+  .swatch { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+  .swatch i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid rgba(243,236,217,.3); }
+  @media (max-width: 680px) { nav { display: none; } .plans, .stats { grid-template-columns: 1fr; } .stats div { border-right: 0; border-bottom: 1px solid var(--main-3); } }
+</style>
+</head>
+<body>
+<header><div class="logo">빈하우스<i>.</i></div><nav><a href="#">원두</a><a href="#">요금제</a><a href="#">이야기</a></nav></header>
+<div class="hero">
+  <h1>볶은 지 <span class="hl">48시간</span>,<br>가장 맛있는 순간에 도착합니다</h1>
+  <p>매주 목요일 로스팅, 금요일 발송. 매달 새로운 산지의 스페셜티 원두를 정기배송으로 받아보세요.</p>
+  <a class="btn" href="#plans">첫 달 50% 할인받기</a> <a class="btn sec" href="#">원두 둘러보기</a>
+</div>
+<div class="stats"><div><b>12,400+</b><span>함께하는 구독자</span></div><div><b>4.9★</b><span>평균 만족도</span></div><div><b>27개국</b><span>소개한 산지</span></div></div>
+<div class="light" id="plans">
+  <h2>나에게 맞는 양을 고르세요</h2>
+  <div class="plans">
+    <div class="plan"><h3>라이트</h3><div class="price">₩15,900</div><ul><li>월 200g</li><li>무료 배송</li></ul><button class="btn">선택</button></div>
+    <div class="plan best"><h3>스탠다드</h3><div class="price">₩27,900</div><ul><li>월 400g</li><li>무료 배송</li><li>드리퍼 증정</li></ul><button class="btn">선택</button></div>
+    <div class="plan"><h3>프리미엄</h3><div class="price">₩49,900</div><ul><li>월 800g</li><li>무료 배송</li><li>한정 원두 우선</li></ul><button class="btn">선택</button></div>
+  </div>
+</div>
+<footer>© 2024 빈하우스 커피<div class="swatch"><i style="background:#0e3b2e"></i><i style="background:#145040"></i><i style="background:#f3ecd9"></i><i style="background:#ff5a1f"></i></div></footer>
+</body>
+</html>

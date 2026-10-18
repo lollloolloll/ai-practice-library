@@ -1,0 +1,4988 @@
+{
+  "field": "coding",
+  "field_ko": "코딩",
+  "base_prompts": [
+    {
+      "id": "todo-app",
+      "prompt_en": "Make a todo list app.",
+      "prompt_ko": "할 일 목록 앱을 만들어줘.",
+      "desc_ko": "가장 범용적인 기준. 스택·UI 상태·저장·품질 용어 비교에 적합. 아티팩트/단일 HTML로 바로 렌더 가능."
+    },
+    {
+      "id": "bouncing-ball-game",
+      "prompt_en": "Make a bouncing ball game in the browser.",
+      "prompt_ko": "브라우저에서 공이 튀는 게임을 만들어줘.",
+      "desc_ko": "게임·물리·성능 용어 비교용. canvas/p5.js/Three.js 스택 차이가 눈에 잘 보인다."
+    },
+    {
+      "id": "landing-page",
+      "prompt_en": "Make a landing page for a coffee subscription service.",
+      "prompt_ko": "커피 구독 서비스 랜딩 페이지를 만들어줘.",
+      "desc_ko": "비주얼 스타일·반응형·마이크로 인터랙션 비교용."
+    },
+    {
+      "id": "sales-dashboard",
+      "prompt_en": "Make a sales dashboard.",
+      "prompt_ko": "매출 대시보드를 만들어줘.",
+      "desc_ko": "데이터 시각화·레이아웃·로딩 상태·목업 데이터 비교용."
+    }
+  ],
+  "categories": [
+    {
+      "id": "stack",
+      "name_ko": "스택·라이브러리",
+      "desc_ko": "무엇으로 만들지 지정. 결과물의 파일 구조·외형·실행 방식이 가장 크게 바뀐다."
+    },
+    {
+      "id": "architecture",
+      "name_ko": "구조·아키텍처",
+      "desc_ko": "코드를 어떻게 나눌지. 화면은 비슷해도 이후 수정 용이성과 버그 빈도가 달라진다."
+    },
+    {
+      "id": "ui",
+      "name_ko": "UI 동작·상태",
+      "desc_ko": "반응형, 로딩/빈/오류 상태, 인터랙션 등 눈에 보이는 동작."
+    },
+    {
+      "id": "style",
+      "name_ko": "비주얼 스타일",
+      "desc_ko": "서체·색·레이아웃 미감. 'AI 티 나는' 기본 디자인을 벗어나는 용어."
+    },
+    {
+      "id": "quality",
+      "name_ko": "코드 품질 지시",
+      "desc_ko": "production-ready, YAGNI 등 코드 길이·견고함·과잉 설계 정도를 조절."
+    },
+    {
+      "id": "testing",
+      "name_ko": "테스트·검증",
+      "desc_ko": "AI가 스스로 확인할 수 있는 기준을 주는 용어."
+    },
+    {
+      "id": "game",
+      "name_ko": "게임·인터랙티브",
+      "desc_ko": "게임 루프, 물리, 충돌, 파티클, 절차적 생성 등."
+    },
+    {
+      "id": "data",
+      "name_ko": "데이터·백엔드",
+      "desc_ko": "저장 방식, API, 스키마, 인증."
+    },
+    {
+      "id": "performance",
+      "name_ko": "성능",
+      "desc_ko": "지연 로딩, 디바운스, 가상화 등 체감 속도를 바꾸는 용어."
+    },
+    {
+      "id": "workflow",
+      "name_ko": "AI 코딩 작업 방식",
+      "desc_ko": "계획·규칙 파일·스크린샷·범위 제한 등 AI와 주고받는 방법."
+    }
+  ],
+  "terms": [
+    {
+      "id": "single-html-file",
+      "term": "single HTML file",
+      "ko": "단일 HTML 파일",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "portable"
+      ],
+      "effect_ko": "HTML·CSS·JS가 파일 하나에 들어가 바로 열어볼 수 있는 결과물이 나온다. 빌드 도구·npm 설치가 사라지고 구조는 단순해진다.",
+      "snippet": "Build it as a single self-contained HTML file with inline CSS and JS. No build step, no external files.",
+      "compare_with": [
+        "react",
+        "vite",
+        "cdn-no-build"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"
+      ]
+    },
+    {
+      "id": "vanilla-js",
+      "term": "vanilla JavaScript (no framework)",
+      "ko": "순수 자바스크립트",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "React 등 프레임워크 없이 DOM API로 작성된다. 코드가 짧고 의존성이 없지만 상태가 커지면 수동 렌더링 코드가 늘어난다.",
+      "snippet": "Use plain vanilla JavaScript and DOM APIs only—no frameworks or libraries.",
+      "compare_with": [
+        "react",
+        "alpinejs"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model"
+      ]
+    },
+    {
+      "id": "cdn-no-build",
+      "term": "load libraries from CDN",
+      "ko": "CDN 로드(빌드 없이)",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "<script> 태그로 라이브러리를 불러와 설치 없이 동작한다. 단일 파일·아티팩트 환경에서 외부 라이브러리를 쓸 때 필수.",
+      "snippet": "Load Three.js from a CDN via an ES module import map; no npm install.",
+      "compare_with": [
+        "single-html-file",
+        "vite"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap"
+      ]
+    },
+    {
+      "id": "react",
+      "term": "React (function components + hooks)",
+      "ko": "리액트",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "UI가 컴포넌트와 useState/useEffect 훅으로 쪼개진다. 상호작용이 많은 앱에서 상태 갱신 코드가 깔끔해지지만 파일·코드량은 늘어난다.",
+      "snippet": "Build it in React with function components and hooks.",
+      "compare_with": [
+        "vanilla-js",
+        "nextjs",
+        "alpinejs"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://react.dev/learn"
+      ]
+    },
+    {
+      "id": "typescript",
+      "term": "TypeScript",
+      "ko": "타입스크립트",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "타입 정의(interface/type)가 추가되어 데이터 구조가 명시된다. 코드는 길어지지만 잘못된 속성 접근 같은 오류가 컴파일 단계에서 잡힌다.",
+      "snippet": "Write it in TypeScript with strict mode; define types for all data models.",
+      "compare_with": [
+        "type-safe",
+        "vanilla-js"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.typescriptlang.org/docs/"
+      ]
+    },
+    {
+      "id": "tailwind",
+      "term": "Tailwind CSS",
+      "ko": "테일윈드 CSS",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "별도 CSS 파일 대신 class=\"flex gap-4 rounded-xl\" 같은 유틸리티 클래스로 스타일링된다. 간격·색이 일정한 '정돈된' 외형이 나오기 쉽다.",
+      "snippet": "Style everything with Tailwind CSS utility classes; no custom CSS files.",
+      "compare_with": [
+        "plain-css-variables",
+        "shadcn-ui"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://tailwindcss.com/docs"
+      ]
+    },
+    {
+      "id": "plain-css-variables",
+      "term": "plain CSS with custom properties",
+      "ko": "순수 CSS + CSS 변수",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "색·간격이 :root 변수로 정의된 일반 CSS가 생성된다. 테마 변경(다크 모드 등)이 변수 교체로 끝나고 마크업이 깔끔해진다.",
+      "snippet": "Use plain CSS with custom properties (CSS variables) for colors, spacing and radius.",
+      "compare_with": [
+        "tailwind",
+        "design-tokens"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties"
+      ]
+    },
+    {
+      "id": "shadcn-ui",
+      "term": "shadcn/ui",
+      "ko": "shadcn/ui 컴포넌트",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "버튼·카드·다이얼로그 등이 shadcn/ui(Radix 기반) 컴포넌트로 만들어져 접근성과 일관된 'SaaS풍' 외형이 기본 탑재된다. v0의 기본 조합.",
+      "snippet": "Use shadcn/ui components (Button, Card, Dialog, Table) with Tailwind.",
+      "compare_with": [
+        "tailwind",
+        "distinctive-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://ui.shadcn.com/docs"
+      ]
+    },
+    {
+      "id": "nextjs",
+      "term": "Next.js App Router",
+      "ko": "Next.js (앱 라우터)",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "페이지가 app/ 폴더 기반 라우팅, 서버 컴포넌트, API 라우트로 구성된 풀스택 구조가 된다. 여러 페이지·SEO가 필요한 사이트에 적합.",
+      "snippet": "Use Next.js App Router with server components where possible.",
+      "compare_with": [
+        "vite",
+        "react"
+      ],
+      "tools": [
+        "v0",
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "Bolt"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://nextjs.org/docs"
+      ]
+    },
+    {
+      "id": "vite",
+      "term": "Vite + React SPA",
+      "ko": "Vite 싱글 페이지 앱",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "가벼운 클라이언트 전용 SPA 구조(index.html + src/)가 생성된다. 서버 기능 없이 빠른 개발 서버로 실행. Lovable·Bolt의 기본 형태.",
+      "snippet": "Scaffold a Vite + React + TypeScript SPA.",
+      "compare_with": [
+        "nextjs",
+        "single-html-file"
+      ],
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://vite.dev/guide/"
+      ]
+    },
+    {
+      "id": "alpinejs",
+      "term": "Alpine.js",
+      "ko": "Alpine.js",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "HTML 속성(x-data, x-on)만으로 간단한 상호작용을 붙인다. React보다 훨씬 짧은 코드로 드롭다운·탭 같은 동작이 구현된다.",
+      "snippet": "Add interactivity with Alpine.js attributes (x-data, x-show) in plain HTML.",
+      "compare_with": [
+        "vanilla-js",
+        "react"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://alpinejs.dev/start-here"
+      ]
+    },
+    {
+      "id": "threejs",
+      "term": "Three.js",
+      "ko": "Three.js 3D",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "3d"
+      ],
+      "effect_ko": "WebGL 기반 3D 장면(카메라·조명·메시)이 생성된다. 같은 요청도 평면 캔버스 대신 회전·원근감 있는 3D 결과가 나온다.",
+      "snippet": "Render the scene in 3D with Three.js: PerspectiveCamera, a directional light, OrbitControls.",
+      "compare_with": [
+        "canvas-2d",
+        "p5js"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://threejs.org/docs/"
+      ]
+    },
+    {
+      "id": "p5js",
+      "term": "p5.js",
+      "ko": "p5.js 크리에이티브 코딩",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "creative-coding"
+      ],
+      "effect_ko": "setup()/draw() 구조의 짧은 스케치 코드가 생성된다. 생성 예술·인터랙티브 아트·빠른 프로토타입에 적합하고 코드가 매우 간결하다.",
+      "snippet": "Write it as a p5.js sketch using setup() and draw().",
+      "compare_with": [
+        "canvas-2d",
+        "threejs"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://p5js.org/reference/"
+      ]
+    },
+    {
+      "id": "canvas-2d",
+      "term": "HTML Canvas 2D API",
+      "ko": "캔버스 2D",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "<canvas>에 픽셀 단위로 직접 그리는 코드가 생성된다. DOM 요소 대신 그리기 루프로 동작해 게임·애니메이션 성능이 좋다.",
+      "snippet": "Draw everything on an HTML <canvas> with the 2D context; no DOM elements for game objects.",
+      "compare_with": [
+        "p5js",
+        "phaser",
+        "threejs"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"
+      ]
+    },
+    {
+      "id": "phaser",
+      "term": "Phaser 3",
+      "ko": "Phaser 게임 엔진",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "씬(Scene)·스프라이트·아케이드 물리가 엔진 API로 처리된다. 직접 짠 충돌·루프 코드가 엔진 호출로 대체되어 기능이 많은 게임이 빨리 나온다.",
+      "snippet": "Use Phaser 3 with Arcade Physics; organize into Boot, Game and GameOver scenes.",
+      "compare_with": [
+        "canvas-2d",
+        "game-loop"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.phaser.io/"
+      ]
+    },
+    {
+      "id": "matter-js",
+      "term": "Matter.js physics engine",
+      "ko": "Matter.js 물리 엔진",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "강체 물리(중력·회전·쌓기·충돌 반발)가 엔진으로 계산된다. 직접 구현한 단순 물리보다 물체가 사실적으로 굴러가고 쌓인다.",
+      "snippet": "Use Matter.js for rigid-body physics (gravity, restitution, friction).",
+      "compare_with": [
+        "physics",
+        "collision-detection"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://brm.io/matter-js/docs/"
+      ]
+    },
+    {
+      "id": "chart-library",
+      "term": "Chart.js / Recharts",
+      "ko": "차트 라이브러리",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "dataviz"
+      ],
+      "effect_ko": "숫자 표 대신 축·범례·툴팁이 있는 차트가 그려진다. React 환경이면 Recharts, 단일 파일이면 Chart.js가 무난하다.",
+      "snippet": "Visualize the data with Recharts line and bar charts with tooltips.",
+      "compare_with": [
+        "dashboard-layout",
+        "canvas-2d"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.chartjs.org/docs/latest/",
+        "https://recharts.org/"
+      ]
+    },
+    {
+      "id": "motion-library",
+      "term": "Motion (Framer Motion)",
+      "ko": "Motion 애니메이션 라이브러리",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "animation"
+      ],
+      "effect_ko": "등장·전환·레이아웃 이동에 스프링 애니메이션이 붙는다. CSS transition보다 부드럽고 목록 재정렬도 자연스럽게 움직인다.",
+      "snippet": "Animate entrances and list reordering with Motion (motion/react) using spring transitions.",
+      "compare_with": [
+        "micro-interactions",
+        "css-transitions"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://motion.dev/docs"
+      ]
+    },
+    {
+      "id": "lucide-icons",
+      "term": "Lucide icons",
+      "ko": "Lucide 아이콘",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack"
+      ],
+      "effect_ko": "이모지나 텍스트 대신 일관된 선 아이콘 세트가 버튼·메뉴에 들어간다. 화면이 즉시 더 완성도 있어 보인다.",
+      "snippet": "Use lucide icons for all buttons and nav items; no emoji.",
+      "compare_with": [
+        "shadcn-ui"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lucide.dev/guide/"
+      ]
+    },
+    {
+      "id": "supabase",
+      "term": "Supabase backend",
+      "ko": "Supabase 백엔드",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "backend"
+      ],
+      "effect_ko": "로컬 저장 대신 Postgres DB·인증·실시간 구독이 연결된 앱이 된다. 여러 기기에서 데이터가 공유되며 Lovable·Bolt의 기본 백엔드.",
+      "snippet": "Use Supabase for auth and a Postgres table `todos` with row level security.",
+      "compare_with": [
+        "localstorage",
+        "rest-api"
+      ],
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://supabase.com/docs"
+      ]
+    },
+    {
+      "id": "python-cli",
+      "term": "Python CLI script (argparse)",
+      "ko": "파이썬 CLI 스크립트",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "script"
+      ],
+      "effect_ko": "명령줄 인자(--input, --dry-run)를 받는 실행형 스크립트가 생성된다. 하드코딩된 경로 대신 재사용 가능한 도구가 된다.",
+      "snippet": "Write a Python 3 CLI script with argparse, a --dry-run flag and a main() entry point.",
+      "compare_with": [
+        "streamlit",
+        "error-handling"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.python.org/3/library/argparse.html"
+      ]
+    },
+    {
+      "id": "streamlit",
+      "term": "Streamlit app",
+      "ko": "Streamlit 웹앱",
+      "category": "stack",
+      "tags": [
+        "coding",
+        "stack",
+        "python"
+      ],
+      "effect_ko": "파이썬 몇 줄로 업로드·슬라이더·차트가 있는 웹 UI가 생긴다. 스크립트를 비개발자용 화면으로 바꿀 때 효과가 크다.",
+      "snippet": "Wrap it in a Streamlit app with a file uploader, sidebar filters and a chart.",
+      "compare_with": [
+        "python-cli",
+        "react"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.streamlit.io/"
+      ]
+    },
+    {
+      "id": "component-based",
+      "term": "component-based architecture",
+      "ko": "컴포넌트 기반 구조",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "화면이 Header, TodoList, TodoItem처럼 재사용 가능한 단위로 쪼개진다. 한 덩어리 코드 대비 수정 범위가 명확해진다.",
+      "snippet": "Structure the UI as small reusable components (Header, TodoList, TodoItem, FilterBar).",
+      "compare_with": [
+        "monolithic-file",
+        "modular-files"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://react.dev/learn/thinking-in-react"
+      ]
+    },
+    {
+      "id": "monolithic-file",
+      "term": "keep everything in one component/file",
+      "ko": "한 파일에 몰아넣기",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "모든 로직이 한 파일·한 함수 안에 들어간다. 프로토타입·아티팩트에선 빠르지만 커질수록 수정이 어렵다(비교용 기준점).",
+      "snippet": "Keep all code in a single file/component for now.",
+      "compare_with": [
+        "component-based",
+        "modular-files"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them"
+      ]
+    },
+    {
+      "id": "modular-files",
+      "term": "split into modules/files by responsibility",
+      "ko": "책임별 파일 분리",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "game.js, input.js, renderer.js처럼 역할별 파일이 생긴다. AI가 이후 수정 시 특정 파일만 건드리기 쉬워진다.",
+      "snippet": "Split the code into ES modules by responsibility: state.js, render.js, input.js, storage.js.",
+      "compare_with": [
+        "monolithic-file",
+        "separation-of-concerns"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules"
+      ]
+    },
+    {
+      "id": "separation-of-concerns",
+      "term": "separation of concerns",
+      "ko": "관심사 분리",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "데이터 로직·UI 렌더링·저장 코드가 섞이지 않고 분리된다. 저장 방식을 바꿔도 화면 코드는 그대로 유지된다.",
+      "snippet": "Keep business logic separate from UI rendering and from persistence.",
+      "compare_with": [
+        "mvc",
+        "modular-files"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Separation_of_concerns"
+      ]
+    },
+    {
+      "id": "mvc",
+      "term": "MVC (Model-View-Controller)",
+      "ko": "MVC 패턴",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "Model(데이터)·View(화면)·Controller(입력 처리) 세 부분으로 코드가 나뉜다. 바닐라 JS 앱에서 구조가 확실히 정돈된다.",
+      "snippet": "Organize the app with an MVC pattern: Model holds todos, View renders, Controller wires events.",
+      "compare_with": [
+        "separation-of-concerns",
+        "component-based"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/MVC"
+      ]
+    },
+    {
+      "id": "state-management",
+      "term": "centralized state management",
+      "ko": "상태 관리(중앙 집중)",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "흩어진 변수 대신 하나의 상태 객체/스토어(useReducer, Zustand)에서 데이터가 흐른다. 여러 화면이 같은 데이터를 일관되게 보여준다.",
+      "snippet": "Manage app state centrally with useReducer (or Zustand); components read from one store.",
+      "compare_with": [
+        "single-source-of-truth",
+        "react"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://react.dev/learn/extracting-state-logic-into-a-reducer",
+        "https://zustand.docs.pmnd.rs/"
+      ]
+    },
+    {
+      "id": "single-source-of-truth",
+      "term": "single source of truth",
+      "ko": "단일 진실 공급원",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "같은 데이터가 여러 곳에 복사되지 않고 한 곳에서만 관리된다. '목록은 바뀌었는데 개수 표시는 안 바뀌는' 류의 버그가 줄어든다.",
+      "snippet": "Derive counts and filtered lists from the single todos array—don't store duplicated state.",
+      "compare_with": [
+        "state-management"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://react.dev/learn/choosing-the-state-structure"
+      ]
+    },
+    {
+      "id": "custom-hooks",
+      "term": "custom hooks",
+      "ko": "커스텀 훅",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "useLocalStorage, useDebounce처럼 반복 로직이 훅으로 추출되어 컴포넌트 코드가 짧아진다.",
+      "snippet": "Extract reusable logic into custom hooks (useLocalStorage, useKeyboardShortcuts).",
+      "compare_with": [
+        "component-based",
+        "dry"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://react.dev/learn/reusing-logic-with-custom-hooks"
+      ]
+    },
+    {
+      "id": "monorepo",
+      "term": "monorepo (apps/ + packages/)",
+      "ko": "모노레포",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "프론트·백엔드·공용 타입이 한 저장소의 apps/·packages/로 나뉜다. 공용 코드 공유가 쉬워지지만 초기 설정 파일이 많아진다.",
+      "snippet": "Set up a pnpm workspace monorepo: apps/web, apps/api, packages/shared-types.",
+      "compare_with": [
+        "modular-files"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://pnpm.io/workspaces"
+      ]
+    },
+    {
+      "id": "client-side-routing",
+      "term": "client-side routing (multi-page SPA)",
+      "ko": "클라이언트 라우팅",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "한 화면 앱이 /, /settings, /item/:id 같은 여러 페이지로 나뉘고 뒤로가기가 동작한다.",
+      "snippet": "Add client-side routing with React Router: home, detail (/items/:id) and settings pages.",
+      "compare_with": [
+        "nextjs"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://reactrouter.com/home"
+      ]
+    },
+    {
+      "id": "design-tokens",
+      "term": "design tokens",
+      "ko": "디자인 토큰",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "색·폰트·간격·라운드가 이름 붙은 토큰(--color-primary)으로 정의되어 전체 화면이 같은 규칙을 따른다. 테마 교체가 한 곳에서 끝난다.",
+      "snippet": "Define design tokens (color, spacing, radius, font) as CSS variables and use only those.",
+      "compare_with": [
+        "plain-css-variables",
+        "dark-mode"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+        "https://www.designtokens.org/"
+      ]
+    },
+    {
+      "id": "event-driven",
+      "term": "event-driven architecture / pub-sub",
+      "ko": "이벤트 기반 구조",
+      "category": "architecture",
+      "tags": [
+        "coding",
+        "architecture"
+      ],
+      "effect_ko": "모듈이 서로 직접 호출하지 않고 이벤트(emit/on)로 통신한다. 게임의 점수·사운드·UI가 느슨하게 연결된다.",
+      "snippet": "Use a simple event bus: game emits 'score', 'gameover'; UI and audio subscribe.",
+      "compare_with": [
+        "separation-of-concerns",
+        "ecs"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://gameprogrammingpatterns.com/observer.html"
+      ]
+    },
+    {
+      "id": "responsive",
+      "term": "responsive layout",
+      "ko": "반응형 레이아웃",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "화면 폭에 따라 열 수·여백·글자 크기가 바뀐다. 미지정 시 데스크톱 고정폭 레이아웃이 나오기 쉽다.",
+      "snippet": "Make it fully responsive: 1 column on mobile, 2 on tablet, 3 on desktop.",
+      "compare_with": [
+        "mobile-first"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://web.dev/articles/responsive-web-design-basics"
+      ]
+    },
+    {
+      "id": "mobile-first",
+      "term": "mobile-first",
+      "ko": "모바일 우선",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "작은 화면 기준으로 먼저 설계되어 큰 터치 영역·하단 내비·세로 흐름이 기본이 된다. '모바일에서도 됨'(축소된 데스크톱)과 결과가 다르다.",
+      "snippet": "Design mobile-first for a 375px screen: thumb-friendly 44px tap targets, bottom navigation.",
+      "compare_with": [
+        "responsive"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://vercel.com/blog/how-to-prompt-v0",
+        "https://web.dev/articles/responsive-web-design-basics"
+      ]
+    },
+    {
+      "id": "dark-mode",
+      "term": "dark mode with toggle",
+      "ko": "다크 모드",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "어두운 배경 테마와 전환 토글이 추가된다. prefers-color-scheme을 언급하면 OS 설정을 자동으로 따른다.",
+      "snippet": "Support dark mode: follow prefers-color-scheme by default, plus a toggle saved to localStorage.",
+      "compare_with": [
+        "design-tokens",
+        "high-contrast"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme"
+      ]
+    },
+    {
+      "id": "accessible-a11y",
+      "term": "accessible (WCAG 2.2 AA)",
+      "ko": "접근성(a11y)",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui",
+        "a11y"
+      ],
+      "effect_ko": "시맨틱 태그·aria-label·포커스 표시·충분한 명암비가 들어간다. 겉보기 차이는 작지만 키보드·스크린리더로 쓸 수 있게 된다.",
+      "snippet": "Make it accessible to WCAG 2.2 AA: semantic HTML, labels, visible focus rings, 4.5:1 contrast.",
+      "compare_with": [
+        "keyboard-navigation",
+        "high-contrast"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.w3.org/WAI/standards-guidelines/wcag/"
+      ]
+    },
+    {
+      "id": "keyboard-navigation",
+      "term": "keyboard navigation & shortcuts",
+      "ko": "키보드 조작·단축키",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "Tab 이동, Enter 추가, Esc 닫기, 단축키(/ 검색 등)가 동작한다. 마우스 없이도 앱을 쓸 수 있다.",
+      "snippet": "Full keyboard support: Enter adds, Esc cancels editing, / focuses search, arrow keys move selection.",
+      "compare_with": [
+        "accessible-a11y",
+        "command-palette"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.w3.org/WAI/standards-guidelines/wcag/"
+      ]
+    },
+    {
+      "id": "high-contrast",
+      "term": "high contrast",
+      "ko": "고대비",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "글자와 배경 대비가 커지고 연한 회색 텍스트가 사라진다. 가독성이 올라가고 화면 인상이 또렷해진다.",
+      "snippet": "Use a light theme with high contrast; no light-gray body text.",
+      "compare_with": [
+        "accessible-a11y",
+        "dark-mode"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://vercel.com/blog/how-to-prompt-v0"
+      ]
+    },
+    {
+      "id": "micro-interactions",
+      "term": "micro-interactions",
+      "ko": "마이크로 인터랙션",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "버튼 눌림, 체크 시 줄긋기 애니메이션, 호버 시 살짝 떠오름 같은 작은 반응이 추가되어 '살아있는' 느낌이 난다.",
+      "snippet": "Add subtle micro-interactions: press scale on buttons, animated checkmark, hover lift on cards.",
+      "compare_with": [
+        "motion-library",
+        "css-transitions"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "css-transitions",
+      "term": "CSS transitions only",
+      "ko": "CSS 전환 효과",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "라이브러리 없이 transition/@keyframes로 부드러운 상태 변화가 생긴다. 가볍지만 복잡한 순서 애니메이션은 어렵다.",
+      "snippet": "Use only CSS transitions and keyframes (200ms ease-out) for animation; no JS animation libs.",
+      "compare_with": [
+        "motion-library",
+        "micro-interactions"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions"
+      ]
+    },
+    {
+      "id": "reduced-motion",
+      "term": "respect prefers-reduced-motion",
+      "ko": "모션 줄이기 대응",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "OS에서 '동작 줄이기'를 켠 사용자에게는 애니메이션이 꺼진다. 평소 화면은 같고 설정 시 차이가 난다.",
+      "snippet": "Respect prefers-reduced-motion: disable non-essential animations.",
+      "compare_with": [
+        "micro-interactions",
+        "accessible-a11y"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion"
+      ]
+    },
+    {
+      "id": "skeleton-loading",
+      "term": "skeleton loading",
+      "ko": "스켈레톤 로딩",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "데이터를 불러오는 동안 스피너 대신 실제 레이아웃 모양의 회색 블록이 깜빡인다. 체감 대기 시간이 줄어든다.",
+      "snippet": "Show skeleton placeholders matching the card layout while data loads.",
+      "compare_with": [
+        "loading-error-states",
+        "optimistic-ui"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://ui.shadcn.com/docs/components/skeleton"
+      ]
+    },
+    {
+      "id": "loading-error-states",
+      "term": "loading, empty and error states",
+      "ko": "로딩·빈·오류 상태",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "데이터 없음·불러오는 중·실패 각각의 화면이 따로 생긴다. 미지정 시 빈 화면이나 깨진 화면이 그대로 노출되기 쉽다.",
+      "snippet": "Handle all UI states: loading, empty (with a friendly CTA), error (with retry), and success.",
+      "compare_with": [
+        "skeleton-loading",
+        "empty-state"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://vercel.com/blog/how-to-prompt-v0"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "term": "designed empty state",
+      "ko": "빈 상태 화면",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "항목이 0개일 때 일러스트·안내 문구·'첫 항목 추가' 버튼이 나온다. 첫인상이 크게 좋아진다.",
+      "snippet": "Design an empty state with an icon, one-line guidance and a primary 'Add your first task' button.",
+      "compare_with": [
+        "loading-error-states"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "optimistic-ui",
+      "term": "optimistic UI updates",
+      "ko": "낙관적 UI 업데이트",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "서버 응답을 기다리지 않고 화면을 즉시 바꾼 뒤 실패하면 되돌린다. 클릭 반응이 즉각적으로 느껴진다.",
+      "snippet": "Use optimistic updates: update the list immediately, roll back and show a toast if the request fails.",
+      "compare_with": [
+        "skeleton-loading",
+        "toast-notifications"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates"
+      ]
+    },
+    {
+      "id": "infinite-scroll",
+      "term": "infinite scroll",
+      "ko": "무한 스크롤",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "목록 끝에 닿으면 다음 항목이 자동으로 불러와진다(IntersectionObserver). 페이지 번호가 사라진다.",
+      "snippet": "Load more items automatically when the user nears the bottom (IntersectionObserver), with a loading row.",
+      "compare_with": [
+        "pagination",
+        "virtualization"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+      ]
+    },
+    {
+      "id": "pagination",
+      "term": "pagination",
+      "ko": "페이지네이션",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "목록이 페이지 단위로 나뉘고 이전/다음·번호 버튼이 생긴다. 무한 스크롤과 달리 위치 기억·공유가 쉽다.",
+      "snippet": "Paginate the table: 20 rows per page with previous/next and page numbers.",
+      "compare_with": [
+        "infinite-scroll"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ui.shadcn.com/docs/components/pagination"
+      ]
+    },
+    {
+      "id": "search-filter-sort",
+      "term": "search, filter and sort",
+      "ko": "검색·필터·정렬",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "목록 위에 검색창·필터 탭·정렬 드롭다운이 생기고 실시간으로 결과가 걸러진다.",
+      "snippet": "Add instant search, status filter tabs (All/Active/Done) and sort by date or priority.",
+      "compare_with": [
+        "debounce",
+        "pagination"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://react.dev/learn/sharing-state-between-components"
+      ]
+    },
+    {
+      "id": "toast-notifications",
+      "term": "toast notifications",
+      "ko": "토스트 알림",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "저장·삭제 등 동작 후 화면 구석에 잠깐 떴다 사라지는 알림이 나온다. alert() 팝업이 사라진다.",
+      "snippet": "Show toast notifications for save/delete/errors (auto-dismiss after 3s); never use alert().",
+      "compare_with": [
+        "undo-action",
+        "modal-dialog"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ui.shadcn.com/docs/components/sonner"
+      ]
+    },
+    {
+      "id": "undo-action",
+      "term": "undo instead of confirm",
+      "ko": "실행 취소(Undo)",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "삭제 시 '정말 삭제?' 확인창 대신 즉시 삭제 + '실행 취소' 버튼이 뜬다. 흐름이 끊기지 않는다.",
+      "snippet": "Delete immediately and show an 'Undo' toast for 5 seconds instead of a confirm dialog.",
+      "compare_with": [
+        "toast-notifications",
+        "modal-dialog"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/user-control-and-freedom/"
+      ]
+    },
+    {
+      "id": "modal-dialog",
+      "term": "modal dialog",
+      "ko": "모달 대화상자",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "편집·확인이 화면 위에 뜨는 모달 창에서 이뤄진다. 포커스 가두기·Esc 닫기까지 요구하면 접근성도 확보된다.",
+      "snippet": "Edit items in an accessible modal dialog (focus trap, Esc to close, return focus on close).",
+      "compare_with": [
+        "inline-editing",
+        "undo-action"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog"
+      ]
+    },
+    {
+      "id": "inline-editing",
+      "term": "inline editing",
+      "ko": "인라인 편집",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "텍스트를 더블클릭하면 그 자리에서 입력창으로 바뀐다. 모달 없이 빠르게 수정된다.",
+      "snippet": "Allow inline editing: double-click a title to edit in place, Enter saves, Esc cancels.",
+      "compare_with": [
+        "modal-dialog"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/drag-drop/"
+      ]
+    },
+    {
+      "id": "drag-and-drop",
+      "term": "drag-and-drop reordering",
+      "ko": "드래그 앤 드롭",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "항목을 끌어서 순서를 바꾸거나 칸반 열 사이로 옮길 수 있다. 정적인 목록이 조작 가능한 보드가 된다.",
+      "snippet": "Support drag-and-drop reordering and moving cards between Kanban columns (dnd-kit).",
+      "compare_with": [
+        "keyboard-navigation"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://dndkit.com/",
+        "https://www.nngroup.com/articles/drag-drop/"
+      ]
+    },
+    {
+      "id": "inline-form-validation",
+      "term": "inline form validation",
+      "ko": "실시간 입력 검증",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "제출 후 한꺼번에가 아니라 입력 중/포커스 이탈 시 필드 아래에 오류 메시지가 뜬다.",
+      "snippet": "Validate fields inline on blur with clear error messages under each field; disable submit until valid.",
+      "compare_with": [
+        "input-validation",
+        "loading-error-states"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://zod.dev/",
+        "https://www.nngroup.com/articles/errors-forms-design-guidelines/"
+      ]
+    },
+    {
+      "id": "command-palette",
+      "term": "command palette (Cmd/Ctrl+K)",
+      "ko": "커맨드 팔레트",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "Ctrl+K로 여는 검색형 명령 창이 추가된다. 메뉴를 뒤지지 않고 모든 기능에 접근하는 '파워유저' 앱 느낌이 난다.",
+      "snippet": "Add a Cmd/Ctrl+K command palette to search items and run actions.",
+      "compare_with": [
+        "keyboard-navigation"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://ui.shadcn.com/docs/components/command"
+      ]
+    },
+    {
+      "id": "sticky-header",
+      "term": "sticky header / navbar",
+      "ko": "고정 헤더",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "스크롤해도 상단 내비게이션이 고정되고, 스크롤 시 배경이 흐려지거나 그림자가 생긴다.",
+      "snippet": "Make the navbar sticky with a blurred translucent background after scrolling.",
+      "compare_with": [
+        "responsive"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/position"
+      ]
+    },
+    {
+      "id": "dashboard-layout",
+      "term": "dashboard layout (sidebar + KPI cards)",
+      "ko": "대시보드 레이아웃",
+      "category": "ui",
+      "tags": [
+        "coding",
+        "ui"
+      ],
+      "effect_ko": "왼쪽 사이드바, 상단 KPI 카드, 차트, 데이터 표로 구성된 관리 화면이 된다. '대시보드'만 쓰지 말고 지표 이름을 나열하면 정확해진다.",
+      "snippet": "Dashboard: collapsible sidebar, 4 KPI cards (revenue, orders, AOV, churn), a line chart and a recent-orders table.",
+      "compare_with": [
+        "chart-library",
+        "bento-grid"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://vercel.com/blog/how-to-prompt-v0"
+      ]
+    },
+    {
+      "id": "distinctive-aesthetic",
+      "term": "distinctive, non-generic aesthetic",
+      "ko": "개성 있는 디자인(AI 티 제거)",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "흔한 보라 그라디언트·Inter 폰트·카드 나열 대신 뚜렷한 콘셉트의 색·서체·배경이 나온다. Anthropic이 'AI slop' 회피용으로 권장.",
+      "snippet": "Avoid generic AI aesthetics (purple gradients, Inter, cookie-cutter cards). Commit to a bold, cohesive direction.",
+      "compare_with": [
+        "shadcn-ui",
+        "minimal-style"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "typography-pairing",
+      "term": "distinctive typography pairing",
+      "ko": "서체 조합 지정",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "제목·본문 폰트가 지정되고 굵기 대비가 커져 위계가 분명해진다. 디자인 인상이 가장 크게 바뀌는 단일 요소.",
+      "snippet": "Typography: a characterful display font for headings (e.g., Fraunces) + a clean body font; use weight extremes (200 vs 800).",
+      "compare_with": [
+        "distinctive-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+        "https://fonts.google.com/"
+      ]
+    },
+    {
+      "id": "dominant-accent-palette",
+      "term": "dominant color + sharp accent",
+      "ko": "주조색 + 강조색 팔레트",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "고르게 퍼진 소심한 색 대신 한 가지 주조색과 날카로운 강조색으로 정리되어 기억에 남는 화면이 된다.",
+      "snippet": "Use one dominant color with a single sharp accent color; define them as CSS variables.",
+      "compare_with": [
+        "design-tokens",
+        "distinctive-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "minimal-style",
+      "term": "minimal / clean",
+      "ko": "미니멀",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "여백이 넓고 장식·그림자가 줄어든 단정한 화면이 된다. Lovable 가이드의 대표 스타일 키워드.",
+      "snippet": "Minimal, calm design: generous whitespace, neutral palette, no shadows except on hover.",
+      "compare_with": [
+        "neo-brutalism",
+        "glassmorphism"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "neo-brutalism",
+      "term": "neo-brutalism",
+      "ko": "네오 브루탈리즘",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "두꺼운 검은 테두리, 원색 블록, 딱딱한 그림자로 강렬하고 장난스러운 화면이 된다.",
+      "snippet": "Neo-brutalist style: thick black borders, flat saturated colors, hard offset shadows, chunky type.",
+      "compare_with": [
+        "minimal-style",
+        "glassmorphism"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.nngroup.com/articles/neobrutalism/"
+      ]
+    },
+    {
+      "id": "glassmorphism",
+      "term": "glassmorphism",
+      "ko": "글래스모피즘",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "반투명 유리 패널에 배경 블러(backdrop-filter)가 들어간 몽환적인 화면이 된다.",
+      "snippet": "Glassmorphism cards: translucent white, backdrop-filter blur, subtle border, over a colorful gradient background.",
+      "compare_with": [
+        "minimal-style",
+        "neo-brutalism"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter"
+      ]
+    },
+    {
+      "id": "bento-grid",
+      "term": "bento grid layout",
+      "ko": "벤토 그리드",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "크기가 다른 카드들이 도시락처럼 격자에 배치된 레이아웃이 된다. 기능 소개 섹션이 단조로운 3열 카드보다 역동적이다.",
+      "snippet": "Present features in a bento grid: mixed card sizes on a 4-column CSS grid.",
+      "compare_with": [
+        "dashboard-layout",
+        "minimal-style"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout"
+      ]
+    },
+    {
+      "id": "real-content",
+      "term": "realistic copy, no lorem ipsum",
+      "ko": "실제 문구 사용",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "'Lorem ipsum' 대신 실제 같은 제목·설명·가격이 들어가 레이아웃 문제(줄바꿈 등)가 미리 드러난다.",
+      "snippet": "Use realistic, specific copy and sample data—no lorem ipsum or 'Item 1'.",
+      "compare_with": [
+        "mock-data"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "design-reference",
+      "term": "\"in the style of\" reference",
+      "ko": "레퍼런스 스타일 지정",
+      "category": "style",
+      "tags": [
+        "coding",
+        "style"
+      ],
+      "effect_ko": "IDE 테마·잡지·특정 문화적 미감 등 구체적 참조를 주면 색·서체·밀도가 그 방향으로 수렴한다.",
+      "snippet": "Visual direction inspired by a Solarized-dark IDE theme and Swiss editorial layouts.",
+      "compare_with": [
+        "reference-screenshot",
+        "distinctive-aesthetic"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics"
+      ]
+    },
+    {
+      "id": "production-ready",
+      "term": "production-ready",
+      "ko": "프로덕션 수준",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "임시 코드 대신 오류 처리·입력 검증·로딩 상태·환경변수 분리가 포함된 코드가 나온다. 코드량은 늘어난다.",
+      "snippet": "Make it production-ready: error handling, input validation, loading states, env vars for config, no console.logs.",
+      "compare_with": [
+        "prototype-quick",
+        "yagni"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices"
+      ]
+    },
+    {
+      "id": "prototype-quick",
+      "term": "quick prototype / throwaway",
+      "ko": "빠른 프로토타입",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "핵심 동작만 빠르게 구현되고 예외 처리·구조화는 생략된다. production-ready와 비교하면 길이 차이가 뚜렷하다.",
+      "snippet": "Quick prototype only—happy path, minimal code, no tests.",
+      "compare_with": [
+        "production-ready"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "type-safe",
+      "term": "type-safe (strict, no any)",
+      "ko": "타입 안전",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "any 없이 모든 함수 인자·반환값·API 응답에 타입이 붙고, 런타임 검증(zod)까지 요청하면 외부 데이터도 검사된다.",
+      "snippet": "Fully type-safe: TypeScript strict, no `any`, validate API responses with zod.",
+      "compare_with": [
+        "typescript",
+        "input-validation"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.typescriptlang.org/docs/",
+        "https://zod.dev/"
+      ]
+    },
+    {
+      "id": "error-handling",
+      "term": "robust error handling",
+      "ko": "오류 처리",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "try/catch, 실패 시 사용자 메시지, 재시도 로직이 추가된다. 네트워크 실패 시 앱이 멈추지 않는다.",
+      "snippet": "Handle errors gracefully: catch failures, show a user-friendly message with retry, never crash silently.",
+      "compare_with": [
+        "loading-error-states",
+        "edge-cases"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "edge-cases",
+      "term": "handle edge cases",
+      "ko": "엣지 케이스 처리",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "빈 입력·공백만 입력·매우 긴 텍스트·중복·0개 목록 같은 경계 상황이 처리된다. 지정하면 구체적 목록을 주는 게 효과적.",
+      "snippet": "Handle edge cases: empty/whitespace input, 500+ char titles, duplicates, corrupted localStorage.",
+      "compare_with": [
+        "error-handling",
+        "unit-tests"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "input-validation",
+      "term": "input validation & sanitization",
+      "ko": "입력 검증·정제",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "사용자 입력이 길이·형식 검사를 거치고 HTML로 출력될 때 이스케이프된다(innerHTML 대신 textContent).",
+      "snippet": "Validate and sanitize all user input; render text with textContent, never innerHTML.",
+      "compare_with": [
+        "security-xss",
+        "inline-form-validation"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ]
+    },
+    {
+      "id": "security-xss",
+      "term": "secure by default (XSS, secrets)",
+      "ko": "보안 기본 적용",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "XSS 방지, API 키를 코드에 넣지 않고 환경변수 사용, 서버 측 권한 검사가 포함된다.",
+      "snippet": "Secure by default: no secrets in client code (use env vars), escape output, check authorization server-side.",
+      "compare_with": [
+        "input-validation",
+        "row-level-security"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+      ]
+    },
+    {
+      "id": "refactor",
+      "term": "refactor without changing behavior",
+      "ko": "리팩터링",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "기능은 그대로 두고 함수 분리·이름 개선·중복 제거만 한다. '동작 변경 금지'를 함께 써야 의도치 않은 수정이 줄어든다.",
+      "snippet": "Refactor this file for readability without changing behavior; keep all public APIs identical.",
+      "compare_with": [
+        "dry",
+        "minimal-diff"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://refactoring.com/"
+      ]
+    },
+    {
+      "id": "dry",
+      "term": "DRY (Don't Repeat Yourself)",
+      "ko": "중복 제거(DRY)",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "반복된 코드 블록이 공용 함수·컴포넌트로 합쳐진다. 과하면 추상화가 늘어나므로 YAGNI와 함께 비교해볼 만하다.",
+      "snippet": "Apply DRY: extract repeated logic into shared helpers.",
+      "compare_with": [
+        "yagni",
+        "kiss"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/"
+      ]
+    },
+    {
+      "id": "yagni",
+      "term": "YAGNI (You Aren't Gonna Need It)",
+      "ko": "YAGNI(필요 없는 건 만들지 않기)",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "요청하지 않은 설정 옵션·추상화 계층·미래 대비 기능이 빠져 코드가 짧아진다. AI의 과잉 설계를 억제하는 데 효과적.",
+      "snippet": "YAGNI: implement only what's asked. No extra features, config options or abstractions.",
+      "compare_with": [
+        "production-ready",
+        "dry"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://martinfowler.com/bliki/Yagni.html",
+        "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices"
+      ]
+    },
+    {
+      "id": "kiss",
+      "term": "KISS / simplest thing that works",
+      "ko": "단순하게(KISS)",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "가장 단순한 해법이 선택되어 라이브러리·파일 수가 줄어든다. 초보자가 읽기 쉬운 코드가 된다.",
+      "snippet": "Keep it simple: the simplest solution that works, readable by a beginner.",
+      "compare_with": [
+        "yagni",
+        "production-ready"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://en.wikipedia.org/wiki/KISS_principle"
+      ]
+    },
+    {
+      "id": "clean-code-comments",
+      "term": "well-commented, readable code",
+      "ko": "주석·가독성 중심 코드",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "함수마다 의도를 설명하는 주석·JSDoc과 의미 있는 변수명이 붙는다. 학습용으로 좋지만 길어진다.",
+      "snippet": "Add concise comments explaining why (not what) and JSDoc for public functions; descriptive names.",
+      "compare_with": [
+        "kiss"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://jsdoc.app/"
+      ]
+    },
+    {
+      "id": "minimal-diff",
+      "term": "minimal diff / surgical change",
+      "ko": "최소 변경",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "요청한 부분만 고치고 주변 코드 서식·이름은 그대로 둔다. 리뷰하기 쉬운 작은 변경이 나온다.",
+      "snippet": "Make the smallest possible change to fix this; don't reformat or rename unrelated code.",
+      "compare_with": [
+        "refactor",
+        "dont-change-x"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://support.bolt.new/best-practices/prompting-effectively",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "root-cause",
+      "term": "fix the root cause, don't suppress",
+      "ko": "근본 원인 수정",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "오류를 try/catch로 덮거나 테스트를 끄는 대신 원인을 찾아 고친다. Claude Code 공식 가이드 권장 문구.",
+      "snippet": "Fix the root cause; don't suppress the error, skip tests or add @ts-ignore.",
+      "compare_with": [
+        "paste-error-log",
+        "error-handling"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "lint-format",
+      "term": "lint & format (ESLint + Prettier)",
+      "ko": "린트·포맷 적용",
+      "category": "quality",
+      "tags": [
+        "coding",
+        "quality"
+      ],
+      "effect_ko": "일관된 서식과 규칙 위반 없는 코드가 되고, 설정 파일과 실행 스크립트가 추가된다.",
+      "snippet": "Set up ESLint and Prettier, then fix all lint errors.",
+      "compare_with": [
+        "type-safe"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://eslint.org/docs/latest/",
+        "https://prettier.io/docs/"
+      ]
+    },
+    {
+      "id": "tdd",
+      "term": "TDD (test-driven development)",
+      "ko": "테스트 주도 개발",
+      "category": "testing",
+      "tags": [
+        "coding",
+        "testing"
+      ],
+      "effect_ko": "실패하는 테스트를 먼저 쓰고 통과하도록 구현한다. 결과물에 테스트 파일이 함께 생기고 요구사항이 테스트로 고정된다.",
+      "snippet": "Use TDD: write failing tests first, confirm they fail, then implement until they pass. Don't modify the tests.",
+      "compare_with": [
+        "unit-tests",
+        "test-cases-examples"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://martinfowler.com/bliki/TestDrivenDevelopment.html",
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "unit-tests",
+      "term": "unit tests",
+      "ko": "단위 테스트",
+      "category": "testing",
+      "tags": [
+        "coding",
+        "testing"
+      ],
+      "effect_ko": "핵심 함수별 테스트 파일(*.test.ts)이 추가되고 실행 명령이 안내된다.",
+      "snippet": "Write unit tests with Vitest for the reducer and utility functions, then run them.",
+      "compare_with": [
+        "tdd",
+        "e2e-tests"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://vitest.dev/guide/"
+      ]
+    },
+    {
+      "id": "e2e-tests",
+      "term": "end-to-end tests (Playwright)",
+      "ko": "E2E 테스트",
+      "category": "testing",
+      "tags": [
+        "coding",
+        "testing"
+      ],
+      "effect_ko": "실제 브라우저를 띄워 클릭·입력 시나리오를 검증하는 테스트가 생긴다. UI 회귀를 잡는다.",
+      "snippet": "Add Playwright e2e tests: add a todo, complete it, reload and verify it persists.",
+      "compare_with": [
+        "unit-tests",
+        "visual-verification"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://playwright.dev/docs/intro"
+      ]
+    },
+    {
+      "id": "test-cases-examples",
+      "term": "give concrete test cases",
+      "ko": "구체적 테스트 예시 제공",
+      "category": "testing",
+      "tags": [
+        "coding",
+        "testing"
+      ],
+      "effect_ko": "입력→기대 출력 예시를 주면 AI가 그 기준으로 구현·검증한다. 모호한 요구보다 정확도가 크게 오른다.",
+      "snippet": "validateEmail: 'user@example.com' → true, 'invalid' → false, 'user@.com' → false. Run the tests after implementing.",
+      "compare_with": [
+        "tdd",
+        "acceptance-criteria"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "visual-verification",
+      "term": "screenshot and compare to design",
+      "ko": "스크린샷 비교 검증",
+      "category": "testing",
+      "tags": [
+        "coding",
+        "testing"
+      ],
+      "effect_ko": "AI가 결과 화면을 캡처해 원본 디자인과 비교·수정을 반복한다. 디자인 일치도가 올라간다.",
+      "snippet": "Take a screenshot of the result, compare it to the mockup, list differences and fix them.",
+      "compare_with": [
+        "reference-screenshot",
+        "e2e-tests"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "game-loop",
+      "term": "game loop with requestAnimationFrame",
+      "ko": "게임 루프",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "update→render가 매 프레임 반복되는 구조가 생겨 setInterval보다 부드럽고 탭 비활성 시 자동 정지된다.",
+      "snippet": "Use a requestAnimationFrame game loop with separate update(dt) and render() functions.",
+      "compare_with": [
+        "delta-time",
+        "fixed-timestep"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://gameprogrammingpatterns.com/game-loop.html",
+        "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame"
+      ]
+    },
+    {
+      "id": "delta-time",
+      "term": "delta-time movement",
+      "ko": "델타 타임(프레임 독립 이동)",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "속도가 '픽셀/초' 기준으로 계산되어 60Hz·144Hz 모니터에서 게임 속도가 같아진다.",
+      "snippet": "Make movement frame-rate independent: multiply velocities by delta time in seconds.",
+      "compare_with": [
+        "game-loop",
+        "fixed-timestep"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://gameprogrammingpatterns.com/game-loop.html"
+      ]
+    },
+    {
+      "id": "fixed-timestep",
+      "term": "fixed timestep physics",
+      "ko": "고정 시간 간격 물리",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "물리 계산을 고정 간격(예: 1/60초)으로 돌려 충돌 관통·흔들림이 줄고 결과가 재현 가능해진다.",
+      "snippet": "Run physics at a fixed 60Hz timestep with an accumulator; render with interpolation.",
+      "compare_with": [
+        "delta-time",
+        "physics"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://gafferongames.com/post/fix_your_timestep/"
+      ]
+    },
+    {
+      "id": "physics",
+      "term": "gravity, velocity, friction, bounce",
+      "ko": "물리(중력·속도·마찰·반발)",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "물체가 중력으로 떨어지고 바닥에서 튀며 점점 멈춘다. 지정하지 않으면 등속 직선 이동만 나오기 쉽다.",
+      "snippet": "Simple physics: gravity 980 px/s², restitution 0.8 on bounce, air friction 0.99.",
+      "compare_with": [
+        "matter-js",
+        "collision-detection"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://natureofcode.com/vectors/"
+      ]
+    },
+    {
+      "id": "collision-detection",
+      "term": "collision detection (AABB / circle)",
+      "ko": "충돌 감지",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "사각형(AABB)·원 충돌 판정이 들어가 물체끼리 부딪히고 반응한다. 원-원 충돌을 지정하면 공끼리 튕긴다.",
+      "snippet": "Add circle-circle collision detection and elastic collision response between balls.",
+      "compare_with": [
+        "physics",
+        "spatial-hash"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/2D_collision_detection"
+      ]
+    },
+    {
+      "id": "spatial-hash",
+      "term": "spatial hashing / broad phase",
+      "ko": "공간 분할 충돌 최적화",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "물체가 수백 개여도 근처끼리만 충돌 검사해 프레임이 유지된다.",
+      "snippet": "Use a spatial hash grid for broad-phase collision so 1,000 balls stay at 60fps.",
+      "compare_with": [
+        "collision-detection",
+        "object-pooling"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://gameprogrammingpatterns.com/spatial-partition.html"
+      ]
+    },
+    {
+      "id": "particle-system",
+      "term": "particle system",
+      "ko": "파티클 시스템",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "폭발·불꽃·먼지 같은 수십~수백 개 입자 효과가 생긴다. 충돌·득점 순간이 화려해진다.",
+      "snippet": "Add a particle system: spawn 30 particles on collision with random velocity, fade and shrink over 0.6s.",
+      "compare_with": [
+        "game-juice",
+        "object-pooling"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://natureofcode.com/particles/"
+      ]
+    },
+    {
+      "id": "game-juice",
+      "term": "game juice (screen shake, hit-stop, squash & stretch)",
+      "ko": "게임 손맛(주스)",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "화면 흔들림·잠깐 멈춤·찌그러짐·효과음이 추가되어 같은 게임도 타격감이 확 살아난다.",
+      "snippet": "Add juice: screen shake on hit, squash-and-stretch on bounce, brief hit-stop, flash on damage.",
+      "compare_with": [
+        "particle-system",
+        "easing-tweening"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://www.youtube.com/watch?v=Fy0aCDmgnxg"
+      ]
+    },
+    {
+      "id": "easing-tweening",
+      "term": "easing / tweening",
+      "ko": "이징·트윈",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "선형 이동 대신 가속·감속 곡선(easeOutCubic)으로 움직여 자연스러운 애니메이션이 된다.",
+      "snippet": "Animate UI and object movement with easing functions (easeOutCubic, easeOutBack).",
+      "compare_with": [
+        "css-transitions",
+        "game-juice"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex",
+        "v0",
+        "Lovable"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://easings.net/"
+      ]
+    },
+    {
+      "id": "game-state-machine",
+      "term": "game state machine (menu/playing/paused/game over)",
+      "ko": "게임 상태 머신",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "시작 화면·플레이·일시정지·게임오버 화면이 구분되고 재시작이 동작한다. 미지정 시 바로 시작해 끝나면 멈추는 경우가 많다.",
+      "snippet": "Implement game states: MENU → PLAYING ↔ PAUSED → GAME_OVER, with P to pause and R to restart.",
+      "compare_with": [
+        "game-loop",
+        "high-score"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://gameprogrammingpatterns.com/state.html"
+      ]
+    },
+    {
+      "id": "procedural-generation",
+      "term": "procedural generation (seeded)",
+      "ko": "절차적 생성",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "레벨·지형·맵이 매번 알고리즘으로 생성된다. 시드(seed)를 지정하면 같은 맵을 재현할 수 있다.",
+      "snippet": "Procedurally generate levels with a seeded PRNG so the same seed gives the same map.",
+      "compare_with": [
+        "perlin-noise",
+        "tilemap"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.redblobgames.com/articles/noise/introduction.html"
+      ]
+    },
+    {
+      "id": "perlin-noise",
+      "term": "Perlin / simplex noise",
+      "ko": "펄린 노이즈",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "무작위 대신 부드럽게 이어지는 노이즈로 자연스러운 지형·구름·흐름장이 그려진다.",
+      "snippet": "Use simplex noise for terrain height and a flowing background.",
+      "compare_with": [
+        "procedural-generation",
+        "p5js"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.redblobgames.com/maps/terrain-from-noise/"
+      ]
+    },
+    {
+      "id": "tilemap",
+      "term": "tilemap / grid-based world",
+      "ko": "타일맵",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "월드가 2D 배열 격자로 표현되어 벽·바닥·아이템 배치와 격자 충돌이 쉬워진다. 퍼즐·로그라이크에 적합.",
+      "snippet": "Represent the level as a 2D tile array (0 floor, 1 wall) rendered with 32px tiles.",
+      "compare_with": [
+        "procedural-generation",
+        "collision-detection"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/Tilemaps"
+      ]
+    },
+    {
+      "id": "sprite-animation",
+      "term": "sprite sheet animation",
+      "ko": "스프라이트 애니메이션",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "도형 대신 프레임 단위로 움직이는 캐릭터(걷기·점프)가 나온다. 이미지가 없으면 코드로 그린 픽셀 스프라이트를 요청.",
+      "snippet": "Animate the player with a 4-frame walk cycle from a sprite sheet (or procedurally drawn pixel sprites).",
+      "compare_with": [
+        "pixel-art-crisp"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Games/Tutorials/2D_Breakout_game_pure_JavaScript"
+      ]
+    },
+    {
+      "id": "pixel-art-crisp",
+      "term": "pixel-art rendering (no smoothing)",
+      "ko": "픽셀아트 렌더링",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "확대해도 흐려지지 않는 또렷한 도트 그래픽이 된다(imageSmoothingEnabled=false, 정수 배율).",
+      "snippet": "Retro pixel-art look: 320x180 internal resolution scaled by integer factor, image smoothing off.",
+      "compare_with": [
+        "sprite-animation",
+        "canvas-2d"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled"
+      ]
+    },
+    {
+      "id": "parallax",
+      "term": "parallax scrolling background",
+      "ko": "패럴랙스 배경",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "배경 여러 겹이 서로 다른 속도로 움직여 깊이감이 생긴다. 게임·랜딩 페이지 모두에 쓰인다.",
+      "snippet": "Add a 3-layer parallax background moving at 0.2x, 0.5x and 1x speed.",
+      "compare_with": [
+        "game-juice"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex",
+        "v0",
+        "Lovable"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques"
+      ]
+    },
+    {
+      "id": "input-handling",
+      "term": "keyboard + touch input handling",
+      "ko": "입력 처리(키보드·터치)",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "키 상태 맵으로 동시 입력이 되고, 모바일용 가상 버튼/스와이프가 추가된다.",
+      "snippet": "Track key states (WASD/arrows) in a map; add on-screen touch controls for mobile.",
+      "compare_with": [
+        "mobile-first",
+        "game-loop"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/Control_mechanisms"
+      ]
+    },
+    {
+      "id": "high-score",
+      "term": "persistent high score",
+      "ko": "최고 점수 저장",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "점수 표시와 localStorage에 저장된 최고 기록이 게임오버 화면에 나온다. 재도전 동기가 생긴다.",
+      "snippet": "Show score and best score; persist best score in localStorage.",
+      "compare_with": [
+        "localstorage",
+        "game-state-machine"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+      ]
+    },
+    {
+      "id": "web-audio-sfx",
+      "term": "procedural sound effects (Web Audio)",
+      "ko": "효과음(Web Audio)",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "파일 없이 코드로 생성한 '삑'·'퐁' 효과음이 충돌·득점 시 난다. 첫 사용자 입력 후 오디오 시작이 필요.",
+      "snippet": "Generate simple sound effects with the Web Audio API (oscillator blips) on bounce and score; start audio on first click.",
+      "compare_with": [
+        "game-juice"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API"
+      ]
+    },
+    {
+      "id": "ecs",
+      "term": "Entity-Component-System (ECS)",
+      "ko": "ECS 구조",
+      "category": "game",
+      "tags": [
+        "coding",
+        "game"
+      ],
+      "effect_ko": "게임 객체가 엔티티+데이터 컴포넌트+시스템으로 분리되어 적·총알 종류를 늘리기 쉬운 구조가 된다. 작은 게임엔 과할 수 있다.",
+      "snippet": "Structure the game with a lightweight ECS: entities, components (Position, Velocity, Sprite), systems.",
+      "compare_with": [
+        "event-driven",
+        "modular-files"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://gameprogrammingpatterns.com/component.html"
+      ]
+    },
+    {
+      "id": "crud",
+      "term": "full CRUD",
+      "ko": "CRUD(생성·조회·수정·삭제)",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "추가만 되던 앱에 수정·삭제·상세 조회까지 모두 들어간다. 기능 누락을 막는 짧은 키워드.",
+      "snippet": "Implement full CRUD for tasks: create, list, view details, edit, delete.",
+      "compare_with": [
+        "rest-api",
+        "localstorage"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/CRUD"
+      ]
+    },
+    {
+      "id": "localstorage",
+      "term": "persist to localStorage",
+      "ko": "로컬스토리지 저장",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "새로고침해도 데이터가 남는다. 서버 없이 브라우저에만 저장되므로 다른 기기와는 공유되지 않는다.",
+      "snippet": "Persist state to localStorage and load it on startup; handle missing or corrupted data.",
+      "compare_with": [
+        "indexeddb",
+        "supabase"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+      ]
+    },
+    {
+      "id": "indexeddb",
+      "term": "IndexedDB storage",
+      "ko": "IndexedDB 저장",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "이미지·대량 데이터처럼 localStorage 용량을 넘는 데이터도 브라우저에 저장된다. 비동기 코드가 추가된다.",
+      "snippet": "Store notes and attached images in IndexedDB (use the idb library).",
+      "compare_with": [
+        "localstorage"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API"
+      ]
+    },
+    {
+      "id": "rest-api",
+      "term": "REST API",
+      "ko": "REST API",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "GET/POST/PUT/DELETE 엔드포인트(/api/todos)를 가진 서버와 이를 호출하는 프론트가 생성된다.",
+      "snippet": "Create a REST API (Express or Next.js route handlers): GET/POST /api/todos, PATCH/DELETE /api/todos/:id.",
+      "compare_with": [
+        "crud",
+        "supabase"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/REST"
+      ]
+    },
+    {
+      "id": "data-schema",
+      "term": "define data schema / model first",
+      "ko": "데이터 스키마 먼저 정의",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "필드·타입·관계가 먼저 정해져 화면·저장·API가 같은 구조를 따른다. 필드 누락·불일치가 줄어든다.",
+      "snippet": "Data model first: Task { id: string; title: string; done: boolean; priority: 'low'|'med'|'high'; createdAt: ISO string }.",
+      "compare_with": [
+        "type-safe",
+        "crud"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://vercel.com/blog/how-to-prompt-v0",
+        "https://zod.dev/"
+      ]
+    },
+    {
+      "id": "mock-data",
+      "term": "seed / mock data",
+      "ko": "목업 데이터",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "처음 열었을 때 그럴듯한 샘플 데이터가 채워져 있어 화면이 비어 보이지 않는다.",
+      "snippet": "Seed the app with 12 realistic mock records so the UI isn't empty on first load.",
+      "compare_with": [
+        "real-content",
+        "empty-state"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "json-import-export",
+      "term": "JSON import/export",
+      "ko": "JSON 가져오기·내보내기",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "데이터를 파일로 백업·복원하는 버튼이 생긴다. localStorage 앱의 데이터 이동 문제를 해결.",
+      "snippet": "Add Export (download JSON) and Import (upload JSON with validation) buttons.",
+      "compare_with": [
+        "localstorage"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Blob"
+      ]
+    },
+    {
+      "id": "auth",
+      "term": "authentication (sign up / log in)",
+      "ko": "인증(로그인)",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "로그인·회원가입 화면과 로그인 상태별 화면 분기가 추가된다. 사용자별 데이터가 분리된다.",
+      "snippet": "Add email/password auth; show the app only when logged in and a landing page otherwise.",
+      "compare_with": [
+        "supabase",
+        "row-level-security"
+      ],
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Replit Agent",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://supabase.com/docs/guides/auth",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "row-level-security",
+      "term": "row level security (RLS)",
+      "ko": "행 수준 보안(RLS)",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "DB에서 사용자가 자기 데이터만 읽고 쓸 수 있도록 정책이 생성된다. 화면은 같지만 데이터 유출 위험이 줄어든다.",
+      "snippet": "Enable RLS so users can only select/update their own rows (user_id = auth.uid()).",
+      "compare_with": [
+        "auth",
+        "security-xss"
+      ],
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://supabase.com/docs/guides/database/postgres/row-level-security"
+      ]
+    },
+    {
+      "id": "url-state",
+      "term": "state in URL query params",
+      "ko": "URL에 상태 저장",
+      "category": "data",
+      "tags": [
+        "coding",
+        "data"
+      ],
+      "effect_ko": "필터·검색어·탭이 URL(?filter=done)에 반영되어 새로고침·공유해도 같은 화면이 유지된다.",
+      "snippet": "Sync filter and search state to URL query params so views are shareable.",
+      "compare_with": [
+        "search-filter-sort",
+        "client-side-routing"
+      ],
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams"
+      ]
+    },
+    {
+      "id": "lazy-loading",
+      "term": "lazy loading",
+      "ko": "지연 로딩",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "화면 밖 이미지·무거운 컴포넌트가 필요할 때 불러와져 첫 화면이 빨리 뜬다(loading=\"lazy\", React.lazy).",
+      "snippet": "Lazy-load below-the-fold images (loading=\"lazy\") and the chart component (React.lazy + Suspense).",
+      "compare_with": [
+        "code-splitting",
+        "skeleton-loading"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://web.dev/articles/browser-level-image-lazy-loading",
+        "https://react.dev/reference/react/lazy"
+      ]
+    },
+    {
+      "id": "code-splitting",
+      "term": "code splitting",
+      "ko": "코드 분할",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "앱이 페이지·기능별 번들로 나뉘어 초기 다운로드 크기가 줄어든다.",
+      "snippet": "Code-split by route with dynamic import().",
+      "compare_with": [
+        "lazy-loading"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://vite.dev/guide/features#dynamic-import"
+      ]
+    },
+    {
+      "id": "memoization",
+      "term": "memoization (useMemo / React.memo)",
+      "ko": "메모이제이션",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "같은 입력의 계산·렌더링을 캐시해 큰 목록에서 타이핑 시 버벅임이 줄어든다.",
+      "snippet": "Memoize the filtered list with useMemo and wrap TodoItem in React.memo.",
+      "compare_with": [
+        "virtualization",
+        "debounce"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://react.dev/reference/react/useMemo"
+      ]
+    },
+    {
+      "id": "debounce",
+      "term": "debounce",
+      "ko": "디바운스",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "검색창 입력이 멈춘 뒤(예: 300ms) 한 번만 검색·요청한다. 키 입력마다 API 호출하는 문제가 사라진다.",
+      "snippet": "Debounce the search input by 300ms before filtering or calling the API.",
+      "compare_with": [
+        "throttle",
+        "search-filter-sort"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Debounce"
+      ]
+    },
+    {
+      "id": "throttle",
+      "term": "throttle",
+      "ko": "스로틀",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "스크롤·리사이즈 이벤트 처리가 일정 간격(예: 100ms)으로 제한되어 화면이 부드러워진다.",
+      "snippet": "Throttle the scroll handler to once every 100ms.",
+      "compare_with": [
+        "debounce"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Throttle"
+      ]
+    },
+    {
+      "id": "virtualization",
+      "term": "list virtualization (windowing)",
+      "ko": "목록 가상화",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "1만 개 행도 화면에 보이는 것만 렌더링해 스크롤이 매끄럽다.",
+      "snippet": "Virtualize the 10,000-row list with TanStack Virtual.",
+      "compare_with": [
+        "infinite-scroll",
+        "memoization"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://tanstack.com/virtual/latest"
+      ]
+    },
+    {
+      "id": "object-pooling",
+      "term": "object pooling",
+      "ko": "오브젝트 풀링",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "총알·파티클을 매번 생성/삭제하지 않고 재사용해 가비지 컬렉션 끊김이 사라진다.",
+      "snippet": "Use an object pool for bullets and particles to avoid GC stutter.",
+      "compare_with": [
+        "particle-system",
+        "spatial-hash"
+      ],
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://gameprogrammingpatterns.com/object-pool.html"
+      ]
+    },
+    {
+      "id": "web-worker",
+      "term": "offload to a Web Worker",
+      "ko": "웹 워커로 분리",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "무거운 계산(이미지 처리·대량 정렬)이 별도 스레드에서 돌아 UI가 멈추지 않는다.",
+      "snippet": "Move the heavy CSV parsing into a Web Worker and show progress.",
+      "compare_with": [
+        "memoization"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers"
+      ]
+    },
+    {
+      "id": "performance-budget",
+      "term": "performance budget (60fps / Lighthouse 90+)",
+      "ko": "성능 목표 수치 지정",
+      "category": "performance",
+      "tags": [
+        "coding",
+        "performance"
+      ],
+      "effect_ko": "구체적 수치 목표를 주면 이미지 최적화·불필요 라이브러리 제거 등 성능 조치가 함께 적용된다.",
+      "snippet": "Target 60fps with 500 objects and Lighthouse performance 90+; measure and report.",
+      "compare_with": [
+        "lazy-loading",
+        "object-pooling"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://web.dev/articles/performance-budgets-101"
+      ]
+    },
+    {
+      "id": "spec-first",
+      "term": "spec / PRD first",
+      "ko": "명세서(PRD) 먼저",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "코드 전에 기능·범위·제외 사항이 정리된 문서가 나오고, 이를 기준으로 구현되어 엉뚱한 기능이 줄어든다.",
+      "snippet": "Before coding, write SPEC.md: goals, user stories, out of scope, data model, acceptance criteria.",
+      "compare_with": [
+        "plan-mode",
+        "interview-me"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "plan-mode",
+      "term": "plan mode / plan first",
+      "ko": "계획 모드",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "AI가 파일 수정 없이 먼저 읽고 계획만 제시한다. 여러 파일을 고치는 작업에서 방향 오류가 줄어든다.",
+      "snippet": "Don't write code yet. Read the relevant files and propose a step-by-step plan for my approval.",
+      "compare_with": [
+        "step-by-step-plan",
+        "spec-first"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Lovable",
+        "Replit Agent",
+        "Codex"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://code.claude.com/docs/en/permission-modes",
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "step-by-step-plan",
+      "term": "ask for a numbered step plan",
+      "ko": "단계별 계획 요청",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "작업이 번호 매긴 작은 단계로 쪼개져 단계마다 확인할 수 있다.",
+      "snippet": "Break this into numbered steps; implement step 1 only and wait for my review.",
+      "compare_with": [
+        "plan-mode",
+        "small-iterations"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.replit.com/tutorials/effective-prompting",
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "interview-me",
+      "term": "interview me first / ask clarifying questions",
+      "ko": "먼저 질문하게 하기",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "AI가 바로 만들지 않고 요구사항 질문을 먼저 한다. 놓친 엣지 케이스·UX 결정이 드러난다.",
+      "snippet": "Ask me any questions you need to fully understand what I want before building.",
+      "compare_with": [
+        "spec-first",
+        "plan-mode"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "rules-file",
+      "term": "CLAUDE.md / AGENTS.md / .cursor/rules",
+      "ko": "규칙 파일(CLAUDE.md 등)",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "매 세션 자동으로 읽히는 프로젝트 규칙으로 스택·명령·코드 스타일이 매번 일관되게 적용된다.",
+      "snippet": "CLAUDE.md: '# Code style\\n- Use ES modules\\n# Workflow\\n- Run `npm test` after changes'",
+      "compare_with": [
+        "knowledge-file"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/memory",
+        "https://cursor.com/docs/context/rules",
+        "https://agents.md/",
+        "https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot"
+      ]
+    },
+    {
+      "id": "knowledge-file",
+      "term": "project knowledge / custom instructions",
+      "ko": "프로젝트 지식·지침",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "웹 빌더에서 프로젝트 전체에 적용될 스타일·규칙을 저장해 섹션마다 디자인이 흔들리지 않는다.",
+      "snippet": "Project knowledge: 'Brand: warm minimal, colors #1F2937/#F59E0B, font Fraunces + Inter Tight, always mobile-first.'",
+      "compare_with": [
+        "rules-file",
+        "design-tokens"
+      ],
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "v0",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "reference-screenshot",
+      "term": "attach a reference screenshot/mockup",
+      "ko": "참고 스크린샷 첨부",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "말로 설명하기 어려운 레이아웃·간격·분위기가 이미지 기준으로 재현된다. 문장 묘사보다 결과 일치도가 높다.",
+      "snippet": "[attach screenshot] Recreate this layout and spacing; use my content instead.",
+      "compare_with": [
+        "design-reference",
+        "visual-verification"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "small-iterations",
+      "term": "small iterations / one change at a time",
+      "ko": "작게 나눠 반복",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "한 번에 하나의 기능만 추가해 깨지는 부분이 적고 어디서 문제가 생겼는지 바로 알 수 있다.",
+      "snippet": "Just add the filter tabs for now. Nothing else.",
+      "compare_with": [
+        "step-by-step-plan",
+        "checkpoints"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "paste-error-log",
+      "term": "paste the exact error log",
+      "ko": "오류 로그 그대로 붙여넣기",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "'안 돼요' 대신 정확한 에러·재현 단계를 주면 추측 수정이 줄고 한 번에 고쳐질 확률이 높다.",
+      "snippet": "It fails with: [paste full stack trace]. Steps: click Add twice. Expected: two items. Fix the root cause.",
+      "compare_with": [
+        "root-cause"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "dont-change-x",
+      "term": "\"don't change X\" boundaries",
+      "ko": "건드리지 말 것 명시",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "수정 범위가 제한되어 잘 되던 부분(로그인·스타일)이 덩달아 바뀌는 사고가 줄어든다.",
+      "snippet": "Only change the orders page. Keep the existing styling. Do not touch login or the database schema.",
+      "compare_with": [
+        "minimal-diff",
+        "small-iterations"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "acceptance-criteria",
+      "term": "acceptance criteria / definition of done",
+      "ko": "완료 조건(인수 기준)",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "'완료'의 기준이 체크리스트로 주어져 AI가 그 항목을 모두 충족하는지 확인하며 만든다.",
+      "snippet": "Done when: (1) items persist after reload (2) works at 375px (3) no console errors (4) tests pass.",
+      "compare_with": [
+        "test-cases-examples",
+        "spec-first"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "follow-existing-patterns",
+      "term": "follow existing patterns in the codebase",
+      "ko": "기존 코드 패턴 따르기",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "새 기능이 프로젝트의 기존 컴포넌트·네이밍·라이브러리 방식을 따라 이질감 없이 붙는다.",
+      "snippet": "Look at how HotDogWidget is implemented and follow the same pattern; use only libraries already in the codebase.",
+      "compare_with": [
+        "rules-file"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.github.com/en/copilot/using-github-copilot/best-practices-for-using-github-copilot"
+      ]
+    },
+    {
+      "id": "verify-run",
+      "term": "run it and verify (build/tests/screenshot)",
+      "ko": "실행해서 검증하게 하기",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "AI가 만든 뒤 빌드·테스트·화면 확인을 직접 돌려 실패를 스스로 고친다. '그럴듯하지만 안 되는' 코드가 줄어든다.",
+      "snippet": "After implementing, run the build and tests, show me the output, and iterate until everything passes.",
+      "compare_with": [
+        "visual-verification",
+        "unit-tests"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "checkpoints",
+      "term": "checkpoints / rewind / version history",
+      "ko": "체크포인트·되돌리기",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "잘 동작하는 시점을 저장해 두고 실험이 실패하면 되돌린다. 과감한 변경 시도가 가능해진다.",
+      "snippet": "(Claude Code: Esc Esc → /rewind · Replit: Checkpoints · Lovable: bookmark version)",
+      "compare_with": [
+        "small-iterations"
+      ],
+      "tools": [
+        "Claude Code",
+        "Replit Agent",
+        "Lovable",
+        "Bolt",
+        "Cursor"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "target-or-lock-file",
+      "term": "target / lock files",
+      "ko": "파일 지정·잠금",
+      "category": "workflow",
+      "tags": [
+        "coding",
+        "workflow"
+      ],
+      "effect_ko": "수정 대상을 특정 파일로 한정하거나 특정 파일을 잠가 AI가 건드리지 못하게 한다.",
+      "snippet": "(Bolt: right-click → Target file / Lock file · Claude Code/Cursor: @src/components/Cart.tsx 만 수정)",
+      "compare_with": [
+        "dont-change-x",
+        "minimal-diff"
+      ],
+      "tools": [
+        "Bolt",
+        "Cursor",
+        "Claude Code"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://support.bolt.new/best-practices/prompting-effectively",
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "instant-artifact-app",
+      "name_ko": "바로 열리는 한 파일 앱",
+      "goal_ko": "설치 없이 브라우저에서 바로 돌아가는 완성형 미니 앱",
+      "term_ids": [
+        "single-html-file",
+        "vanilla-js",
+        "localstorage",
+        "responsive",
+        "dark-mode",
+        "empty-state"
+      ],
+      "prompt_en": "Make a todo app as a single self-contained HTML file (inline CSS/JS, vanilla JS, no build). Persist to localStorage, responsive down to 375px, dark mode via prefers-color-scheme with a toggle, and a friendly empty state.",
+      "notes_ko": "Claude artifacts·로컬 파일 열기에 최적. 외부 라이브러리가 필요하면 CDN 지정.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent"
+      ]
+    },
+    {
+      "id": "polished-saas-ui",
+      "name_ko": "깔끔한 SaaS풍 UI",
+      "goal_ko": "v0/Lovable 스타일의 정돈된 웹앱 화면",
+      "term_ids": [
+        "react",
+        "typescript",
+        "tailwind",
+        "shadcn-ui",
+        "lucide-icons",
+        "loading-error-states",
+        "toast-notifications"
+      ],
+      "prompt_en": "Build a task manager in React + TypeScript with Tailwind and shadcn/ui (Card, Dialog, Button), lucide icons, loading/empty/error states, and toast notifications for every action.",
+      "notes_ko": "가장 '무난한' 결과. 개성이 필요하면 distinctive-aesthetic 조합과 비교.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor"
+      ]
+    },
+    {
+      "id": "anti-ai-slop-landing",
+      "name_ko": "AI 티 안 나는 랜딩 페이지",
+      "goal_ko": "흔한 보라 그라디언트 템플릿이 아닌 개성 있는 랜딩",
+      "term_ids": [
+        "distinctive-aesthetic",
+        "typography-pairing",
+        "dominant-accent-palette",
+        "design-tokens",
+        "micro-interactions",
+        "real-content",
+        "mobile-first"
+      ],
+      "prompt_en": "Landing page for a coffee subscription. Avoid generic AI aesthetics (no purple gradients, no Inter). Pick a bold direction—warm editorial—with a characterful serif display font, one dominant espresso-brown color and a sharp orange accent as CSS variables, staggered load-in animations, realistic copy, mobile-first.",
+      "notes_ko": "Anthropic frontend aesthetics 쿡북의 3전략(차원별 지시·레퍼런스·기본값 금지) 적용.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ]
+    },
+    {
+      "id": "juicy-arcade-game",
+      "name_ko": "손맛 있는 아케이드 게임",
+      "goal_ko": "단순 도형 이동을 넘어 '재밌는' 게임 느낌",
+      "term_ids": [
+        "canvas-2d",
+        "game-loop",
+        "delta-time",
+        "physics",
+        "collision-detection",
+        "particle-system",
+        "game-juice",
+        "game-state-machine",
+        "high-score",
+        "web-audio-sfx"
+      ],
+      "prompt_en": "Bouncing ball breakout game in one HTML file on <canvas>. requestAnimationFrame loop with delta time, gravity and bounce, circle-rect collision, particles on brick hit, screen shake and squash-and-stretch, MENU/PLAYING/PAUSED/GAME_OVER states, best score in localStorage, Web Audio blips.",
+      "notes_ko": "같은 게임을 game-juice만 빼고 생성해 비교하면 차이가 극적.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ]
+    },
+    {
+      "id": "physics-sandbox",
+      "name_ko": "물리 샌드박스",
+      "goal_ko": "공·상자가 사실적으로 쌓이고 굴러가는 장난감",
+      "term_ids": [
+        "matter-js",
+        "cdn-no-build",
+        "input-handling",
+        "object-pooling"
+      ],
+      "prompt_en": "A physics sandbox in one HTML file using Matter.js from a CDN: click to drop balls and boxes, drag to throw, walls and ramps, cap at 300 bodies with recycling.",
+      "notes_ko": "직접 구현 물리(physics)와 비교용.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ]
+    },
+    {
+      "id": "3d-scene",
+      "name_ko": "3D 인터랙티브 장면",
+      "goal_ko": "회전·조명이 있는 3D 시각화",
+      "term_ids": [
+        "threejs",
+        "cdn-no-build",
+        "game-loop",
+        "responsive",
+        "reduced-motion"
+      ],
+      "prompt_en": "Three.js scene via import map from a CDN: a floating low-poly island, PerspectiveCamera with OrbitControls, soft directional light and shadows, resizes to the window, pauses auto-rotate under prefers-reduced-motion.",
+      "notes_ko": "같은 요청을 canvas-2d로 바꿔 비교.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ]
+    },
+    {
+      "id": "generative-art",
+      "name_ko": "생성 예술 스케치",
+      "goal_ko": "매번 다른 아름다운 패턴 그림",
+      "term_ids": [
+        "p5js",
+        "perlin-noise",
+        "procedural-generation"
+      ],
+      "prompt_en": "A p5.js sketch: flow-field lines driven by simplex noise, seeded so pressing R regenerates and the seed shows in the corner, limited 3-color palette.",
+      "notes_ko": "seed 표시로 결과 재현·비교 가능.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ]
+    },
+    {
+      "id": "robust-crud-app",
+      "name_ko": "견고한 CRUD 앱",
+      "goal_ko": "실사용 가능한 데이터 관리 앱",
+      "term_ids": [
+        "crud",
+        "data-schema",
+        "type-safe",
+        "inline-form-validation",
+        "edge-cases",
+        "error-handling",
+        "optimistic-ui",
+        "undo-action"
+      ],
+      "prompt_en": "Contacts manager with full CRUD. Data model: Contact {id, name, email, phone?, tags[]} validated with zod. TypeScript strict. Inline form validation, edge cases (duplicate emails, empty names, very long input), optimistic updates with rollback, delete with Undo toast.",
+      "notes_ko": "prototype-quick 버전과 코드 길이·안정성 비교.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ]
+    },
+    {
+      "id": "fullstack-auth-app",
+      "name_ko": "로그인 있는 풀스택 앱",
+      "goal_ko": "여러 기기에서 쓰는 사용자별 데이터 앱",
+      "term_ids": [
+        "supabase",
+        "auth",
+        "row-level-security",
+        "rest-api",
+        "security-xss",
+        "loading-error-states"
+      ],
+      "prompt_en": "Habit tracker with Supabase: email auth, habits table with RLS (user_id = auth.uid()), logged-out landing page, logged-in dashboard, keys only in env vars, loading and error states.",
+      "notes_ko": "Lovable·Bolt는 Supabase 연동이 내장. 키는 절대 클라이언트 코드에 하드코딩하지 않게.",
+      "tools": [
+        "Lovable",
+        "Bolt",
+        "Claude Code",
+        "Cursor",
+        "Replit Agent"
+      ]
+    },
+    {
+      "id": "data-dashboard",
+      "name_ko": "데이터 대시보드",
+      "goal_ko": "지표가 한눈에 보이는 관리 화면",
+      "term_ids": [
+        "dashboard-layout",
+        "chart-library",
+        "mock-data",
+        "skeleton-loading",
+        "search-filter-sort",
+        "url-state",
+        "responsive"
+      ],
+      "prompt_en": "Sales dashboard: collapsible sidebar, 4 KPI cards (revenue, orders, AOV, refund rate), Recharts line chart of 30-day revenue, recent orders table with search/filter/sort synced to URL, skeleton loading, realistic mock data, responsive.",
+      "notes_ko": "v0 가이드: '대시보드'만 쓰지 말고 지표를 나열하면 코드도 짧아진다.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor"
+      ]
+    },
+    {
+      "id": "big-list-performance",
+      "name_ko": "대량 데이터도 빠른 목록",
+      "goal_ko": "수천 건에서도 버벅이지 않는 검색 목록",
+      "term_ids": [
+        "virtualization",
+        "debounce",
+        "memoization",
+        "web-worker",
+        "performance-budget"
+      ],
+      "prompt_en": "Searchable list of 50,000 products: virtualize with TanStack Virtual, debounce search 300ms, memoize filtering, parse the CSV in a Web Worker, keep scrolling at 60fps.",
+      "notes_ko": "용어 없이 만든 버전과 스크롤·타이핑 체감 비교.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ]
+    },
+    {
+      "id": "accessible-form",
+      "name_ko": "접근성 높은 폼",
+      "goal_ko": "누구나 키보드·스크린리더로 쓸 수 있는 신청 폼",
+      "term_ids": [
+        "accessible-a11y",
+        "keyboard-navigation",
+        "inline-form-validation",
+        "high-contrast",
+        "reduced-motion"
+      ],
+      "prompt_en": "Event sign-up form meeting WCAG 2.2 AA: semantic labels, visible focus rings, errors announced via aria-live, full keyboard flow, 4.5:1 contrast, respects reduced motion.",
+      "notes_ko": "외형 차이는 작음. Tab키 이동·Lighthouse 접근성 점수로 비교.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ]
+    },
+    {
+      "id": "lean-yagni-script",
+      "name_ko": "군더더기 없는 스크립트",
+      "goal_ko": "과잉 설계 없는 짧은 실용 코드",
+      "term_ids": [
+        "python-cli",
+        "yagni",
+        "kiss",
+        "error-handling",
+        "edge-cases"
+      ],
+      "prompt_en": "Python CLI that renames photos in a folder by EXIF date. argparse with --dry-run. YAGNI and KISS: no classes or config files, just functions. Handle missing EXIF and name collisions.",
+      "notes_ko": "production-ready 버전과 줄 수 비교.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ]
+    },
+    {
+      "id": "safe-bugfix",
+      "name_ko": "안전한 버그 수정",
+      "goal_ko": "다른 데 안 건드리고 버그만 고치기",
+      "term_ids": [
+        "paste-error-log",
+        "root-cause",
+        "minimal-diff",
+        "dont-change-x",
+        "tdd",
+        "verify-run"
+      ],
+      "prompt_en": "Error: [paste stack trace]. Repro: add two items quickly. Write a failing test reproducing it, then fix the root cause with the smallest change. Don't touch styling or storage format. Run the tests and show output.",
+      "notes_ko": "Claude Code 공식 'Describe the symptom' 패턴.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ]
+    },
+    {
+      "id": "spec-driven-feature",
+      "name_ko": "명세 기반 기능 개발",
+      "goal_ko": "큰 기능을 방향 오류 없이 구현",
+      "term_ids": [
+        "interview-me",
+        "spec-first",
+        "acceptance-criteria",
+        "plan-mode",
+        "small-iterations",
+        "verify-run"
+      ],
+      "prompt_en": "I want to add recurring tasks. Interview me in detail about edge cases and UX, then write SPEC.md with acceptance criteria and out-of-scope. Then in plan mode propose steps; implement step by step, running tests after each.",
+      "notes_ko": "스펙 완성 후 새 세션에서 구현하면 컨텍스트가 깨끗하다(Claude Code 권장).",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "Replit Agent",
+        "Lovable"
+      ]
+    },
+    {
+      "id": "pixel-roguelike",
+      "name_ko": "픽셀 로그라이크",
+      "goal_ko": "매번 다른 던전의 레트로 게임",
+      "term_ids": [
+        "tilemap",
+        "procedural-generation",
+        "pixel-art-crisp",
+        "sprite-animation",
+        "input-handling",
+        "game-state-machine"
+      ],
+      "prompt_en": "Tiny roguelike in one HTML file: seeded procedural dungeon rooms on a tile grid, 320x180 pixel-art scaled crisp, 4-frame procedurally drawn player sprite, arrow/WASD + touch controls, title and game-over screens.",
+      "notes_ko": "seed 고정 시 같은 맵으로 다른 용어 비교 가능.",
+      "tools": [
+        "Claude artifacts",
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Codex"
+      ]
+    },
+    {
+      "id": "design-match",
+      "name_ko": "디자인 시안 그대로 구현",
+      "goal_ko": "스크린샷·피그마와 똑같은 화면",
+      "term_ids": [
+        "reference-screenshot",
+        "visual-verification",
+        "design-tokens",
+        "component-based"
+      ],
+      "prompt_en": "[attach mockup] Implement this design as components. Extract colors/spacing into tokens. Then screenshot your result, compare with the mockup, list differences and fix them.",
+      "notes_ko": "Claude Code 공식 'Verify UI changes visually' 예시 기반.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "v0",
+        "Lovable",
+        "Bolt"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "explore-plan-code-commit",
+      "name": "Explore → Plan → Code → Commit",
+      "ko": "탐색→계획→구현→커밋",
+      "how_ko": "계획 모드에서 파일을 읽고 계획을 세운 뒤, 승인 후 구현·테스트·커밋한다.",
+      "when_ko": "여러 파일을 고치거나 접근 방식이 불확실할 때. 한 문장으로 설명되는 작은 수정은 생략.",
+      "example": "read /src/auth and understand sessions → 'I want Google OAuth. What files change? Create a plan.' → 'implement the plan, write tests, fix failures'",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://code.claude.com/docs/en/permission-modes"
+      ]
+    },
+    {
+      "id": "interview-then-spec",
+      "name": "Interview me → SPEC.md",
+      "ko": "인터뷰 후 명세 작성",
+      "how_ko": "최소한의 설명만 주고 AI가 질문하게 한 뒤 SPEC.md로 정리, 새 세션에서 구현.",
+      "when_ko": "큰 기능·새 앱을 시작할 때.",
+      "example": "I want to build [X]. Interview me in detail... then write a complete spec to SPEC.md.",
+      "tools": [
+        "Claude Code",
+        "Lovable",
+        "Cursor",
+        "Replit Agent"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "give-verification",
+      "name": "Give the AI a way to verify",
+      "ko": "검증 수단 제공",
+      "how_ko": "테스트·빌드·스크린샷 비교처럼 통과/실패가 나오는 체크를 주고 통과할 때까지 반복하게 한다.",
+      "when_ko": "항상. 특히 자리를 비우고 맡길 때.",
+      "example": "write validateEmail. test cases: ... run the tests after implementing.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot",
+        "Replit Agent"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "three-input-prompt",
+      "name": "Product surface + Context of use + Constraints",
+      "ko": "v0 3요소 프롬프트",
+      "how_ko": "①화면 구성요소·데이터·동작 ②누가·언제·어디서 쓰는지 ③플랫폼·톤·색·레이아웃 제약을 모두 적는다.",
+      "when_ko": "웹 UI를 생성할 때. 코드가 짧아지고 생성도 빨라진다.",
+      "example": "Support dashboard for agents on mobile during shifts; ticket list with urgency color coding (red/yellow/green); mobile-first; max 3 columns.",
+      "tools": [
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Claude artifacts"
+      ],
+      "sources": [
+        "https://vercel.com/blog/how-to-prompt-v0"
+      ]
+    },
+    {
+      "id": "component-by-component",
+      "name": "Build component by component",
+      "ko": "컴포넌트 단위로 쌓기",
+      "how_ko": "페이지 전체 대신 히어로→기능 그리드→가격표 순으로 하나씩 생성·검토·수정.",
+      "when_ko": "랜딩 페이지·다중 섹션 UI.",
+      "example": "Build only the hero section now: headline, subtext, CTA, product image on the right.",
+      "tools": [
+        "Lovable",
+        "v0",
+        "Bolt"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "scope-guardrails",
+      "name": "Scope guardrails",
+      "ko": "변경 범위 울타리",
+      "how_ko": "무엇을, 어디에 만들고, 무엇은 건드리지 말지를 함께 적는다. 파일 잠금/타깃 기능 병행.",
+      "when_ko": "기존에 잘 되는 앱을 수정할 때.",
+      "example": "Only change the orders page. Keep the existing styling. Do not touch login.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "error-report-format",
+      "name": "Structured bug report",
+      "ko": "구조화된 버그 보고",
+      "how_ko": "정확한 에러 메시지·관련 파일·재현 단계·기대 결과·이미 시도한 것을 붙여 넣는다.",
+      "when_ko": "오류가 났을 때 '안 돼'라고만 하기 전에.",
+      "example": "Error: [trace]. File: src/cart.ts. Steps: ... Expected: ... Tried: clearing cache. Fix the root cause.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "sources": [
+        "https://docs.replit.com/tutorials/effective-prompting",
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "clear-after-two-fails",
+      "name": "Reset after two failed corrections",
+      "ko": "두 번 실패하면 새로 시작",
+      "how_ko": "같은 문제를 두 번 넘게 고쳐도 안 되면 대화를 지우고(/clear, 새 채팅) 배운 점을 반영한 더 나은 첫 프롬프트로 다시 시작.",
+      "when_ko": "AI가 같은 실수를 반복할 때.",
+      "example": "/clear → 'Build X. Note: use CSS grid, not flex; the list must survive reload.'",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Bolt",
+        "Replit Agent",
+        "Lovable"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://support.bolt.new/best-practices/prompting-effectively",
+        "https://docs.replit.com/tutorials/effective-prompting"
+      ]
+    },
+    {
+      "id": "persistent-rules",
+      "name": "Persistent rules files",
+      "ko": "지속 규칙 파일",
+      "how_ko": "CLAUDE.md / AGENTS.md / .cursor/rules / copilot-instructions.md에 빌드 명령·스타일·금지사항을 짧게 기록. 반복 실수가 생길 때만 추가.",
+      "when_ko": "같은 지시를 매번 반복하고 있을 때.",
+      "example": "# Workflow\n- Typecheck after changes\n- Prefer single test runs",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex",
+        "GitHub Copilot"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/memory",
+        "https://cursor.com/docs/context/rules",
+        "https://agents.md/",
+        "https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot"
+      ]
+    },
+    {
+      "id": "writer-reviewer",
+      "name": "Writer / Reviewer split",
+      "ko": "작성자·리뷰어 분리",
+      "how_ko": "한 세션(또는 서브에이전트)이 구현, 다른 새 세션이 diff를 리뷰해 엣지 케이스·범위 이탈을 찾는다. 정확성 관련 지적만 반영.",
+      "when_ko": "중요 기능 완료 직전.",
+      "example": "Use a subagent to review the diff against PLAN.md. Report gaps that affect correctness only.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Codex"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "checkpoint-and-experiment",
+      "name": "Checkpoint, then experiment",
+      "ko": "저장점 찍고 실험",
+      "how_ko": "잘 되는 상태를 체크포인트/버전으로 남긴 뒤 과감한 변경을 시도하고 실패하면 되돌린다.",
+      "when_ko": "디자인 대개편·라이브러리 교체 등 위험한 변경 전.",
+      "example": "(Claude Code: Esc Esc → /rewind · Replit Checkpoints · Lovable bookmark)",
+      "tools": [
+        "Claude Code",
+        "Replit Agent",
+        "Lovable",
+        "Bolt"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices",
+        "https://docs.replit.com/tutorials/effective-prompting",
+        "https://docs.lovable.dev/prompting/prompting-one"
+      ]
+    },
+    {
+      "id": "one-variable-ab",
+      "name": "One-term A/B comparison",
+      "ko": "용어 하나만 바꿔 비교",
+      "how_ko": "같은 기준 프롬프트에서 용어 하나만 바꿔 두 번 생성하고 결과(화면·줄 수·동작)를 나란히 비교한다. 새 대화에서 각각 실행해야 공정하다.",
+      "when_ko": "어떤 용어가 실제로 효과 있는지 배울 때(이 사전의 기본 사용법).",
+      "example": "A: 'Make a todo app in one HTML file.'  B: 'Make a todo app in one HTML file. Make it production-ready.'",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "GitHub Copilot",
+        "Codex",
+        "v0",
+        "Lovable",
+        "Bolt",
+        "Replit Agent",
+        "Claude artifacts"
+      ],
+      "sources": [
+        "https://code.claude.com/docs/en/best-practices"
+      ]
+    },
+    {
+      "id": "enhance-prompt",
+      "name": "Use the tool's prompt enhancer",
+      "ko": "프롬프트 개선 기능 활용",
+      "how_ko": "Bolt의 Enhance prompt 등으로 초안을 구조화된 프롬프트로 확장한 뒤 직접 다듬는다.",
+      "when_ko": "무엇을 써야 할지 막막할 때.",
+      "example": "(Bolt: chatbox + → Enhance prompt)",
+      "tools": [
+        "Bolt",
+        "Lovable"
+      ],
+      "sources": [
+        "https://support.bolt.new/best-practices/prompting-effectively"
+      ]
+    },
+    {
+      "id": "point-and-edit",
+      "name": "Select element and edit",
+      "ko": "요소 선택 후 수정",
+      "how_ko": "미리보기에서 요소를 클릭·선택하거나 코드 일부를 하이라이트하고 'replace/adjust' 같은 정확한 동사로 지시.",
+      "when_ko": "작은 시각적 수정.",
+      "example": "[select hero button] Adjust: make it full-width on mobile and change label to 'Start free trial'.",
+      "tools": [
+        "Lovable",
+        "v0",
+        "Bolt",
+        "Cursor"
+      ],
+      "sources": [
+        "https://docs.lovable.dev/prompting/prompting-one",
+        "https://support.bolt.new/best-practices/prompting-effectively",
+        "https://vercel.com/blog/how-to-prompt-v0"
+      ]
+    }
+  ],
+  "sources": [
+    "https://agents.md/",
+    "https://alpinejs.dev/start-here",
+    "https://brm.io/matter-js/docs/",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html",
+    "https://code.claude.com/docs/en/best-practices",
+    "https://code.claude.com/docs/en/memory",
+    "https://code.claude.com/docs/en/permission-modes",
+    "https://cursor.com/docs/context/rules",
+    "https://developer.mozilla.org/en-US/docs/Glossary/CRUD",
+    "https://developer.mozilla.org/en-US/docs/Glossary/Debounce",
+    "https://developer.mozilla.org/en-US/docs/Glossary/MVC",
+    "https://developer.mozilla.org/en-US/docs/Glossary/REST",
+    "https://developer.mozilla.org/en-US/docs/Glossary/Throttle",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Blob",
+    "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/imageSmoothingEnabled",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+    "https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/position",
+    "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques",
+    "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/2D_collision_detection",
+    "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/Control_mechanisms",
+    "https://developer.mozilla.org/en-US/docs/Web/Games/Techniques/Tilemaps",
+    "https://developer.mozilla.org/en-US/docs/Web/Games/Tutorials/2D_Breakout_game_pure_JavaScript",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap",
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules",
+    "https://dndkit.com/",
+    "https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/claude-4-best-practices",
+    "https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot",
+    "https://docs.github.com/en/copilot/using-github-copilot/best-practices-for-using-github-copilot",
+    "https://docs.lovable.dev/prompting/prompting-one",
+    "https://docs.phaser.io/",
+    "https://docs.python.org/3/library/argparse.html",
+    "https://docs.replit.com/tutorials/effective-prompting",
+    "https://docs.streamlit.io/",
+    "https://easings.net/",
+    "https://en.wikipedia.org/wiki/KISS_principle",
+    "https://en.wikipedia.org/wiki/Separation_of_concerns",
+    "https://eslint.org/docs/latest/",
+    "https://fonts.google.com/",
+    "https://gafferongames.com/post/fix_your_timestep/",
+    "https://gameprogrammingpatterns.com/component.html",
+    "https://gameprogrammingpatterns.com/game-loop.html",
+    "https://gameprogrammingpatterns.com/object-pool.html",
+    "https://gameprogrammingpatterns.com/observer.html",
+    "https://gameprogrammingpatterns.com/spatial-partition.html",
+    "https://gameprogrammingpatterns.com/state.html",
+    "https://jsdoc.app/",
+    "https://lucide.dev/guide/",
+    "https://martinfowler.com/bliki/TestDrivenDevelopment.html",
+    "https://martinfowler.com/bliki/Yagni.html",
+    "https://motion.dev/docs",
+    "https://natureofcode.com/particles/",
+    "https://natureofcode.com/vectors/",
+    "https://nextjs.org/docs",
+    "https://p5js.org/reference/",
+    "https://platform.claude.com/cookbook/coding-prompting-for-frontend-aesthetics",
+    "https://playwright.dev/docs/intro",
+    "https://pnpm.io/workspaces",
+    "https://pragprog.com/titles/tpp20/the-pragmatic-programmer-20th-anniversary-edition/",
+    "https://prettier.io/docs/",
+    "https://react.dev/learn",
+    "https://react.dev/learn/choosing-the-state-structure",
+    "https://react.dev/learn/extracting-state-logic-into-a-reducer",
+    "https://react.dev/learn/reusing-logic-with-custom-hooks",
+    "https://react.dev/learn/sharing-state-between-components",
+    "https://react.dev/learn/thinking-in-react",
+    "https://react.dev/reference/react/lazy",
+    "https://react.dev/reference/react/useMemo",
+    "https://reactrouter.com/home",
+    "https://recharts.org/",
+    "https://refactoring.com/",
+    "https://supabase.com/docs",
+    "https://supabase.com/docs/guides/auth",
+    "https://supabase.com/docs/guides/database/postgres/row-level-security",
+    "https://support.anthropic.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them",
+    "https://support.bolt.new/best-practices/prompting-effectively",
+    "https://tailwindcss.com/docs",
+    "https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates",
+    "https://tanstack.com/virtual/latest",
+    "https://threejs.org/docs/",
+    "https://ui.shadcn.com/docs",
+    "https://ui.shadcn.com/docs/components/command",
+    "https://ui.shadcn.com/docs/components/pagination",
+    "https://ui.shadcn.com/docs/components/skeleton",
+    "https://ui.shadcn.com/docs/components/sonner",
+    "https://vercel.com/blog/how-to-prompt-v0",
+    "https://vite.dev/guide/",
+    "https://vite.dev/guide/features#dynamic-import",
+    "https://vitest.dev/guide/",
+    "https://web.dev/articles/browser-level-image-lazy-loading",
+    "https://web.dev/articles/performance-budgets-101",
+    "https://web.dev/articles/responsive-web-design-basics",
+    "https://www.chartjs.org/docs/latest/",
+    "https://www.designtokens.org/",
+    "https://www.nngroup.com/articles/drag-drop/",
+    "https://www.nngroup.com/articles/errors-forms-design-guidelines/",
+    "https://www.nngroup.com/articles/neobrutalism/",
+    "https://www.nngroup.com/articles/user-control-and-freedom/",
+    "https://www.redblobgames.com/articles/noise/introduction.html",
+    "https://www.redblobgames.com/maps/terrain-from-noise/",
+    "https://www.typescriptlang.org/docs/",
+    "https://www.w3.org/WAI/standards-guidelines/wcag/",
+    "https://www.youtube.com/watch?v=Fy0aCDmgnxg",
+    "https://zod.dev/",
+    "https://zustand.docs.pmnd.rs/"
+  ]
+}

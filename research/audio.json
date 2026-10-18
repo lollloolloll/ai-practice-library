@@ -1,0 +1,6253 @@
+{
+  "field": "audio",
+  "field_ko": "음악·사운드·음성",
+  "base_prompts": [
+    {
+      "id": "base-music-pop",
+      "prompt_en": "mid-tempo pop song about a summer night, female vocal",
+      "desc_ko": "장르·창법·믹스 용어를 하나씩 바꿔 끼우는 기본 음악 원안(Suno/Udio/ElevenLabs Music/Lyria 3)."
+    },
+    {
+      "id": "base-music-instrumental",
+      "prompt_en": "instrumental background track for a city night drive, 60 seconds",
+      "desc_ko": "보컬 없는 BGM 원안. 템포·조성·악기·시대 용어 비교용(Stable Audio/Lyria/MusicGen 포함)."
+    },
+    {
+      "id": "base-tts-line",
+      "prompt_en": "I can't believe you actually came back. I waited for so long.",
+      "desc_ko": "TTS 감정 태그·지시문·문장부호를 바꿔 끼우는 대사 원안(ElevenLabs v3, OpenAI TTS)."
+    },
+    {
+      "id": "base-sfx",
+      "prompt_en": "a heavy wooden door opening",
+      "desc_ko": "효과음 원안. 재질·거리·순서·길이·루프 여부를 바꿔 비교."
+    }
+  ],
+  "categories": [
+    {
+      "id": "genre",
+      "name_ko": "장르·서브장르",
+      "desc_ko": "곡의 큰 뼈대(리듬·악기·질감 묶음)를 한 번에 결정하는 용어. 상위 장르보다 서브장르가 결과 편차를 줄인다."
+    },
+    {
+      "id": "era",
+      "name_ko": "시대 사운드",
+      "desc_ko": "연대(50s~Y2K)를 지정해 녹음 방식·음색·믹스 관습을 통째로 불러오는 용어."
+    },
+    {
+      "id": "tempo-rhythm",
+      "name_ko": "템포·리듬·박자",
+      "desc_ko": "BPM, 하프/더블타임, 스윙, 박자표 등 속도와 그루브를 바꾸는 용어."
+    },
+    {
+      "id": "key-harmony",
+      "name_ko": "조성·모드·화성",
+      "desc_ko": "장단조, 모드(도리안 등), 코드 색채로 정서를 바꾸는 용어. 모델별 반영 정밀도 차이가 크다."
+    },
+    {
+      "id": "instrument",
+      "name_ko": "악기·편성",
+      "desc_ko": "주요 악기와 편성 규모. 음색 형용사와 결합하면 효과가 커진다."
+    },
+    {
+      "id": "vocal",
+      "name_ko": "보컬 스타일·창법",
+      "desc_ko": "성별·음역·발성·하모니·랩 등 보컬 성격을 정하는 용어."
+    },
+    {
+      "id": "production",
+      "name_ko": "프로덕션·믹싱",
+      "desc_ko": "공간(리버브), 질감(새추레이션), 스테레오, 드럼 톤, 편곡 밀도 등 '녹음/믹스 느낌'을 바꾸는 용어."
+    },
+    {
+      "id": "structure",
+      "name_ko": "곡 구조 메타태그",
+      "desc_ko": "가사 필드에 넣는 [Verse] [Chorus] [Drop] 등 섹션 태그와 시간 배치 지시."
+    },
+    {
+      "id": "mood",
+      "name_ko": "분위기·감정",
+      "desc_ko": "구체적 감정어(happy 대신 euphoric). 템포·조성·편성에 간접적으로 연쇄 영향."
+    },
+    {
+      "id": "sfx",
+      "name_ko": "효과음(SFX) 묘사",
+      "desc_ko": "임팩트·우쉬·앰비언스 등 사운드 디자인 용어와 재질·순서·거리 묘사법."
+    },
+    {
+      "id": "voice-tts",
+      "name_ko": "음성·TTS",
+      "desc_ko": "ElevenLabs v3 오디오 태그, 문장부호 연출, SSML, OpenAI instructions 등 말투·감정·속도 제어."
+    },
+    {
+      "id": "model-syntax",
+      "name_ko": "모델별 문법·설정",
+      "desc_ko": "스타일/가사 필드 분리, Exclude, 슬라이더, Persona/Cover/Extend, API 파라미터 등 도구 고유 기능."
+    }
+  ],
+  "terms": [
+    {
+      "id": "synthwave",
+      "term": "synthwave",
+      "ko": "신스웨이브",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "80년대 아날로그 신스 패드·아르페지오·게이트 리버브 드럼이 들어간 레트로 전자음악으로 기운다. 네온/야간 드라이브 느낌이 강해진다.",
+      "snippet": "synthwave, analog polysynth pads, driving arpeggio, 110 BPM",
+      "compare_with": [
+        "darkwave",
+        "city-pop",
+        "eighties-sound"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "darkwave",
+      "term": "darkwave",
+      "ko": "다크웨이브",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "신스웨이브보다 어둡고 차가운 마이너 톤, 베이스라인 중심, 낮은 남성 보컬 경향. 포스트펑크 질감이 섞인다.",
+      "snippet": "darkwave, cold minor synths, post-punk bassline",
+      "compare_with": [
+        "synthwave",
+        "shoegaze"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "lofi-hip-hop",
+      "term": "lo-fi hip hop",
+      "ko": "로파이 힙합",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "hiphop"
+      ],
+      "effect_ko": "느슨한 스윙 드럼, 재즈 코드, 바이닐 노이즈가 있는 공부용/카페 배경음 느낌. 보컬이 거의 없고 70~90 BPM대로 수렴한다.",
+      "snippet": "lo-fi hip hop, dusty drums, jazzy Rhodes chords, vinyl crackle, 80 BPM",
+      "compare_with": [
+        "boom-bap",
+        "lofi-texture",
+        "chillhop-mood"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "boom-bap",
+      "term": "boom bap",
+      "ko": "붐뱁",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "hiphop"
+      ],
+      "effect_ko": "킥(붐)과 스네어(뱁)가 강조된 90년대 동부 힙합 비트. 샘플 기반의 거친 드럼과 랩 보컬을 유도한다.",
+      "snippet": "90s boom bap, dusty swung drum break, 90 BPM",
+      "compare_with": [
+        "trap",
+        "lofi-hip-hop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "trap",
+      "term": "trap",
+      "ko": "트랩",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "hiphop"
+      ],
+      "effect_ko": "808 서브베이스, 빠른 트리플렛 하이햇, 하프타임 느낌의 스네어. 140 BPM 전후지만 체감은 70 BPM이다.",
+      "snippet": "dark trap, booming 808s, rapid triplet hi-hats, 140 BPM",
+      "compare_with": [
+        "boom-bap",
+        "phonk",
+        "triplet-hihats"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide",
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "phonk",
+      "term": "phonk",
+      "ko": "펑크(Phonk)",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "hiphop"
+      ],
+      "effect_ko": "카우벨 멜로디, 강한 디스토션 808, 멤피스 랩 샘플풍 보컬 찹. 드리프트 영상용 공격적 비트가 나온다.",
+      "snippet": "drift phonk, distorted cowbell melody, heavy 808, aggressive",
+      "compare_with": [
+        "trap",
+        "distorted"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "deep-house",
+      "term": "deep house",
+      "ko": "딥 하우스",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "120~124 BPM 4-on-the-floor, 따뜻한 코드 스탭과 그루비한 베이스. 차분하고 세련된 클럽 사운드.",
+      "snippet": "deep house, warm chord stabs, rolling bassline, 122 BPM",
+      "compare_with": [
+        "melodic-techno",
+        "four-on-the-floor"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "melodic-techno",
+      "term": "melodic techno",
+      "ko": "멜로딕 테크노",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "124~128 BPM의 반복적 킥 위에 몽환적 신스 리드와 긴 빌드업. 딥 하우스보다 어둡고 긴장감 있다.",
+      "snippet": "melodic techno, hypnotic arpeggiated lead, long build-up, 126 BPM",
+      "compare_with": [
+        "deep-house",
+        "build-up-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "drum-and-bass",
+      "term": "drum and bass",
+      "ko": "드럼 앤 베이스",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "170~175 BPM의 빠른 브레이크비트와 묵직한 리스 베이스. 질주감·에너지가 극대화된다.",
+      "snippet": "liquid drum and bass, fast breakbeats, deep reese bass, 174 BPM",
+      "compare_with": [
+        "dubstep",
+        "double-time"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "dubstep",
+      "term": "dubstep",
+      "ko": "덥스텝",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "electronic"
+      ],
+      "effect_ko": "140 BPM 하프타임 그루브와 워블 베이스, 큰 드롭. 공격적이고 무거운 저음이 나온다.",
+      "snippet": "dubstep, wobble bass, heavy drop, 140 BPM half-time",
+      "compare_with": [
+        "drum-and-bass",
+        "drop-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "city-pop",
+      "term": "city pop",
+      "ko": "시티팝",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "pop"
+      ],
+      "effect_ko": "80년대 일본풍 세련된 팝: 슬랩 베이스, 브라스, 일렉 피아노, 밝은 메이저 7th 코드. 여름밤·도시 감성.",
+      "snippet": "80s city pop, slap bass, bright brass, Rhodes, major seventh chords",
+      "compare_with": [
+        "synthwave",
+        "slap-bass",
+        "extended-chords"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "k-pop",
+      "term": "K-pop",
+      "ko": "케이팝",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "pop"
+      ],
+      "effect_ko": "장르 혼합형 하이폴리시 팝: 강한 훅, 섹션마다 바뀌는 비트, 랩 파트와 고음 코러스가 섞인다.",
+      "snippet": "K-pop, polished dance-pop, punchy chorus hook, rap verse",
+      "compare_with": [
+        "bedroom-pop",
+        "hyperpop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "bedroom-pop",
+      "term": "bedroom pop",
+      "ko": "베드룸 팝",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "pop"
+      ],
+      "effect_ko": "집에서 녹음한 듯한 소박한 질감, 속삭이는 보컬, 소프트 드럼. 친밀하고 몽글한 분위기.",
+      "snippet": "bedroom pop, soft breakbeat, muted guitar chops, close intimate vocal",
+      "compare_with": [
+        "k-pop",
+        "breathy-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "hyperpop",
+      "term": "hyperpop",
+      "ko": "하이퍼팝",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "pop"
+      ],
+      "effect_ko": "과장된 피치업 보컬, 찌그러진 신스, 급격한 전환. 과포화·카오틱한 디지털 사운드.",
+      "snippet": "hyperpop, pitched-up vocals, glitchy distorted synths, chaotic",
+      "compare_with": [
+        "k-pop",
+        "glitch-sfx",
+        "bitcrushed"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "neo-soul",
+      "term": "neo-soul",
+      "ko": "네오소울",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "rnb"
+      ],
+      "effect_ko": "느슨한 그루브, 확장 코드(9th/11th), 따뜻한 일렉피아노와 소울풀 보컬. 어른스럽고 부드럽다.",
+      "snippet": "neo-soul, laid-back groove, Rhodes, extended chords, soulful vocals",
+      "compare_with": [
+        "city-pop",
+        "extended-chords"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "bossa-nova",
+      "term": "bossa nova",
+      "ko": "보사노바",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "latin"
+      ],
+      "effect_ko": "나일론 기타의 싱코페이션 리듬, 브러시 드럼, 속삭이듯 부드러운 보컬. 라운지·카페 분위기.",
+      "snippet": "bossa nova, nylon-string guitar, brushed drums, soft vocals",
+      "compare_with": [
+        "nylon-guitar",
+        "neo-soul"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "shoegaze",
+      "term": "shoegaze",
+      "ko": "슈게이즈",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "rock"
+      ],
+      "effect_ko": "두꺼운 퍼즈 기타 벽, 리버브에 묻힌 보컬. 몽롱하고 압도적인 노이즈 질감.",
+      "snippet": "shoegaze, wall of fuzz guitars, buried dreamy vocals, heavy reverb",
+      "compare_with": [
+        "post-rock",
+        "wall-of-sound"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "post-rock",
+      "term": "post-rock",
+      "ko": "포스트록",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "rock"
+      ],
+      "effect_ko": "보컬 없이 기타 트레몰로·딜레이로 점층하는 긴 구성. 조용히 시작해 거대한 클라이맥스로 터진다.",
+      "snippet": "instrumental post-rock, tremolo guitars, slow crescendo, cinematic climax",
+      "compare_with": [
+        "shoegaze",
+        "cinematic-orchestral",
+        "crescendo-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "cinematic-orchestral",
+      "term": "epic cinematic orchestral",
+      "ko": "시네마틱 오케스트라",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "score"
+      ],
+      "effect_ko": "풀 오케스트라, 타악기, 합창으로 영화 트레일러 같은 스케일. 긴장-해소 구조가 강하다.",
+      "snippet": "epic cinematic orchestral, thundering taiko, soaring strings, choir",
+      "compare_with": [
+        "ambient",
+        "braam",
+        "full-orchestra"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "ambient",
+      "term": "ambient",
+      "ko": "앰비언트",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "비트가 약하거나 없고 패드·드론·텍스처 중심. 배경음·명상·게임 탐험 BGM에 적합.",
+      "snippet": "ambient, evolving pads, no drums, slow and spacious",
+      "compare_with": [
+        "cinematic-orchestral",
+        "drone-pedal"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "afrobeats",
+      "term": "afrobeats",
+      "ko": "아프로비츠",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "world"
+      ],
+      "effect_ko": "100~115 BPM 통통 튀는 퍼커션과 싱코페이션 그루브, 밝은 기타 리프. 여유롭고 춤추기 좋은 리듬.",
+      "snippet": "afrobeats, bouncy syncopated percussion, highlife guitar, 105 BPM",
+      "compare_with": [
+        "reggaeton",
+        "syncopation"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "reggaeton",
+      "term": "reggaeton",
+      "ko": "레게톤",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "latin"
+      ],
+      "effect_ko": "뎀보우(dembow) 리듬 패턴의 90~100 BPM 라틴 댄스. 반복적 킥-스네어 그루브가 확실히 들린다.",
+      "snippet": "reggaeton, dembow rhythm, 95 BPM, latin pop vocals",
+      "compare_with": [
+        "afrobeats",
+        "k-pop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "indie-folk",
+      "term": "indie folk",
+      "ko": "인디 포크",
+      "category": "genre",
+      "tags": [
+        "audio",
+        "music",
+        "folk"
+      ],
+      "effect_ko": "어쿠스틱 기타, 밴조/만돌린, 내레이션 같은 보컬. 따뜻하고 소박한 실제 연주 느낌.",
+      "snippet": "indie folk, fingerpicked acoustic guitar, warm harmonies, intimate",
+      "compare_with": [
+        "bedroom-pop",
+        "raw-live"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "eighties-sound",
+      "term": "1980s production",
+      "ko": "80년대 사운드",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "게이트 리버브 스네어, DX계열 FM 신스, 코러스 기타 등 80년대 특유의 반짝이고 넓은 질감을 부여한다.",
+      "snippet": "1980s production, gated reverb snare, glossy FM synths",
+      "compare_with": [
+        "seventies-sound",
+        "nineties-sound",
+        "gated-reverb"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "seventies-sound",
+      "term": "1970s analog recording",
+      "ko": "70년대 아날로그",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "테이프 질감, 라이브 밴드, 따뜻한 중역대. 디스코/소울/록의 둥글고 빈티지한 톤이 된다.",
+      "snippet": "1970s analog recording, live band, warm tape sound",
+      "compare_with": [
+        "eighties-sound",
+        "tape-saturation"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "nineties-sound",
+      "term": "1990s",
+      "ko": "90년대 사운드",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "장르에 따라 붐뱁·유로댄스·그런지 등 90년대 특유의 샘플러/디지털 초기 질감을 끌어온다.",
+      "snippet": "90s eurodance, bright supersaw lead, 132 BPM",
+      "compare_with": [
+        "eighties-sound",
+        "y2k-pop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "fifties-rocknroll",
+      "term": "1950s rock and roll with slapback echo",
+      "ko": "50년대 로큰롤",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "슬랩백 에코가 걸린 보컬, 업라이트 베이스, 할로바디 기타. 모노에 가까운 빈티지 레코딩.",
+      "snippet": "1950s rock and roll with slapback echo, upright bass",
+      "compare_with": [
+        "slapback-echo",
+        "vintage-mono"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "y2k-pop",
+      "term": "Y2K pop",
+      "ko": "Y2K 팝",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "2000년 전후 반짝이는 디지털 신스, 오토튠 살짝, 밝은 R&B 팝 그루브.",
+      "snippet": "Y2K pop, shiny digital synths, glossy R&B groove",
+      "compare_with": [
+        "nineties-sound",
+        "auto-tune"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "sixties-soul",
+      "term": "1960s soul",
+      "ko": "60년대 소울",
+      "category": "era",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "탬버린·브라스·코러스 걸그룹 하모니, 좁은 스테레오와 따뜻한 왜곡이 있는 클래식 소울.",
+      "snippet": "1960s soul, girl-group harmonies, tambourine, brass, vintage mono mix",
+      "compare_with": [
+        "fifties-rocknroll",
+        "neo-soul"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "bpm-number",
+      "term": "120 BPM (explicit BPM)",
+      "ko": "BPM 숫자 지정",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "속도를 숫자로 고정한다. ElevenLabs Music·Stable Audio는 비교적 정확히 지키고, Suno는 근사치로만 반영한다.",
+      "snippet": "128 BPM",
+      "compare_with": [
+        "slow-tempo",
+        "half-time",
+        "double-time"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide",
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "slow-tempo",
+      "term": "slow tempo (60-80 BPM)",
+      "ko": "느린 템포",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "발라드·블루스 영역의 여유로운 속도. 숫자 대신 형용사로 지정하면 모델이 장르에 맞게 해석한다.",
+      "snippet": "slow tempo, ballad feel, around 70 BPM",
+      "compare_with": [
+        "bpm-number",
+        "fast-driving"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "fast-driving",
+      "term": "fast tempo, driving beat",
+      "ko": "빠르고 몰아치는 비트",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "추진력 있는 드럼과 빠른 속도로 에너지가 오른다. 운동·액션·게임 전투 BGM에 맞다.",
+      "snippet": "fast tempo, driving beat, high energy",
+      "compare_with": [
+        "slow-tempo",
+        "double-time"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "half-time",
+      "term": "half-time feel",
+      "ko": "하프타임",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "BPM은 같지만 스네어가 절반 간격으로 들어와 무겁고 느리게 체감된다. 트랩·덥스텝 드롭에 흔하다.",
+      "snippet": "140 BPM, half-time feel",
+      "compare_with": [
+        "double-time",
+        "trap",
+        "dubstep"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "double-time",
+      "term": "double-time",
+      "ko": "더블타임",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "리듬이나 랩 플로우를 두 배 밀도로 쪼개 급박감을 만든다.",
+      "snippet": "double-time hi-hats, double-time rap flow",
+      "compare_with": [
+        "half-time",
+        "fast-rap"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "swing-shuffle",
+      "term": "swung / shuffle groove",
+      "ko": "스윙·셔플",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "8분음표를 길게-짧게 튕겨 사람 손맛 나는 그루브가 된다. 재즈·블루스·로파이에서 '찰진' 느낌.",
+      "snippet": "swung drums, shuffle groove",
+      "compare_with": [
+        "straight-quantized",
+        "lofi-hip-hop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "straight-quantized",
+      "term": "straight, tightly quantized",
+      "ko": "스트레이트·정박",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "기계적으로 정확한 박. 일렉트로닉/팝에서 깔끔하고 단단한 리듬이 된다.",
+      "snippet": "straight quantized drums, tight grid",
+      "compare_with": [
+        "swing-shuffle"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "four-on-the-floor",
+      "term": "four-on-the-floor kick",
+      "ko": "포온더플로어",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "매 박 킥이 들어가는 하우스/디스코 리듬. 즉시 댄스 플로어 느낌이 난다.",
+      "snippet": "four-on-the-floor kick, disco groove",
+      "compare_with": [
+        "breakbeat",
+        "deep-house"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "breakbeat",
+      "term": "breakbeat",
+      "ko": "브레이크비트",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "샘플 같은 불규칙 드럼 패턴. 4-on-the-floor보다 리듬이 꺾이고 펑키하다.",
+      "snippet": "chopped breakbeat drums",
+      "compare_with": [
+        "four-on-the-floor",
+        "drum-and-bass"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "waltz-34",
+      "term": "3/4 time (waltz)",
+      "ko": "3/4박 왈츠",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "강-약-약 3박 순환. 우아하거나 동화 같은 흔들림이 생긴다. 생성 모델은 박자 지정을 불완전하게 따른다.",
+      "snippet": "gentle waltz in 3/4 time",
+      "compare_with": [
+        "six-eight",
+        "odd-meter"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "six-eight",
+      "term": "6/8 time",
+      "ko": "6/8박",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "한 박이 셋으로 쪼개진 출렁이는 리듬. 발라드·포크·아일랜드풍에서 흔들리는 느낌.",
+      "snippet": "slow ballad in 6/8 time",
+      "compare_with": [
+        "waltz-34",
+        "odd-meter"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "odd-meter",
+      "term": "odd time signature (7/8, 5/4)",
+      "ko": "변박",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "7/8, 5/4 등 불규칙 박자로 프로그레시브/매스록 느낌. 모델이 무시할 확률이 높아 여러 번 생성해 비교해야 한다.",
+      "snippet": "math rock in 7/8, odd time signature",
+      "compare_with": [
+        "waltz-34",
+        "polyrhythm"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "syncopation",
+      "term": "syncopated groove",
+      "ko": "싱코페이션",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "강박을 비껴가는 엇박 악센트로 리듬이 튀고 펑키해진다.",
+      "snippet": "syncopated funky groove",
+      "compare_with": [
+        "straight-quantized",
+        "afrobeats"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "triplet-hihats",
+      "term": "triplet hi-hat rolls",
+      "ko": "트리플렛 하이햇",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "하이햇을 3연음·롤로 쪼개 트랩 특유의 '찰찰찰' 질감을 만든다.",
+      "snippet": "rapid triplet hi-hat rolls",
+      "compare_with": [
+        "trap",
+        "double-time"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "polyrhythm",
+      "term": "polyrhythmic percussion",
+      "ko": "폴리리듬",
+      "category": "tempo-rhythm",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "서로 다른 박 분할(3 대 2 등)이 겹쳐 복잡하고 최면적인 리듬이 된다. 아프리카·미니멀리즘풍.",
+      "snippet": "polyrhythmic hand percussion, 3 against 2",
+      "compare_with": [
+        "odd-meter",
+        "afrobeats"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "minor-key",
+      "term": "minor key",
+      "ko": "단조",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "어둡고 슬프거나 긴장된 정서로 기운다. 가장 기본적인 분위기 스위치.",
+      "snippet": "in a minor key",
+      "compare_with": [
+        "major-key",
+        "specific-key"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "major-key",
+      "term": "major key",
+      "ko": "장조",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "밝고 열린 느낌. 같은 장르라도 경쾌하고 희망적으로 바뀐다.",
+      "snippet": "in a bright major key",
+      "compare_with": [
+        "minor-key"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "specific-key",
+      "term": "in A minor / in F major",
+      "ko": "구체적 조성 지정",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "조를 명시. ElevenLabs Music은 지정 키를 비교적 정확히 유지한다고 밝히며, Suno/Lyria는 반영이 느슨하다. 스템을 다른 곡과 맞출 때 유용.",
+      "snippet": "in F minor, 128 BPM",
+      "compare_with": [
+        "minor-key",
+        "key-change-tag"
+      ],
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria 3",
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "dorian",
+      "term": "Dorian mode",
+      "ko": "도리안",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "단조인데 6음이 올라가 덜 비극적이고 쿨한 느낌. 펑크·재즈·로파이·켈틱에서 많이 쓰인다.",
+      "snippet": "groove in D Dorian",
+      "compare_with": [
+        "minor-key",
+        "mixolydian"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "phrygian",
+      "term": "Phrygian mode",
+      "ko": "프리지안",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "반음 내려간 2음으로 이국적·위협적인 긴장. 메탈·플라멩코·중동풍 분위기.",
+      "snippet": "dark riff in E Phrygian",
+      "compare_with": [
+        "dorian",
+        "minor-key"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "lydian",
+      "term": "Lydian mode",
+      "ko": "리디안",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "올라간 4음으로 몽환적이고 떠오르는 경이감. 영화 음악의 '마법' 장면에 자주 쓰인다.",
+      "snippet": "dreamy Lydian melody",
+      "compare_with": [
+        "major-key",
+        "mixolydian"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "mixolydian",
+      "term": "Mixolydian mode",
+      "ko": "믹솔리디안",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "장조에서 7음이 내려가 블루지하고 록킹한 밝음. 클래식록·컨트리 리프 느낌.",
+      "snippet": "bluesy Mixolydian rock riff",
+      "compare_with": [
+        "lydian",
+        "dorian"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "pentatonic",
+      "term": "pentatonic melody",
+      "ko": "5음계",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "5음 음계로 단순하고 동양적이거나 블루스·포크 같은 친근한 선율이 된다.",
+      "snippet": "simple pentatonic melody, East Asian flavor",
+      "compare_with": [
+        "phrygian",
+        "gayageum"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "extended-chords",
+      "term": "jazzy extended chords (7ths, 9ths)",
+      "ko": "확장 코드",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "7·9·11음을 얹은 코드로 세련되고 몽글한 화성. 로파이·네오소울·시티팝의 핵심 색.",
+      "snippet": "lush jazzy seventh and ninth chords",
+      "compare_with": [
+        "power-chords",
+        "neo-soul"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "power-chords",
+      "term": "power chords",
+      "ko": "파워코드",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "근음+5도만 쓰는 디스토션 기타 코드. 펑크·록·메탈의 단단하고 공격적인 소리.",
+      "snippet": "distorted power chords",
+      "compare_with": [
+        "extended-chords",
+        "distorted"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "dissonant",
+      "term": "dissonant harmonies",
+      "ko": "불협화음",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "충돌하는 음정으로 불안·공포·실험적 긴장을 만든다. 호러/스릴러 BGM.",
+      "snippet": "dissonant violin screeches over pulsing sub-bass",
+      "compare_with": [
+        "consonant-warm",
+        "eerie"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "consonant-warm",
+      "term": "consonant, warm harmonies",
+      "ko": "협화·따뜻한 화성",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "충돌 없는 편안한 화음으로 안정·위로의 느낌. 불협화음과 대비 실험용.",
+      "snippet": "warm consonant harmonies, gentle resolution",
+      "compare_with": [
+        "dissonant"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "drone-pedal",
+      "term": "drone / pedal tone",
+      "ko": "드론·페달음",
+      "category": "key-harmony",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "한 음을 길게 깔고 위에서 화성이 움직여 명상적·불길한 지속감이 생긴다.",
+      "snippet": "low cello drone pedal tone",
+      "compare_with": [
+        "ambient",
+        "drone-sfx"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "analog-pads",
+      "term": "analog polysynth pads",
+      "ko": "아날로그 신스 패드",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "넓고 따뜻한 지속음 배경. 신스웨이브·앰비언트의 공간감을 깔아준다.",
+      "snippet": "lush analog polysynth pads",
+      "compare_with": [
+        "arpeggiator",
+        "string-quartet"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "arpeggiator",
+      "term": "arpeggiated synth",
+      "ko": "신스 아르페지오",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "코드음을 빠르게 순차 반복하는 신스 라인. 전진하는 움직임과 레트로 전자 느낌을 준다.",
+      "snippet": "driving synth arpeggios",
+      "compare_with": [
+        "analog-pads",
+        "synthwave"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/cookbooks/music/quickstart",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "808-bass",
+      "term": "808 bass",
+      "ko": "808 베이스",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "길게 끄는 붐 서브베이스+킥. 힙합·트랩의 저음 무게를 결정한다.",
+      "snippet": "booming distorted 808 bass",
+      "compare_with": [
+        "upright-bass",
+        "sub-bass-heavy"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "rhodes",
+      "term": "Rhodes electric piano",
+      "ko": "로즈 일렉트릭 피아노",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "종소리 같은 따뜻한 일렉피아노. 재즈·로파이·네오소울 감성을 즉시 부여한다.",
+      "snippet": "mellow Rhodes electric piano",
+      "compare_with": [
+        "felt-piano",
+        "extended-chords"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "felt-piano",
+      "term": "soft felt piano",
+      "ko": "펠트 피아노",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "해머에 펠트를 댄 듯 먹먹하고 가까운 피아노. 감성 인스트·브이로그 BGM.",
+      "snippet": "intimate soft felt piano, close-mic'd",
+      "compare_with": [
+        "rhodes",
+        "grand-piano"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "grand-piano",
+      "term": "concert grand piano",
+      "ko": "그랜드 피아노",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "밝고 풍성한 클래식 피아노 음색. 솔로 시 공연장 같은 울림.",
+      "snippet": "solo concert grand piano, hall reverb",
+      "compare_with": [
+        "felt-piano",
+        "rhodes"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "nylon-guitar",
+      "term": "nylon-string guitar",
+      "ko": "나일론 기타",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "부드럽고 둥근 클래식 기타 톤. 보사노바·라틴·서정적인 곡.",
+      "snippet": "fingerpicked nylon-string guitar",
+      "compare_with": [
+        "muted-guitar",
+        "pedal-steel"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "muted-guitar",
+      "term": "muted guitar chops",
+      "ko": "뮤트 기타 커팅",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "짧게 끊는 기타 리듬으로 펑키하고 통통 튀는 질감. 시티팝·베드룸팝에 자주.",
+      "snippet": "muted guitar chops",
+      "compare_with": [
+        "nylon-guitar",
+        "slap-bass"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "slap-bass",
+      "term": "slap bass",
+      "ko": "슬랩 베이스",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "튕기는 타격감의 베이스로 펑크·시티팝 그루브가 강해진다.",
+      "snippet": "funky slap bass",
+      "compare_with": [
+        "upright-bass",
+        "808-bass"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "upright-bass",
+      "term": "upright bass",
+      "ko": "업라이트 베이스",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "어쿠스틱 콘트라베이스의 둥근 워킹 라인. 재즈·로커빌리·빈티지 느낌.",
+      "snippet": "walking upright bass",
+      "compare_with": [
+        "808-bass",
+        "slap-bass"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "string-quartet",
+      "term": "string quartet",
+      "ko": "현악 4중주",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "작고 친밀한 현악 편성. 풀 오케스트라보다 섬세하고 실내악적.",
+      "snippet": "intimate string quartet",
+      "compare_with": [
+        "full-orchestra",
+        "analog-pads"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "full-orchestra",
+      "term": "full orchestra",
+      "ko": "풀 오케스트라",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "현·관·타악 전체 편성으로 웅장한 스케일. 트레일러·판타지 OST.",
+      "snippet": "full orchestra, soaring strings and brass",
+      "compare_with": [
+        "string-quartet",
+        "cinematic-orchestral"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "brass-stabs",
+      "term": "brass stabs",
+      "ko": "브라스 스탭",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "짧고 강한 금관 악센트로 펑키·쇼 느낌이나 긴장 포인트를 만든다.",
+      "snippet": "vintage brass stabs in F minor",
+      "compare_with": [
+        "full-orchestra",
+        "city-pop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "taiko",
+      "term": "taiko drums",
+      "ko": "타이코 드럼",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "거대한 일본 북으로 묵직한 타격·전투 분위기. 시네마틱 트레일러 단골.",
+      "snippet": "thundering taiko drums",
+      "compare_with": [
+        "full-orchestra",
+        "impact"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "gayageum",
+      "term": "gayageum (Korean zither)",
+      "ko": "가야금",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music",
+        "korean"
+      ],
+      "effect_ko": "한국 전통 현악기의 뜯는 소리로 국악 퓨전 색을 준다. 모델 학습량이 적어 '대체 악기'로 해석될 수 있다.",
+      "snippet": "gayageum plucks over ambient pads, Korean fusion",
+      "compare_with": [
+        "pentatonic",
+        "nylon-guitar"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "music-box",
+      "term": "music box",
+      "ko": "뮤직박스",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "작고 영롱한 오르골 음색으로 동화·노스탤지어 또는 호러의 불안감.",
+      "snippet": "delicate music box melody",
+      "compare_with": [
+        "felt-piano",
+        "eerie"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "pedal-steel",
+      "term": "pedal steel guitar",
+      "ko": "페달 스틸 기타",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "미끄러지는 울음 같은 톤으로 컨트리·아메리카나 정서를 강하게 부여.",
+      "snippet": "weeping pedal steel guitar",
+      "compare_with": [
+        "nylon-guitar",
+        "indie-folk"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "choir",
+      "term": "choir",
+      "ko": "합창",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music",
+        "vocal"
+      ],
+      "effect_ko": "다수 성부의 합창으로 웅장함·신성함. Suno에서는 [Choir] 태그로 구간 지정도 가능.",
+      "snippet": "epic choir, Latin-style chanting",
+      "compare_with": [
+        "stacked-harmonies",
+        "cinematic-orchestral"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "solo-instrument",
+      "term": "solo <instrument>",
+      "ko": "솔로 악기(분리)",
+      "category": "instrument",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "악기 앞에 'solo'를 붙이면 그 악기만 단독 연주된 결과가 나와 스템처럼 쓸 수 있다(ElevenLabs Music 공식 팁).",
+      "snippet": "solo piano in C minor",
+      "compare_with": [
+        "a-cappella",
+        "full-orchestra"
+      ],
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "male-female-vocal",
+      "term": "male vocal / female vocal",
+      "ko": "남성·여성 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "보컬 성별·음역을 지정한다. Suno는 스타일 필드나 [Male Vocal]/[Female Vocal] 태그 모두 사용.",
+      "snippet": "female vocal, alto range",
+      "compare_with": [
+        "duet",
+        "choir"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "breathy-vocals",
+      "term": "breathy vocals",
+      "ko": "숨 섞인 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "공기가 많이 섞여 가깝고 은밀한 느낌. 발라드·베드룸팝에 효과적.",
+      "snippet": "soft breathy female vocals",
+      "compare_with": [
+        "belted-vocals",
+        "raspy-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "belted-vocals",
+      "term": "belted vocals",
+      "ko": "벨팅",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "흉성으로 강하게 지르는 파워 보컬. 코러스 클라이맥스가 커진다.",
+      "snippet": "powerful belted chorus vocals",
+      "compare_with": [
+        "breathy-vocals",
+        "falsetto"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "falsetto",
+      "term": "falsetto",
+      "ko": "팔세토",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "가성으로 가볍고 높게. 남성 보컬의 R&B·팝 하이라이트에 섬세함을 더한다.",
+      "snippet": "airy male falsetto",
+      "compare_with": [
+        "belted-vocals",
+        "breathy-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "raspy-vocals",
+      "term": "raspy / gritty vocals",
+      "ko": "허스키·거친 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "갈라지는 거친 음색으로 록·블루스·소울의 생생함.",
+      "snippet": "raspy gritty male vocals",
+      "compare_with": [
+        "breathy-vocals",
+        "clean-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "clean-vocals",
+      "term": "clean polished vocals",
+      "ko": "깨끗한 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "잡음 없는 매끈한 팝 보컬. raspy와 비교하면 차이가 확연하다.",
+      "snippet": "clean polished pop vocals",
+      "compare_with": [
+        "raspy-vocals",
+        "auto-tune"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "whispered-vocals",
+      "term": "whispered vocals",
+      "ko": "속삭이는 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "거의 말하듯 속삭이는 창법. 인트로/벌스에서 긴장감·친밀감.",
+      "snippet": "[Verse: whispered vocals, acoustic guitar only]",
+      "compare_with": [
+        "breathy-vocals",
+        "spoken-word"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "deadpan",
+      "term": "deadpan delivery",
+      "ko": "무표정 창법",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "감정을 뺀 평탄한 전달로 쿨하거나 아이러니한 분위기(인디·포스트펑크).",
+      "snippet": "deadpan conversational vocal",
+      "compare_with": [
+        "belted-vocals",
+        "spoken-word"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "stacked-harmonies",
+      "term": "stacked harmonies",
+      "ko": "스택 하모니",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "여러 겹 화성 코러스로 후렴이 넓고 풍성해진다.",
+      "snippet": "wide chorus with stacked harmonies",
+      "compare_with": [
+        "double-tracked",
+        "choir"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "double-tracked",
+      "term": "double-tracked vocals",
+      "ko": "더블링 보컬",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "같은 라인을 두 번 겹쳐 두껍고 넓은 보컬. 록·팝 후렴 표준 기법.",
+      "snippet": "double-tracked lead vocal",
+      "compare_with": [
+        "stacked-harmonies",
+        "clean-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "a-cappella",
+      "term": "a cappella vocals",
+      "ko": "아카펠라",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "반주 없는 보컬만. 'a cappella'를 보컬 묘사 앞에 두면 보컬 스템처럼 생성(ElevenLabs Music 공식).",
+      "snippet": "a cappella female vocals in A major, 90 BPM, soulful and raw",
+      "compare_with": [
+        "solo-instrument",
+        "choir"
+      ],
+      "tools": [
+        "ElevenLabs Music",
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "duet",
+      "term": "duet",
+      "ko": "듀엣",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "두 보컬이 주고받거나 화음. Suno [Duet] 태그, ElevenLabs는 'two singers harmonizing'.",
+      "snippet": "male-female duet, call and response chorus",
+      "compare_with": [
+        "male-female-vocal",
+        "call-response"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "call-response",
+      "term": "call and response",
+      "ko": "콜 앤 리스폰스",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "리드가 부르고 코러스가 답하는 구조. 가스펠·블루스·응원가 느낌.",
+      "snippet": "gospel call and response vocals",
+      "compare_with": [
+        "duet",
+        "choir"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "fast-rap",
+      "term": "rap / fast flow",
+      "ko": "랩·빠른 플로우",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "노래 대신 랩. 'fast flow', 'melodic rap' 등으로 플로우 성격을 조절. Suno [Rap] 태그.",
+      "snippet": "[Rap] fast aggressive flow",
+      "compare_with": [
+        "spoken-word",
+        "double-time"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "spoken-word",
+      "term": "spoken word",
+      "ko": "스포큰 워드",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "멜로디 없이 낭독. 인트로 나레이션이나 브리지에서 분위기 전환.",
+      "snippet": "[Spoken Word] calm narration over pads",
+      "compare_with": [
+        "fast-rap",
+        "whispered-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "ad-libs",
+      "term": "ad-libs",
+      "ko": "애드립",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "주 멜로디 사이의 짧은 외침·추임새로 생동감. Suno는 괄호(…)로 백킹/애드립 처리 경향.",
+      "snippet": "[Ad-lib] (yeah, oh-oh)",
+      "compare_with": [
+        "call-response",
+        "vocal-chops"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "vocal-chops",
+      "term": "vocal chops",
+      "ko": "보컬 찹",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "보컬을 잘게 잘라 악기처럼 배치. 퓨처베이스·하우스 드롭의 멜로디 역할.",
+      "snippet": "pitched vocal chops in the drop",
+      "compare_with": [
+        "ad-libs",
+        "drop-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "auto-tune",
+      "term": "auto-tune vocals",
+      "ko": "오토튠",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "음정 보정을 효과로 강하게 걸어 로봇 같은 트랩/하이퍼팝 보컬. 원치 않으면 Exclude에 넣는다.",
+      "snippet": "heavy auto-tune melodic vocals",
+      "compare_with": [
+        "clean-vocals",
+        "exclude-styles"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "operatic",
+      "term": "operatic vocals",
+      "ko": "오페라 창법",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "비브라토가 큰 클래식 성악. 심포닉 메탈·시네마틱에 극적 효과.",
+      "snippet": "soaring operatic soprano",
+      "compare_with": [
+        "belted-vocals",
+        "choir"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "humming",
+      "term": "humming",
+      "ko": "허밍",
+      "category": "vocal",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "가사 없이 허밍으로 부드러운 멜로디. Suno [Humming] 태그.",
+      "snippet": "[Humming] soft melody",
+      "compare_with": [
+        "whispered-vocals",
+        "a-cappella"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "reverb-heavy",
+      "term": "reverb-heavy",
+      "ko": "리버브 많이",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "잔향이 길어져 공간이 넓고 몽환적이 된다. 과하면 흐릿해진다.",
+      "snippet": "reverb-heavy, cavernous space",
+      "compare_with": [
+        "dry-vocals",
+        "gated-reverb"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "dry-vocals",
+      "term": "dry vocals",
+      "ko": "드라이 보컬",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "잔향 없이 바로 앞에서 부르는 듯한 선명함. 리버브와 대비 실험의 기준.",
+      "snippet": "dry upfront vocals",
+      "compare_with": [
+        "reverb-heavy",
+        "close-micd"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "gated-reverb",
+      "term": "gated reverb drums",
+      "ko": "게이트 리버브",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "큰 잔향을 짧게 잘라낸 80년대 스네어. 폭발적이고 레트로한 드럼.",
+      "snippet": "huge gated reverb snare",
+      "compare_with": [
+        "reverb-heavy",
+        "eighties-sound"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "slapback-echo",
+      "term": "slapback echo",
+      "ko": "슬랩백 에코",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "짧은 단일 반복 에코로 50년대 로커빌리 보컬 느낌.",
+      "snippet": "vocals with slapback echo",
+      "compare_with": [
+        "ping-pong-delay",
+        "fifties-rocknroll"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "ping-pong-delay",
+      "term": "ping-pong delay",
+      "ko": "핑퐁 딜레이",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "좌우를 오가는 반복 에코로 스테레오 움직임. 신스 리드·기타에 공간감.",
+      "snippet": "synth lead with ping-pong delay",
+      "compare_with": [
+        "slapback-echo",
+        "wide-stereo"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "sidechain",
+      "term": "sidechained / sidechain pumping",
+      "ko": "사이드체인",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "킥이 칠 때 패드·베이스가 눌렸다 올라오는 '펌핑'. EDM·하우스 특유의 숨쉬는 리듬감. ElevenLabs Music은 이 용어가 들린다고 명시, Suno 가이드는 세부 믹싱 설정 기재를 비권장.",
+      "snippet": "sidechained synth pads pumping with the kick",
+      "compare_with": [
+        "four-on-the-floor",
+        "wide-stereo"
+      ],
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "tape-saturation",
+      "term": "tape saturation",
+      "ko": "테이프 새추레이션",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "테이프 녹음의 부드러운 왜곡·압축으로 따뜻하고 아날로그한 질감.",
+      "snippet": "warm tape saturation",
+      "compare_with": [
+        "bitcrushed",
+        "warm-analog"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "warm-analog",
+      "term": "warm analog recording",
+      "ko": "따뜻한 아날로그",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "디지털의 날카로움 대신 둥근 중저역. 빈티지 장르와 궁합이 좋다.",
+      "snippet": "warm analog recording",
+      "compare_with": [
+        "polished-mix",
+        "tape-saturation"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "lofi-texture",
+      "term": "lo-fi, vinyl crackle",
+      "ko": "로파이 질감",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "고역을 깎고 바이닐 잡음·흔들림을 더해 낡고 아늑한 질감. 장르명이 아니라 음질 묘사로도 쓰인다.",
+      "snippet": "lo-fi, vinyl crackle, tape wobble",
+      "compare_with": [
+        "polished-mix",
+        "tape-saturation"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "polished-mix",
+      "term": "polished, radio-ready mix",
+      "ko": "폴리시드 믹스",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "깨끗하고 밸런스 잡힌 상업적 마스터 느낌. lo-fi와 비교 기준으로 좋다.",
+      "snippet": "polished radio-ready mix, crisp highs",
+      "compare_with": [
+        "lofi-texture",
+        "raw-live"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "raw-live",
+      "term": "raw live recording",
+      "ko": "라이브·로우",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "다듬지 않은 합주 녹음, 약간의 잡음과 다이내믹. 생동감·현장감.",
+      "snippet": "raw live band recording, room ambience",
+      "compare_with": [
+        "polished-mix",
+        "room-mic-drums"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "wide-stereo",
+      "term": "wide stereo",
+      "ko": "와이드 스테레오",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "좌우로 넓게 펼쳐져 몰입감이 커진다. 반대로 'mono'는 좁고 빈티지.",
+      "snippet": "wide stereo image, lush",
+      "compare_with": [
+        "vintage-mono",
+        "ping-pong-delay"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "vintage-mono",
+      "term": "vintage mono",
+      "ko": "빈티지 모노",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "한가운데로 모인 좁은 이미지로 오래된 레코드 느낌.",
+      "snippet": "vintage mono mix",
+      "compare_with": [
+        "wide-stereo",
+        "sixties-soul"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "punchy-drums",
+      "term": "punchy drums",
+      "ko": "펀치 있는 드럼",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "어택이 단단한 킥·스네어로 리듬이 앞으로 튀어나온다.",
+      "snippet": "punchy tight drums",
+      "compare_with": [
+        "room-mic-drums",
+        "soft-brushed"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "room-mic-drums",
+      "term": "room mic drums",
+      "ko": "룸 마이크 드럼",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "방 울림이 섞인 드럼으로 크고 자연스러운 라이브 질감.",
+      "snippet": "big room mic drums",
+      "compare_with": [
+        "punchy-drums",
+        "raw-live"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "soft-brushed",
+      "term": "brushed drums",
+      "ko": "브러시 드럼",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "스틱 대신 브러시로 부드럽고 사각거리는 재즈 리듬.",
+      "snippet": "soft brushed drums",
+      "compare_with": [
+        "punchy-drums",
+        "bossa-nova"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "close-micd",
+      "term": "close-mic'd",
+      "ko": "근접 마이킹",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "마이크를 바짝 댄 듯 디테일·숨소리·손가락 소리까지 들리는 친밀한 음색.",
+      "snippet": "close-mic'd acoustic guitar and vocal",
+      "compare_with": [
+        "room-mic-drums",
+        "dry-vocals"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "sub-bass-heavy",
+      "term": "deep sub-bass",
+      "ko": "서브베이스 강조",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "귀보다 몸으로 느끼는 초저역 강화. 클럽·트레일러 임팩트.",
+      "snippet": "deep rumbling sub-bass",
+      "compare_with": [
+        "808-bass",
+        "punchy-drums"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "distorted",
+      "term": "overdriven / distorted",
+      "ko": "오버드라이브·디스토션",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "찌그러진 배음으로 거칠고 공격적. 기타·베이스·드럼 버스 어디든 적용 가능.",
+      "snippet": "overdriven bass, distorted guitars",
+      "compare_with": [
+        "clean-tone",
+        "bitcrushed"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "clean-tone",
+      "term": "clean tone",
+      "ko": "클린 톤",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "왜곡 없는 맑은 기타/신스. distorted와 1:1 비교에 적합.",
+      "snippet": "clean chorus-drenched guitar tone",
+      "compare_with": [
+        "distorted"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "bitcrushed",
+      "term": "bitcrushed",
+      "ko": "비트크러시",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "비트 깊이/샘플레이트를 줄여 8비트·디지털 깨짐 질감. 칩튠·하이퍼팝.",
+      "snippet": "bitcrushed drums, 8-bit texture",
+      "compare_with": [
+        "tape-saturation",
+        "glitch-sfx"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "filter-sweep",
+      "term": "filter sweep",
+      "ko": "필터 스윕",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music",
+        "mix"
+      ],
+      "effect_ko": "필터를 서서히 열고 닫아 빌드업·전환 긴장감. EDM 표준 기법.",
+      "snippet": "low-pass filter sweep into the drop",
+      "compare_with": [
+        "riser",
+        "build-up-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "sparse-arrangement",
+      "term": "sparse arrangement",
+      "ko": "성긴 편곡",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "악기 수를 줄여 여백 많고 미니멀하게. 보컬·한 악기가 부각된다.",
+      "snippet": "sparse arrangement, just piano and voice",
+      "compare_with": [
+        "wall-of-sound",
+        "solo-instrument"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "wall-of-sound",
+      "term": "wall of sound, dense layers",
+      "ko": "월 오브 사운드",
+      "category": "production",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "많은 레이어를 쌓아 꽉 찬 밀도. 슈게이즈·60년대 팝의 압도감.",
+      "snippet": "dense wall of sound production",
+      "compare_with": [
+        "sparse-arrangement",
+        "shoegaze"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "intro-tag",
+      "term": "[Intro]",
+      "ko": "인트로 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "곡 앞부분을 도입부로 처리하게 한다. 짧게 하려면 [Short Instrumental Intro]처럼 묘사를 붙인다.",
+      "snippet": "[Intro]",
+      "compare_with": [
+        "outro-tag",
+        "instrumental-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "verse-tag",
+      "term": "[Verse]",
+      "ko": "벌스 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "가사의 서술 파트. 번호([Verse 1])를 붙이면 구간 구분이 명확해진다.",
+      "snippet": "[Verse 1]\nCity lights are fading slow...",
+      "compare_with": [
+        "chorus-tag",
+        "pre-chorus-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "pre-chorus-tag",
+      "term": "[Pre-Chorus]",
+      "ko": "프리코러스 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "후렴 직전 상승 구간. 에너지가 올라가며 후렴 대비가 커진다.",
+      "snippet": "[Pre-Chorus]",
+      "compare_with": [
+        "verse-tag",
+        "chorus-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "chorus-tag",
+      "term": "[Chorus]",
+      "ko": "코러스(후렴) 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "반복되는 훅 구간. 같은 가사를 반복하면 후렴으로 인식이 더 안정적이다.",
+      "snippet": "[Chorus]",
+      "compare_with": [
+        "verse-tag",
+        "hook-tag",
+        "post-chorus-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "post-chorus-tag",
+      "term": "[Post-Chorus]",
+      "ko": "포스트코러스 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "후렴 뒤 짧은 훅·찹 구간. 케이팝/EDM팝 구조에 자주.",
+      "snippet": "[Post-Chorus]",
+      "compare_with": [
+        "chorus-tag",
+        "drop-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "hook-tag",
+      "term": "[Hook]",
+      "ko": "훅 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "힙합에서 후렴 역할. 짧고 반복적인 캐치 라인.",
+      "snippet": "[Hook]",
+      "compare_with": [
+        "chorus-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "bridge-tag",
+      "term": "[Bridge]",
+      "ko": "브리지 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "후렴 반복 전 분위기 전환 구간. V5에서는 무시되는 경우가 보고되어 묘사를 함께 붙이면 좋다.",
+      "snippet": "[Bridge: half-time, stripped back]",
+      "compare_with": [
+        "breakdown-tag",
+        "key-change-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "breakdown-tag",
+      "term": "[Breakdown]",
+      "ko": "브레이크다운 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "악기를 덜어내 긴장을 낮추거나(EDM) 무거운 리프로 내려앉는(메탈) 구간.",
+      "snippet": "[Breakdown]",
+      "compare_with": [
+        "bridge-tag",
+        "build-up-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "build-up-tag",
+      "term": "[Build-Up]",
+      "ko": "빌드업 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "드롭 전 점점 고조되는 구간. 라이저·스네어 롤이 생긴다.",
+      "snippet": "[Build-Up]",
+      "compare_with": [
+        "drop-tag",
+        "riser"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "drop-tag",
+      "term": "[Drop]",
+      "ko": "드롭 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "EDM 클라이맥스. 빌드업 다음에 두면 베이스·킥이 터지는 구간을 유도한다.",
+      "snippet": "[Build-Up]\n[Drop]",
+      "compare_with": [
+        "build-up-tag",
+        "chorus-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "instrumental-tag",
+      "term": "[Instrumental] / [Instrumental Break]",
+      "ko": "인스트루멘털 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "해당 구간을 보컬 없이 연주만. 곡 전체 무보컬은 Instrumental 토글+Exclude 'vocals' 병행이 안정적.",
+      "snippet": "[Instrumental Break]",
+      "compare_with": [
+        "solo-tag",
+        "instrumental-toggle"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "solo-tag",
+      "term": "[Guitar Solo] / [Piano Solo]",
+      "ko": "솔로 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "특정 악기 솔로 구간을 지정한다. [Sax Solo], [Synth Solo] 등 응용 가능.",
+      "snippet": "[Guitar Solo]",
+      "compare_with": [
+        "instrumental-tag",
+        "solo-instrument"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "outro-tag",
+      "term": "[Outro] / [End]",
+      "ko": "아웃트로·엔드 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "곡을 마무리시킨다. [End]를 명시하면 곡이 갑자기 이어지거나 잘리는 일을 줄인다.",
+      "snippet": "[Outro]\n[Fade Out]\n[End]",
+      "compare_with": [
+        "intro-tag",
+        "fade-out-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "fade-out-tag",
+      "term": "[Fade Out]",
+      "ko": "페이드아웃 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "점점 작아지며 끝나게 한다. [Fade In]은 반대.",
+      "snippet": "[Fade Out]",
+      "compare_with": [
+        "outro-tag",
+        "crescendo-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "crescendo-tag",
+      "term": "[Crescendo]",
+      "ko": "크레셴도 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "구간을 점점 크게. [Decrescendo]와 대비해 다이내믹 곡선을 만든다.",
+      "snippet": "[Crescendo]",
+      "compare_with": [
+        "fade-out-tag",
+        "build-up-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "key-change-tag",
+      "term": "[Key Change]",
+      "ko": "전조 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "마지막 후렴을 반음~온음 올리는 팝 발라드식 상승. 반영은 확률적.",
+      "snippet": "[Key Change]\n[Final Chorus]",
+      "compare_with": [
+        "specific-key",
+        "bridge-tag"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "parameterized-tag",
+      "term": "[Section: descriptors]",
+      "ko": "묘사형 태그",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music",
+        "suno"
+      ],
+      "effect_ko": "태그 안에 콜론으로 그 구간 전용 지시를 넣는다. 섹션별 편성·창법 차이를 만들기 좋다.",
+      "snippet": "[Verse: whispered vocals, acoustic guitar only]",
+      "compare_with": [
+        "verse-tag",
+        "whispered-vocals"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "silence-tag",
+      "term": "[Silence] / \"just\"",
+      "ko": "정적 지시",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "Suno는 [Silence], ElevenLabs Music은 'just drums'처럼 'just'로 빈 공간을 지켜 모델이 공백을 채우지 않게 한다.",
+      "snippet": "no melody, just drums",
+      "compare_with": [
+        "sparse-arrangement",
+        "fade-out-tag"
+      ],
+      "tools": [
+        "Suno",
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "timed-cues",
+      "term": "time-stamped cues",
+      "ko": "타임코드 지시",
+      "category": "structure",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "'lyrics begin at 15 seconds', 'instrumental only after 1:45'처럼 시간으로 배치를 지시(ElevenLabs Music).",
+      "snippet": "lyrics begin at 15 seconds, instrumental only after 1:45",
+      "compare_with": [
+        "composition-plan",
+        "duration-setting"
+      ],
+      "tools": [
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "euphoric",
+      "term": "euphoric",
+      "ko": "황홀한·벅찬",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "'happy'보다 강한 고양감. 업리프팅 신스·큰 후렴 쪽으로 기운다(Stable Audio 가이드 권장 표현).",
+      "snippet": "euphoric, uplifting",
+      "compare_with": [
+        "melancholic",
+        "triumphant"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "melancholic",
+      "term": "melancholic",
+      "ko": "멜랑콜리",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "'sad'보다 구체적인 쓸쓸함. 마이너·느린 템포·여백이 늘어난다.",
+      "snippet": "melancholic, wistful",
+      "compare_with": [
+        "euphoric",
+        "bittersweet"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "nostalgic",
+      "term": "nostalgic",
+      "ko": "향수 어린",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "빈티지 질감·따뜻한 코드 쪽으로. 시대 용어와 함께 쓰면 효과 증폭.",
+      "snippet": "nostalgic, hazy memories",
+      "compare_with": [
+        "melancholic",
+        "dreamy"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "eerie",
+      "term": "eerie, foreboding",
+      "ko": "섬뜩한·불길한",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "불협화음·드론·불규칙 텍스처로 공포 분위기. ElevenLabs가 예시로 든 추상 무드어.",
+      "snippet": "eerie, foreboding atmosphere",
+      "compare_with": [
+        "dreamy",
+        "dissonant"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "triumphant",
+      "term": "triumphant, heroic",
+      "ko": "승리감·영웅적",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "브라스·큰 타악·장조 상승 선율로 벅찬 엔딩.",
+      "snippet": "triumphant heroic theme",
+      "compare_with": [
+        "euphoric",
+        "tense"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "dreamy",
+      "term": "dreamy, ethereal",
+      "ko": "몽환적",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "리버브·패드·느린 변화로 둥둥 뜨는 느낌.",
+      "snippet": "dreamy ethereal soundscape",
+      "compare_with": [
+        "eerie",
+        "nostalgic"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "aggressive",
+      "term": "aggressive, intense",
+      "ko": "공격적",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "디스토션·빠른 템포·강한 드럼. 원치 않는 공격성은 Exclude에 넣어 제거할 수 있다.",
+      "snippet": "aggressive, intense energy",
+      "compare_with": [
+        "chillhop-mood",
+        "distorted"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "chillhop-mood",
+      "term": "chill, laid-back",
+      "ko": "칠·느긋한",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "에너지·밀도를 낮추고 그루브를 느슨하게. 배경음용.",
+      "snippet": "chill laid-back vibe",
+      "compare_with": [
+        "aggressive",
+        "lofi-hip-hop"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "bittersweet",
+      "term": "bittersweet",
+      "ko": "씁쓸달콤",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "밝은 멜로디와 슬픈 화성이 공존. 단일 감정어보다 미묘한 결과.",
+      "snippet": "bittersweet, hopeful yet sad",
+      "compare_with": [
+        "melancholic",
+        "euphoric"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "tense",
+      "term": "tense, suspenseful",
+      "ko": "긴장감",
+      "category": "mood",
+      "tags": [
+        "audio",
+        "music"
+      ],
+      "effect_ko": "오스티나토·스트링 트레몰로·저음 펄스로 서스펜스. 게임·스릴러 BGM.",
+      "snippet": "tense suspenseful pulse, ticking ostinato",
+      "compare_with": [
+        "triumphant",
+        "eerie"
+      ],
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "MusicGen"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "impact",
+      "term": "impact",
+      "ko": "임팩트",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "충돌·타격음. 가벼운 탭부터 큰 크래시까지; 재질·크기를 붙이면 구체화된다.",
+      "snippet": "heavy metal impact, deep boom tail",
+      "compare_with": [
+        "whoosh",
+        "braam"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "whoosh",
+      "term": "whoosh",
+      "ko": "우쉬",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "공기를 가르는 이동음. 전환·타이틀 모션에 맞춰 빠르기·길이를 묘사.",
+      "snippet": "fast airy whoosh, left to right",
+      "compare_with": [
+        "impact",
+        "riser"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "braam",
+      "term": "braam",
+      "ko": "브람",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "트레일러식 거대한 금관 굉음. 극적 순간 강조.",
+      "snippet": "massive cinematic braam, long tail",
+      "compare_with": [
+        "impact",
+        "drone-sfx"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "glitch-sfx",
+      "term": "glitch",
+      "ko": "글리치",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "오작동·지터 소리. SF·디지털 전환 효과.",
+      "snippet": "digital glitch stutter transition",
+      "compare_with": [
+        "whoosh",
+        "bitcrushed"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "drone-sfx",
+      "term": "drone",
+      "ko": "드론(지속음)",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "계속 이어지는 질감 있는 저음으로 긴장·분위기를 쌓는다.",
+      "snippet": "dark evolving drone, sub rumble",
+      "compare_with": [
+        "ambience",
+        "braam"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "ambience",
+      "term": "ambience",
+      "ko": "앰비언스",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "장소의 배경 환경음(비, 카페, 숲). 공간감과 무드를 설정.",
+      "snippet": "soft rain on a window, distant thunder, cozy room ambience",
+      "compare_with": [
+        "foley",
+        "drone-sfx",
+        "seamless-loop"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "foley",
+      "term": "foley",
+      "ko": "폴리",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "영상 동작에 맞춘 생활 효과음(발소리·옷 스침). 재질+동작+환경으로 쓰면 정확해진다.",
+      "snippet": "foley: leather boots on wet gravel, slow steps",
+      "compare_with": [
+        "ambience",
+        "material-surface"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "one-shot",
+      "term": "one-shot",
+      "ko": "원샷",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "반복 없는 단발 소리. 게임 UI·타격음 에셋.",
+      "snippet": "single one-shot coin pickup chime",
+      "compare_with": [
+        "seamless-loop",
+        "ui-sound"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "seamless-loop",
+      "term": "seamless loop",
+      "ko": "심리스 루프",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "끝과 시작이 이어져 반복 재생 가능. ElevenLabs SFX는 Loop 옵션 제공.",
+      "snippet": "seamless loop of crackling campfire",
+      "compare_with": [
+        "one-shot",
+        "ambience"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "ElevenLabs Music",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "stem",
+      "term": "stem",
+      "ko": "스템",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "분리된 단일 구성요소(드럼만, 보컬만). 후반 믹싱용으로 요청.",
+      "snippet": "drum stem only, no melody",
+      "compare_with": [
+        "solo-instrument",
+        "stems-feature"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "ElevenLabs Music",
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "riser",
+      "term": "riser",
+      "ko": "라이저",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "점점 음높이·음량이 오르는 긴장 상승음. 드롭·컷 전에.",
+      "snippet": "8-second white noise riser into silence",
+      "compare_with": [
+        "whoosh",
+        "filter-sweep"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "stinger",
+      "term": "stinger",
+      "ko": "스팅어",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "짧은 음악적 포인트(로고·씬 전환). 1~3초 짧게.",
+      "snippet": "3-second orchestral horror stinger",
+      "compare_with": [
+        "braam",
+        "one-shot"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "ui-sound",
+      "term": "UI sound / notification",
+      "ko": "UI·알림음",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "짧고 깨끗한 인터페이스 사운드. 'soft', 'bubbly', 'glassy' 같은 음색 형용사로 브랜드 톤 조절.",
+      "snippet": "soft glassy UI notification chime, 0.5 seconds",
+      "compare_with": [
+        "one-shot",
+        "stinger"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "material-surface",
+      "term": "<material> on <surface>",
+      "ko": "재질·표면 묘사",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "'Glass shattering on concrete'처럼 재질과 표면을 명시하면 음색이 확실히 바뀐다.",
+      "snippet": "glass shattering on concrete",
+      "compare_with": [
+        "foley",
+        "impact"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "sequence-then",
+      "term": "A, then B (event sequence)",
+      "ko": "사건 순서 묘사",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "복합 효과음은 순서대로 서술한다(공식 가이드 예: 자갈 위 발소리, 그다음 금속 문 열림).",
+      "snippet": "footsteps on gravel, then a metallic door opens",
+      "compare_with": [
+        "material-surface",
+        "foley"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "distance-perspective",
+      "term": "distant / close-up / muffled",
+      "ko": "거리·원근",
+      "category": "sfx",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "같은 소리라도 거리·벽 너머 여부로 공간 위치가 바뀐다.",
+      "snippet": "distant muffled explosion behind a wall",
+      "compare_with": [
+        "material-surface",
+        "reverb-heavy"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "tag-whispers",
+      "term": "[whispers]",
+      "ko": "속삭임 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "해당 구간을 속삭이듯 읽는다. 목소리 학습 데이터에 속삭임이 있을수록 잘 된다.",
+      "snippet": "[whispers] Don't make a sound.",
+      "compare_with": [
+        "tag-excited",
+        "tag-sighs"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-laughs",
+      "term": "[laughs] / [laughs harder] / [starts laughing]",
+      "ko": "웃음 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "실제 웃음소리를 삽입한다. 세기 변형 태그로 강도 조절.",
+      "snippet": "That's the plan? [laughs] Okay.",
+      "compare_with": [
+        "tag-sighs",
+        "tag-crying"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-sighs",
+      "term": "[sighs] / [exhales]",
+      "ko": "한숨·숨 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "한숨·날숨 소리로 피로·안도 같은 감정을 비언어로 표현.",
+      "snippet": "[sighs] Another Monday.",
+      "compare_with": [
+        "tag-laughs",
+        "breath-control"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-sarcastic",
+      "term": "[sarcastic]",
+      "ko": "비꼬는 톤 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "억양을 비꼬듯 바꾼다. 같은 문장의 의미가 반대로 들린다.",
+      "snippet": "[sarcastic] Oh, great. Just what I needed.",
+      "compare_with": [
+        "tag-curious",
+        "tag-excited"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-excited",
+      "term": "[excited]",
+      "ko": "신난 톤 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "에너지·음높이가 올라간다. 광고·쇼츠 내레이션.",
+      "snippet": "[excited] We did it!",
+      "compare_with": [
+        "tag-whispers",
+        "tag-sarcastic"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-curious",
+      "term": "[curious]",
+      "ko": "궁금한 톤 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "질문하듯 끝을 올리는 호기심 어린 전달.",
+      "snippet": "[curious] Wait, what's in the box?",
+      "compare_with": [
+        "tag-sarcastic"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-crying",
+      "term": "[crying]",
+      "ko": "울먹임 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "떨리고 젖은 목소리. 진지한 목소리일수록 어울린다.",
+      "snippet": "[crying] I thought you'd never come back.",
+      "compare_with": [
+        "tag-laughs",
+        "tag-sighs"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-mischievously",
+      "term": "[mischievously]",
+      "ko": "장난스러운 톤 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "능청·장난기 있는 말투. 캐릭터 대사에 유용.",
+      "snippet": "[mischievously] I may have borrowed your car.",
+      "compare_with": [
+        "tag-sarcastic",
+        "tag-curious"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-accent",
+      "term": "[strong X accent]",
+      "ko": "억양 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "'[strong French accent]'처럼 특정 억양을 입힌다. 실험적이라 목소리별로 테스트 필요.",
+      "snippet": "[strong British accent] Lovely weather, isn't it?",
+      "compare_with": [
+        "openai-instructions"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-sings",
+      "term": "[sings]",
+      "ko": "노래 태그(실험적)",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "대사 일부를 노래하듯. 일관성이 낮은 실험 태그.",
+      "snippet": "[sings] Happy birthday to you",
+      "compare_with": [
+        "tag-excited"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tag-sfx-inline",
+      "term": "[applause] / [gunshot] / [explosion]",
+      "ko": "음성 내 효과음 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts",
+        "sfx"
+      ],
+      "effect_ko": "대사 사이에 효과음을 끼워 넣는다. 오디오 드라마 스케치용.",
+      "snippet": "And the winner is... [applause]",
+      "compare_with": [
+        "impact",
+        "tag-laughs"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "ellipsis-pause",
+      "term": "ellipses (...)",
+      "ko": "말줄임표 쉼",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "'...'로 쉼과 무게를 준다. v3는 SSML break를 지원하지 않아 이것이 주된 쉼 수단.",
+      "snippet": "I know... I just didn't want to say it.",
+      "compare_with": [
+        "ssml-break",
+        "caps-emphasis"
+      ],
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "caps-emphasis",
+      "term": "CAPITALIZATION for emphasis",
+      "ko": "대문자 강조",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "대문자로 쓴 단어를 강하게 읽는다.",
+      "snippet": "I said NOW, not later.",
+      "compare_with": [
+        "ellipsis-pause"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "ssml-break",
+      "term": "<break time=\"1.5s\" />",
+      "ko": "SSML 쉼 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts",
+        "ssml"
+      ],
+      "effect_ko": "정확한 길이의 쉼(ElevenLabs v2 계열 최대 3초). 너무 많으면 불안정. v3에서는 미지원.",
+      "snippet": "Welcome. <break time=\"1.0s\" /> Let's begin.",
+      "compare_with": [
+        "ellipsis-pause",
+        "ssml-prosody"
+      ],
+      "tools": [
+        "ElevenLabs (v2/Turbo)",
+        "Google Cloud TTS",
+        "Azure TTS",
+        "Amazon Polly"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3",
+        "https://www.w3.org/TR/speech-synthesis11/"
+      ]
+    },
+    {
+      "id": "ssml-prosody",
+      "term": "<prosody rate=\"slow\" pitch=\"-2st\">",
+      "ko": "SSML 운율 태그",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts",
+        "ssml"
+      ],
+      "effect_ko": "속도·음높이·음량을 구간별로 조절(W3C SSML 표준). 지원 범위는 엔진마다 다르다.",
+      "snippet": "<prosody rate=\"85%\" pitch=\"-2st\">Calm down.</prosody>",
+      "compare_with": [
+        "ssml-break",
+        "speed-setting"
+      ],
+      "tools": [
+        "Google Cloud TTS",
+        "Azure TTS",
+        "Amazon Polly"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://www.w3.org/TR/speech-synthesis11/"
+      ]
+    },
+    {
+      "id": "ssml-phoneme",
+      "term": "<phoneme> / IPA pronunciation",
+      "ko": "발음 지정(IPA·음소)",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts",
+        "ssml"
+      ],
+      "effect_ko": "고유명사 발음을 고정한다. ElevenLabs 최신 모델은 슬래시로 감싼 IPA, 구형 v2는 SSML phoneme(CMU Arpabet 권장).",
+      "snippet": "<phoneme alphabet=\"ipa\" ph=\"ˈsɛʊl\">Seoul</phoneme>",
+      "compare_with": [
+        "ssml-break"
+      ],
+      "tools": [
+        "ElevenLabs",
+        "Google Cloud TTS",
+        "Azure TTS"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3",
+        "https://www.w3.org/TR/speech-synthesis11/"
+      ]
+    },
+    {
+      "id": "speed-setting",
+      "term": "speed (0.7–1.2)",
+      "ko": "속도 설정",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "ElevenLabs 속도 슬라이더: 기본 1.0, 0.7~1.2. 극단값은 품질 저하. 문장 스타일로도 페이스 조절 가능.",
+      "snippet": "speed: 0.9",
+      "compare_with": [
+        "ssml-prosody",
+        "pacing-instruction"
+      ],
+      "tools": [
+        "ElevenLabs"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "stability-setting",
+      "term": "stability (Creative / Natural / Robust)",
+      "ko": "안정성 설정",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "ElevenLabs v3의 안정성: Creative는 감정 표현·태그 반응이 크지만 흔들림 위험, Robust는 일관되지만 태그 반응이 약하다.",
+      "snippet": "stability: Natural",
+      "compare_with": [
+        "speed-setting",
+        "tag-excited"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "openai-instructions",
+      "term": "instructions: Voice Affect / Tone / Pacing",
+      "ko": "OpenAI 음성 지시문",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "gpt-4o-mini-tts의 instructions 필드에 말투·억양·속도·감정을 자연어로 적는다. 항목별(Voice Affect, Tone, Pacing, Emotion, Pauses)로 나누면 통제가 쉽다. 반영 정도는 불완전할 수 있다.",
+      "snippet": "Voice Affect: calm, warm. Tone: reassuring. Pacing: slow, with pauses after key points.",
+      "compare_with": [
+        "pacing-instruction",
+        "persona-narrator"
+      ],
+      "tools": [
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://platform.openai.com/docs/guides/text-to-speech",
+        "https://www.openai.fm/"
+      ]
+    },
+    {
+      "id": "pacing-instruction",
+      "term": "pacing: slow and deliberate",
+      "ko": "페이스 지시",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "속도와 쉼 패턴을 말로 지시. 숫자 슬라이더보다 자연스러운 완급.",
+      "snippet": "Pacing: slow and deliberate, brief pause before each number.",
+      "compare_with": [
+        "speed-setting",
+        "openai-instructions"
+      ],
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://platform.openai.com/docs/guides/text-to-speech",
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "persona-narrator",
+      "term": "role framing (news anchor, ASMR, trailer narrator)",
+      "ko": "역할·장르 프레이밍",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "'뉴스 앵커', '영화 예고편 내레이터', 'ASMR'처럼 역할을 주면 톤·속도·발성이 한 번에 바뀐다.",
+      "snippet": "Speak like a dramatic movie-trailer narrator.",
+      "compare_with": [
+        "openai-instructions",
+        "conversational"
+      ],
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.openai.fm/"
+      ]
+    },
+    {
+      "id": "conversational",
+      "term": "conversational, natural",
+      "ko": "대화체",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "낭독 톤 대신 자연스러운 말하기. 필러('um')를 문장에 쓰면 더 사람같다.",
+      "snippet": "Tone: conversational, relaxed, like talking to a friend.",
+      "compare_with": [
+        "persona-narrator",
+        "tag-sighs"
+      ],
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.openai.fm/",
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "breath-control",
+      "term": "audible breaths",
+      "ko": "숨소리",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "들숨/날숨을 살려 현장감. v3는 [exhales] 등 태그, OpenAI는 지시문으로 요청.",
+      "snippet": "[exhales] Okay. Let's do this.",
+      "compare_with": [
+        "tag-sighs",
+        "close-micd"
+      ],
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "multi-speaker",
+      "term": "multi-speaker dialogue",
+      "ko": "다중 화자 대화",
+      "category": "voice-tts",
+      "tags": [
+        "audio",
+        "tts"
+      ],
+      "effect_ko": "화자마다 다른 목소리를 배정해 대화 생성(ElevenLabs Text to Dialogue). 화자 라벨+태그 조합.",
+      "snippet": "Speaker 1: [excited] Did you see that?\nSpeaker 2: [sighs] I did.",
+      "compare_with": [
+        "conversational",
+        "tag-excited"
+      ],
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "style-field",
+      "term": "Style of Music field",
+      "ko": "스타일 필드",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "장르·템포·악기·보컬·질감 등 전역 방향을 쓰는 곳. 4~7개 핵심 묘사어 권장, 아티스트명은 피한다.",
+      "snippet": "melancholic indie folk, fingerpicked guitar, breathy female vocal, 80 BPM",
+      "compare_with": [
+        "lyrics-field",
+        "exclude-styles"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "lyrics-field",
+      "term": "Lyrics field + metatags",
+      "ko": "가사 필드",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "가사와 [Verse] 등 구조 태그, 구간별 지시는 가사 필드에 둔다. 전역 스타일과 분리해야 각자 잘 반영된다.",
+      "snippet": "[Verse 1]\n...\n[Chorus]\n...",
+      "compare_with": [
+        "style-field",
+        "parameterized-tag"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "exclude-styles",
+      "term": "Exclude Styles",
+      "ko": "제외 스타일",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "원치 않는 악기·특성을 공식적으로 배제하는 필드. 스타일 필드에 'no drums'라고 쓰는 것보다 신뢰도가 높다.",
+      "snippet": "Exclude: auto-tune, heavy distortion, drums",
+      "compare_with": [
+        "negative-prompt",
+        "style-field"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "weirdness",
+      "term": "Weirdness slider",
+      "ko": "기이함(Weirdness) 슬라이더",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "낮으면 관습적·안전, 높으면 실험적이지만 붕괴 위험. 기본 약 50%.",
+      "snippet": "Weirdness: 25% (safe) vs 75% (chaotic)",
+      "compare_with": [
+        "style-influence"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "style-influence",
+      "term": "Style Influence slider",
+      "ko": "스타일 반영도 슬라이더",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "스타일 필드를 얼마나 엄격히 따를지. 프롬프트가 정확할수록 높게.",
+      "snippet": "Style Influence: 80%",
+      "compare_with": [
+        "weirdness",
+        "audio-influence"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "audio-influence",
+      "term": "Audio Influence slider",
+      "ko": "오디오 반영도 슬라이더",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "업로드한 참조 오디오가 결과를 얼마나 지배할지(Cover·Remix·Add Vocals 등). 100%에선 원본 구절을 베끼는 경향이 보고됨.",
+      "snippet": "Audio Influence: ~90%",
+      "compare_with": [
+        "style-influence",
+        "cover-feature"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "instrumental-toggle",
+      "term": "Instrumental toggle",
+      "ko": "인스트루멘털 토글",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "보컬 없는 곡 생성. Suno는 토글+[Instrumental]+Exclude 'vocals', ElevenLabs는 'instrumental only', Lyria 3는 'fully instrumental' 문구.",
+      "snippet": "instrumental only",
+      "compare_with": [
+        "instrumental-tag",
+        "exclude-styles"
+      ],
+      "tools": [
+        "Suno",
+        "ElevenLabs Music",
+        "Lyria 3"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "persona-feature",
+      "term": "Persona / Voices",
+      "ko": "페르소나(보이스)",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "마음에 든 생성곡의 보컬 음색·전달 스타일을 저장해 재사용. 정확한 멜로디·동일 음색까지 고정하지는 않는다. 최신 UI에서는 Voices 메뉴로 통합.",
+      "snippet": "Create Persona → select above lyrics field",
+      "compare_with": [
+        "cover-feature",
+        "extend-feature"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "cover-feature",
+      "term": "Cover",
+      "ko": "커버",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "기존 곡의 멜로디·가사를 유지하고 스타일만 새로 입힌다. 장르 바꾸기 실험의 핵심. Remix는 더 크게 변형.",
+      "snippet": "Cover → style: acoustic bossa nova",
+      "compare_with": [
+        "extend-feature",
+        "audio-influence"
+      ],
+      "tools": [
+        "Suno"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "extend-feature",
+      "term": "Extend",
+      "ko": "연장(Extend)",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "곡 끝에서 이어 붙여 길이를 늘린다. 연장 가사 맨 앞에 [Chorus]/[Outro] 같은 구조 태그를 두면 방향이 잡힌다.",
+      "snippet": "Extend from 2:10 → lyrics start with [Outro]",
+      "compare_with": [
+        "cover-feature",
+        "replace-section"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "replace-section",
+      "term": "Replace Section (inpainting)",
+      "ko": "구간 교체",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "선택한 시간 구간만 새 지시로 재생성. 자연스럽게 붙으려면 2~5회 시도가 필요할 수 있다.",
+      "snippet": "select 0:45–1:05 → [Bridge: stripped back]",
+      "compare_with": [
+        "extend-feature",
+        "stems-feature"
+      ],
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "stems-feature",
+      "term": "Stems split",
+      "ko": "스템 분리",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "suno"
+      ],
+      "effect_ko": "완성곡을 보컬/드럼 등으로 분리해 DAW에서 후작업. 요금제별로 분리 개수가 다르다.",
+      "snippet": "Get Stems → vocals / instrumental",
+      "compare_with": [
+        "stem",
+        "replace-section"
+      ],
+      "tools": [
+        "Suno",
+        "ElevenLabs Music"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "udio-manual-mode",
+      "term": "Manual Mode",
+      "ko": "Udio 수동 모드",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "udio"
+      ],
+      "effect_ko": "Udio가 프롬프트를 자동 보강하지 않고 입력한 태그를 그대로 사용. 의도대로 정밀 비교할 때.",
+      "snippet": "Manual Mode ON: synthwave, female vocals, 110 bpm",
+      "compare_with": [
+        "udio-prompt-strength",
+        "style-field"
+      ],
+      "tools": [
+        "Udio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://pulsepixels.substack.com/p/guide-to-udio-music-creation"
+      ]
+    },
+    {
+      "id": "udio-prompt-strength",
+      "term": "Prompt Strength",
+      "ko": "Udio 프롬프트 강도",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "udio"
+      ],
+      "effect_ko": "높이면 프롬프트를 더 충실히 따르지만 음악적 자연스러움이 떨어질 수 있다.",
+      "snippet": "Prompt Strength: 70%",
+      "compare_with": [
+        "udio-lyrics-strength",
+        "style-influence"
+      ],
+      "tools": [
+        "Udio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://pulsepixels.substack.com/p/guide-to-udio-music-creation"
+      ]
+    },
+    {
+      "id": "udio-lyrics-strength",
+      "term": "Lyrics Strength",
+      "ko": "Udio 가사 강도",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "udio"
+      ],
+      "effect_ko": "직접 쓴 가사의 음절 구조를 얼마나 우선할지. 높으면 가사 충실, 낮으면 즉흥 변형.",
+      "snippet": "Lyrics Strength: 35%",
+      "compare_with": [
+        "udio-prompt-strength"
+      ],
+      "tools": [
+        "Udio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://pulsepixels.substack.com/p/guide-to-udio-music-creation"
+      ]
+    },
+    {
+      "id": "udio-clarity",
+      "term": "Clarity",
+      "ko": "Udio 클래리티",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "udio"
+      ],
+      "effect_ko": "음질 선명도 관련 고급 설정. 너무 높으면 인위적이라는 사용자 보고가 있어 낮게 쓰는 경우도 있다(커뮤니티 팁).",
+      "snippet": "Clarity: 15%",
+      "compare_with": [
+        "udio-prompt-strength"
+      ],
+      "tools": [
+        "Udio"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://pulsepixels.substack.com/p/guide-to-udio-music-creation"
+      ]
+    },
+    {
+      "id": "prompt-influence-sfx",
+      "term": "Prompt Influence",
+      "ko": "프롬프트 반영도(SFX)",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "ElevenLabs SFX: 높으면 문자 그대로, 낮으면 창의적 변형. 기본 30%.",
+      "snippet": "prompt influence: 0.7",
+      "compare_with": [
+        "duration-setting",
+        "style-influence"
+      ],
+      "tools": [
+        "ElevenLabs SFX"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "duration-setting",
+      "term": "duration",
+      "ko": "길이 설정",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "sfx"
+      ],
+      "effect_ko": "SFX는 0.1~30초(미지정 시 자동), Eleven Music은 초 단위 지정 또는 자동. 짧을수록 원샷, 길수록 전개.",
+      "snippet": "duration: 4 seconds",
+      "compare_with": [
+        "prompt-influence-sfx",
+        "timed-cues"
+      ],
+      "tools": [
+        "ElevenLabs SFX",
+        "ElevenLabs Music",
+        "Stable Audio"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects",
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "composition-plan",
+      "term": "composition plan (JSON)",
+      "ko": "작곡 계획(JSON)",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "api"
+      ],
+      "effect_ko": "ElevenLabs Music API: 섹션 구조·가사 타이밍·전역 스타일(positiveGlobalStyles 등)을 JSON으로 지정. prompt와 동시 사용 불가.",
+      "snippet": "{\"positiveGlobalStyles\": [\"electronic\", \"driving synth arpeggios\"], ...}",
+      "compare_with": [
+        "timed-cues",
+        "lyrics-field"
+      ],
+      "tools": [
+        "ElevenLabs Music"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://elevenlabs.io/docs/cookbooks/music/quickstart"
+      ]
+    },
+    {
+      "id": "negative-prompt",
+      "term": "negative prompt",
+      "ko": "네거티브 프롬프트",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "api"
+      ],
+      "effect_ko": "Lyria 2(Vertex)·Stable Audio 등은 별도 negative 필드 지원. Lyria 3에는 없어서 본문에 'no drums' 식으로 써야 한다.",
+      "snippet": "negative_prompt: vocals, harsh distortion",
+      "compare_with": [
+        "exclude-styles"
+      ],
+      "tools": [
+        "Lyria 2",
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "pipe-structured",
+      "term": "Format: | Genre: | Instruments: | BPM:",
+      "ko": "필드 구분형 프롬프트",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "api"
+      ],
+      "effect_ko": "Stable Audio 사용자 가이드의 파이프(|) 구분 구조. 항목을 빠뜨리지 않게 해 결과 편차를 줄인다.",
+      "snippet": "Format: Band | Genre: Funk | Instruments: slap bass, clavinet | Moods: groovy | BPM: 110",
+      "compare_with": [
+        "style-field"
+      ],
+      "tools": [
+        "Stable Audio"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://stableaudio.com/user-guide/prompt-structure"
+      ]
+    },
+    {
+      "id": "melody-conditioning",
+      "term": "melody conditioning",
+      "ko": "멜로디 조건화",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "api"
+      ],
+      "effect_ko": "MusicGen-melody: 참조 오디오의 멜로디(크로마)를 따르면서 텍스트로 스타일을 바꾼다. 허밍→편곡 실험.",
+      "snippet": "text: 'cinematic strings' + melody: humming.wav",
+      "compare_with": [
+        "cover-feature",
+        "audio-influence"
+      ],
+      "tools": [
+        "MusicGen"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://github.com/facebookresearch/audiocraft/blob/main/docs/MUSICGEN.md"
+      ]
+    },
+    {
+      "id": "lyria-realtime",
+      "term": "Lyria RealTime weighted prompts + BPM/density/brightness",
+      "ko": "Lyria 실시간 제어",
+      "category": "model-syntax",
+      "tags": [
+        "audio",
+        "api"
+      ],
+      "effect_ko": "가중치 있는 여러 프롬프트를 섞고 BPM·density·brightness·scale을 세션 중 실시간 조정. 라이브 잼·인터랙티브 BGM용.",
+      "snippet": "prompts: [{text:'minimal techno', weight:1.0},{text:'piano', weight:0.4}], bpm:124, density:0.6",
+      "compare_with": [
+        "bpm-number",
+        "style-influence"
+      ],
+      "tools": [
+        "Lyria RealTime"
+      ],
+      "level": "advanced",
+      "sources": [
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    }
+  ],
+  "combos": [
+    {
+      "id": "combo-80s-night-drive",
+      "name_ko": "80년대 야간 드라이브",
+      "goal_ko": "네온 감성의 레트로 신스 인스트를 원할 때",
+      "term_ids": [
+        "synthwave",
+        "bpm-number",
+        "specific-key",
+        "analog-pads",
+        "arpeggiator",
+        "gated-reverb",
+        "nostalgic",
+        "instrumental-toggle"
+      ],
+      "prompt_en": "Style: synthwave, 110 BPM, F minor, analog polysynth pads, driving synth arpeggios, gated reverb drums, nostalgic, instrumental\nLyrics: [Intro]\n[Instrumental]\n[Synth Solo]\n[Outro]\n[End]",
+      "notes_ko": "Suno는 BPM·키를 근사치로만 반영. 정확도가 필요하면 ElevenLabs Music에 같은 묘사를 넣어 비교.",
+      "tools": [
+        "Suno",
+        "ElevenLabs Music"
+      ]
+    },
+    {
+      "id": "combo-study-lofi",
+      "name_ko": "공부용 로파이",
+      "goal_ko": "방해되지 않는 루프형 배경음",
+      "term_ids": [
+        "lofi-hip-hop",
+        "swing-shuffle",
+        "rhodes",
+        "extended-chords",
+        "lofi-texture",
+        "chillhop-mood",
+        "seamless-loop"
+      ],
+      "prompt_en": "lo-fi hip hop, 80 BPM, swung dusty drums, mellow Rhodes with jazzy seventh chords, vinyl crackle, chill laid-back, instrumental only, seamless loop",
+      "notes_ko": "ElevenLabs Music은 'instrumental only'를 반드시 명시해야 가사가 붙지 않는다.",
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Suno"
+      ]
+    },
+    {
+      "id": "combo-epic-trailer",
+      "name_ko": "에픽 트레일러",
+      "goal_ko": "예고편·게임 보스전 같은 웅장함",
+      "term_ids": [
+        "cinematic-orchestral",
+        "full-orchestra",
+        "taiko",
+        "choir",
+        "minor-key",
+        "tense",
+        "triumphant",
+        "crescendo-tag"
+      ],
+      "prompt_en": "epic cinematic orchestral, D minor, thundering taiko, soaring strings and brass, epic choir, starts tense and builds to a triumphant climax, 90 seconds, instrumental",
+      "notes_ko": "'starts... builds to...'처럼 전개를 서술하면 긴장-해소 곡선이 잘 잡힌다.",
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio",
+        "Lyria",
+        "Suno"
+      ]
+    },
+    {
+      "id": "combo-kpop-dance",
+      "name_ko": "케이팝 댄스곡",
+      "goal_ko": "훅이 강한 아이돌풍 댄스팝",
+      "term_ids": [
+        "k-pop",
+        "four-on-the-floor",
+        "clean-vocals",
+        "fast-rap",
+        "stacked-harmonies",
+        "verse-tag",
+        "pre-chorus-tag",
+        "chorus-tag",
+        "post-chorus-tag",
+        "drop-tag"
+      ],
+      "prompt_en": "Style: K-pop dance-pop, 124 BPM, punchy drums, polished radio-ready mix, bright female vocals, rap verse, stacked harmonies\nLyrics: [Verse 1]\n...\n[Pre-Chorus]\n...\n[Chorus]\n...\n[Post-Chorus]\n(oh-oh-oh)\n[Rap]\n...\n[Bridge]\n...\n[Chorus]\n[End]",
+      "notes_ko": "한국어 가사도 가능. 섹션마다 비트 변화를 원하면 [Rap: trap beat switch]처럼 묘사형 태그 사용.",
+      "tools": [
+        "Suno",
+        "Udio"
+      ]
+    },
+    {
+      "id": "combo-intimate-ballad",
+      "name_ko": "속삭이는 어쿠스틱 발라드",
+      "goal_ko": "가깝고 친밀한 보컬 중심 곡",
+      "term_ids": [
+        "indie-folk",
+        "slow-tempo",
+        "felt-piano",
+        "breathy-vocals",
+        "close-micd",
+        "dry-vocals",
+        "sparse-arrangement",
+        "parameterized-tag"
+      ],
+      "prompt_en": "Style: intimate indie folk ballad, slow tempo, soft felt piano, close-mic'd breathy female vocal, dry, sparse arrangement\nLyrics: [Verse 1: whispered vocals, piano only]\n...\n[Chorus: fuller, add soft strings]\n...",
+      "notes_ko": "벌스는 성기게, 후렴만 악기 추가 → 다이내믹 대비. reverb-heavy로 바꿔 비교해 보기.",
+      "tools": [
+        "Suno",
+        "ElevenLabs Music"
+      ]
+    },
+    {
+      "id": "combo-city-pop",
+      "name_ko": "시티팝 여름밤",
+      "goal_ko": "80년대 일본풍 세련된 팝",
+      "term_ids": [
+        "city-pop",
+        "eighties-sound",
+        "slap-bass",
+        "brass-stabs",
+        "rhodes",
+        "extended-chords",
+        "wide-stereo"
+      ],
+      "prompt_en": "80s city pop, 116 BPM, funky slap bass, bright brass stabs, Rhodes, lush major seventh chords, wide stereo, smooth female vocals, summer night nostalgia",
+      "notes_ko": "실존 아티스트명 대신 악기·화성 묘사로 스타일을 재현.",
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music"
+      ]
+    },
+    {
+      "id": "combo-edm-drop",
+      "name_ko": "EDM 빌드업-드롭",
+      "goal_ko": "클럽용 큰 드롭이 있는 곡",
+      "term_ids": [
+        "melodic-techno",
+        "sidechain",
+        "filter-sweep",
+        "build-up-tag",
+        "drop-tag",
+        "vocal-chops",
+        "euphoric"
+      ],
+      "prompt_en": "Style: melodic techno, 126 BPM, sidechained pads, hypnotic arpeggiated lead, euphoric, pitched vocal chops\nLyrics: [Intro]\n[Build-Up: filter sweep, snare roll]\n[Drop]\n[Breakdown]\n[Build-Up]\n[Drop]\n[Outro]",
+      "notes_ko": "Suno 가이드는 세부 믹싱 파라미터 기재를 비권장 — 'sidechained' 수준의 형용사로만.",
+      "tools": [
+        "Suno",
+        "ElevenLabs Music"
+      ]
+    },
+    {
+      "id": "combo-horror-ambience",
+      "name_ko": "호러 앰비언스",
+      "goal_ko": "공포 게임·영상의 불길한 배경",
+      "term_ids": [
+        "ambient",
+        "drone-pedal",
+        "dissonant",
+        "eerie",
+        "music-box",
+        "distance-perspective"
+      ],
+      "prompt_en": "eerie foreboding ambient, low cello drone, dissonant string swells, detuned music box in the distance, no drums, 2 minutes",
+      "notes_ko": "'no drums'는 Lyria 3·ElevenLabs에선 본문에, Suno에선 Exclude에.",
+      "tools": [
+        "ElevenLabs Music",
+        "Lyria",
+        "Stable Audio",
+        "Suno"
+      ]
+    },
+    {
+      "id": "combo-boom-bap-loop",
+      "name_ko": "붐뱁 드럼 루프(스템)",
+      "goal_ko": "샘플링용 드럼만 있는 루프",
+      "term_ids": [
+        "boom-bap",
+        "swing-shuffle",
+        "bpm-number",
+        "silence-tag",
+        "seamless-loop",
+        "stem"
+      ],
+      "prompt_en": "A four-bar boom bap drum break at 90 BPM, dusty and swung, with no melody, just drums",
+      "notes_ko": "ElevenLabs Music 공식 예시 형태. 마디 수·BPM·제외 요소를 명시하는 것이 루프 정확도의 핵심.",
+      "tools": [
+        "ElevenLabs Music",
+        "Stable Audio"
+      ]
+    },
+    {
+      "id": "combo-genre-cover",
+      "name_ko": "같은 곡 장르 바꾸기",
+      "goal_ko": "멜로디·가사는 유지하고 장르만 변경",
+      "term_ids": [
+        "cover-feature",
+        "audio-influence",
+        "style-influence",
+        "bossa-nova",
+        "exclude-styles"
+      ],
+      "prompt_en": "Cover of my track → Style: acoustic bossa nova, nylon-string guitar, brushed drums, soft male vocal | Exclude: synths, heavy drums | Audio Influence ~90%, Style Influence ~80%",
+      "notes_ko": "슬라이더 수치는 커뮤니티 팁(공식값 아님). 원곡과 나란히 들으며 Audio Influence만 바꿔 비교.",
+      "tools": [
+        "Suno"
+      ]
+    },
+    {
+      "id": "combo-tts-emotional",
+      "name_ko": "감정 연기 대사",
+      "goal_ko": "재회 장면처럼 감정이 오가는 대사",
+      "term_ids": [
+        "tag-crying",
+        "tag-laughs",
+        "ellipsis-pause",
+        "caps-emphasis",
+        "stability-setting"
+      ],
+      "prompt_en": "[crying] I can't believe you actually came back... [sighs] I waited for SO long. [laughs] Look at me, I'm a mess.",
+      "notes_ko": "Stability를 Creative/Natural로 둬야 태그 반응이 크다. 진지한 목소리를 고를 것.",
+      "tools": [
+        "ElevenLabs v3"
+      ]
+    },
+    {
+      "id": "combo-tts-calm-guide",
+      "name_ko": "차분한 안내 음성",
+      "goal_ko": "명상·고객 안내용 안정적 내레이션",
+      "term_ids": [
+        "openai-instructions",
+        "pacing-instruction",
+        "persona-narrator",
+        "conversational"
+      ],
+      "prompt_en": "instructions: Voice Affect: calm, warm, reassuring. Tone: gentle and kind. Pacing: slow and steady, short pauses between sentences. Emotion: quiet confidence.\ninput: Take a deep breath. Let's begin when you're ready.",
+      "notes_ko": "OpenAI instructions는 반영이 불완전하다는 사용자 보고가 있어 목소리별로 테스트 필요.",
+      "tools": [
+        "OpenAI gpt-4o-mini-tts"
+      ]
+    },
+    {
+      "id": "combo-tts-dialogue",
+      "name_ko": "2인 대화 팟캐스트",
+      "goal_ko": "자연스러운 2인 대화 클립",
+      "term_ids": [
+        "multi-speaker",
+        "conversational",
+        "tag-curious",
+        "tag-laughs",
+        "tag-sarcastic"
+      ],
+      "prompt_en": "Speaker 1: [curious] So you really tried the new AI music tool?\nSpeaker 2: [laughs] Tried it? I made forty songs last night.\nSpeaker 1: [sarcastic] Oh, only forty.",
+      "notes_ko": "화자마다 다른 보이스 배정. 태그는 목소리 성격과 맞춰야 자연스럽다.",
+      "tools": [
+        "ElevenLabs v3"
+      ]
+    },
+    {
+      "id": "combo-sfx-door",
+      "name_ko": "영화 같은 문 열림 효과음",
+      "goal_ko": "재질·공간이 분명한 폴리 사운드",
+      "term_ids": [
+        "foley",
+        "material-surface",
+        "sequence-then",
+        "distance-perspective",
+        "duration-setting",
+        "prompt-influence-sfx"
+      ],
+      "prompt_en": "heavy old wooden door creaking open slowly in a stone hallway, then a distant metallic clank, reverberant | duration: 5s | prompt influence: high",
+      "notes_ko": "재질(wooden/metallic)·공간(stone hallway)·순서(then)를 하나씩 빼면서 비교하면 각 요소 효과가 보인다.",
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ]
+    },
+    {
+      "id": "combo-trailer-hits",
+      "name_ko": "트레일러 히트 세트",
+      "goal_ko": "예고편 편집용 라이저-브람-임팩트",
+      "term_ids": [
+        "riser",
+        "braam",
+        "impact",
+        "sub-bass-heavy",
+        "one-shot"
+      ],
+      "prompt_en": "8-second rising tension riser that ends in a massive cinematic braam and a deep sub-bass impact, long tail",
+      "notes_ko": "한 번에 안 되면 riser/braam/impact를 따로 생성해 편집기에서 레이어링(ElevenLabs 권장 워크플로).",
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ]
+    },
+    {
+      "id": "combo-rain-loop",
+      "name_ko": "빗소리 루프 앰비언스",
+      "goal_ko": "작업용·수면용 반복 환경음",
+      "term_ids": [
+        "ambience",
+        "seamless-loop",
+        "distance-perspective",
+        "duration-setting"
+      ],
+      "prompt_en": "soft steady rain on a window, distant thunder, cozy indoor room ambience | loop: on | duration: 30s",
+      "notes_ko": "30초를 루프로 만들어 반복 재생하는 것이 공식 권장 방식.",
+      "tools": [
+        "ElevenLabs SFX"
+      ]
+    },
+    {
+      "id": "combo-korean-fusion",
+      "name_ko": "국악 퓨전 앰비언트",
+      "goal_ko": "한국적 색채의 현대 BGM",
+      "term_ids": [
+        "gayageum",
+        "pentatonic",
+        "ambient",
+        "analog-pads",
+        "dreamy"
+      ],
+      "prompt_en": "modern Korean fusion ambient, gayageum plucks with pentatonic melody, warm analog pads, soft hand percussion, dreamy and serene, instrumental",
+      "notes_ko": "국악기는 학습량이 적어 다른 현악기로 대체될 수 있음 — 여러 도구에서 비교 추천.",
+      "tools": [
+        "Suno",
+        "ElevenLabs Music",
+        "Lyria"
+      ]
+    }
+  ],
+  "techniques": [
+    {
+      "id": "tech-one-term-ab",
+      "name": "One-term A/B swap",
+      "ko": "한 단어만 바꿔 비교",
+      "how_ko": "기준 원안을 고정하고 용어 하나만 교체해 여러 번(최소 2~3회씩) 생성한다. 생성 모델은 무작위성이 커서 1회 비교는 착시가 많다. 가능하면 seed를 고정(Stable Audio·MusicGen·Lyria 2 API).",
+      "when_ko": "용어 효과를 검증하거나 사전 예시를 만들 때",
+      "example": "base: 'mid-tempo pop song..., female vocal' → + 'breathy vocals' vs + 'belted vocals'",
+      "tools": [
+        "all"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide"
+      ]
+    },
+    {
+      "id": "tech-field-separation",
+      "name": "Style vs Lyrics separation",
+      "ko": "스타일/가사 필드 분리",
+      "how_ko": "전역 방향(장르·악기·보컬·질감)은 Style 필드, 섹션 태그와 구간 지시는 Lyrics 필드, 원치 않는 요소는 Exclude에 둔다.",
+      "when_ko": "Suno/Udio 커스텀 모드에서 지시가 섞여 무시될 때",
+      "example": "Style: dark trap, 808s | Lyrics: [Verse: half-time]... | Exclude: auto-tune",
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "tech-descriptor-budget",
+      "name": "4-7 descriptor budget",
+      "ko": "묘사어 4~7개 원칙",
+      "how_ko": "장르/서브장르, 템포, 핵심 악기, 보컬, 프로덕션, 분위기 중 4~7개만. 너무 많으면 서로 상쇄된다.",
+      "when_ko": "결과가 이도 저도 아닌 '평균적인' 곡으로 나올 때",
+      "example": "melancholic indie folk, 80 BPM, fingerpicked guitar, breathy female vocal, close-mic'd",
+      "tools": [
+        "Suno",
+        "Udio",
+        "Lyria"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "tech-specific-emotion",
+      "name": "Specific emotion words",
+      "ko": "구체적 감정어",
+      "how_ko": "happy→euphoric, sad→melancholic처럼 더 구체적인 단어를 고르고, 용도(광고·게임 전투·쇼츠)를 먼저 정한다.",
+      "when_ko": "분위기가 밋밋하게 나올 때",
+      "example": "euphoric, uplifting festival anthem for a product launch video",
+      "tools": [
+        "Stable Audio",
+        "Lyria",
+        "ElevenLabs Music"
+      ],
+      "sources": [
+        "https://stability.ai/learning-hub/stable-audio-25-prompt-guide"
+      ]
+    },
+    {
+      "id": "tech-narrate-arrangement",
+      "name": "Narrate the arrangement",
+      "ko": "편곡 전개 서술",
+      "how_ko": "'start with…, then…, bring in…'처럼 시간 순으로 서술하고, 빈 공간은 'just'로 지킨다. 필요하면 '15초에 가사 시작' 같은 타임코드.",
+      "when_ko": "태그 없는 모델(ElevenLabs Music, Lyria, Stable Audio)에서 구조를 잡을 때",
+      "example": "Start with solo piano, then bring in strings at 0:20, drums enter at 0:40, just piano for the last 10 seconds",
+      "tools": [
+        "ElevenLabs Music",
+        "Lyria",
+        "Stable Audio"
+      ],
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "tech-section-tags",
+      "name": "Section tags with descriptors",
+      "ko": "섹션 태그 + 묘사",
+      "how_ko": "[Verse: whispered, guitar only]처럼 태그에 콜론 묘사를 붙이고, 끝에 [End]를 둔다. 태그가 무시되면 해당 구간 가사 길이·반복으로 보강.",
+      "when_ko": "섹션별로 편성·창법 대비를 만들고 싶을 때",
+      "example": "[Verse 1: whispered vocals, acoustic guitar only]\n[Chorus: full band, belted]",
+      "tools": [
+        "Suno",
+        "Lyria 3"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "tech-exclude-not-negate",
+      "name": "Exclude instead of 'no X'",
+      "ko": "부정문 대신 제외 필드",
+      "how_ko": "Style에 'no drums'를 쓰면 오히려 drums 단어가 반영될 수 있다. Suno는 Exclude, Lyria 2/Stable Audio는 negative prompt. 제외 필드가 없는 모델(Lyria 3, ElevenLabs)은 'fully instrumental', 'just drums'처럼 긍정형으로.",
+      "when_ko": "원치 않는 악기·보컬이 계속 나올 때",
+      "example": "Exclude: vocals, drums  /  Lyria 3: 'fully instrumental, only piano and strings'",
+      "tools": [
+        "Suno",
+        "Lyria",
+        "Stable Audio",
+        "ElevenLabs Music"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials"
+      ]
+    },
+    {
+      "id": "tech-slider-sweep",
+      "name": "Slider sweep",
+      "ko": "슬라이더 단계 비교",
+      "how_ko": "같은 프롬프트로 Weirdness·Style Influence(Suno) 또는 Prompt Strength(Udio), Prompt Influence(ElevenLabs SFX)를 낮음/중간/높음 3단계로 생성해 비교.",
+      "when_ko": "창의성과 충실도의 균형점을 찾을 때",
+      "example": "Weirdness 20 / 50 / 80 with identical style + lyrics",
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs SFX"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno",
+        "https://pulsepixels.substack.com/p/guide-to-udio-music-creation",
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects"
+      ]
+    },
+    {
+      "id": "tech-iterate-with-tools",
+      "name": "Extend / Cover / Replace loop",
+      "ko": "연장·커버·구간교체 반복",
+      "how_ko": "좋은 부분이 나온 생성물을 기반으로 Extend(구조 태그로 시작), Replace Section(실패 구간만 재생성), Cover(장르 교체), Persona(보컬 재사용)를 반복해 완성도를 올린다.",
+      "when_ko": "한 번에 완벽한 곡이 나오지 않을 때",
+      "example": "Gen A 0:00-1:30 good → Extend with [Bridge] → Replace 2:10-2:30",
+      "tools": [
+        "Suno",
+        "Udio"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    },
+    {
+      "id": "tech-tts-tag-placement",
+      "name": "Audio tag placement",
+      "ko": "오디오 태그 배치",
+      "how_ko": "태그는 영향을 줄 문장 바로 앞에 둔다. 목소리 성격과 맞는 태그만 쓰고, 문장 자체에도 감정 맥락을 써 준다. ElevenLabs 'Enhance' 버튼으로 태그 자동 삽입 후 수정.",
+      "when_ko": "TTS가 감정 없이 평탄하게 읽을 때",
+      "example": "[whispers] Did you hear that? [excited] It's here!",
+      "tools": [
+        "ElevenLabs v3"
+      ],
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tech-tts-punctuation",
+      "name": "Punctuation as direction",
+      "ko": "문장부호 연출",
+      "how_ko": "쉼은 '...' 또는 줄바꿈, 강조는 대문자, 숫자·약어는 풀어서 쓴다(텍스트 정규화). v3는 SSML break 미지원.",
+      "when_ko": "리듬·강세·발음이 어색할 때",
+      "example": "It costs twenty-nine dollars... and it's WORTH it.",
+      "tools": [
+        "ElevenLabs v3",
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "sources": [
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tech-tts-structured-instructions",
+      "name": "Structured voice instructions",
+      "ko": "항목형 음성 지시",
+      "how_ko": "OpenAI instructions를 Voice Affect / Tone / Pacing / Emotion / Pronunciation / Pauses 항목으로 나눠 적는다(openai.fm 예시 형식).",
+      "when_ko": "OpenAI TTS에서 캐릭터 톤을 일관되게 유지할 때",
+      "example": "Voice Affect: low, hushed. Tone: ominous. Pacing: slow. Pauses: dramatic, before reveals.",
+      "tools": [
+        "OpenAI gpt-4o-mini-tts"
+      ],
+      "sources": [
+        "https://platform.openai.com/docs/guides/text-to-speech",
+        "https://www.openai.fm/"
+      ]
+    },
+    {
+      "id": "tech-sfx-layering",
+      "name": "Generate and layer",
+      "ko": "따로 생성 후 레이어링",
+      "how_ko": "복합 장면음은 요소별로(앰비언스·폴리·임팩트) 짧게 생성해 편집기에서 겹친다. 한 프롬프트에 너무 많은 사건을 넣으면 뭉개진다.",
+      "when_ko": "영상 사운드 디자인, 복합 효과음",
+      "example": "1) 'rain ambience loop' 2) 'footsteps on wet pavement' 3) 'car door slam, close'",
+      "tools": [
+        "ElevenLabs SFX",
+        "Stable Audio"
+      ],
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/sound-effects",
+        "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3"
+      ]
+    },
+    {
+      "id": "tech-stem-prompting",
+      "name": "Stem-style prompting",
+      "ko": "스템형 프롬프트",
+      "how_ko": "'solo <악기>', 'a cappella <보컬>'에 키·BPM·톤을 붙여 단독 트랙을 생성 → 같은 키/BPM으로 여러 개 만들어 DAW에서 합친다.",
+      "when_ko": "직접 믹싱하거나 다른 곡과 맞출 때",
+      "example": "solo electric guitar in A minor, 90 BPM, clean tone  +  a cappella female vocals in A minor, 90 BPM",
+      "tools": [
+        "ElevenLabs Music"
+      ],
+      "sources": [
+        "https://elevenlabs.io/docs/overview/capabilities/music/best-practices"
+      ]
+    },
+    {
+      "id": "tech-no-artist-names",
+      "name": "Describe, don't name",
+      "ko": "아티스트명 대신 묘사",
+      "how_ko": "실존 아티스트명은 다수 도구에서 차단·무시된다. 시대+장르+악기+보컬 음색+믹스 질감으로 분해해 묘사한다.",
+      "when_ko": "'○○ 스타일'을 원할 때",
+      "example": "1980s production, gated reverb drums, glossy FM synths, soaring male tenor",
+      "tools": [
+        "Suno",
+        "Udio",
+        "ElevenLabs Music",
+        "Lyria"
+      ],
+      "sources": [
+        "https://blakecrosley.com/guides/suno"
+      ]
+    }
+  ],
+  "sources": [
+    "https://blakecrosley.com/guides/suno",
+    "https://blog.google/products-and-platforms/products/gemini/tips-prompting-lyria-3/",
+    "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/music/music-gen-prompt-guide",
+    "https://elevenlabs.io/docs/best-practices/prompting/eleven-v3",
+    "https://elevenlabs.io/docs/cookbooks/music/quickstart",
+    "https://elevenlabs.io/docs/overview/capabilities/music/best-practices",
+    "https://elevenlabs.io/docs/overview/capabilities/sound-effects",
+    "https://github.com/facebookresearch/audiocraft/blob/main/docs/MUSICGEN.md",
+    "https://help.scenario.com/articles/9763266293-google-lyria-the-essentials",
+    "https://help.suno.com/",
+    "https://platform.openai.com/docs/guides/text-to-speech",
+    "https://pulsepixels.substack.com/p/guide-to-udio-music-creation",
+    "https://stability.ai/learning-hub/stable-audio-25-prompt-guide",
+    "https://stableaudio.com/user-guide/prompt-structure",
+    "https://www.openai.fm/",
+    "https://www.w3.org/TR/speech-synthesis11/"
+  ]
+}

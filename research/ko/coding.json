@@ -1,0 +1,787 @@
+{
+  "categories": {
+    "stack": {
+      "name_ko": "스택·라이브러리",
+      "desc_ko": "무엇으로 만들지 정해요. 파일 구조·외형·실행 방식이 가장 크게 바뀌어요."
+    },
+    "architecture": {
+      "name_ko": "구조·아키텍처",
+      "desc_ko": "코드를 어떻게 나눌지 정해요. 화면은 비슷해도 고치기 쉬운 정도와 버그 빈도가 달라져요."
+    },
+    "ui": {
+      "name_ko": "UI 동작·상태",
+      "desc_ko": "반응형, 로딩·빈·오류 상태, 인터랙션처럼 눈에 보이는 동작이에요."
+    },
+    "style": {
+      "name_ko": "비주얼 스타일",
+      "desc_ko": "서체·색·레이아웃 감각이에요. 'AI 티 나는' 기본 디자인에서 벗어나게 해요."
+    },
+    "quality": {
+      "name_ko": "코드 품질 지시",
+      "desc_ko": "production-ready, YAGNI처럼 코드 길이·견고함·과잉 설계 정도를 조절해요."
+    },
+    "testing": {
+      "name_ko": "테스트·검증",
+      "desc_ko": "AI가 스스로 결과를 확인할 기준을 줘요."
+    },
+    "game": {
+      "name_ko": "게임·인터랙티브",
+      "desc_ko": "게임 루프, 물리, 충돌, 파티클, 절차적 생성 같은 용어예요."
+    },
+    "data": {
+      "name_ko": "데이터·백엔드",
+      "desc_ko": "저장 방식, API, 스키마, 인증이에요."
+    },
+    "performance": {
+      "name_ko": "성능",
+      "desc_ko": "지연 로딩, 디바운스, 가상화처럼 체감 속도를 바꿔요."
+    },
+    "workflow": {
+      "name_ko": "AI 코딩 작업 방식",
+      "desc_ko": "계획, 규칙 파일, 스크린샷, 범위 제한처럼 AI와 일하는 방법이에요."
+    }
+  },
+  "base_prompts": {
+    "todo-app": {
+      "desc_ko": "스택·UI 상태·저장·품질 용어를 비교하기 좋은 가장 범용적인 원안으로, 아티팩트나 단일 HTML로 바로 열려요."
+    },
+    "bouncing-ball-game": {
+      "desc_ko": "게임·물리·성능 용어 비교용 원안으로, canvas/p5.js/Three.js 차이가 잘 보여요."
+    },
+    "landing-page": {
+      "desc_ko": "비주얼 스타일·반응형·마이크로 인터랙션을 비교하는 원안이에요."
+    },
+    "sales-dashboard": {
+      "desc_ko": "데이터 시각화·레이아웃·로딩 상태·목업 데이터를 비교하는 원안이에요."
+    }
+  },
+  "terms": {
+    "single-html-file": {
+      "ko": "단일 HTML 파일",
+      "effect_ko": "HTML·CSS·JS가 파일 하나에 담겨 바로 열어 볼 수 있어요. 빌드 도구·npm 설치 없이 구조가 단순해져요."
+    },
+    "vanilla-js": {
+      "ko": "순수 자바스크립트",
+      "effect_ko": "React 같은 프레임워크 없이 DOM API로 짜요. 짧고 의존성이 없지만, 상태가 커지면 직접 그리는 코드가 늘어요."
+    },
+    "cdn-no-build": {
+      "ko": "CDN 로드(빌드 없이)",
+      "effect_ko": "<script> 태그로 라이브러리를 불러와 설치 없이 돌아가요. 단일 파일·아티팩트에서 외부 라이브러리를 쓸 때 꼭 필요해요."
+    },
+    "react": {
+      "ko": "리액트",
+      "effect_ko": "UI를 컴포넌트와 useState/useEffect 훅으로 나눠요. 상호작용이 많을 때 상태 코드가 깔끔해지지만 코드량은 늘어요."
+    },
+    "typescript": {
+      "ko": "타입스크립트",
+      "effect_ko": "interface/type으로 데이터 구조를 적어 둬요. 코드는 길어지지만 잘못된 속성 접근 같은 오류를 미리 잡아요."
+    },
+    "tailwind": {
+      "ko": "테일윈드 CSS",
+      "effect_ko": "CSS 파일 대신 class=\"flex gap-4 rounded-xl\" 같은 유틸리티 클래스로 꾸며요. 간격·색이 고른 정돈된 외형이 나오기 쉬워요."
+    },
+    "plain-css-variables": {
+      "ko": "순수 CSS + CSS 변수",
+      "effect_ko": "색·간격을 :root 변수로 정의한 일반 CSS가 나와요. 다크 모드 같은 테마 변경이 변수 교체로 끝나요."
+    },
+    "shadcn-ui": {
+      "ko": "shadcn/ui 컴포넌트",
+      "effect_ko": "버튼·카드·다이얼로그를 shadcn/ui(Radix 기반)로 만들어 접근성과 SaaS풍 외형이 기본으로 들어가요. v0의 기본 조합이에요."
+    },
+    "nextjs": {
+      "ko": "Next.js (앱 라우터)",
+      "effect_ko": "app/ 폴더 라우팅, 서버 컴포넌트, API 라우트로 된 풀스택 구조가 돼요. 여러 페이지와 SEO가 필요한 사이트에 맞아요."
+    },
+    "vite": {
+      "ko": "Vite 싱글 페이지 앱",
+      "effect_ko": "서버 기능 없는 가벼운 SPA 구조(index.html + src/)가 나와요. Lovable·Bolt의 기본 형태예요."
+    },
+    "alpinejs": {
+      "ko": "Alpine.js",
+      "effect_ko": "x-data, x-on 같은 HTML 속성만으로 간단한 동작을 붙여요. 드롭다운·탭을 React보다 훨씬 짧게 만들어요."
+    },
+    "threejs": {
+      "ko": "Three.js 3D",
+      "effect_ko": "카메라·조명·메시가 있는 WebGL 3D 장면이 나와요. 같은 요청도 평면 대신 원근감 있는 3D가 돼요."
+    },
+    "p5js": {
+      "ko": "p5.js 크리에이티브 코딩",
+      "effect_ko": "setup()/draw() 구조의 아주 짧은 스케치 코드가 나와요. 생성 예술·인터랙티브 아트·빠른 프로토타입에 맞아요."
+    },
+    "canvas-2d": {
+      "ko": "캔버스 2D",
+      "effect_ko": "<canvas>에 픽셀 단위로 직접 그려요. DOM 대신 그리기 루프로 돌아 게임·애니메이션 성능이 좋아요."
+    },
+    "phaser": {
+      "ko": "Phaser 게임 엔진",
+      "effect_ko": "씬·스프라이트·아케이드 물리를 엔진이 처리해요. 직접 짜던 충돌·루프 코드가 줄어 기능 많은 게임이 빨리 나와요."
+    },
+    "matter-js": {
+      "ko": "Matter.js 물리 엔진",
+      "effect_ko": "중력·회전·쌓기·충돌 반발을 엔진이 계산해요. 직접 만든 물리보다 물체가 사실적으로 구르고 쌓여요."
+    },
+    "chart-library": {
+      "ko": "차트 라이브러리",
+      "effect_ko": "숫자 표 대신 축·범례·툴팁이 있는 차트를 그려요. React면 Recharts, 단일 파일이면 Chart.js가 무난해요."
+    },
+    "motion-library": {
+      "ko": "Motion 애니메이션",
+      "effect_ko": "등장·전환·레이아웃 이동에 스프링 애니메이션이 붙어요. CSS transition보다 부드럽고 목록 재정렬도 자연스러워요."
+    },
+    "lucide-icons": {
+      "ko": "Lucide 아이콘",
+      "effect_ko": "이모지·텍스트 대신 통일된 선 아이콘이 버튼·메뉴에 들어가요. 화면이 바로 더 완성도 있어 보여요."
+    },
+    "supabase": {
+      "ko": "Supabase 백엔드",
+      "effect_ko": "Postgres DB·인증·실시간 구독이 연결돼 여러 기기에서 데이터를 공유해요. Lovable·Bolt의 기본 백엔드예요."
+    },
+    "python-cli": {
+      "ko": "파이썬 CLI 스크립트",
+      "effect_ko": "--input, --dry-run 같은 인자를 받는 스크립트가 나와요. 경로를 박아 두지 않아 다시 쓰기 좋아요."
+    },
+    "streamlit": {
+      "ko": "Streamlit 웹앱",
+      "effect_ko": "파이썬 몇 줄로 업로드·슬라이더·차트가 있는 웹 화면이 생겨요. 스크립트를 비개발자용 화면으로 바꿀 때 좋아요."
+    },
+    "component-based": {
+      "ko": "컴포넌트 기반 구조",
+      "effect_ko": "화면을 Header, TodoList, TodoItem처럼 재사용할 수 있는 단위로 나눠요. 고칠 범위가 분명해져요."
+    },
+    "monolithic-file": {
+      "ko": "한 파일에 몰아넣기",
+      "effect_ko": "모든 로직이 한 파일·한 함수에 들어가요. 프로토타입엔 빠르지만 커질수록 고치기 어려워요(비교 기준점)."
+    },
+    "modular-files": {
+      "ko": "책임별 파일 분리",
+      "effect_ko": "game.js, input.js, renderer.js처럼 역할별 파일로 나눠요. 나중에 AI가 필요한 파일만 고치기 쉬워요."
+    },
+    "separation-of-concerns": {
+      "ko": "관심사 분리",
+      "effect_ko": "데이터 로직·화면·저장 코드를 섞지 않고 나눠요. 저장 방식을 바꿔도 화면 코드는 그대로예요."
+    },
+    "mvc": {
+      "ko": "MVC 패턴",
+      "effect_ko": "Model(데이터)·View(화면)·Controller(입력)로 코드를 나눠요. 바닐라 JS 앱 구조가 확실히 정돈돼요."
+    },
+    "state-management": {
+      "ko": "중앙 상태 관리",
+      "effect_ko": "흩어진 변수 대신 하나의 스토어(useReducer, Zustand)로 데이터를 관리해요. 여러 화면이 같은 데이터를 일관되게 보여 줘요."
+    },
+    "single-source-of-truth": {
+      "ko": "단일 진실 공급원",
+      "effect_ko": "같은 데이터를 여러 곳에 복사하지 않고 한 곳에서만 관리해요. '목록은 바뀌었는데 개수는 그대로' 같은 버그가 줄어요."
+    },
+    "custom-hooks": {
+      "ko": "커스텀 훅",
+      "effect_ko": "useLocalStorage, useDebounce처럼 반복 로직을 훅으로 빼서 컴포넌트가 짧아져요."
+    },
+    "monorepo": {
+      "ko": "모노레포",
+      "effect_ko": "프론트·백엔드·공용 타입을 한 저장소의 apps/·packages/로 나눠요. 코드 공유가 쉽지만 초기 설정 파일이 많아요."
+    },
+    "client-side-routing": {
+      "ko": "클라이언트 라우팅",
+      "effect_ko": "한 화면 앱을 /, /settings, /item/:id 같은 여러 페이지로 나누고 뒤로 가기가 동작해요."
+    },
+    "design-tokens": {
+      "ko": "디자인 토큰",
+      "effect_ko": "색·폰트·간격·라운드를 --color-primary 같은 이름으로 정의해 전체 화면이 같은 규칙을 따라요. 테마 교체가 한 곳에서 끝나요."
+    },
+    "event-driven": {
+      "ko": "이벤트 기반 구조",
+      "effect_ko": "모듈끼리 직접 부르지 않고 이벤트(emit/on)로 소통해요. 게임의 점수·사운드·UI가 느슨하게 연결돼요."
+    },
+    "responsive": {
+      "ko": "반응형 레이아웃",
+      "effect_ko": "화면 폭에 따라 열 수·여백·글자 크기가 바뀌어요. 안 쓰면 데스크톱 고정폭으로 나오기 쉬워요."
+    },
+    "mobile-first": {
+      "ko": "모바일 우선",
+      "effect_ko": "작은 화면부터 설계해 큰 터치 영역·하단 내비·세로 흐름이 기본이 돼요. 데스크톱을 줄인 화면과 달라요."
+    },
+    "dark-mode": {
+      "ko": "다크 모드",
+      "effect_ko": "어두운 테마와 전환 토글이 생겨요. prefers-color-scheme을 쓰면 OS 설정을 자동으로 따라요."
+    },
+    "accessible-a11y": {
+      "ko": "접근성(a11y)",
+      "effect_ko": "시맨틱 태그·aria-label·포커스 표시·충분한 명암비가 들어가요. 겉으론 비슷해도 키보드·스크린리더로 쓸 수 있어요."
+    },
+    "keyboard-navigation": {
+      "ko": "키보드 조작·단축키",
+      "effect_ko": "Tab 이동, Enter 추가, Esc 닫기, / 검색 같은 단축키가 동작해요. 마우스 없이도 쓸 수 있어요."
+    },
+    "high-contrast": {
+      "ko": "고대비",
+      "effect_ko": "글자와 배경 대비가 커지고 연한 회색 글자가 사라져요. 읽기 쉽고 또렷해져요."
+    },
+    "micro-interactions": {
+      "ko": "마이크로 인터랙션",
+      "effect_ko": "버튼 눌림, 체크 시 줄긋기, 호버 시 살짝 뜨기 같은 작은 반응이 붙어요. 화면이 살아 있는 느낌이 나요."
+    },
+    "css-transitions": {
+      "ko": "CSS 전환 효과",
+      "effect_ko": "라이브러리 없이 transition/@keyframes로 부드럽게 바뀌어요. 가볍지만 복잡한 순서 애니메이션은 어려워요."
+    },
+    "reduced-motion": {
+      "ko": "모션 줄이기 대응",
+      "effect_ko": "OS에서 '동작 줄이기'를 켠 사용자에겐 애니메이션을 꺼요. 평소 화면은 같아요."
+    },
+    "skeleton-loading": {
+      "ko": "스켈레톤 로딩",
+      "effect_ko": "불러오는 동안 스피너 대신 실제 레이아웃 모양의 회색 블록을 보여 줘요. 기다림이 짧게 느껴져요."
+    },
+    "loading-error-states": {
+      "ko": "로딩·빈·오류 상태",
+      "effect_ko": "데이터 없음·불러오는 중·실패 화면이 따로 생겨요. 안 쓰면 빈 화면이나 깨진 화면이 그대로 보이기 쉬워요."
+    },
+    "empty-state": {
+      "ko": "빈 상태 화면",
+      "effect_ko": "항목이 없을 때 일러스트·안내 문구·'첫 항목 추가' 버튼이 나와요. 첫인상이 크게 좋아져요."
+    },
+    "optimistic-ui": {
+      "ko": "낙관적 UI 업데이트",
+      "effect_ko": "서버 응답 전에 화면을 먼저 바꾸고, 실패하면 되돌려요. 클릭 반응이 즉각적으로 느껴져요."
+    },
+    "infinite-scroll": {
+      "ko": "무한 스크롤",
+      "effect_ko": "목록 끝에 닿으면 다음 항목을 자동으로 불러와요(IntersectionObserver). 페이지 번호가 없어져요."
+    },
+    "pagination": {
+      "ko": "페이지네이션",
+      "effect_ko": "목록을 페이지로 나누고 이전·다음·번호 버튼을 둬요. 무한 스크롤보다 위치 기억과 공유가 쉬워요."
+    },
+    "search-filter-sort": {
+      "ko": "검색·필터·정렬",
+      "effect_ko": "목록 위에 검색창·필터 탭·정렬 메뉴가 생기고 결과가 바로 걸러져요."
+    },
+    "toast-notifications": {
+      "ko": "토스트 알림",
+      "effect_ko": "저장·삭제 뒤 화면 구석에 잠깐 떴다 사라지는 알림이 나와요. alert() 팝업이 없어져요."
+    },
+    "undo-action": {
+      "ko": "실행 취소(Undo)",
+      "effect_ko": "'정말 삭제?' 확인창 대신 바로 지우고 '실행 취소' 버튼을 띄워요. 흐름이 끊기지 않아요."
+    },
+    "modal-dialog": {
+      "ko": "모달 대화상자",
+      "effect_ko": "편집·확인을 화면 위에 뜨는 창에서 해요. 포커스 가두기·Esc 닫기까지 요청하면 접근성도 챙겨요."
+    },
+    "inline-editing": {
+      "ko": "인라인 편집",
+      "effect_ko": "텍스트를 더블클릭하면 그 자리에서 입력창으로 바뀌어요. 모달 없이 빠르게 고쳐요."
+    },
+    "drag-and-drop": {
+      "ko": "드래그 앤 드롭",
+      "effect_ko": "항목을 끌어 순서를 바꾸거나 칸반 열 사이로 옮겨요. 정적인 목록이 조작 가능한 보드가 돼요."
+    },
+    "inline-form-validation": {
+      "ko": "실시간 입력 검증",
+      "effect_ko": "제출 후 한꺼번에가 아니라 입력 중이나 포커스를 벗어날 때 필드 아래에 오류를 보여 줘요."
+    },
+    "command-palette": {
+      "ko": "커맨드 팔레트",
+      "effect_ko": "Ctrl+K로 여는 검색형 명령 창이 생겨요. 메뉴를 뒤지지 않고 모든 기능에 닿는 파워유저 앱 느낌이에요."
+    },
+    "sticky-header": {
+      "ko": "고정 헤더",
+      "effect_ko": "스크롤해도 상단 내비가 고정되고, 스크롤하면 배경 흐림이나 그림자가 생겨요."
+    },
+    "dashboard-layout": {
+      "ko": "대시보드 레이아웃",
+      "effect_ko": "사이드바, KPI 카드, 차트, 표로 된 관리 화면이 나와요. '대시보드'만 쓰기보다 지표 이름을 나열하면 정확해요."
+    },
+    "distinctive-aesthetic": {
+      "ko": "개성 있는 디자인",
+      "effect_ko": "흔한 보라 그라디언트·Inter 폰트·카드 나열 대신 뚜렷한 콘셉트의 색·서체·배경이 나와요. Anthropic이 'AI slop'을 피하려고 권해요."
+    },
+    "typography-pairing": {
+      "ko": "서체 조합 지정",
+      "effect_ko": "제목·본문 폰트를 정하고 굵기 대비를 키워 위계가 분명해져요. 디자인 인상을 가장 크게 바꾸는 요소예요."
+    },
+    "dominant-accent-palette": {
+      "ko": "주조색 + 강조색",
+      "effect_ko": "여러 색을 고르게 쓰는 대신 주조색 하나와 날카로운 강조색으로 정리해요. 기억에 남는 화면이 돼요."
+    },
+    "minimal-style": {
+      "ko": "미니멀",
+      "effect_ko": "여백이 넓고 장식·그림자가 줄어든 단정한 화면이에요. Lovable 가이드의 대표 스타일 키워드예요."
+    },
+    "neo-brutalism": {
+      "ko": "네오 브루탈리즘",
+      "effect_ko": "두꺼운 검은 테두리, 원색 블록, 딱딱한 그림자로 강렬하고 장난스러운 화면이 돼요."
+    },
+    "glassmorphism": {
+      "ko": "글래스모피즘",
+      "effect_ko": "반투명 유리 패널에 배경 블러(backdrop-filter)를 넣은 몽환적인 화면이에요."
+    },
+    "bento-grid": {
+      "ko": "벤토 그리드",
+      "effect_ko": "크기가 다른 카드를 도시락처럼 격자에 배치해요. 기능 소개가 3열 카드보다 역동적이에요."
+    },
+    "real-content": {
+      "ko": "실제 문구 사용",
+      "effect_ko": "'Lorem ipsum' 대신 실제 같은 제목·설명·가격을 넣어요. 줄바꿈 같은 레이아웃 문제가 미리 보여요."
+    },
+    "design-reference": {
+      "ko": "레퍼런스 스타일 지정",
+      "effect_ko": "IDE 테마·잡지·특정 문화 감성처럼 구체적인 참조를 주면 색·서체·밀도가 그쪽으로 맞춰져요."
+    },
+    "production-ready": {
+      "ko": "프로덕션 수준",
+      "effect_ko": "오류 처리·입력 검증·로딩 상태·환경변수 분리가 들어간 코드가 나와요. 코드량은 늘어요."
+    },
+    "prototype-quick": {
+      "ko": "빠른 프로토타입",
+      "effect_ko": "핵심 동작만 빠르게 만들고 예외 처리·구조화는 건너뛰어요. production-ready와 비교하면 길이 차이가 뚜렷해요."
+    },
+    "type-safe": {
+      "ko": "타입 안전",
+      "effect_ko": "any 없이 함수 인자·반환값·API 응답에 모두 타입을 붙여요. zod 런타임 검증까지 요청하면 외부 데이터도 검사해요."
+    },
+    "error-handling": {
+      "ko": "오류 처리",
+      "effect_ko": "try/catch, 실패 안내 메시지, 재시도 로직이 생겨요. 네트워크가 끊겨도 앱이 멈추지 않아요."
+    },
+    "edge-cases": {
+      "ko": "엣지 케이스 처리",
+      "effect_ko": "빈 입력, 공백만 입력, 아주 긴 텍스트, 중복, 0개 목록 같은 경계 상황을 처리해요. 구체적인 목록을 주면 더 좋아요."
+    },
+    "input-validation": {
+      "ko": "입력 검증·정제",
+      "effect_ko": "입력의 길이·형식을 검사하고, HTML로 보여 줄 때 이스케이프해요(innerHTML 대신 textContent)."
+    },
+    "security-xss": {
+      "ko": "기본 보안 적용",
+      "effect_ko": "XSS 방지, API 키 대신 환경변수 사용, 서버 쪽 권한 검사가 들어가요."
+    },
+    "refactor": {
+      "ko": "리팩터링",
+      "effect_ko": "기능은 그대로 두고 함수 분리·이름 개선·중복 제거만 해요. '동작 변경 금지'를 함께 쓰면 엉뚱한 수정이 줄어요."
+    },
+    "dry": {
+      "ko": "중복 제거(DRY)",
+      "effect_ko": "반복된 코드를 공용 함수·컴포넌트로 합쳐요. 과하면 추상화가 늘어나니 YAGNI와 비교해 보세요."
+    },
+    "yagni": {
+      "ko": "YAGNI(필요 없는 건 안 만들기)",
+      "effect_ko": "요청하지 않은 옵션·추상화·미래 대비 기능을 빼서 코드가 짧아져요. AI의 과잉 설계를 막는 데 좋아요."
+    },
+    "kiss": {
+      "ko": "단순하게(KISS)",
+      "effect_ko": "가장 단순한 방법을 골라 라이브러리·파일 수가 줄어요. 초보자도 읽기 쉬운 코드가 돼요."
+    },
+    "clean-code-comments": {
+      "ko": "주석·가독성 중심 코드",
+      "effect_ko": "함수마다 의도를 설명하는 주석·JSDoc과 뜻이 드러나는 변수명이 붙어요. 배우기 좋지만 길어져요."
+    },
+    "minimal-diff": {
+      "ko": "최소 변경",
+      "effect_ko": "요청한 부분만 고치고 주변 서식·이름은 그대로 둬요. 리뷰하기 쉬운 작은 변경이 나와요."
+    },
+    "root-cause": {
+      "ko": "근본 원인 수정",
+      "effect_ko": "오류를 try/catch로 덮거나 테스트를 끄지 않고 원인을 찾아 고쳐요. Claude Code 공식 가이드가 권하는 문구예요."
+    },
+    "lint-format": {
+      "ko": "린트·포맷 적용",
+      "effect_ko": "서식이 일정하고 규칙을 어기지 않는 코드가 돼요. 설정 파일과 실행 스크립트가 추가돼요."
+    },
+    "tdd": {
+      "ko": "테스트 주도 개발",
+      "effect_ko": "실패하는 테스트를 먼저 쓰고 통과하게 구현해요. 테스트 파일이 함께 생기고 요구사항이 테스트로 고정돼요."
+    },
+    "unit-tests": {
+      "ko": "단위 테스트",
+      "effect_ko": "핵심 함수별 테스트 파일(*.test.ts)과 실행 명령이 생겨요."
+    },
+    "e2e-tests": {
+      "ko": "E2E 테스트",
+      "effect_ko": "실제 브라우저를 띄워 클릭·입력 시나리오를 확인하는 테스트가 생겨요. UI가 깨지는 걸 잡아요."
+    },
+    "test-cases-examples": {
+      "ko": "구체적인 테스트 예시",
+      "effect_ko": "입력→기대 출력 예시를 주면 AI가 그 기준으로 만들고 확인해요. 막연한 요구보다 훨씬 정확해요."
+    },
+    "visual-verification": {
+      "ko": "스크린샷 비교 검증",
+      "effect_ko": "AI가 결과 화면을 캡처해 원본 디자인과 비교하며 고쳐요. 디자인과 더 똑같아져요."
+    },
+    "game-loop": {
+      "ko": "게임 루프",
+      "effect_ko": "update→render를 매 프레임 반복해요. setInterval보다 부드럽고 탭이 비활성이면 자동으로 멈춰요."
+    },
+    "delta-time": {
+      "ko": "델타 타임",
+      "effect_ko": "속도를 '픽셀/초'로 계산해 60Hz·144Hz 모니터에서 게임 속도가 같아요."
+    },
+    "fixed-timestep": {
+      "ko": "고정 시간 간격 물리",
+      "effect_ko": "물리를 1/60초 같은 고정 간격으로 계산해 충돌 관통·흔들림이 줄고 결과를 재현할 수 있어요."
+    },
+    "physics": {
+      "ko": "물리(중력·속도·마찰·반발)",
+      "effect_ko": "물체가 중력으로 떨어지고 바닥에서 튀다가 멈춰요. 안 쓰면 일정한 속도로 직선 이동만 하기 쉬워요."
+    },
+    "collision-detection": {
+      "ko": "충돌 감지",
+      "effect_ko": "사각형(AABB)·원 충돌 판정으로 물체끼리 부딪혀요. 원-원 충돌을 쓰면 공끼리 튕겨요."
+    },
+    "spatial-hash": {
+      "ko": "공간 분할 충돌 최적화",
+      "effect_ko": "가까운 물체끼리만 충돌을 검사해 수백 개가 있어도 프레임이 유지돼요."
+    },
+    "particle-system": {
+      "ko": "파티클 시스템",
+      "effect_ko": "폭발·불꽃·먼지 같은 수십~수백 개 입자 효과가 생겨요. 충돌·득점 순간이 화려해져요."
+    },
+    "game-juice": {
+      "ko": "게임 손맛(주스)",
+      "effect_ko": "화면 흔들림, 잠깐 멈춤, 찌그러짐, 효과음이 붙어요. 같은 게임도 타격감이 확 살아나요."
+    },
+    "easing-tweening": {
+      "ko": "이징·트윈",
+      "effect_ko": "일정한 속도 대신 가속·감속 곡선(easeOutCubic)으로 움직여 자연스러워요."
+    },
+    "game-state-machine": {
+      "ko": "게임 상태 머신",
+      "effect_ko": "시작·플레이·일시정지·게임오버 화면이 나뉘고 재시작이 돼요. 안 쓰면 바로 시작해 끝나면 멈추기 쉬워요."
+    },
+    "procedural-generation": {
+      "ko": "절차적 생성",
+      "effect_ko": "레벨·지형·맵을 매번 알고리즘으로 만들어요. 시드(seed)를 정하면 같은 맵을 다시 볼 수 있어요."
+    },
+    "perlin-noise": {
+      "ko": "펄린 노이즈",
+      "effect_ko": "완전한 무작위 대신 부드럽게 이어지는 노이즈로 자연스러운 지형·구름·흐름을 그려요."
+    },
+    "tilemap": {
+      "ko": "타일맵",
+      "effect_ko": "월드를 2D 격자로 표현해 벽·바닥·아이템 배치와 충돌이 쉬워요. 퍼즐·로그라이크에 맞아요."
+    },
+    "sprite-animation": {
+      "ko": "스프라이트 애니메이션",
+      "effect_ko": "걷기·점프처럼 프레임 단위로 움직이는 캐릭터가 나와요. 이미지가 없으면 코드로 그린 픽셀 스프라이트를 요청하세요."
+    },
+    "pixel-art-crisp": {
+      "ko": "픽셀아트 렌더링",
+      "effect_ko": "확대해도 흐려지지 않는 또렷한 도트 그래픽이 돼요(imageSmoothingEnabled=false, 정수 배율)."
+    },
+    "parallax": {
+      "ko": "패럴랙스 배경",
+      "effect_ko": "배경 여러 겹이 다른 속도로 움직여 깊이감이 생겨요. 게임과 랜딩 페이지 모두에 써요."
+    },
+    "input-handling": {
+      "ko": "입력 처리(키보드·터치)",
+      "effect_ko": "키 상태 맵으로 동시 입력이 되고, 모바일용 가상 버튼·스와이프가 생겨요."
+    },
+    "high-score": {
+      "ko": "최고 점수 저장",
+      "effect_ko": "게임오버 화면에 점수와 localStorage에 저장된 최고 기록이 나와요. 다시 도전하고 싶어져요."
+    },
+    "web-audio-sfx": {
+      "ko": "효과음(Web Audio)",
+      "effect_ko": "파일 없이 코드로 만든 '삑'·'퐁' 소리가 충돌·득점 때 나요. 사용자가 처음 입력한 뒤에 소리를 켤 수 있어요."
+    },
+    "ecs": {
+      "ko": "ECS 구조",
+      "effect_ko": "게임 객체를 엔티티·컴포넌트·시스템으로 나눠 적·총알 종류를 늘리기 쉬워요. 작은 게임엔 과할 수 있어요."
+    },
+    "crud": {
+      "ko": "CRUD(생성·조회·수정·삭제)",
+      "effect_ko": "추가만 되던 앱에 수정·삭제·상세 보기까지 모두 들어가요. 기능 누락을 막는 짧은 키워드예요."
+    },
+    "localstorage": {
+      "ko": "로컬스토리지 저장",
+      "effect_ko": "새로고침해도 데이터가 남아요. 브라우저에만 저장돼 다른 기기와는 공유되지 않아요."
+    },
+    "indexeddb": {
+      "ko": "IndexedDB 저장",
+      "effect_ko": "이미지·대량 데이터처럼 localStorage 용량을 넘는 데이터도 브라우저에 저장해요. 비동기 코드가 추가돼요."
+    },
+    "rest-api": {
+      "ko": "REST API",
+      "effect_ko": "GET/POST/PUT/DELETE 엔드포인트(/api/todos)가 있는 서버와 이를 부르는 프론트가 만들어져요."
+    },
+    "data-schema": {
+      "ko": "데이터 스키마 먼저 정의",
+      "effect_ko": "필드·타입·관계를 먼저 정해 화면·저장·API가 같은 구조를 따라요. 필드 누락과 불일치가 줄어요."
+    },
+    "mock-data": {
+      "ko": "목업 데이터",
+      "effect_ko": "처음 열 때 그럴듯한 샘플 데이터가 채워져 있어 화면이 비어 보이지 않아요."
+    },
+    "json-import-export": {
+      "ko": "JSON 가져오기·내보내기",
+      "effect_ko": "데이터를 파일로 백업·복원하는 버튼이 생겨요. localStorage 앱의 데이터 이동 문제를 풀어 줘요."
+    },
+    "auth": {
+      "ko": "인증(로그인)",
+      "effect_ko": "로그인·회원가입 화면과 로그인 여부에 따른 화면 분기가 생겨요. 사용자별로 데이터가 나뉘어요."
+    },
+    "row-level-security": {
+      "ko": "행 수준 보안(RLS)",
+      "effect_ko": "DB에서 사용자가 자기 데이터만 읽고 쓰게 하는 정책이 생겨요. 화면은 같지만 유출 위험이 줄어요."
+    },
+    "url-state": {
+      "ko": "URL에 상태 저장",
+      "effect_ko": "필터·검색어·탭을 URL(?filter=done)에 담아 새로고침하거나 공유해도 같은 화면이 나와요."
+    },
+    "lazy-loading": {
+      "ko": "지연 로딩",
+      "effect_ko": "화면 밖 이미지·무거운 컴포넌트를 필요할 때 불러와 첫 화면이 빨리 떠요(loading=\"lazy\", React.lazy)."
+    },
+    "code-splitting": {
+      "ko": "코드 분할",
+      "effect_ko": "앱을 페이지·기능별 번들로 나눠 처음 받는 크기가 줄어요."
+    },
+    "memoization": {
+      "ko": "메모이제이션",
+      "effect_ko": "같은 입력의 계산·렌더링을 저장해 두고 다시 써요. 큰 목록에서 타이핑할 때 버벅임이 줄어요."
+    },
+    "debounce": {
+      "ko": "디바운스",
+      "effect_ko": "입력이 멈춘 뒤(예: 300ms) 한 번만 검색·요청해요. 키를 누를 때마다 API를 부르는 문제가 사라져요."
+    },
+    "throttle": {
+      "ko": "스로틀",
+      "effect_ko": "스크롤·리사이즈 처리를 일정 간격(예: 100ms)으로 제한해 화면이 부드러워요."
+    },
+    "virtualization": {
+      "ko": "목록 가상화",
+      "effect_ko": "화면에 보이는 행만 그려서 1만 개 행도 매끄럽게 스크롤돼요."
+    },
+    "object-pooling": {
+      "ko": "오브젝트 풀링",
+      "effect_ko": "총알·파티클을 매번 만들고 지우지 않고 다시 써요. 가비지 컬렉션 때문에 끊기는 일이 없어져요."
+    },
+    "web-worker": {
+      "ko": "웹 워커로 분리",
+      "effect_ko": "이미지 처리·대량 정렬 같은 무거운 계산을 별도 스레드에서 돌려 화면이 멈추지 않아요."
+    },
+    "performance-budget": {
+      "ko": "성능 목표 수치 지정",
+      "effect_ko": "60fps, Lighthouse 90+ 같은 목표를 주면 이미지 최적화·불필요한 라이브러리 제거 같은 조치가 함께 들어가요."
+    },
+    "spec-first": {
+      "ko": "명세서(PRD) 먼저",
+      "effect_ko": "코드 전에 기능·범위·제외 사항을 정리한 문서가 나와요. 이를 기준으로 만들어 엉뚱한 기능이 줄어요."
+    },
+    "plan-mode": {
+      "ko": "계획 모드",
+      "effect_ko": "AI가 파일을 고치지 않고 먼저 읽은 뒤 계획만 보여 줘요. 여러 파일을 고칠 때 방향 실수가 줄어요."
+    },
+    "step-by-step-plan": {
+      "ko": "단계별 계획 요청",
+      "effect_ko": "작업을 번호 붙인 작은 단계로 나눠 단계마다 확인할 수 있어요."
+    },
+    "interview-me": {
+      "ko": "먼저 질문하게 하기",
+      "effect_ko": "AI가 바로 만들지 않고 요구사항부터 물어봐요. 놓친 엣지 케이스와 UX 결정이 드러나요."
+    },
+    "rules-file": {
+      "ko": "규칙 파일(CLAUDE.md 등)",
+      "effect_ko": "세션마다 자동으로 읽는 프로젝트 규칙이에요. 스택·명령·코드 스타일이 매번 똑같이 적용돼요."
+    },
+    "knowledge-file": {
+      "ko": "프로젝트 지식·지침",
+      "effect_ko": "웹 빌더에 프로젝트 전체 스타일·규칙을 저장해요. 섹션마다 디자인이 흔들리지 않아요."
+    },
+    "reference-screenshot": {
+      "ko": "참고 스크린샷 첨부",
+      "effect_ko": "말로 설명하기 어려운 레이아웃·간격·분위기를 이미지로 재현해요. 글로 묘사할 때보다 결과가 더 비슷해요."
+    },
+    "small-iterations": {
+      "ko": "작게 나눠 반복",
+      "effect_ko": "한 번에 기능 하나만 추가해요. 덜 깨지고 어디서 문제가 났는지 바로 알 수 있어요."
+    },
+    "paste-error-log": {
+      "ko": "오류 로그 그대로 붙여넣기",
+      "effect_ko": "'안 돼요' 대신 정확한 에러와 재현 단계를 주면 추측 수정이 줄어요. 한 번에 고쳐질 가능성이 커요."
+    },
+    "dont-change-x": {
+      "ko": "건드리지 말 것 명시",
+      "effect_ko": "수정 범위를 제한해 잘 되던 로그인·스타일이 덩달아 바뀌는 사고가 줄어요."
+    },
+    "acceptance-criteria": {
+      "ko": "완료 조건(인수 기준)",
+      "effect_ko": "'완료' 기준을 체크리스트로 주면 AI가 항목을 모두 채웠는지 확인하며 만들어요."
+    },
+    "follow-existing-patterns": {
+      "ko": "기존 코드 패턴 따르기",
+      "effect_ko": "새 기능이 기존 컴포넌트·이름 규칙·라이브러리 방식을 따라 자연스럽게 붙어요."
+    },
+    "verify-run": {
+      "ko": "실행해서 검증하게 하기",
+      "effect_ko": "AI가 빌드·테스트·화면 확인을 직접 돌려 실패를 스스로 고쳐요. 그럴듯하지만 안 돌아가는 코드가 줄어요."
+    },
+    "checkpoints": {
+      "ko": "체크포인트·되돌리기",
+      "effect_ko": "잘 돌아가는 시점을 저장해 두고 실험이 실패하면 되돌려요. 과감한 변경을 시도할 수 있어요."
+    },
+    "target-or-lock-file": {
+      "ko": "파일 지정·잠금",
+      "effect_ko": "고칠 파일을 정하거나 특정 파일을 잠가 AI가 건드리지 못하게 해요."
+    }
+  },
+  "combos": {
+    "instant-artifact-app": {
+      "name_ko": "바로 열리는 한 파일 앱",
+      "goal_ko": "설치 없이 브라우저에서 바로 도는 미니 앱이 필요할 때",
+      "notes_ko": "Claude 아티팩트나 로컬 파일로 열기 좋아요. 외부 라이브러리가 필요하면 CDN을 지정하세요."
+    },
+    "polished-saas-ui": {
+      "name_ko": "깔끔한 SaaS풍 UI",
+      "goal_ko": "v0·Lovable 스타일의 정돈된 웹앱 화면이 필요할 때",
+      "notes_ko": "가장 무난한 결과예요. 개성이 필요하면 distinctive-aesthetic 조합과 비교해 보세요."
+    },
+    "anti-ai-slop-landing": {
+      "name_ko": "AI 티 안 나는 랜딩 페이지",
+      "goal_ko": "흔한 보라 그라디언트 템플릿이 아닌 개성 있는 랜딩이 필요할 때",
+      "notes_ko": "Anthropic frontend aesthetics 쿡북의 3가지 전략(요소별 지시·레퍼런스·기본값 금지)을 적용했어요."
+    },
+    "juicy-arcade-game": {
+      "name_ko": "손맛 있는 아케이드 게임",
+      "goal_ko": "도형만 움직이는 걸 넘어 재미있는 게임을 만들 때",
+      "notes_ko": "game-juice만 빼고 같은 게임을 만들어 비교하면 차이가 확 보여요."
+    },
+    "physics-sandbox": {
+      "name_ko": "물리 샌드박스",
+      "goal_ko": "공·상자가 사실적으로 쌓이고 구르는 장난감을 만들 때",
+      "notes_ko": "직접 만든 물리(physics)와 비교해 보세요."
+    },
+    "3d-scene": {
+      "name_ko": "3D 인터랙티브 장면",
+      "goal_ko": "회전과 조명이 있는 3D 시각화가 필요할 때",
+      "notes_ko": "같은 요청을 canvas-2d로 바꿔 비교해 보세요."
+    },
+    "generative-art": {
+      "name_ko": "생성 예술 스케치",
+      "goal_ko": "매번 다른 아름다운 패턴을 그릴 때",
+      "notes_ko": "seed를 표시하면 결과를 재현하고 비교할 수 있어요."
+    },
+    "robust-crud-app": {
+      "name_ko": "견고한 CRUD 앱",
+      "goal_ko": "실제로 쓸 수 있는 데이터 관리 앱이 필요할 때",
+      "notes_ko": "prototype-quick 버전과 코드 길이·안정성을 비교해 보세요."
+    },
+    "fullstack-auth-app": {
+      "name_ko": "로그인 있는 풀스택 앱",
+      "goal_ko": "여러 기기에서 쓰는 사용자별 데이터 앱이 필요할 때",
+      "notes_ko": "Lovable·Bolt는 Supabase 연동이 내장돼 있어요. 키는 절대 클라이언트 코드에 넣지 마세요."
+    },
+    "data-dashboard": {
+      "name_ko": "데이터 대시보드",
+      "goal_ko": "지표를 한눈에 보는 관리 화면이 필요할 때",
+      "notes_ko": "v0 가이드에 따르면 '대시보드' 대신 지표를 나열해야 코드도 짧아져요."
+    },
+    "big-list-performance": {
+      "name_ko": "대량 데이터도 빠른 목록",
+      "goal_ko": "수천 건에서도 버벅이지 않는 검색 목록이 필요할 때",
+      "notes_ko": "용어 없이 만든 버전과 스크롤·타이핑 체감을 비교해 보세요."
+    },
+    "accessible-form": {
+      "name_ko": "접근성 높은 폼",
+      "goal_ko": "누구나 키보드·스크린리더로 쓸 수 있는 신청 폼이 필요할 때",
+      "notes_ko": "겉모습 차이는 작아요. Tab 이동과 Lighthouse 접근성 점수로 비교해 보세요."
+    },
+    "lean-yagni-script": {
+      "name_ko": "군더더기 없는 스크립트",
+      "goal_ko": "과잉 설계 없는 짧은 실용 코드가 필요할 때",
+      "notes_ko": "production-ready 버전과 줄 수를 비교해 보세요."
+    },
+    "safe-bugfix": {
+      "name_ko": "안전한 버그 수정",
+      "goal_ko": "다른 곳은 건드리지 않고 버그만 고칠 때",
+      "notes_ko": "Claude Code 공식 'Describe the symptom' 패턴이에요."
+    },
+    "spec-driven-feature": {
+      "name_ko": "명세 기반 기능 개발",
+      "goal_ko": "큰 기능을 방향 실수 없이 만들 때",
+      "notes_ko": "스펙을 다 쓴 뒤 새 세션에서 구현하면 컨텍스트가 깨끗해요(Claude Code 권장)."
+    },
+    "pixel-roguelike": {
+      "name_ko": "픽셀 로그라이크",
+      "goal_ko": "매번 다른 던전의 레트로 게임을 만들 때",
+      "notes_ko": "seed를 고정하면 같은 맵에서 다른 용어를 비교할 수 있어요."
+    },
+    "design-match": {
+      "name_ko": "디자인 시안 그대로 구현",
+      "goal_ko": "스크린샷·피그마와 똑같은 화면이 필요할 때",
+      "notes_ko": "Claude Code 공식 'Verify UI changes visually' 예시를 바탕으로 했어요."
+    }
+  },
+  "techniques": {
+    "explore-plan-code-commit": {
+      "ko": "탐색→계획→구현→커밋",
+      "how_ko": "계획 모드에서 파일을 읽고 계획을 세워요. 승인을 받은 뒤 구현·테스트·커밋해요.",
+      "when_ko": "여러 파일을 고치거나 접근 방식이 불확실할 때(한 문장으로 설명되는 작은 수정은 생략)"
+    },
+    "interview-then-spec": {
+      "ko": "인터뷰 후 명세 작성",
+      "how_ko": "설명은 최소로 주고 AI가 질문하게 해요. 답을 SPEC.md로 정리한 뒤 새 세션에서 구현해요.",
+      "when_ko": "큰 기능이나 새 앱을 시작할 때"
+    },
+    "give-verification": {
+      "ko": "검증 수단 주기",
+      "how_ko": "테스트·빌드·스크린샷 비교처럼 통과·실패가 나오는 기준을 줘요. 통과할 때까지 반복하게 해요.",
+      "when_ko": "언제나, 특히 자리를 비우고 맡길 때"
+    },
+    "three-input-prompt": {
+      "ko": "v0 3요소 프롬프트",
+      "how_ko": "①화면 구성요소·데이터·동작 ②누가·언제·어디서 쓰는지 ③플랫폼·톤·색·레이아웃 제약을 모두 적어요. 코드가 짧아지고 생성도 빨라져요.",
+      "when_ko": "웹 UI를 만들 때"
+    },
+    "component-by-component": {
+      "ko": "컴포넌트 단위로 쌓기",
+      "how_ko": "페이지 전체 대신 히어로→기능 그리드→가격표 순서로 하나씩 만들어요. 하나 만들 때마다 검토하고 고쳐요.",
+      "when_ko": "랜딩 페이지나 섹션이 많은 UI를 만들 때"
+    },
+    "scope-guardrails": {
+      "ko": "변경 범위 울타리",
+      "how_ko": "무엇을 어디에 만들지, 무엇은 건드리지 말지 함께 적어요. 파일 잠금·대상 지정 기능도 같이 써요.",
+      "when_ko": "잘 돌아가는 앱을 고칠 때"
+    },
+    "error-report-format": {
+      "ko": "구조화된 버그 보고",
+      "how_ko": "정확한 에러 메시지, 관련 파일, 재현 단계, 기대 결과, 이미 해 본 것을 붙여 넣어요.",
+      "when_ko": "오류가 났을 때 '안 돼'라고만 하기 전에"
+    },
+    "clear-after-two-fails": {
+      "ko": "두 번 실패하면 새로 시작",
+      "how_ko": "같은 문제를 두 번 넘게 고쳐도 안 되면 대화를 지워요(/clear, 새 채팅). 배운 점을 담은 더 나은 첫 프롬프트로 다시 시작해요.",
+      "when_ko": "AI가 같은 실수를 반복할 때"
+    },
+    "persistent-rules": {
+      "ko": "지속 규칙 파일",
+      "how_ko": "CLAUDE.md / AGENTS.md / .cursor/rules / copilot-instructions.md에 빌드 명령·스타일·금지 사항을 짧게 적어요. 같은 실수가 반복될 때만 추가해요.",
+      "when_ko": "같은 지시를 매번 되풀이하고 있을 때"
+    },
+    "writer-reviewer": {
+      "ko": "작성자·리뷰어 분리",
+      "how_ko": "한 세션(또는 서브에이전트)이 구현하고 다른 새 세션이 diff를 리뷰해요. 엣지 케이스·범위 이탈을 찾고, 정확성 관련 지적만 반영해요.",
+      "when_ko": "중요한 기능을 마무리하기 직전"
+    },
+    "checkpoint-and-experiment": {
+      "ko": "저장점 찍고 실험",
+      "how_ko": "잘 되는 상태를 체크포인트나 버전으로 남겨요. 그다음 과감하게 바꿔 보고 실패하면 되돌려요.",
+      "when_ko": "디자인 대개편·라이브러리 교체처럼 위험한 변경 전"
+    },
+    "one-variable-ab": {
+      "ko": "용어 하나만 바꿔 비교",
+      "how_ko": "같은 원안에서 용어 하나만 바꿔 두 번 생성해요. 화면·줄 수·동작을 나란히 비교해요. 공정하게 비교하려면 각각 새 대화에서 실행하세요.",
+      "when_ko": "어떤 용어가 실제로 효과 있는지 배울 때(이 사전의 기본 사용법)"
+    },
+    "enhance-prompt": {
+      "ko": "프롬프트 개선 기능 활용",
+      "how_ko": "Bolt의 Enhance prompt 같은 기능으로 초안을 구조화된 프롬프트로 늘려요. 그다음 직접 다듬어요.",
+      "when_ko": "무엇을 써야 할지 막막할 때"
+    },
+    "point-and-edit": {
+      "ko": "요소 선택 후 수정",
+      "how_ko": "미리보기에서 요소를 클릭하거나 코드 일부를 선택해요. 'replace', 'adjust' 같은 정확한 동사로 지시해요.",
+      "when_ko": "작은 시각적 수정을 할 때"
+    }
+  }
+}

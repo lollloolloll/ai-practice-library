@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 24px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .tip { font-size: 12px; color: #888; margin: 0 0 14px; }
+  form { display: flex; gap: 8px; margin-bottom: 16px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 4px; background: #4a6cf7; color: #fff; cursor: pointer; font-size: 14px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid #eee; min-height: 46px; }
+  .txt { flex: 1; padding: 6px 8px; border-radius: 4px; cursor: text; border: 1px dashed transparent; }
+  .txt:hover { background: #f5f7ff; border-color: #c9d2ff; }
+  .txt:hover::after { content: ' ✎'; color: #9aa6e8; font-size: 12px; }
+  li.done .txt { text-decoration: line-through; color: #999; }
+  .edit { flex: 1; padding: 6px 8px; font-size: 14px; border: 2px solid #4a6cf7; border-radius: 4px; outline: none; box-shadow: 0 0 0 3px rgba(74,108,247,.15); min-width: 0; }
+  li.saved { animation: saved 1s; } @keyframes saved { from { background: #e7f8ee; } }
+  .del { background: none; color: #c33; padding: 4px 8px; }
+  .keys { font-size: 11px; color: #4a6cf7; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <p class="tip">항목 글자를 클릭(더블클릭)하면 바로 수정할 수 있어요. Enter 저장 · Esc 취소</p>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ id: 1, text: '장보기', done: false }, { id: 2, text: '운동하기', done: true }, { id: 3, text: '보고서 작성', done: false }];
+  const list = document.getElementById('list');
+  let savedId = null;
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li'); li.className = (t.done ? 'done ' : '') + (t.id === savedId ? 'saved' : '');
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span class="txt" tabindex="0" title="클릭해서 수정"></span><button class="del">삭제</button>';
+      const span = li.querySelector('.txt'); span.textContent = t.text;
+      li.querySelector('input').onchange = () => { t.done = !t.done; render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter(x => x !== t); render(); };
+      const startEdit = () => {
+        const ed = document.createElement('input'); ed.className = 'edit'; ed.value = t.text;
+        const hint = document.createElement('span'); hint.className = 'keys'; hint.textContent = '↵ 저장 · Esc';
+        span.replaceWith(ed); li.querySelector('.del').replaceWith(hint); ed.focus(); ed.select();
+        let done = false;
+        const finish = save => {
+          if (done) return; done = true;
+          const v = ed.value.trim();
+          if (save && v && v !== t.text) { t.text = v; savedId = t.id; } else if (save && !v) { todos = todos.filter(x => x !== t); }
+          render(); savedId = null;
+        };
+        ed.onkeydown = e => { if (e.key === 'Enter') finish(true); if (e.key === 'Escape') finish(false); };
+        ed.onblur = () => finish(true);
+      };
+      span.onclick = startEdit; span.onkeydown = e => { if (e.key === 'Enter' || e.key === 'F2') startEdit(); };
+      list.appendChild(li);
+    });
+  }
+  bindSubmit(document.getElementById('form'), e => { e.preventDefault(); const i = document.getElementById('input'); const v = i.value.trim(); if (!v) return; todos.push({ id: Date.now(), text: v, done: false }); i.value = ''; render(); });
+  render();
+</script>
+</body>
+</html>

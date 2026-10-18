@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 18px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  h1 { font-size: 21px; margin: 0 0 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 12px; }
+  .kpi, .panel { background: #fff; padding: 14px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .label { font-size: 12px; color: #777; } .value { font-size: 20px; font-weight: 700; margin-top: 2px; }
+  .kpi.dom .value { color: #2e9e5b; }
+  .panel { padding: 0; overflow: hidden; }
+  .ph { display: flex; justify-content: space-between; padding: 12px 14px; font-size: 14px; font-weight: 600; border-bottom: 1px solid #eee; gap: 8px; flex-wrap: wrap; }
+  .ph small { font-weight: 400; color: #888; }
+  .ph input { font-size: 12px; padding: 3px 6px; width: 90px; }
+  .head, .row { display: grid; grid-template-columns: 76px 1fr 1.4fr 96px 70px; gap: 8px; padding: 0 14px; align-items: center; font-size: 13px; }
+  .head { height: 32px; background: #fafbfd; color: #777; font-size: 12px; border-bottom: 1px solid #eee; }
+  .viewport { height: 340px; overflow-y: auto; position: relative; will-change: transform; }
+  .spacer { position: relative; }
+  .row { position: absolute; left: 0; right: 0; height: 36px; border-bottom: 1px solid #f3f3f3; }
+  .row.odd { background: #fafbfe; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; }
+  .id { font: 12px ui-monospace, monospace; color: #888; }
+  .b { font-size: 11px; padding: 1px 7px; border-radius: 999px; justify-self: start; }
+  .paid { background: #e7f6ee; color: #2e7d4f; } .ship { background: #e8edff; color: #3346c4; } .ref { background: #fde8e8; color: #b42318; }
+  @media (max-width: 520px) { .head, .row { grid-template-columns: 64px 1fr 84px 60px; } .head > :nth-child(3), .row > :nth-child(3) { display: none; } }
+</style>
+</head>
+<body>
+<h1>매출 대시보드</h1>
+<div class="kpis">
+  <div class="kpi"><div class="label">전체 주문</div><div class="value">10,000건</div></div>
+  <div class="kpi"><div class="label">합계</div><div class="value" id="sum"></div></div>
+  <div class="kpi dom"><div class="label">실제 DOM 행 수</div><div class="value" id="dom">0</div></div>
+  <div class="kpi"><div class="label">보이는 범위</div><div class="value" id="range" style="font-size:15px">-</div></div>
+</div>
+<div class="panel">
+  <div class="ph">주문 내역 <small>화면에 보이는 행만 렌더링 (windowing, overscan 6)</small><label style="font-size:12px;font-weight:400">이동 <input id="jump" type="number" min="1" max="10000" placeholder="행 번호"></label></div>
+  <div class="head"><span>주문번호</span><span>고객</span><span>상품</span><span class="r">금액</span><span>상태</span></div>
+  <div class="viewport" id="vp"><div class="spacer" id="sp"></div></div>
+</div>
+<script>
+  const names = ['김민지','이준호','박서연','최도윤','정하은','강지후','윤서준','임수아','한예준','오지민','서하린','신우진','권나은','황시우'];
+  const items = ['예가체프 200g','수프리모 400g','안티구아 200g','하우스 블렌드 1kg','디카페인 400g','드립백 30개입','케냐 AA 200g','게이샤 100g'];
+  const st = [['결제완료','paid'],['배송중','ship'],['환불','ref']];
+  let s = 11; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const DATA = Array.from({ length: 10000 }, (_, i) => ({ id: 'A' + String(30000 - i), who: names[Math.floor(rnd() * names.length)], item: items[Math.floor(rnd() * items.length)], amt: Math.round(12 + rnd() * 140) * 1000, s: st[rnd() < .78 ? 0 : rnd() < .7 ? 1 : 2] }));
+  document.getElementById('sum').textContent = '₩' + (DATA.reduce((a, d) => a + d.amt, 0) / 1e8).toFixed(2) + '억';
+
+  const ROW = 36, OVERSCAN = 6, vp = document.getElementById('vp'), sp = document.getElementById('sp');
+  sp.style.height = DATA.length * ROW + 'px';                 // 전체 높이만 확보해 스크롤바 유지
+  const pool = new Map();                                      // index → element (재사용)
+  function render() {
+    const top = vp.scrollTop, h = vp.clientHeight;
+    const start = Math.max(0, Math.floor(top / ROW) - OVERSCAN), end = Math.min(DATA.length, Math.ceil((top + h) / ROW) + OVERSCAN);
+    for (const [i, el] of pool) if (i < start || i >= end) { el.remove(); pool.delete(i); }
+    for (let i = start; i < end; i++) {
+      if (pool.has(i)) continue;
+      const d = DATA[i], el = document.createElement('div'); el.className = i % 2 ? 'row odd' : 'row';
+      el.style.transform = `translateY(${i * ROW}px)`;
+      el.innerHTML = `<span class="id">#${d.id}</span><span>${d.who}</span><span>${d.item}</span><span class="r">₩${d.amt.toLocaleString()}</span><span class="b ${d.s[1]}">${d.s[0]}</span>`;
+      sp.appendChild(el); pool.set(i, el);
+    }
+    document.getElementById('dom').textContent = `${sp.children.length}개`;
+    document.getElementById('range').textContent = `${(Math.floor(top / ROW) + 1).toLocaleString()}–${Math.min(DATA.length, Math.ceil((top + h) / ROW)).toLocaleString()}행`;
+  }
+  let ticking = false;
+  vp.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { render(); ticking = false; }); } }, { passive: true });
+  addEventListener('resize', render);
+  document.getElementById('jump').addEventListener('change', e => { vp.scrollTop = (Math.max(1, Math.min(10000, +e.target.value)) - 1) * ROW; });
+  render();
+</script>
+</body>
+</html>

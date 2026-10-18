@@ -1,0 +1,912 @@
+@@term spec-first todo-app md
+@@prompt
+할 일 목록 앱을 만들어줘. 코딩하기 전에 먼저 SPEC.md 명세서(spec / PRD)를 써줘 — 목표, 사용자 스토리, 범위 밖, 데이터 모델, 완료 조건까지.
+@@transcript
+코드를 쓰기 전에 명세서를 작성했습니다. 검토해 주시고, 수정할 부분이 없으면 "진행"이라고 말씀해 주세요. 이 문서를 기준으로 구현하고, 마지막에 완료 조건을 하나씩 체크해 보고드리겠습니다.
+
+---
+
+# SPEC.md — 할 일 목록 앱
+
+## 1. 목표
+- 개인이 하루 할 일을 **5초 안에** 적고 지울 수 있는 가벼운 웹앱
+- 설치·로그인 없이 브라우저에서 바로 사용, 새로고침해도 내용 유지
+
+## 2. 사용자 스토리
+| ID | 사용자로서 | ~하고 싶다 | 그래서 |
+|---|---|---|---|
+| US-1 | 사용자 | 할 일을 입력하고 Enter로 추가 | 생각나는 즉시 적을 수 있다 |
+| US-2 | 사용자 | 체크해서 완료 표시 | 진행 상황을 본다 |
+| US-3 | 사용자 | 항목을 삭제 | 목록을 깔끔하게 유지한다 |
+| US-4 | 사용자 | 전체/진행 중/완료 필터 | 남은 일에 집중한다 |
+| US-5 | 사용자 | 브라우저를 닫았다 열어도 유지 | 다시 입력하지 않는다 |
+
+## 3. 범위 밖 (이번 버전에서 하지 않음)
+- 로그인·여러 기기 동기화 · 마감일/알림 · 드래그 정렬 · 하위 할 일 · 다크 모드
+
+## 4. 데이터 모델
+```ts
+type Todo = {
+  id: string;        // crypto.randomUUID()
+  text: string;      // 1~100자, 앞뒤 공백 제거
+  done: boolean;
+  createdAt: number; // Date.now()
+};
+// localStorage key: "todos.v1" → Todo[] (JSON)
+```
+
+## 5. 화면 구성
+입력창 + 추가 버튼 → 필터 탭(전체/진행 중/완료) → 목록 → 하단 "남은 할 일 N개 · 완료 항목 지우기"
+
+## 6. 완료 조건 (Acceptance Criteria)
+- [ ] AC-1 공백만 입력하면 추가되지 않는다
+- [ ] AC-2 100자를 넘으면 오류 문구가 보인다
+- [ ] AC-3 새로고침 후에도 목록과 완료 상태가 유지된다
+- [ ] AC-4 375px 폭에서 가로 스크롤이 생기지 않는다
+- [ ] AC-5 키보드만으로 추가·완료·삭제가 가능하다
+- [ ] AC-6 `<script>` 같은 입력이 실행되지 않고 글자로 보인다
+- [ ] AC-7 콘솔 오류 0개
+
+## 7. 기술 결정
+- 단일 HTML 파일, 바닐라 JS (의존성 0개)
+- 열린 질문: 필터 상태도 새로고침 후 유지할까요? (기본안: 유지하지 않음)
+
+@@term plan-mode todo-app md
+@@prompt
+할 일 목록 앱을 만들어줘. 아직 코드는 쓰지 말고(plan mode), 관련 파일을 먼저 읽은 다음 단계별 계획을 제안해줘. 내가 승인하면 그때 진행해.
+@@transcript
+코드는 아직 작성하지 않았습니다. 현재 폴더를 살펴본 결과와 계획입니다.
+
+**현재 상태 파악**
+- 폴더에 `index.html`(빈 템플릿)과 `README.md`만 있음 — 기존 프레임워크·빌드 도구 없음
+- `README.md`에 "GitHub Pages로 배포"라고 적혀 있음 → **빌드 없는 정적 파일**이 적합
+
+**제안하는 접근**
+단일 `index.html` + 바닐라 JS + localStorage. React 등을 쓰면 빌드 설정이 필요해 GitHub Pages 배포가 복잡해지므로 제외했습니다.
+
+**구현 계획**
+1. `index.html` 마크업 — 입력 폼, 목록 `<ul>`, 남은 개수 영역 (접근성 레이블 포함)
+2. 데이터 계층 — `load()` / `save()` (손상된 데이터 방어), `Todo { id, text, done }`
+3. 렌더링 — `render()` 한 함수가 배열 → DOM, 텍스트는 `textContent`로
+4. 이벤트 — 추가(Enter·버튼), 완료 토글, 삭제 / 한글 IME 조합 중 Enter 무시
+5. 스타일 — 모바일 우선, 최대 폭 420px
+6. 검증 — 브라우저에서 추가→완료→새로고침→삭제 시나리오 확인, 375px 폭 확인
+
+**변경될 파일**: `index.html` 1개 (신규 파일 없음)
+**예상 분량**: 약 120줄
+
+**결정이 필요한 점**
+- 필터(전체/진행 중/완료)도 이번에 넣을까요? 기본 계획에는 **없습니다**.
+- 완료된 항목은 목록 아래로 이동시킬까요, 제자리에 둘까요?
+
+이 계획으로 진행할까요? 수정할 부분을 알려주시면 반영한 뒤 시작하겠습니다.
+
+@@term step-by-step-plan todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 작업을 번호 붙인 단계로 나누고(numbered step plan), 1단계만 구현한 다음 내 검토를 기다려줘.
+@@transcript
+전체 작업을 5단계로 나눴습니다.
+
+1. **기본 구조** — 입력창, 추가 버튼, 목록 표시 (메모리에만 저장) ← *이번에 구현*
+2. **완료·삭제** — 체크박스로 완료 표시, 삭제 버튼
+3. **저장** — localStorage에 저장하고 새로고침 시 복원
+4. **필터** — 전체 / 진행 중 / 완료 탭, 남은 개수
+5. **다듬기** — 빈 상태 문구, 모바일 레이아웃, 키보드 접근성
+
+---
+
+### ✅ 1단계 완료: 기본 구조
+
+할 일을 입력하고 Enter 또는 "추가"를 누르면 목록에 쌓입니다. 아직 새로고침하면 사라지고, 완료·삭제는 없습니다(2·3단계 예정).
+
+**확인 방법**: 아래 파일을 열어 "우유 사기" 입력 → Enter → 목록에 표시되는지, 공백만 입력하면 추가되지 않는지 봐주세요.
+
+검토 후 "2단계 진행"이라고 해주시면 이어서 하겠습니다. 단계 순서나 범위를 바꾸고 싶으시면 지금 말씀해 주세요.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #f4f4f5; display: flex; justify-content: center; padding: 40px 16px; margin: 0; }
+  .app { background: #fff; padding: 24px; border-radius: 10px; width: 100%; max-width: 380px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  form { display: flex; gap: 8px; }
+  input { flex: 1; padding: 8px; }
+  ul { padding-left: 20px; }
+  li { padding: 4px 0; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <form id="form">
+    <input id="input" placeholder="할 일을 입력하세요" autofocus>
+    <button>추가</button>
+  </form>
+  <ul id="list"></ul>
+</div>
+<script>
+  // 1단계: 추가 + 표시만 (저장·완료·삭제는 다음 단계)
+  const todos = [];
+
+  function render() {
+    const list = document.getElementById('list');
+    list.replaceChildren(...todos.map((text) => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      return li;
+    }));
+  }
+
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    const text = input.value.trim();
+    if (!text) return;
+    todos.push(text);
+    input.value = '';
+    render();
+  });
+</script>
+</body>
+</html>
+@@html=code
+
+@@term interview-me todo-app md
+@@prompt
+할 일 목록 앱을 만들어줘. 만들기 전에, 내가 원하는 걸 정확히 이해할 때까지 필요한 질문을 먼저 해줘(interview me first).
+@@transcript
+좋습니다. 만들기 전에 몇 가지 여쭤볼게요. 짧게 답해 주셔도 되고, 모르는 건 "알아서"라고 하시면 제가 기본값으로 정하겠습니다.
+
+**누가, 어디서 쓰나요?**
+1. 혼자 쓰시나요, 가족·팀과 같이 쓰시나요? (같이 쓴다면 로그인과 서버가 필요합니다)
+2. 주로 휴대폰에서 쓰시나요, PC에서 쓰시나요?
+
+**어떤 할 일인가요?**
+3. 하루 단위로 쓰고 지우는 목록인가요, 몇 주씩 쌓이는 프로젝트 목록인가요?
+4. 마감일·우선순위·카테고리(업무/개인) 중 필요한 게 있나요?
+5. 완료한 항목은 남겨둘까요, 자동으로 숨길까요?
+
+**저장과 형태**
+6. 이 브라우저에만 저장돼도 괜찮나요? (휴대폰↔PC 동기화가 필요하면 방식이 달라집니다)
+7. 결과물은 어떤 형태가 좋으세요? — ⓐ 바로 열어보는 HTML 파일 하나 ⓑ React 등 프로젝트 ⓒ 기존 사이트에 넣을 코드
+
+**느낌**
+8. 참고하고 싶은 앱이 있나요? (예: Todoist처럼 깔끔하게, Things처럼 여백 많게)
+9. 꼭 피하고 싶은 것이 있나요? (예: 화려한 애니메이션, 영어 UI)
+
+1·6·7번만 답해 주셔도 바로 시작할 수 있습니다.
+
+@@term rules-file todo-app js
+@@prompt
+할 일 목록 앱을 만들어줘. (프로젝트의 CLAUDE.md 규칙: "# 코드 스타일 - ES 모듈 사용, 세미콜론 사용 - DOM에 텍스트는 textContent만 # 워크플로 - 로직은 src/lib에 순수 함수로 - 변경 후 npm test 실행 - 커밋 메시지는 한국어 conventional commits")
+@@transcript
+CLAUDE.md 규칙에 맞춰 작업했습니다.
+
+- ✅ **ES 모듈** — `import`/`export` 사용, `<script type="module">`
+- ✅ **textContent만** — `innerHTML`에 사용자 텍스트를 넣는 곳 없음
+- ✅ **로직은 `src/lib`에 순수 함수** — `src/lib/todos.js` (DOM·localStorage 의존 없음), 화면은 `src/main.js`
+- ✅ **변경 후 `npm test`** — 실행 결과:
+
+```
+$ npm test
+ ✓ src/lib/todos.test.js (5)
+ Tests  5 passed (5)
+```
+
+- ✅ **커밋 메시지** — 제안: `feat: 할 일 추가·완료·삭제 기능 구현`
+
+규칙에 없는 결정(필터 탭 미포함, 저장 키 `todos`)은 기본값으로 정했습니다.
+@@file CLAUDE.md
+# 코드 스타일
+- ES 모듈 사용, 세미콜론 사용
+- DOM에 텍스트는 textContent만 (innerHTML 금지)
+
+# 워크플로
+- 로직은 src/lib에 순수 함수로
+- 변경 후 npm test 실행
+- 커밋 메시지는 한국어 conventional commits (feat:, fix:, refactor:)
+@@file src/lib/todos.js
+export const addTodo = (todos, text) => {
+  const trimmed = text.trim();
+  return trimmed ? [...todos, { id: crypto.randomUUID(), text: trimmed, done: false }] : todos;
+};
+
+export const toggleTodo = (todos, id) => todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+
+export const removeTodo = (todos, id) => todos.filter((t) => t.id !== id);
+@@file src/lib/todos.test.js
+import { describe, expect, it } from 'vitest';
+import { addTodo, removeTodo, toggleTodo } from './todos.js';
+
+describe('todos', () => {
+  it('추가', () => expect(addTodo([], '빵')[0].text).toBe('빵'));
+  it('공백 무시', () => expect(addTodo([], '  ')).toEqual([]));
+  it('완료 전환', () => expect(toggleTodo([{ id: '1', done: false }], '1')[0].done).toBe(true));
+  it('삭제', () => expect(removeTodo([{ id: '1' }, { id: '2' }], '1')).toEqual([{ id: '2' }]));
+  it('원본 불변', () => {
+    const list = [];
+    addTodo(list, 'a');
+    expect(list).toEqual([]);
+  });
+});
+@@file src/main.js
+import { addTodo, removeTodo, toggleTodo } from './lib/todos.js';
+
+const form = document.getElementById('form');
+const list = document.getElementById('list');
+let todos = JSON.parse(localStorage.getItem('todos') ?? '[]');
+
+const update = (next) => {
+  todos = next;
+  localStorage.setItem('todos', JSON.stringify(todos));
+  render();
+};
+
+function render() {
+  list.replaceChildren(...todos.map((todo) => {
+    const li = document.createElement('li');
+    const box = Object.assign(document.createElement('input'), { type: 'checkbox', checked: todo.done });
+    box.addEventListener('change', () => update(toggleTodo(todos, todo.id)));
+    const span = document.createElement('span');
+    span.textContent = todo.text;
+    const del = document.createElement('button');
+    del.textContent = '삭제';
+    del.addEventListener('click', () => update(removeTodo(todos, todo.id)));
+    li.append(box, span, del);
+    return li;
+  }));
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  update(addTodo(todos, form.text.value));
+  form.reset();
+});
+
+render();
+
+@@term knowledge-file todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. (프로젝트 지식: "브랜드: 따뜻한 미니멀, 색상 #1F2937 / #F59E0B, 글꼴 Fraunces + Inter Tight, 항상 모바일 우선, 말투는 친근한 존댓말")
+@@transcript
+프로젝트 지식에 적힌 브랜드 가이드를 적용했습니다 — 제목은 Fraunces, 본문은 Inter Tight, 주색 #1F2937(차콜)과 강조색 #F59E0B(앰버), 모바일 우선 레이아웃, 문구는 친근한 존댓말("오늘 할 일을 적어볼까요?")입니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 할 일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #1F2937; --amber: #F59E0B; --paper: #FBF8F3; --line: #ECE6DC; --muted: #8B8478; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Inter Tight', system-ui, sans-serif; }
+  main { padding: 32px 20px 48px; max-width: 480px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 34px; line-height: 1.15; margin: 6px 0 24px; }
+  form { display: flex; gap: 8px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 6px; }
+  form input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 10px; font: inherit; color: inherit; outline: none; }
+  form button { border: 0; background: var(--ink); color: #fff; border-radius: 10px; padding: 0 18px; font: inherit; font-weight: 600; cursor: pointer; }
+  form:focus-within { border-color: var(--amber); box-shadow: 0 0 0 3px rgb(245 158 11 / .18); }
+  ul { list-style: none; padding: 0; margin: 20px 0 0; }
+  li { display: flex; align-items: center; gap: 12px; padding: 14px 4px; border-bottom: 1px solid var(--line); }
+  li span { flex: 1; font-size: 16px; }
+  li.done span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--amber); }
+  .check { appearance: none; width: 22px; height: 22px; border: 2px solid var(--ink); border-radius: 50%; cursor: pointer; flex: none; margin: 0; }
+  .check:checked { background: var(--amber); border-color: var(--amber); box-shadow: inset 0 0 0 3px #fff; }
+  .del { border: 0; background: none; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; padding: 6px; }
+  .empty { text-align: center; color: var(--muted); padding: 36px 0; font-size: 15px; }
+  .count { margin-top: 16px; font-size: 13px; color: var(--muted); }
+  @media (min-width: 640px) { main { padding-top: 72px; } h1 { font-size: 42px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow" id="today"></div>
+  <h1>오늘 할 일을<br>적어볼까요?</h1>
+  <form id="form"><input id="input" placeholder="예: 화분에 물 주기" aria-label="새 할 일"><button>추가</button></form>
+  <ul id="list"></ul>
+  <p class="empty" id="empty">아직 할 일이 없어요. 가볍게 하나 적어보세요.</p>
+  <p class="count" id="count"></p>
+</main>
+<script>
+  document.getElementById('today').textContent = new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' });
+  let todos = JSON.parse(localStorage.getItem('todos') || '[]');
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+
+  function render() {
+    const list = document.getElementById('list');
+    list.innerHTML = '';
+    for (const t of todos) {
+      const li = document.createElement('li');
+      li.className = t.done ? 'done' : '';
+      li.innerHTML = '<input type="checkbox" class="check"><span></span><button class="del">지우기</button>';
+      li.querySelector('.check').checked = t.done;
+      li.querySelector('.check').setAttribute('aria-label', t.text + ' 완료');
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('.check').onchange = () => { t.done = !t.done; save(); render(); };
+      li.querySelector('.del').onclick = () => { todos = todos.filter((x) => x !== t); save(); render(); };
+      list.appendChild(li);
+    }
+    const left = todos.filter((t) => !t.done).length;
+    document.getElementById('empty').hidden = todos.length > 0;
+    document.getElementById('count').textContent = todos.length === 0 ? '' : left === 0 ? '모두 끝냈어요. 수고하셨어요!' : `${left}개 남았어요`;
+  }
+
+  document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+    const input = document.getElementById('input');
+    if (!input.value.trim()) return;
+    todos.push({ text: input.value.trim(), done: false });
+    input.value = '';
+    save(); render();
+  };
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term small-iterations todo-app html
+@@prompt
+할 일 목록 앱에 지금은 필터 탭(전체/진행 중/완료)만 추가해줘. 그 외에는 아무것도 하지 마(small iterations, one change at a time).
+@@transcript
+필터 탭만 추가했습니다. 변경 범위:
+
+- HTML: 입력줄 아래 탭 버튼 3개
+- CSS: 선택된 탭 스타일 2줄
+- JS: `filter` 변수 1개, `render()`에서 필터 적용, 탭 클릭 핸들러
+
+기존 추가·완료·삭제 동작과 저장 형식은 그대로입니다. 눈에 띈 개선점(공백 입력 허용, innerHTML 사용)은 이번 범위가 아니라서 손대지 않았습니다 — 다음 작업으로 하시겠어요?
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  .tabs { display: flex; gap: 6px; margin-top: 12px; }
+  .tabs button.active { background: #333; color: white; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <div class="tabs" id="tabs">
+    <button data-filter="all" class="active">전체</button>
+    <button data-filter="active">진행 중</button>
+    <button data-filter="done">완료</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+  let filter = 'all';
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      if (filter === 'active' && todo.done) return;
+      if (filter === 'done' && !todo.done) return;
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value;
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('tabs').addEventListener('click', (e) => {
+    if (!e.target.dataset.filter) return;
+    filter = e.target.dataset.filter;
+    document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('active', b === e.target));
+    render();
+  });
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term paste-error-log todo-app html
+@@prompt
+할 일 목록 앱을 열면 아무것도 안 돼. 오류 로그 그대로 붙일게(paste the exact error log): "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener') at index.html:12:41". 재현: 페이지를 연다 → 추가 버튼을 눌러도 반응 없음. 기대: 항목 추가. 원인을 고쳐줘.
+@@transcript
+로그의 위치 `index.html:12:41`이 단서입니다. 12번째 줄은 `<head>` 안의 `<script>`이고, 41번째 글자는 `document.getElementById('todoInput').addEventListener`입니다.
+
+**원인**: 스크립트가 `<head>`에서 실행되는 시점에는 아직 `<body>`의 `#todoInput`이 만들어지지 않았습니다. 그래서 `getElementById`가 `null`을 반환하고, `null.addEventListener`에서 오류가 나면서 **그 뒤의 모든 코드(버튼 연결, 첫 render)가 실행되지 않았습니다.** 추가 버튼이 반응하지 않은 이유도 같습니다.
+
+**수정**: `<script>`에 `defer`를 쓰는 대신(인라인 스크립트에는 `defer`가 동작하지 않음), DOM이 준비된 뒤 실행되도록 `DOMContentLoaded`로 감쌌습니다.
+
+```diff
+-<script>
++<script>
++document.addEventListener('DOMContentLoaded', () => {
+   let todos = JSON.parse(localStorage.getItem('todos')) || [];
+   ...
+   render();
++});
+ </script>
+```
+
+**확인**: 페이지 로드 → 콘솔 오류 0개, 항목 추가·완료·삭제 정상 동작.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value;
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+});
+</script>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+</body>
+</html>
+@@html=code
+
+@@term dont-change-x todo-app html
+@@prompt
+할 일 목록 앱에 마감일 기능을 추가해줘. 기존 스타일은 그대로 두고, 저장 키('todos')와 기존 데이터 형식은 건드리지 마("don't change X").
+@@transcript
+제약 조건을 지키면서 마감일을 추가했습니다.
+
+**지킨 것**
+- 기존 CSS 규칙은 한 줄도 수정하지 않았습니다. 마감일 표시용 규칙 2줄만 **추가**했습니다.
+- 저장 키는 `'todos'` 그대로, 기존 항목 `{ text, done }` 형식도 그대로입니다. `due`는 **선택 필드**로만 추가되어, 마감일이 없는 옛 데이터도 그대로 읽힙니다.
+
+**추가한 것**
+- 입력줄에 날짜 선택(`<input type="date">`)
+- 항목 옆에 "~10/20" 형태로 마감일 표시, 지난 마감일은 빨간색
+
+혹시 마감일 순 정렬도 원하시면 말씀해 주세요 — 목록 순서가 바뀌는 변경이라 이번엔 넣지 않았습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+  li small { color: #888; font-size: 12px; }
+  li small.overdue { color: #dc2626; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <input type="date" id="dueInput" aria-label="마감일">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    const today = new Date().toISOString().slice(0, 10);
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button>삭제</button>`;
+      if (todo.due) {
+        const due = document.createElement('small');
+        due.textContent = '~' + todo.due.slice(5).replace('-', '/');
+        if (!todo.done && todo.due < today) due.classList.add('overdue');
+        li.insertBefore(due, li.querySelector('button'));
+      }
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('button').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const dueInput = document.getElementById('dueInput');
+    const text = input.value;
+    if (text) {
+      const todo = { text: text, done: false };
+      if (dueInput.value) todo.due = dueInput.value;
+      todos.push(todo);
+      input.value = '';
+      dueInput.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term acceptance-criteria todo-app html
+@@prompt
+할 일 목록 앱을 만들어줘. 완료 조건(acceptance criteria)은 이거야: (1) 새로고침해도 항목이 유지된다 (2) 375px 폭에서 깨지지 않는다 (3) 콘솔 오류가 없다 (4) 공백만 입력하면 추가되지 않는다 (5) 키보드만으로 모든 기능을 쓸 수 있다.
+@@transcript
+구현 후 완료 조건을 하나씩 직접 확인했습니다.
+
+| # | 조건 | 확인 방법 | 결과 |
+|---|---|---|---|
+| 1 | 새로고침 후 유지 | 3개 추가 → 1개 완료 → 새로고침 | ✅ 3개, 완료 상태 유지 |
+| 2 | 375px 폭 | 반응형 모드 375×667 | ✅ 가로 스크롤 없음, 긴 텍스트 줄바꿈 |
+| 3 | 콘솔 오류 없음 | 로드·추가·완료·삭제·새로고침 동안 콘솔 확인 | ✅ 오류·경고 0개 |
+| 4 | 공백 입력 차단 | `"   "` 입력 후 Enter | ✅ 추가 안 됨, 안내 문구 표시 |
+| 5 | 키보드만으로 사용 | Tab으로 이동, Enter 추가, Space 완료, 삭제 버튼 Enter | ✅ 포커스 표시 보임, 삭제 후 포커스가 다음 항목으로 이동 |
+
+5번을 확인하다가 **삭제 후 포커스가 사라지는 문제**를 발견해, 삭제 시 다음 항목(없으면 입력창)으로 포커스를 옮기도록 수정했습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 24px 16px; margin: 0; }
+  .container { background: white; padding: 20px; border-radius: 8px; width: 100%; max-width: 380px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  form { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 10px; font-size: 16px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  :focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
+  .hint { color: #b45309; font-size: 13px; min-height: 1.2em; margin: 6px 0 0; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li label { flex: 1; display: flex; gap: 8px; align-items: center; overflow-wrap: anywhere; cursor: pointer; }
+  li.done label { text-decoration: line-through; color: #999; }
+  input[type=checkbox] { width: 20px; height: 20px; flex: none; }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>할 일 목록</h1>
+  <form id="form">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요" aria-label="새 할 일">
+    <button type="submit">추가</button>
+  </form>
+  <p class="hint" id="hint" aria-live="polite"></p>
+  <ul id="todoList"></ul>
+</main>
+<script>
+  let todos = [];
+  try { todos = JSON.parse(localStorage.getItem('todos') || '[]'); } catch { todos = []; }
+  if (!Array.isArray(todos)) todos = [];
+
+  const save = () => localStorage.setItem('todos', JSON.stringify(todos));
+  const input = document.getElementById('todoInput');
+
+  function render(focusIndex) {
+    const list = document.getElementById('todoList');
+    list.replaceChildren(...todos.map((todo, index) => {
+      const li = document.createElement('li');
+      li.classList.toggle('done', todo.done);
+      const label = document.createElement('label');
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.checked = todo.done;
+      box.onchange = () => { todo.done = box.checked; save(); render(); list.children[index]?.querySelector('input').focus(); };
+      label.append(box, document.createTextNode(todo.text));
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.textContent = '삭제';
+      del.setAttribute('aria-label', `${todo.text} 삭제`);
+      del.onclick = () => { todos.splice(index, 1); save(); render(index); };
+      li.append(label, del);
+      return li;
+    }));
+    // 삭제 후 포커스를 다음 항목(없으면 입력창)으로
+    if (focusIndex !== undefined) {
+      const next = list.children[Math.min(focusIndex, todos.length - 1)];
+      (next ? next.querySelector('button') : input).focus();
+    }
+  }
+
+  document.getElementById('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    const hint = document.getElementById('hint');
+    if (!text) { hint.textContent = '할 일을 입력해 주세요.'; return; }
+    hint.textContent = '';
+    todos.push({ text, done: false });
+    input.value = '';
+    save();
+    render();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term follow-existing-patterns todo-app html
+@@prompt
+할 일 목록 앱에 항목 '수정' 기능을 추가해줘. 기존 삭제 버튼이 구현된 방식을 보고 같은 패턴을 따라줘(follow existing patterns). 새 라이브러리는 쓰지 마.
+@@transcript
+기존 코드의 패턴을 먼저 확인했습니다.
+
+- 항목 버튼은 `li.innerHTML` 템플릿 안에 정의
+- 이벤트는 `li.querySelector(...).onclick = () => { 변경; save(); render(); }` 한 줄
+- 데이터 접근은 `todos[index]`
+- 브라우저 기본 UI 사용 (별도 모달 없음)
+
+같은 방식으로 `수정` 버튼을 템플릿에 추가하고, 기본 `prompt()` 대화상자로 새 텍스트를 받아 `todos[index].text`를 바꾼 뒤 `save(); render();`를 호출합니다. 삭제 버튼과 구분하기 위해 두 버튼에 `class`만 붙였습니다(기존 `querySelector('button')`이 첫 버튼을 잡게 되는 문제 방지). 새 의존성은 없습니다.
+@@code
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>할 일 목록</title>
+<style>
+  body { font-family: sans-serif; background: #f4f4f4; display: flex; justify-content: center; padding: 40px 16px; }
+  .container { background: white; padding: 24px; border-radius: 8px; width: 100%; max-width: 360px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h1 { margin-top: 0; }
+  .input-row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; padding: 8px; }
+  button { padding: 8px 12px; cursor: pointer; }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #eee; }
+  li span { flex: 1; }
+  li.done span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>할 일 목록</h1>
+  <div class="input-row">
+    <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+    <button id="addBtn">추가</button>
+  </div>
+  <ul id="todoList"></ul>
+</div>
+<script>
+  let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+  function save() {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
+  function render() {
+    const list = document.getElementById('todoList');
+    list.innerHTML = '';
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      if (todo.done) li.classList.add('done');
+      li.innerHTML = `<input type="checkbox" ${todo.done ? 'checked' : ''}><span>${todo.text}</span><button class="edit">수정</button><button class="delete">삭제</button>`;
+      li.querySelector('input').onchange = () => { todos[index].done = !todos[index].done; save(); render(); };
+      li.querySelector('.edit').onclick = () => { const text = prompt('할 일 수정', todos[index].text); if (text) { todos[index].text = text; save(); render(); } };
+      li.querySelector('.delete').onclick = () => { todos.splice(index, 1); save(); render(); };
+      list.appendChild(li);
+    });
+  }
+
+  function addTodo() {
+    const input = document.getElementById('todoInput');
+    const text = input.value;
+    if (text) {
+      todos.push({ text: text, done: false });
+      input.value = '';
+      save();
+      render();
+    }
+  }
+
+  document.getElementById('addBtn').onclick = addTodo;
+  document.getElementById('todoInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addTodo();
+  });
+
+  render();
+</script>
+</body>
+</html>
+@@html=code
+
+@@term verify-run todo-app md
+@@prompt
+할 일 목록 앱을 만들어줘. 구현한 다음에는 직접 빌드하고 테스트를 실행해서(run it and verify) 결과를 보여주고, 전부 통과할 때까지 반복해줘.
+@@transcript
+구현을 마치고 검증을 돌렸습니다. 과정 그대로 보고드립니다.
+
+**1회차**
+```
+$ npm run build
+vite v5.4.1 building for production...
+✓ 14 modules transformed.
+dist/index.html          0.46 kB
+dist/assets/index.js    143.2 kB │ gzip: 46.1 kB
+✓ built in 812ms
+
+$ npm test
+ ✓ src/todos.test.js (6)
+ × src/storage.test.js (3)
+   × 손상된 데이터면 빈 배열을 반환한다
+     SyntaxError: Unexpected token 'o', "not json" is not valid JSON
+ Tests  1 failed | 8 passed (9)
+```
+
+**원인**: `loadTodos()`가 `JSON.parse` 실패를 처리하지 않았습니다. 테스트가 맞고 구현이 틀렸으므로 구현을 고쳤습니다(try/catch 후 빈 배열 반환).
+
+**2회차**
+```
+$ npm test
+ ✓ src/todos.test.js (6)
+ ✓ src/storage.test.js (3)
+ Tests  9 passed (9)
+
+$ npx tsc --noEmit
+(출력 없음 — 타입 오류 0개)
+
+$ npm run lint
+✔ No problems found
+```
+
+**브라우저 확인** (`npm run preview` → http://localhost:4173)
+- 할 일 3개 추가 → 1개 완료 → 새로고침 → 유지됨 ✅
+- 콘솔 오류 0개 ✅
+- 모바일 폭(375px) 스크린샷: 레이아웃 정상 ✅
+
+빌드·테스트·타입체크·린트 모두 통과했습니다.
+
+@@term target-or-lock-file todo-app md
+@@prompt
+할 일 목록 앱의 삭제 버튼을 빨간색 아이콘 버튼으로 바꿔줘. @src/components/TodoItem.tsx 파일만 수정하고(target file), src/lib/ 폴더와 테스트 파일은 잠금(lock file)이라 건드리지 마.
+@@transcript
+`src/components/TodoItem.tsx` **한 파일만** 수정했습니다.
+
+```diff
+ import type { Todo } from "../lib/types";
++import { Trash2 } from "lucide-react";
+
+ export default function TodoItem({ todo, onToggle, onDelete }: Props) {
+   return (
+     <li className={todo.done ? "done" : ""}>
+       <input type="checkbox" checked={todo.done} onChange={onToggle} />
+       <span>{todo.text}</span>
+-      <button onClick={onDelete}>삭제</button>
++      <button
++        onClick={onDelete}
++        aria-label={`${todo.text} 삭제`}
++        className="inline-flex h-8 w-8 items-center justify-center rounded-md text-red-600 hover:bg-red-50"
++      >
++        <Trash2 className="h-4 w-4" />
++      </button>
+     </li>
+   );
+ }
+```
+
+**확인 사항**
+- `lucide-react`는 이미 `package.json`에 있어서 새로 설치하지 않았습니다.
+- 잠긴 `src/lib/`와 `*.test.tsx`는 열어보기만 하고 수정하지 않았습니다.
+- 다만 `TodoItem.test.tsx`가 `getByText("삭제")`로 버튼을 찾고 있어서 **이 테스트는 이제 실패합니다.** 테스트 파일이 잠겨 있어 고치지 않았으니, `getByRole("button", { name: /삭제/ })`로 바꾸는 것을 허락해 주시거나 직접 수정해 주세요.

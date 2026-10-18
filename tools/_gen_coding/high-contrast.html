@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  /* 고대비: 순수 흑/백 + 노랑/시안 강조, 대비비 ≥ 7:1, 색에만 의존하지 않는 표시(▲▼ 기호, 패턴) */
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #000; color: #fff; font-size: 16px; }
+  h1 { font-size: 26px; margin: 0 0 16px; font-weight: 800; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .panel { background: #000; padding: 16px; border: 3px solid #fff; border-radius: 4px; }
+  .kpi .label { font-size: 15px; font-weight: 700; color: #fff; }
+  .kpi .value { font-size: 28px; font-weight: 800; margin-top: 4px; color: #ffff00; }
+  .delta { font-size: 15px; font-weight: 700; margin-top: 4px; }
+  .up { color: #00ffff; } .down { color: #ff9ecb; }
+  .panel h2 { font-size: 18px; margin: 0 0 12px; }
+  .chart-wrap { position: relative; height: 260px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 15px; }
+  th, td { border: 2px solid #fff; padding: 8px; text-align: right; } th:first-child, td:first-child { text-align: left; }
+  th { background: #fff; color: #000; }
+  a, button { color: #ffff00; }
+  button { background: #000; border: 3px solid #ffff00; padding: 8px 14px; font-size: 15px; font-weight: 700; cursor: pointer; }
+  :focus-visible { outline: 4px solid #00ffff; outline-offset: 3px; }
+  .bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+  @media (forced-colors: active) { .kpi, .panel { border-color: CanvasText; } }
+</style>
+</head>
+<body>
+<div class="bar"><h1 style="margin:0">매출 대시보드</h1><button id="tbl" aria-expanded="false">표로 보기</button></div>
+<div class="kpis">
+  <div class="kpi"><div class="label">총 매출</div><div class="value">₩48,250,000</div><div class="delta up">▲ 12.5% 상승</div></div>
+  <div class="kpi"><div class="label">주문 수</div><div class="value">1,284</div><div class="delta up">▲ 8.1% 상승</div></div>
+  <div class="kpi"><div class="label">평균 주문 금액</div><div class="value">₩37,580</div><div class="delta up">▲ 4.0% 상승</div></div>
+  <div class="kpi"><div class="label">환불률</div><div class="value">2.3%</div><div class="delta down">▼ 악화 0.4%p</div></div>
+</div>
+<div class="panel">
+  <h2 id="ch">월별 매출 추이 (만원)</h2>
+  <div class="chart-wrap"><canvas id="chart" role="img" aria-labelledby="ch" aria-describedby="sum"></canvas></div>
+  <p id="sum" style="font-size:15px;margin:10px 0 0">요약: 1월 3,200만원에서 11월 5,200만원으로 최고치, 12월 4,825만원.</p>
+  <div id="tableBox" hidden></div>
+</div>
+<script>
+  const months = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+  const sales = [3200, 3500, 3100, 3900, 4200, 4000, 4500, 4700, 4300, 4900, 5200, 4825];
+  const target = [3400, 3400, 3600, 3600, 3800, 3800, 4200, 4200, 4500, 4500, 4800, 4800];
+  Chart.defaults.color = '#fff'; Chart.defaults.font.size = 14; Chart.defaults.font.weight = 'bold'; Chart.defaults.borderColor = '#666';
+  new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: { labels: months, datasets: [
+      { label: '실적', data: sales, borderColor: '#ffff00', borderWidth: 4, pointRadius: 5, pointStyle: 'circle', pointBackgroundColor: '#ffff00' },
+      { label: '목표', data: target, borderColor: '#00ffff', borderWidth: 3, borderDash: [8, 6], pointRadius: 5, pointStyle: 'rectRot', pointBackgroundColor: '#00ffff' }
+    ] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { usePointStyle: true, color: '#fff' } } }, scales: { x: { grid: { color: '#444' } }, y: { grid: { color: '#444' } } } }
+  });
+  document.getElementById('tbl').onclick = e => {
+    const box = document.getElementById('tableBox'), show = box.hidden; box.hidden = !show; e.target.setAttribute('aria-expanded', show);
+    e.target.textContent = show ? '표 숨기기' : '표로 보기';
+    box.innerHTML = `<table><tr><th>월</th><th>실적</th><th>목표</th></tr>${months.map((m, i) => `<tr><td>${m}</td><td>${sales[i].toLocaleString()}</td><td>${target[i].toLocaleString()}</td></tr>`).join('')}</table>`;
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 8px; flex-wrap: wrap; }
+  h1 { font-size: 22px; margin: 0; }
+  .sim { display: flex; gap: 4px; font-size: 12px; }
+  .sim button { padding: 6px 10px; border: 1px solid #d0d4de; background: #fff; border-radius: 6px; cursor: pointer; }
+  .sim button.on { background: #222; color: #fff; border-color: #222; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .panel { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .label { font-size: 13px; color: #777; } .value { font-size: 24px; font-weight: 700; margin-top: 4px; } .up { color: #2e9e5b; font-size: 12px; }
+  .panel h2 { font-size: 16px; margin: 0 0 12px; }
+  .chart-wrap { position: relative; height: 240px; }
+  .state { min-height: 240px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 8px; color: #555; }
+  .spinner { width: 34px; height: 34px; border: 3px solid #e3e6ef; border-top-color: #4a6cf7; border-radius: 50%; animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .state h3 { margin: 4px 0 0; font-size: 16px; color: #222; }
+  .state p { margin: 0; font-size: 13px; color: #777; max-width: 320px; }
+  .state .ic { font-size: 40px; }
+  .err { background: #fff7f7; border: 1px solid #f3c7c7; border-radius: 8px; }
+  .retry { margin-top: 6px; padding: 8px 16px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; }
+  code { font-size: 11px; background: #f3f3f3; padding: 2px 6px; border-radius: 4px; color: #a33; }
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>매출 대시보드</h1>
+  <div class="sim" id="sim"><button data-m="ok" class="on">정상</button><button data-m="empty">데이터 없음</button><button data-m="error">오류</button></div>
+</div>
+<div id="app"></div>
+<script>
+  let mode = 'ok', chart;
+  // 가짜 API: 모드에 따라 성공 / 빈 데이터 / 실패
+  const api = () => new Promise((res, rej) => setTimeout(() => {
+    if (mode === 'error') rej(new Error('503 Service Unavailable'));
+    else res(mode === 'empty' ? { sales: [] } : { sales: [3200, 3500, 3100, 3900, 4200, 4000, 4500, 4700, 4300, 4900, 5200, 4825] });
+  }, 1200));
+  const app = document.getElementById('app');
+  const view = {
+    loading: () => `<div class="panel"><div class="state" role="status"><div class="spinner"></div><p>매출 데이터를 불러오는 중…</p></div></div>`,
+    empty: () => `<div class="panel"><div class="state"><div class="ic">📭</div><h3>아직 매출 데이터가 없어요</h3><p>첫 주문이 들어오면 이곳에 월별 매출 추이가 표시됩니다.</p><button class="retry" onclick="load()">새로고침</button></div></div>`,
+    error: e => `<div class="panel err"><div class="state" role="alert"><div class="ic">⚠️</div><h3>데이터를 불러오지 못했어요</h3><p>일시적인 서버 문제일 수 있어요. 잠시 후 다시 시도해 주세요.</p><code>${e.message}</code><button class="retry" onclick="load()">↻ 다시 시도</button></div></div>`,
+    ok: d => {
+      const total = d.sales.reduce((a, b) => a + b, 0);
+      return `<div class="kpis">
+        <div class="kpi"><div class="label">연간 매출</div><div class="value">₩${(total / 10000).toFixed(2)}억</div><div class="up">▲ 12.5%</div></div>
+        <div class="kpi"><div class="label">주문 수</div><div class="value">1,284</div><div class="up">▲ 8.1%</div></div>
+        <div class="kpi"><div class="label">평균 주문 금액</div><div class="value">₩37,580</div><div class="up">▲ 4.0%</div></div>
+      </div><div class="panel"><h2>월별 매출 추이</h2><div class="chart-wrap"><canvas id="chart"></canvas></div></div>`;
+    }
+  };
+  async function load() {
+    if (chart) { chart.destroy(); chart = null; }
+    app.innerHTML = view.loading();
+    try {
+      const d = await api();
+      if (!d.sales.length) { app.innerHTML = view.empty(); return; }
+      app.innerHTML = view.ok(d);
+      chart = new Chart(document.getElementById('chart'), { type: 'line', data: { labels: d.sales.map((_, i) => i + 1 + '월'), datasets: [{ data: d.sales, borderColor: '#4a6cf7', backgroundColor: 'rgba(74,108,247,.1)', fill: true, tension: .3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+    } catch (e) { app.innerHTML = view.error(e); }
+  }
+  document.getElementById('sim').onclick = e => {
+    if (!e.target.dataset.m) return; mode = e.target.dataset.m;
+    document.querySelectorAll('#sim button').forEach(b => b.classList.toggle('on', b === e.target)); load();
+  };
+  load();
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# 로컬 전용
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.claude/settings.local.json

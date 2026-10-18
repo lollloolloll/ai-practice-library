@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>튀는 공 — 손맛</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1e1e2e; font-family: system-ui, sans-serif; color: #ddd; }
+  canvas { display: block; touch-action: none; }
+  .ui { position: fixed; top: 8px; left: 8px; font-size: 12px; background: rgba(0,0,0,.4); padding: 6px 10px; border-radius: 8px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .score { position: fixed; top: 8px; right: 14px; font: 800 30px system-ui; color: #ffd93d; transition: transform .1s; }
+</style>
+</head>
+<body>
+<div class="ui" id="ui"></div>
+<div class="score" id="score">0</div>
+<canvas id="c"></canvas>
+<script>
+  const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+  let W, H; function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; } addEventListener('resize', resize); resize();
+  // 각 효과를 켜고 끄며 비교
+  const FX = { shake: true, squash: true, hitstop: true, flash: true, trail: true, particles: true };
+  const names = { shake: '화면 흔들림', squash: '찌그러짐', hitstop: '히트 스톱', flash: '번쩍임', trail: '잔상', particles: '파편' };
+  const ui = document.getElementById('ui');
+  for (const k in FX) { const l = document.createElement('label'); l.innerHTML = `<input type="checkbox" checked> ${names[k]}`; l.querySelector('input').onchange = e => FX[k] = e.target.checked; ui.appendChild(l); }
+  ui.insertAdjacentHTML('beforeend', '<span style="color:#999">클릭해서 공을 튕기세요</span>');
+
+  const ball = { x: W / 2, y: H / 3, r: 26, vx: 380, vy: 0, sx: 1, sy: 1, trail: [] };
+  let shake = 0, stop = 0, flash = 0, score = 0; const sparks = [];
+  function impact(power, nx, ny) {
+    const p = Math.min(1, power / 1200);
+    if (FX.shake) shake = Math.max(shake, 18 * p);
+    if (FX.hitstop && p > .4) stop = .06 * p;
+    if (FX.flash) flash = .5 * p;
+    if (FX.squash) { if (nx) { ball.sx = 1 - .45 * p; ball.sy = 1 + .35 * p; } else { ball.sy = 1 - .45 * p; ball.sx = 1 + .35 * p; } }
+    if (FX.particles) for (let i = 0; i < 14 * p + 4; i++) { const a = Math.atan2(ny, nx) + (Math.random() - .5) * 2.2, s = 150 + Math.random() * 350 * p; sparks.push({ x: ball.x - nx * ball.r, y: ball.y - ny * ball.r, vx: Math.cos(a) * s, vy: Math.sin(a) * s, l: .5 }); }
+    score++; const el = document.getElementById('score'); el.textContent = score; el.style.transform = 'scale(1.5) rotate(-6deg)'; setTimeout(() => el.style.transform = '', 100);
+  }
+  canvas.addEventListener('pointerdown', e => {
+    const dx = ball.x - e.clientX, dy = ball.y - e.clientY, d = Math.hypot(dx, dy) || 1;
+    ball.vx = dx / d * 900; ball.vy = dy / d * 900 - 400; impact(900, -dx / d, -dy / d);
+  });
+  function update(dt) {
+    if (stop > 0) { stop -= dt; return; }                       // 히트 스톱: 잠깐 멈춤
+    ball.vy += 1500 * dt; ball.x += ball.vx * dt; ball.y += ball.vy * dt;
+    if (ball.y > H - ball.r) { ball.y = H - ball.r; const v = Math.abs(ball.vy); ball.vy = -v * .86; if (v > 150) impact(v, 0, 1); if (v < 200) ball.vy = -1050; }
+    if (ball.y < ball.r) { ball.y = ball.r; impact(Math.abs(ball.vy), 0, -1); ball.vy = Math.abs(ball.vy); }
+    if (ball.x < ball.r) { ball.x = ball.r; impact(Math.abs(ball.vx), -1, 0); ball.vx = Math.abs(ball.vx); }
+    if (ball.x > W - ball.r) { ball.x = W - ball.r; impact(Math.abs(ball.vx), 1, 0); ball.vx = -Math.abs(ball.vx); }
+    // 스프링으로 원래 모양 복원
+    ball.sx += (1 - ball.sx) * Math.min(1, dt * 14); ball.sy += (1 - ball.sy) * Math.min(1, dt * 14);
+    ball.trail.push({ x: ball.x, y: ball.y }); if (ball.trail.length > 14) ball.trail.shift();
+    for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i]; s.l -= dt; s.vy += 900 * dt; s.x += s.vx * dt; s.y += s.vy * dt; if (s.l <= 0) sparks.splice(i, 1); }
+    shake *= Math.pow(.002, dt); flash = Math.max(0, flash - dt * 3);
+  }
+  function draw() {
+    ctx.save();
+    if (shake > .5) ctx.translate((Math.random() - .5) * shake * 2, (Math.random() - .5) * shake * 2);
+    ctx.fillStyle = '#1e1e2e'; ctx.fillRect(-40, -40, W + 80, H + 80);
+    if (FX.trail) ball.trail.forEach((t, i) => { ctx.globalAlpha = i / ball.trail.length * .35; ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.arc(t.x, t.y, ball.r * (i / ball.trail.length), 0, 7); ctx.fill(); });
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#ffd93d'; for (const s of sparks) ctx.fillRect(s.x - 2, s.y - 2, 4, 4);
+    ctx.save(); ctx.translate(ball.x, ball.y); ctx.scale(ball.sx, ball.sy);
+    ctx.fillStyle = stop > 0 ? '#fff' : '#ff6b6b'; ctx.beginPath(); ctx.arc(0, 0, ball.r, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#1e1e2e'; ctx.beginPath(); ctx.arc(-8, -5, 4, 0, 7); ctx.arc(8, -5, 4, 0, 7); ctx.fill();
+    ctx.restore();
+    ctx.restore();
+    if (flash > 0) { ctx.fillStyle = `rgba(255,255,255,${flash * .5})`; ctx.fillRect(0, 0, W, H); }
+  }
+  let last = performance.now();
+  (function loop(now) { const dt = Math.min(.033, (now - last) / 1000); last = now; update(dt); draw(); requestAnimationFrame(loop); })(last);
+</script>
+</body>
+</html>

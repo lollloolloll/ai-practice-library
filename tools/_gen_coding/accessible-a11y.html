@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 24px 16px; color: #1a1a1a; font-size: 16px; }
+  .skip { position: absolute; left: -9999px; } .skip:focus { left: 16px; top: 8px; background: #fff; padding: 8px 12px; z-index: 9; }
+  main { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 8px; border: 1px solid #c4c7cc; padding: 20px; }
+  h1 { font-size: 24px; margin: 0 0 16px; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  .row { display: flex; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 10px 12px; border: 2px solid #5f6368; border-radius: 6px; font-size: 16px; }
+  button { min-height: 44px; padding: 8px 16px; border: 2px solid transparent; border-radius: 6px; background: #1d4ed8; color: #fff; cursor: pointer; font-size: 16px; }
+  /* 키보드 사용자를 위한 뚜렷한 포커스 링 */
+  :focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+  .hint { font-size: 14px; color: #4b5563; margin: 6px 0 16px; }
+  .err { color: #b91c1c; font-size: 14px; min-height: 20px; margin-top: 4px; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #d1d5db; }
+  li label { flex: 1; font-weight: 400; margin: 0; display: flex; gap: 10px; align-items: center; cursor: pointer; min-height: 44px; }
+  li input { width: 22px; height: 22px; accent-color: #1d4ed8; }
+  li.done .txt { text-decoration: line-through; color: #4b5563; }
+  .del { background: #fff; color: #b91c1c; border-color: #b91c1c; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .badge { font-size: 12px; background: #ecfdf5; color: #065f46; border: 1px solid #065f46; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#list">할 일 목록으로 건너뛰기</a>
+<main aria-labelledby="title">
+  <h1 id="title">할 일 목록</h1>
+  <span class="badge">WCAG 2.2 AA · Tab 키로 이동해 보세요</span>
+  <form id="form" novalidate>
+    <label for="input">새 할 일</label>
+    <div class="row">
+      <input type="text" id="input" aria-describedby="err" autocomplete="off">
+      <button type="submit">추가</button>
+    </div>
+    <div class="err" id="err" role="alert"></div>
+  </form>
+  <h2 class="sr">목록</h2>
+  <ul id="list" aria-label="할 일"></ul>
+  <p class="hint" id="count" aria-live="polite"></p>
+  <div class="sr" id="announce" aria-live="assertive"></div>
+</main>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  let todos = [{ id: 1, text: '장보기', done: false }, { id: 2, text: '운동하기', done: true }, { id: 3, text: '보고서 작성', done: false }];
+  const list = document.getElementById('list'), announce = m => document.getElementById('announce').textContent = m;
+  function render(focusId) {
+    list.innerHTML = '';
+    todos.forEach((t, i) => {
+      const li = document.createElement('li'); if (t.done) li.className = 'done';
+      li.innerHTML = `<label><input type="checkbox" ${t.done ? 'checked' : ''}><span class="txt"></span></label><button class="del" aria-label="">삭제</button>`;
+      li.querySelector('.txt').textContent = t.text;
+      li.querySelector('.del').setAttribute('aria-label', `"${t.text}" 삭제`);
+      const cb = li.querySelector('input');
+      cb.id = 'cb' + t.id;
+      cb.onchange = () => { t.done = cb.checked; announce(`${t.text} ${t.done ? '완료' : '미완료'}로 표시됨`); render('cb' + t.id); };
+      li.querySelector('.del').onclick = () => {
+        todos = todos.filter(x => x !== t); announce(`${t.text} 삭제됨`);
+        const next = todos[i] || todos[i - 1]; render(next ? 'cb' + next.id : 'input');
+      };
+      list.appendChild(li);
+    });
+    document.getElementById('count').textContent = `남은 할 일 ${todos.filter(t => !t.done).length}개 / 전체 ${todos.length}개`;
+    if (focusId) document.getElementById(focusId)?.focus();
+  }
+  bindSubmit(document.getElementById('form'), e => {
+    e.preventDefault();
+    const i = document.getElementById('input'), err = document.getElementById('err'), v = i.value.trim();
+    if (!v) { err.textContent = '할 일을 입력해 주세요.'; i.setAttribute('aria-invalid', 'true'); i.focus(); return; }
+    err.textContent = ''; i.removeAttribute('aria-invalid');
+    todos.push({ id: Date.now(), text: v, done: false }); i.value = ''; announce(`${v} 추가됨`); render('input');
+  });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>할 일 목록</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f4f5f7; margin: 0; padding: 20px 16px; color: #222; }
+  .app { max-width: 480px; margin: 0 auto; background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.1); padding: 20px; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .net { font-size: 12px; color: #666; margin-bottom: 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .net label { display: flex; gap: 4px; align-items: center; }
+  form { display: flex; gap: 8px; margin-bottom: 14px; }
+  input[type=text] { flex: 1; min-width: 0; padding: 9px 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+  button { padding: 8px 14px; border: 0; border-radius: 6px; background: #4a6cf7; color: #fff; cursor: pointer; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; align-items: center; gap: 10px; padding: 10px 6px; border-bottom: 1px solid #eee; transition: background .3s, opacity .3s; }
+  li span { flex: 1; } li.done span { text-decoration: line-through; color: #999; }
+  li.pending { opacity: .6; }
+  li.pending .st::before { content: ''; display: inline-block; width: 10px; height: 10px; border: 2px solid #bbb; border-top-color: #4a6cf7; border-radius: 50%; animation: spin .7s linear infinite; }
+  li.failed { background: #fff1f0; }
+  .st { font-size: 11px; color: #999; min-width: 54px; text-align: right; }
+  li.failed .st { color: #d64545; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .del { background: none; color: #c33; padding: 4px 6px; }
+  .log { margin-top: 14px; font: 11px/1.6 ui-monospace, monospace; background: #111827; color: #a7f3d0; border-radius: 6px; padding: 8px 10px; height: 92px; overflow: auto; }
+  .log .e { color: #fca5a5; }
+</style>
+</head>
+<body>
+<div class="app">
+  <h1>할 일 목록</h1>
+  <div class="net">서버 응답 지연 1.2초 (가짜 API) <label><input type="checkbox" id="fail"> 다음 요청 실패시키기</label></div>
+  <form id="form"><input type="text" id="input" placeholder="할 일을 입력하세요"><button>추가</button></form>
+  <ul id="list"></ul>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  // 폼 제출이 막힌 환경(sandbox iframe 등)에서도 동작하도록 submit 이벤트 대신 버튼 클릭·Enter를 직접 처리
+  function bindSubmit(form, handler) {
+    const run = (ev, submitter) => { ev.preventDefault(); handler({ target: form, submitter, preventDefault() {} }); };
+    form.addEventListener('click', ev => { const b = ev.target.closest('button'); if (b && b.type === 'submit' && !b.disabled) run(ev, b); });
+    form.addEventListener('keydown', ev => { if (ev.key === 'Enter' && !ev.isComposing && ev.target.matches('input:not([type=checkbox])')) { const b = form.querySelector('button:not([type=button])'); if (!b || !b.disabled) run(ev, b); } });
+  }
+  // 가짜 서버: 1.2초 후 응답, 체크박스로 실패 시뮬레이션
+  const api = (op, payload) => new Promise((ok, no) => {
+    const fail = document.getElementById('fail').checked; document.getElementById('fail').checked = false;
+    log(`→ ${op} ${JSON.stringify(payload)}`);
+    setTimeout(() => fail ? (log(`✕ ${op} 500 Internal Error`, 1), no(new Error('서버 오류'))) : (log(`✓ ${op} 200 OK`), ok()), 1200);
+  });
+  function log(m, err) { const l = document.getElementById('log'); l.innerHTML += `<div class="${err ? 'e' : ''}">${m}</div>`; l.scrollTop = 1e9; }
+
+  let todos = [{ id: 1, text: '장보기', done: false }, { id: 2, text: '운동하기', done: true }, { id: 3, text: '보고서 작성', done: false }];
+  const list = document.getElementById('list');
+  function render() {
+    list.innerHTML = '';
+    todos.forEach(t => {
+      const li = document.createElement('li');
+      li.className = [t.done && 'done', t.pending && 'pending', t.failed && 'failed'].filter(Boolean).join(' ');
+      li.innerHTML = '<input type="checkbox"' + (t.done ? ' checked' : '') + '><span></span><small class="st"></small><button class="del">삭제</button>';
+      li.querySelector('span').textContent = t.text;
+      li.querySelector('.st').textContent = t.failed ? '실패·되돌림' : t.pending ? ' 저장 중' : '';
+      li.querySelector('input').onchange = () => mutate(t, () => t.done = !t.done, 'PATCH', { id: t.id });
+      li.querySelector('.del').onclick = () => {
+        // 즉시 제거하고, 실패하면 원래 자리로 복구
+        const idx = todos.indexOf(t); todos.splice(idx, 1); render();
+        api('DELETE', { id: t.id }).catch(() => { todos.splice(idx, 0, Object.assign(t, { failed: true })); render(); setTimeout(() => { t.failed = false; render(); }, 2000); });
+      };
+      list.appendChild(li);
+    });
+  }
+  function mutate(t, apply, op, payload) {
+    const snapshot = { ...t }; apply(); t.pending = true; render();   // 화면 먼저 갱신
+    api(op, payload).then(() => { t.pending = false; render(); })
+      .catch(() => { Object.assign(t, snapshot, { pending: false, failed: true }); render(); setTimeout(() => { t.failed = false; render(); }, 2000); });
+  }
+  bindSubmit(document.getElementById('form'), e => {
+    e.preventDefault(); const i = document.getElementById('input'), v = i.value.trim(); if (!v) return;
+    const t = { id: Date.now(), text: v, done: false, pending: true }; todos.push(t); i.value = ''; render();
+    api('POST', { text: v }).then(() => { t.pending = false; render(); })
+      .catch(() => { t.pending = false; t.failed = true; render(); setTimeout(() => { todos = todos.filter(x => x !== t); render(); }, 1500); });
+  });
+  render();
+</script>
+</body>
+</html>

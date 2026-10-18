@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>매출 대시보드</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #f5f6fa; color: #222; }
+  .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  h1 { font-size: 22px; margin: 0; }
+  .reload { padding: 7px 12px; border: 1px solid #d0d4de; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .panel { background: #fff; padding: 16px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .label { font-size: 13px; color: #777; } .value { font-size: 24px; font-weight: 700; margin-top: 4px; } .up { color: #2e9e5b; font-size: 12px; } .down { color: #d64545; font-size: 12px; }
+  .panel h2 { font-size: 16px; margin: 0 0 12px; }
+  .chart-wrap { position: relative; height: 240px; }
+  /* 스켈레톤: 실제 레이아웃과 같은 크기의 회색 블록 + shimmer */
+  .sk { background: #e9ebf0; border-radius: 6px; position: relative; overflow: hidden; }
+  .sk::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent); animation: shimmer 1.2s infinite; }
+  @keyframes shimmer { to { transform: translateX(100%); } }
+  .sk.t { height: 13px; width: 50%; } .sk.v { height: 28px; width: 80%; margin-top: 8px; } .sk.s { height: 11px; width: 40%; margin-top: 8px; }
+  .sk-chart { height: 240px; display: flex; align-items: flex-end; gap: 6%; padding: 0 4%; background: none; }
+  .sk-chart .sk { flex: 1; }
+  .fade { animation: fade .35s ease-out; } @keyframes fade { from { opacity: 0; } }
+  .row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .row .n { flex: 1; } .av { width: 30px; height: 30px; border-radius: 50%; background: #dfe5ff; display: grid; place-items: center; font-size: 12px; color: #4a6cf7; }
+  .grid2 { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; }
+  @media (max-width: 720px) { .grid2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="top"><h1>매출 대시보드</h1><button class="reload" id="reload">↻ 다시 불러오기</button></div>
+<div class="kpis" id="kpis"></div>
+<div class="grid2">
+  <div class="panel"><h2>월별 매출 추이</h2><div id="chartBox"></div></div>
+  <div class="panel"><h2>최근 주문</h2><div id="orders"></div></div>
+</div>
+<script>
+  const data = {
+    kpis: [['총 매출', '₩48,250,000', '▲ 12.5%', 'up'], ['주문 수', '1,284', '▲ 8.1%', 'up'], ['평균 주문 금액', '₩37,580', '▲ 4.0%', 'up'], ['환불률', '2.3%', '▲ 0.4%p', 'down']],
+    sales: [3200, 3500, 3100, 3900, 4200, 4000, 4500, 4700, 4300, 4900, 5200, 4825],
+    orders: [['김민지', '₩128,000'], ['이준호', '₩56,500'], ['박서연', '₩89,000'], ['최도윤', '₩23,900'], ['정하은', '₩210,000']]
+  };
+  const fetchDashboard = () => new Promise(r => setTimeout(() => r(data), 1500)); // 1.5초 지연 API
+  let chart;
+  function skeleton() {
+    document.getElementById('kpis').innerHTML = data.kpis.map(() => '<div class="kpi"><div class="sk t"></div><div class="sk v"></div><div class="sk s"></div></div>').join('');
+    document.getElementById('chartBox').innerHTML = '<div class="sk-chart">' + [40, 55, 45, 70, 62, 80, 74, 90].map(h => `<div class="sk" style="height:${h}%"></div>`).join('') + '</div>';
+    document.getElementById('orders').innerHTML = Array(5).fill('<div class="row"><div class="sk" style="width:30px;height:30px;border-radius:50%"></div><div class="sk" style="flex:1;height:12px"></div><div class="sk" style="width:60px;height:12px"></div></div>').join('');
+  }
+  async function load() {
+    skeleton(); if (chart) chart.destroy();
+    const d = await fetchDashboard();
+    document.getElementById('kpis').innerHTML = d.kpis.map(([l, v, c, dir]) => `<div class="kpi fade"><div class="label">${l}</div><div class="value">${v}</div><div class="${dir}">${c} 전월 대비</div></div>`).join('');
+    document.getElementById('chartBox').innerHTML = '<div class="chart-wrap fade"><canvas id="chart"></canvas></div>';
+    chart = new Chart(document.getElementById('chart'), { type: 'line', data: { labels: d.sales.map((_, i) => i + 1 + '월'), datasets: [{ data: d.sales, borderColor: '#4a6cf7', backgroundColor: 'rgba(74,108,247,.1)', fill: true, tension: .3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
+    document.getElementById('orders').innerHTML = d.orders.map(([n, a]) => `<div class="row fade"><div class="av">${n[0]}</div><div class="n">${n}</div><b>${a}</b></div>`).join('');
+  }
+  document.getElementById('reload').onclick = load;
+  load();
+</script>
+</body>
+</html>
