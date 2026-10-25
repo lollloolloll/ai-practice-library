@@ -580,7 +580,8 @@
       h('div', { class: 'layers' },
         h('a', { class: 'layer', href: '#combos' }, h('b', null, '조합 레시피 ' + D.combos.length), h('span', null, '함께 쓰면 잘 맞는 용어 묶음이에요')),
         h('a', { class: 'layer', href: '#tech' }, h('b', null, '상호작용 기법 ' + D.techniques.length), h('span', null, '참고 이미지, 시드, 부분 수정처럼 프롬프트 밖에서 AI를 다루는 법이에요')),
-        h('a', { class: 'layer', href: '#briefs' }, h('b', null, '브리프 틀 ' + D.briefs.length), h('span', null, '실제로 뭔가 만들 때 AI에게 맥락을 주는 순서예요')))));
+        h('a', { class: 'layer', href: '#briefs' }, h('b', null, '브리프 틀 ' + D.briefs.length), h('span', null, '실제로 뭔가 만들 때 AI에게 맥락을 주는 순서예요')),
+        h('a', { class: 'layer', href: 'cases/index.html' }, h('b', null, '실전 사례'), h('span', null, '잘 만든 결과물을 거꾸로 분해해 용어와 프롬프트로 풀어요')))));
 
     app.append(h('div', { class: 'section' },
       h('div', { class: 'section-h' }, h('h2', null, '원본 출처')),
@@ -990,6 +991,7 @@
     n.append(h('span', { class: 'sep', 'aria-hidden': 'true' }));
     [['combos', '조합'], ['tech', '기법'], ['briefs', '브리프']].forEach(([k, label]) =>
       n.append(h('a', { href: '#' + k, 'aria-current': current === k ? 'page' : null }, label)));
+    n.append(h('a', { href: 'cases/index.html' }, '실전 사례'));
   }
 
   let lastHash = null;
