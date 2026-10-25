@@ -1,0 +1,4966 @@
+{
+ "format_version": 1,
+ "built_at": "2026-10-25",
+ "target": {
+  "name": "Habitica (Android)",
+  "package": "com.habitrpg.android.habitica",
+  "applicationId": "com.habitrpg.android.habitica",
+  "versionName": "4.11.0",
+  "versionCode": 27850,
+  "minSdk": 26,
+  "targetSdk": 37,
+  "compileSdk": 37,
+  "wearTargetSdk": 36,
+  "modules": [
+   ":Habitica",
+   ":wearos",
+   ":common",
+   ":shared"
+  ],
+  "ui_toolkit": "hybrid XML/ViewBinding + Jetpack Compose (Material3)",
+  "di": "Hilt",
+  "networking": "Retrofit 3 + OkHttp 5 + Gson",
+  "local_db": "Realm Java 10.19",
+  "sdks": [
+   "Firebase Crashlytics",
+   "Firebase Messaging",
+   "Firebase Remote Config",
+   "Firebase Performance",
+   "Google Play Billing 9.1",
+   "Play In-App Review",
+   "Credential Manager + Google ID",
+   "Play Services Wearable",
+   "Glance",
+   "WorkManager",
+   "Coil 3",
+   "Shimmer",
+   "LeakCanary (debug)"
+  ],
+  "flavors": [
+   "dev",
+   "staff",
+   "setup",
+   "partners",
+   "alpha",
+   "beta",
+   "prod"
+  ],
+  "build_types": [
+   "debug",
+   "debugIAP",
+   "release"
+  ],
+  "license": "GPL-3.0",
+  "repo": "https://github.com/HabitRPG/habitica-android",
+  "commit": "52fbfd7a1bc76b153fb55fba7220644798de54b2",
+  "commit_date": "2026-10-19",
+  "analyzed_at": "2026-10-25",
+  "method": "static source reading of shallow clone; no build/execution"
+ },
+ "listing": {
+  "title": "Habitica: Gamify Your Tasks",
+  "package_id": "com.habitrpg.android.habitica",
+  "developer": "HabitRPG, Inc.",
+  "developer_id": "7023585019856140116",
+  "url": "https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica",
+  "rating": 4.642405,
+  "rating_display": "4.6",
+  "rating_count": 76007,
+  "rating_histogram_1to5": [
+   2400,
+   1081,
+   2884,
+   8535,
+   61094
+  ],
+  "review_count_en_US": 3943,
+  "review_count_ko": 372,
+  "installs": "5,000,000+",
+  "installs_min": 5000000,
+  "installs_estimate_raw": 8389823,
+  "content_rating": {
+   "en": "Everyone",
+   "ko": "3세 이상",
+   "descriptor_en": "Content is generally suitable for all ages. May contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
+  },
+  "released": {
+   "en": "Dec 10, 2015",
+   "ko": "2015. 12. 10."
+  },
+  "last_updated": {
+   "en": "Oct 5, 2026",
+   "ko": "2026. 10. 5.",
+   "iso": "2026-10-05"
+  },
+  "version": "4.10.6 (inferred from What's new header; Play no longer shows version field on web)",
+  "min_android": "8.0",
+  "target_sdk_hint": 36,
+  "category": {
+   "en": "Productivity",
+   "ko": "생산성",
+   "id": "PRODUCTIVITY"
+  },
+  "price": "Free",
+  "contains_ads": {
+   "en": "Contains ads",
+   "ko": "광고 포함"
+  },
+  "in_app_purchases": {
+   "en": "$0.99 - $47.99 per item",
+   "ko": "항목당 ₩1,200 - ₩64,900"
+  },
+  "short_description": {
+   "en": "Treat your life like a game to stay motivated and organized!",
+   "ko": "인생을 게임처럼 즐기면서 동기를 부여하고 계획적인 삶을 사세요!"
+  },
+  "full_description": {
+   "en": "Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals.\nUse Habitica to help with ADHD, self care, New Year’s resolutions, household chores, work tasks, creative projects, fitness goals, back-to-school routines, and more!\n\nHow it works:\nCreate an avatar then add tasks, chores, or goals you’d like to work on. When you do something in real life, check it off in the app and receive gold, experience, and items that can be used in-game!\n\nFeatures:\n  • Automatically repeating tasks scheduled for your daily, weekly, or monthly routines\n  • Flexible habit tracker for tasks you want to do multiple times a day or only once in awhile\n  • Traditional to do list for tasks that only need to be done once\n  • Color coded tasks and streak counters help you see how you’re doing at a glance\n  • Leveling system to visualize your overall progress\n  • Tons of collectable gear and pets to suit your personal style\n  • Inclusive avatar customizations: wheelchairs, hair styles, skin tones, and more\n  • Regular content releases and seasonal events to keep things fresh\n  • Parties let you team up with friends for extra accountability and battle fierce foes by completing tasks\n  • Challenges offer shared task lists you can add to your personal tasks\n  • Reminders and widgets to help keep you on track\n  • Customizable color themes with dark and light mode\n  • Syncing across devices\n\n\nWant even more flexibility to take your tasks on the go? We have a Wear OS app on the watch!\n\nWear OS features:\n  • View, create, and complete Habits, Dailies, and To do’s\n  • Receive rewards for your efforts with experience, food, eggs, and potions\n  • Track your stats with dynamic progress bars\n  • Show off your stunning pixel avatar on the watch face\n\n\n—\n\n\nRun by a small team, Habitica is an open-source app made better by contributors who create translations, bug fixes, and more. If you’d like to contribute, you can check out our GitHub or reach out for more information!\nWe highly value community, privacy, and transparency. Rest assured, your tasks remain private and we never sell your personal data to third parties.\nQuestions or feedback? Feel free to reach us at admin@habitica.com! If you’re enjoying Habitica, we’d be thrilled if you leave us a review.\nStart your journey towards productivity, download Habitica now!",
+   "ko": "동기부여와 체계적인 삶을 위해 당신의 인생을 게임처럼 다루세요! Habitica는 목표를 달성하는 것을 재미있게 만들어줍니다. 습관, 하루 목표, 할일 목록을 입력한 다음 자신만의 아바타를 만드세요. \n\n할일을 확인하여 아바타의 레벨을 올리고 갑옷, 애완 동물, 스킬 및 퀘스트와 같은 기능을 잠금 해제하세요! 친구들과 함께 각자의 할일을 함으로써 몬스터와 대항하고, 골드로 장비 등의 보상을 획득하세요. TV쇼를 볼 수 있는 보상과 같은 자신만의 보상도 가능합니다. 소셜과 연계된 재밌는 Habitica는 무엇이든 성취 할 수 있도록 동기를 부여하는 완벽한 방법입니다.\n\n특징:\n  • 매일, 매주 또는 매월 루틴에 대해 예약된 작업을 자동으로 반복합니다.\n  • 하루에 여러 번 또는 가끔씩만 수행하려는 작업을 위한 유연한 습관 추적기\n  • 한 번만 수행하면 되는 작업에 대한 전통적인 작업 목록\n  • 색상으로 구분된 작업과 연속 카운터를 통해 자신의 진행 상황을 한눈에 확인할 수 있습니다.\n  • 전반적인 진행 상황을 시각화하는 레벨링 시스템\n  • 개인 스타일에 맞는 수많은 수집 가능한 장비와 애완동물\n  • 포괄적인 아바타 사용자 정의: 휠체어, 머리 스타일, 피부색 등\n  • 정기적인 콘텐츠 출시와 시즌 이벤트를 통해 최신 정보 유지\n  • 파티를 통해 친구와 팀을 이루어 추가 책임감을 갖고 작업을 완료하여 치열한 적과 싸울 수 있습니다.\n  • 챌린지는 개인 작업에 추가할 수 있는 공유 작업 목록을 제공합니다.\n  • 순조롭게 진행하는 데 도움이 되는 알림 및 위젯\n  • 어두운 모드와 밝은 모드로 사용자 정의 가능한 색상 테마\n  • 여러 기기에서 동기화\n\n이동 중에도 작업을 수행할 수 있는 더 많은 유연성을 원하십니까? 시계에 Wear OS 앱이 있습니다!\n\nWear OS 기능:\n  • 습관, 일일 일, 할 일을 보고, 만들고, 완료합니다.\n  • 경험치, 음식, 계란, 물약으로 노력에 대한 보상을 받으세요.\n  • 동적 진행률 표시줄로 통계를 추적하세요.\n  • 시계 모드에서 멋진 픽셀 아바타를 뽐내세요.\n\n질문이 있으시면 mobile@habitica.com으로 피드백을 보내주세요! 앱이 재미있다면 리뷰를 남겨 주시면 감사하겠습니다."
+  },
+  "whats_new": {
+   "en": "New in 4.10.6:\n- Enhanced Achievements!\n- You'll now receive a notification when you unlock a new Achievement\n- Added support for a new type of Achievement\n- Stacked streak Achievements will now show a toast when unlocked",
+   "ko": "New in 4.10.6:\n- Enhanced Achievements!\n- You'll now receive a notification when you unlock a new Achievement\n- Added support for a new type of Achievement\n- Stacked streak Achievements will now show a toast when unlocked",
+   "note": "ko page serves English release notes"
+  },
+  "data_safety": {
+   "en": [
+    {
+     "heading": "This app may share these data types with third parties",
+     "detail": "Personal info and App info and performance"
+    },
+    {
+     "heading": "This app may collect these data types",
+     "detail": "Personal info, App info and performance, and Device or other IDs"
+    },
+    {
+     "heading": "Data is encrypted in transit",
+     "detail": null
+    },
+    {
+     "heading": "You can request that data be deleted",
+     "detail": null
+    }
+   ],
+   "ko": [
+    {
+     "heading": "앱에서 제3자와 공유할 수 있는 데이터 유형",
+     "detail": "개인 정보 및 앱 정보 및 성능"
+    },
+    {
+     "heading": "앱에서 수집할 수 있는 데이터 유형",
+     "detail": "개인 정보, 앱 정보 및 성능 및 기기 또는 기타 ID"
+    },
+    {
+     "heading": "전송 중 데이터 암호화됨",
+     "detail": null
+    },
+    {
+     "heading": "데이터 삭제를 요청할 수 있음",
+     "detail": null
+    }
+   ]
+  },
+  "permissions_en": [
+   "view network connections",
+   "full network access",
+   "run at startup",
+   "control vibration",
+   "prevent device from sleeping",
+   "receive data from Internet"
+  ],
+  "website": "https://habitica.com",
+  "support_email": "mobile@habitica.com",
+  "privacy_policy": "https://habitica.com/static/privacy",
+  "developer_contact": {
+   "name": "HabitRPG, Inc.",
+   "email": "admin@habitica.com",
+   "address": "120 Washington St APT 202\nSalem, MA 01970-6396\nUnited States",
+   "phone": "+1 415-562-6350"
+  },
+  "screenshot_count": 13,
+  "screenshots_same_in_ko": true
+ },
+ "evidence": [
+  {
+   "id": "S1",
+   "kind": "file",
+   "path": "settings.gradle.kts",
+   "lines": "56",
+   "note": "include(':Habitica', ':wearos', ':common', ':shared') - 4 Gradle modules; Realm gradle plugin resolution"
+  },
+  {
+   "id": "S2",
+   "kind": "file",
+   "path": "Habitica/build.gradle.kts",
+   "lines": "66-174",
+   "note": "applicationId/namespace com.habitrpg.android.habitica; compileSdk=targetSdk from catalog; localeFilters (23 locales incl. ko); buildFeatures viewBinding+compose; buildTypes debug/debugIAP/release (minify+shrink)"
+  },
+  {
+   "id": "S3",
+   "kind": "file",
+   "path": "version.properties",
+   "note": "NAME=4.11.0, CODE=27850"
+  },
+  {
+   "id": "S4",
+   "kind": "file",
+   "path": "gradle/libs.versions.toml",
+   "lines": "1-70",
+   "note": "minSdk 26, targetSdk 37, wearOsTargetSdk 36, AGP 9.3.3, Kotlin 2.4.10, Compose 1.11.4, material3 1.4.0, Hilt 2.60.1, Retrofit 3.0.0, OkHttp 5.5.0, Realm plugin 10.19.0, Billing 9.1.0, Firebase BoM 34.19.0, Glance 1.2.0, Navigation 2.9.8, Coil 3.5.0"
+  },
+  {
+   "id": "S5",
+   "kind": "file",
+   "path": "Habitica/build.gradle.kts",
+   "lines": "230-330",
+   "note": "dependencies: Realm, OkHttp, Retrofit+Gson converter, Hilt(+work), Glance appwidget, WorkManager, design bundle (appcompat/material/recyclerview/preference), billing-ktx, Coil compose, Shimmer, LeakCanary(debug), Firebase bundle, Credentials+googleid, Navigation fragment, Paging, Material3, Play in-app review, Compose"
+  },
+  {
+   "id": "S6",
+   "kind": "file",
+   "path": "Habitica/habitica-flavor.json",
+   "note": "flavor dimension buildType: dev, staff, setup(appId ...habitica.debug), partners, alpha, beta, prod with versionCodeIncrement"
+  },
+  {
+   "id": "S7",
+   "kind": "file",
+   "path": "build-logic/convention/src/main/kotlin/com/habitrpg/buildlogic/plugin/ApplicationPlugin.kt",
+   "lines": "22-60",
+   "note": "versionName/Code from version.properties; habitica.properties keys -> BuildConfig String fields; habitica.resources keys -> resValue strings; flavors registered from habitica-flavor.json"
+  },
+  {
+   "id": "S8",
+   "kind": "file",
+   "path": "habitica.properties.example",
+   "note": "BASE_URL=https://habitica.com, PORT=80, STAGING_KEY, GOOGLE_AUTH_CLIENT_ID, APPLE_AUTH_CLIENT_ID (example values; real file not in repo)"
+  },
+  {
+   "id": "S9",
+   "kind": "file",
+   "path": "Habitica/AndroidManifest.xml",
+   "lines": "8-16",
+   "note": "permissions: ACCESS_NETWORK_STATE, INTERNET, SCHEDULE_EXACT_ALARM, VIBRATE, BILLING, RECEIVE_BOOT_COMPLETED, POST_NOTIFICATIONS; USE_FINGERPRINT/USE_BIOMETRIC removed via tools:node=remove"
+  },
+  {
+   "id": "S10",
+   "kind": "file",
+   "path": "Habitica/AndroidManifest.xml",
+   "lines": "18-72,181-199",
+   "note": "exported activities with autoVerify https://habitica.com app links: MainActivity (LAUNCHER + host habitica.com), PrefsActivity (/settings/.*), FullProfileActivity (/profile/.*); allowBackup=false; networkSecurityConfig; localeConfig"
+  },
+  {
+   "id": "S11",
+   "kind": "file",
+   "path": "Habitica/AndroidManifest.xml",
+   "lines": "211-370",
+   "note": "receivers: NotificationPublisher, TaskReceiver (exported, NOTIFY), LocalNotificationActionReceiver (party/quest invite accept/reject), TaskAlarmBootReceiver, WidgetUpgradeReceiver, 7 AppWidget providers; services: HabiticaFirebaseMessagingService, DeviceCommunicationService (exported, wearable MESSAGE_RECEIVED); FileProvider; widget config activities exported"
+  },
+  {
+   "id": "S12",
+   "kind": "file",
+   "path": "Habitica/AndroidManifest.xml",
+   "lines": "35-37",
+   "note": "meta-data com.google.android.gms.ads.APPLICATION_ID=@string/application_ad_id; habitica.resources.example has empty application_ad_id"
+  },
+  {
+   "id": "S13",
+   "kind": "grep",
+   "path": ".",
+   "note": "grep 'gms.ads|MobileAds|RewardedAd|AdHandler' over *.kt,*.kts,*.toml -> 0 hits; 'ArmoireAds|FaintAds|SpellAds' used only in AppConfigManager definitions"
+  },
+  {
+   "id": "S14",
+   "kind": "file",
+   "path": "Habitica/res/navigation/navigation.xml",
+   "note": "single Jetpack Navigation graph (499 lines): fragment + activity destinations with deepLinks (habitica.com/... and habitica://user/tasks/{taskType})"
+  },
+  {
+   "id": "S15",
+   "kind": "tree",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/activities/",
+   "note": "28 *Activity.kt files (BaseActivity, ComposeActivity open base, PurchaseActivity abstract)"
+  },
+  {
+   "id": "S16",
+   "kind": "tree",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/fragments/",
+   "note": "70 *Fragment.kt files incl. base/dialog classes"
+  },
+  {
+   "id": "S17",
+   "kind": "grep",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/",
+   "note": "Composable screen functions: IntroScreen, LoginScreen, SetupScreen, UsernameSelectionScreen, ChangePasswordScreen, SettingScreen variants, ChangeSubscriptionScreen, PartySeekingView, PartyInviteView, TaskSummaryView, BirthdayActivityView, Avatar*View"
+  },
+  {
+   "id": "S18",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/activities/OnboardingActivity.kt",
+   "lines": "38-150",
+   "note": "OnboardingActivity : ComposeActivity, enum OnboardingSteps; hosts IntroScreen -> LoginScreen -> UsernameSelectionScreen -> SetupScreen"
+  },
+  {
+   "id": "S19",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/views/navigation/HabiticaBottomNavigationView.kt",
+   "lines": "48-104,202-221",
+   "note": "custom bottom nav with habits/dailies/todos/rewards tabs + center cutout add button; used in res/layout/activity_main_content.xml L144"
+  },
+  {
+   "id": "S20",
+   "kind": "file",
+   "path": "common/src/main/res/values/colors.xml",
+   "note": "core palette: brand_50..800 purple ramp, maroon/red/orange/yellow/green/teal/blue ramps (_5.._700, _0/_00 dark tints, _1 extra dark), gray_1..700, hp/xp/mp colors, text_* semantic tokens"
+  },
+  {
+   "id": "S21",
+   "kind": "file",
+   "path": "common/src/main/res/values-night/colors.xml",
+   "note": "dark overrides for text_* tokens, brand, material_card_background, divider"
+  },
+  {
+   "id": "S22",
+   "kind": "file",
+   "path": "Habitica/res/values/colors.xml",
+   "note": "app semantic tokens: content_background, window_background, offset_background, brand_background, system_bars, widget colors, launcher colors, skin/hair swatches"
+  },
+  {
+   "id": "S23",
+   "kind": "file",
+   "path": "Habitica/res/values-night/colors.xml",
+   "note": "dark overrides: content_background gray_1, window_background gray_5, brand_background gray_10, system_bars gray_1, widget_background #2B203A"
+  },
+  {
+   "id": "S24",
+   "kind": "file",
+   "path": "common/src/main/java/com/habitrpg/common/habitica/theme/HabiticaTheme.kt",
+   "lines": "18-160",
+   "note": "Compose HabiticaTheme wraps Material3 colorScheme from XML theme attrs; Typography (displayLarge 20sp Medium ... labelSmall 12sp Bold) + caption1-4/subtitle3; Shapes 4/8/12dp; HabiticaColors class"
+  },
+  {
+   "id": "S25",
+   "kind": "file",
+   "path": "Habitica/res/values/styles.habitica.xml",
+   "lines": "4-5",
+   "note": "font_family_medium=sans-serif-medium, font_family_regular=sans-serif (system Roboto); grep shows only bundled font is wearos press_start_reg.ttf"
+  },
+  {
+   "id": "S26",
+   "kind": "file",
+   "path": "common/src/main/res/values/dimens.xml",
+   "note": "spacing_small 4, medium 8, large 16, xlarge 32, sides 25dp; bar_size 8dp, bar_radius 5dp; icon_size 18dp"
+  },
+  {
+   "id": "S27",
+   "kind": "file",
+   "path": "Habitica/res/values/dimens.xml",
+   "lines": "3-112",
+   "note": "activity_horizontal_margin 16dp, card_padding 12dp, row_padding 12dp, daily_checkbox_corner_radius 4dp, rounded_button_radius 12dp, bottom_sheet_radius 20dp, task_spacing 4/10dp"
+  },
+  {
+   "id": "S28",
+   "kind": "file",
+   "path": "Habitica/res/values/styles.xml",
+   "lines": "4-140",
+   "note": "AppTheme parent Theme.Material3.DynamicColors.DayNight; colorPrimary=@color/brand; MainAppTheme + .Dark and 7 color variants (Red, Maroon, Orange, Yellow, Green, Teal, Blue) each with .Dark"
+  },
+  {
+   "id": "S29",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/activities/BaseActivity.kt",
+   "lines": "200-225",
+   "note": "theme selection by preference string maroon/red/orange/yellow/green/teal/blue (+Dark) -> R.style.MainAppTheme_*"
+  },
+  {
+   "id": "S30",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/models/tasks/Task.kt",
+   "lines": "209-300",
+   "note": "Task : RealmObject; value-> color thresholds (<-20 maroon, <-10 red, <-1 orange, <1 yellow, <5 green, <10 teal, else blue) across 8 tone getters"
+  },
+  {
+   "id": "S31",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/views/HabiticaIcons.java",
+   "note": "'Generated by PaintCode' vector icon drawing code (77 public static methods); res/drawable has 250 files"
+  },
+  {
+   "id": "S32",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/api/ApiService.kt",
+   "note": "Retrofit interface, 766 lines, 136 endpoints: 135 @GET/@POST/@PUT/@DELETE + 1 @HTTP(DELETE user); 136 suspend funs"
+  },
+  {
+   "id": "S33",
+   "kind": "file",
+   "path": "common/src/main/java/com/habitrpg/common/habitica/api/Server.kt",
+   "lines": "9-14",
+   "note": "appends 'api/v4/' to configured address; HostConfig defaults to BuildConfig.BASE_URL"
+  },
+  {
+   "id": "S34",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/modules/ApiModule.kt",
+   "lines": "70",
+   "note": "second Retrofit baseUrl https://habitica-assets.s3.amazonaws.com/mobileApp/endpoint/ for MaintenanceApiService (GET maintenance-android.json, deprecation-android.json)"
+  },
+  {
+   "id": "S35",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/data/implementation/ApiClientImpl.kt",
+   "lines": "171-176",
+   "note": "headers x-api-key, x-api-user (from HostConfig), x-client: habitica-android"
+  },
+  {
+   "id": "S36",
+   "kind": "file",
+   "path": "common/src/main/java/com/habitrpg/common/habitica/extensions/DataBindingUtils.kt",
+   "lines": "159",
+   "note": "BASE_IMAGE_URL = https://habitica-assets.s3.amazonaws.com/mobileApp/images/ (sprite images)"
+  },
+  {
+   "id": "S37",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/modules/RepositoryModule.kt",
+   "lines": "24-41",
+   "note": "Realm (Java SDK) RealmConfiguration: deleteRealmIfMigrationNeeded, allowWritesOnUiThread, compactOnLaunch"
+  },
+  {
+   "id": "S38",
+   "kind": "tree",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/data/",
+   "note": "Repository pattern: 12 *Repository interfaces + *RepositoryImpl (network) + Realm*LocalRepository (local) for Challenge, Content, Customization, FAQ, Inventory, Social, Tag, Task, Tutorial, User"
+  },
+  {
+   "id": "S39",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/data/implementation/UserRepositoryImpl.kt",
+   "lines": "105-137",
+   "note": "retrieveUser: refetch only if forced or >180000 ms since lastSync; saves user+tasks to Realm; pushes timezoneOffset if changed"
+  },
+  {
+   "id": "S40",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/data/implementation/TaskRepositoryImpl.kt",
+   "lines": "112-251",
+   "note": "taskChecked: optional local prediction (if remote flag enableLocalTaskScoring) then POST tasks/{id}/score/{direction}; 500ms debounce; createTask saves locally first with UUID, then API"
+  },
+  {
+   "id": "S41",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/interactors/ScoreTaskLocallyInteractor.kt",
+   "note": "client-side scoring mirror: delta=0.9747^value (clamped -47.27..21.27), todo checklist multiplier, XP=delta*INT bonus*priority*6, gold with PER bonus and streak bonus, HP loss with CON bonus*priority*2, level-up sets hp=50; outfit gear list built but unused"
+  },
+  {
+   "id": "S42",
+   "kind": "file",
+   "path": "Habitica/res/xml/remote_config_defaults.xml",
+   "note": "Firebase Remote Config defaults: enableLocalTaskScoring=false, enableArmoireAds/FaintAds/SpellAds=false, showSubscriptionBanner=false, minimumPasswordLength=8, maxChatLength=3000, enableReviewPrompt=false, hideChallenges=false"
+  },
+  {
+   "id": "S43",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/views/yesterdailies/YesterdailyDialog.kt",
+   "lines": "243-337",
+   "note": "if user.needsCron: shows 'yesterdailies' dialog for yesterday's due, uncompleted, non-group dailies, then runCron(completedTasks); else runs cron directly; 1h guard"
+  },
+  {
+   "id": "S44",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/viewmodels/MainUserViewModel.kt",
+   "lines": "40-41",
+   "note": "isUserFainted = stats.hp <= 0.0"
+  },
+  {
+   "id": "S45",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/ui/activities/MainActivity.kt",
+   "lines": "905-983",
+   "note": "displayDeathDialogIfNeeded -> Compose DeathOverlay; subscriber 'second chance' sets stats.hp=1 once per day (last_sub_revive pref, DeathOverlay.kt L128-140)"
+  },
+  {
+   "id": "S46",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/interactors/LevelUpUseCase.kt",
+   "lines": "24-80",
+   "note": "level-up dialog; at newLevel==10 special dialog with 'select class' button -> class selection"
+  },
+  {
+   "id": "S47",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/interactors/DisplayItemDropUseCase.kt",
+   "note": "drop shown from server response data.drop.dialog + questItemsFound as DROP snackbar + sound after 3s"
+  },
+  {
+   "id": "S48",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/helpers/HabiticaProduct.kt",
+   "lines": "8-58",
+   "note": "SKUs: iap.4gems/21gems/42gems/84gems, iap.pets.gryphatrice_jubilant, subscription.1/3/6/12month, norenew_subscription.1/3/6/12month; sale gem amounts 5/30/60/125"
+  },
+  {
+   "id": "S49",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/helpers/PurchaseHandler.kt",
+   "note": "Google Play Billing client; server verification via ApiService /iap/android/verify, /iap/android/subscribe, /iap/android/norenew-subscribe, cancel"
+  },
+  {
+   "id": "S50",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/helpers/Analytics.kt",
+   "note": "AnalyticsManager -> FirebaseAnalyticsManager: only Crashlytics (userId/log/recordException) + Firebase Performance toggle, gated by consent pref analytics_consent_given; no event logging API"
+  },
+  {
+   "id": "S51",
+   "kind": "file",
+   "path": "Habitica/AndroidManifest.xml",
+   "lines": "29-33",
+   "note": "firebase_analytics_collection_enabled=false, firebase_performance_collection_enabled=false"
+  },
+  {
+   "id": "S52",
+   "kind": "file",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/helpers/notifications/PushNotificationManager.kt",
+   "lines": "139-150",
+   "note": "push type keys: invitedParty, newPM, giftedGems, giftedSubscription, invitedGuild, questInvitation, questStarted, wonChallenge, changeUsername, gift1get1"
+  },
+  {
+   "id": "S53",
+   "kind": "file",
+   "path": "Habitica/res/xml/locales_config.xml",
+   "note": "23 locales: en,bg,de,en-GB,es,fr,hr-HR,hu,in,it,iw,ja,ko,lt,nl,pl,pt-BR,pt-PT,ru,tr,uk,zh,zh-TW"
+  },
+  {
+   "id": "S54",
+   "kind": "tree",
+   "path": "Habitica/res/",
+   "note": "31 language-qualified values-* dirs (incl. ar, cs, da, ro, sk, sr, sv, b+es+419, he, id which are NOT in localeFilters); no values-lt dir"
+  },
+  {
+   "id": "S55",
+   "kind": "grep",
+   "path": "Habitica/res/values-ko/strings.xml",
+   "note": "<string count: values 1615 vs values-ko 1540 (strings.xml only)"
+  },
+  {
+   "id": "S56",
+   "kind": "file",
+   "path": "common/src/main/java/com/habitrpg/common/habitica/helpers/KeyHelper.kt",
+   "note": "Android KeyStore + Cipher used for API key storage helper"
+  },
+  {
+   "id": "S57",
+   "kind": "file",
+   "path": "wearos/build.gradle.kts",
+   "lines": "45-52",
+   "note": "Wear OS app also applicationId com.habitrpg.android.habitica; wearos ui/activities: Splash, Login, Main, TaskList, TaskDetail, TaskForm, HabitDirection, TaskResult, Stats, Avatar, Levelup, Faint, RYA, Settings..."
+  },
+  {
+   "id": "S58",
+   "kind": "file",
+   "path": "shared/build.gradle.kts",
+   "lines": "11-57",
+   "note": "Kotlin Multiplatform library (android.kotlin.multiplatform.library); source sets commonMain/androidMain/appleMain/iosMain/jsMain; namespace com.habitrpg.shared.habitica"
+  },
+  {
+   "id": "S59",
+   "kind": "grep",
+   "path": "Habitica/src/main",
+   "note": "653 .kt files; 77 contain @Composable; 125 use ViewBinding inflate; res/layout has 228 XML layouts"
+  },
+  {
+   "id": "S60",
+   "kind": "tree",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/widget/",
+   "note": "7 widget providers + glance/{actions,components,data,migration,state,theme,widgets,work} (Jetpack Glance)"
+  },
+  {
+   "id": "S61",
+   "kind": "tree",
+   "path": "Habitica/src/main/java/com/habitrpg/android/habitica/models/",
+   "note": "models: tasks (Task, ChecklistItem, Days, RemindersItem, TaskList), user (User, Stats, Items, Preferences, SubscriptionPlan, Buffs, Gear, Outfit, OwnedPet/Mount...), social (Group, Challenge, ChatMessage, InboxConversation), shops, inventory"
+  },
+  {
+   "id": "S62",
+   "kind": "file",
+   "path": "common/src/main/res/values/colors.xml",
+   "lines": "143-145",
+   "note": "hpColor=red_100 #FF6165, xpColor=yellow_100 #FFBE5D, mpColor=blue_100 #50B5E9"
+  },
+  {
+   "id": "P01",
+   "kind": "image",
+   "path": "ui/play/01.png",
+   "note": "Task list (Habits) home with avatar/stats header, dark theme",
+   "sha256": "5f93d70cef78cfeb5a6199230fc66c22689cc29ef01c14f1a16919955a6e30a9"
+  },
+  {
+   "id": "P02",
+   "kind": "image",
+   "path": "ui/play/02.png",
+   "note": "Task card variety (Habit, Daily, To Do with checklist) light theme, floating over dark list",
+   "sha256": "33db3c9241d0d645880db0b5e872256be12df8388b89e968b138dbe6bb2fe5fa"
+  },
+  {
+   "id": "P03",
+   "kind": "image",
+   "path": "ui/play/03.png",
+   "note": "New Daily form (task editor)",
+   "sha256": "af9d37cd35c5b23aefefc9cd4133444c03605053f78bb89b1b957b5ed4b2b700"
+  },
+  {
+   "id": "P04",
+   "kind": "image",
+   "path": "ui/play/04.png",
+   "note": "Rewards list (custom rewards with gold cost) + pixel item illustration",
+   "sha256": "b1150996c1e904b6a2bdd9f2234aa5062b81f5dded76f8797e8430d226327e67"
+  },
+  {
+   "id": "P05",
+   "kind": "image",
+   "path": "ui/play/05.png",
+   "note": "Pets & Mounts collection grid (Special Pets)",
+   "sha256": "d0fdc8322f0438d9f0447497172d07bad589125ab460257528f2cb311b493bad"
+  },
+  {
+   "id": "P06",
+   "kind": "image",
+   "path": "ui/play/06.png",
+   "note": "Achievements: Starting Objectives + streak badges",
+   "sha256": "db9e4de9d63c342959033f2de958037e63e2e93d6420f3652d757bb4d8004029"
+  },
+  {
+   "id": "P07",
+   "kind": "image",
+   "path": "ui/play/07.png",
+   "note": "Challenges list (cards with stacked task previews)",
+   "sha256": "3b2e0a44ee9d98504665a35bb473a292f4dd251eb49a89223322021d25a8df3f"
+  },
+  {
+   "id": "P08",
+   "kind": "image",
+   "path": "ui/play/08.png",
+   "note": "Party screen with active boss Quest and members",
+   "sha256": "dea58b5805619f21f68b066d753486e8ad1e52731edd9c6a735267ba229e9a31"
+  },
+  {
+   "id": "P09",
+   "kind": "image",
+   "path": "ui/play/09.png",
+   "note": "Wear OS: Habits list",
+   "sha256": "e5ff1a3f92369c6f6e5d06598eeb0d6d6a304b02616c4109fe4bdaaa593c7524"
+  },
+  {
+   "id": "P10",
+   "kind": "image",
+   "path": "ui/play/10.png",
+   "note": "Wear OS: score feedback after completing a task",
+   "sha256": "559a4d4898f356d5a83575162c1102e1da95eb5547bbc6a2b9a92a3c17da956d"
+  },
+  {
+   "id": "P11",
+   "kind": "image",
+   "path": "ui/play/11.png",
+   "note": "Wear OS: main menu",
+   "sha256": "1566e714c312efe03dd6f23d8f2f2dac3acdd2730defe1f34860a638655e81af"
+  },
+  {
+   "id": "P12",
+   "kind": "image",
+   "path": "ui/play/12.png",
+   "note": "Wear OS: stats rings (HP/XP/MP)",
+   "sha256": "3a7c66cf3a8f28681435c444af81757a592b57688184177d39b1adfa49bc8c69"
+  },
+  {
+   "id": "P13",
+   "kind": "image",
+   "path": "ui/play/13.png",
+   "note": "Wear OS: avatar view (pixel avatar with pet and background)",
+   "sha256": "da505a08ebaae30c4b1da39b6dcb3996cd0eefceb0948f4ae1ca5a46c43b0c37"
+  },
+  {
+   "id": "P_ICON",
+   "kind": "image",
+   "path": "ui/play/icon.png",
+   "note": "App icon",
+   "sha256": "2593faaca945767d05d06a322addbf842d643d76889ee3a4997d8febe6466100"
+  },
+  {
+   "id": "P_FEATURE",
+   "kind": "image",
+   "path": "ui/play/feature.png",
+   "note": "Feature graphic",
+   "sha256": "ad4b241bfe6787670c1fc47f6c5c8fb386c428503840227e42d2d1d3135af413"
+  }
+ ],
+ "findings": [
+  {
+   "id": "F1",
+   "area": "identity",
+   "claim": "applicationId and namespace are com.habitrpg.android.habitica (matches expected Play package).",
+   "status": "observed",
+   "evidence": [
+    "S2"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F2",
+   "area": "identity",
+   "claim": "Version at analyzed commit: versionName 4.11.0, base versionCode 27850; per-flavor code = base + increment (prod +0, beta +2, alpha +4, partners +6, staff +8, setup +9).",
+   "status": "observed",
+   "evidence": [
+    "S3",
+    "S6",
+    "S7"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F3",
+   "area": "identity",
+   "claim": "minSdk 26, targetSdk 37, compileSdk = targetSdk (37); Wear OS targetSdk 36.",
+   "status": "observed",
+   "evidence": [
+    "S2",
+    "S4"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F4",
+   "area": "identity",
+   "claim": "Four Gradle modules: :Habitica (phone app), :wearos (Wear OS app, same applicationId), :common (shared Android UI/res/theme), :shared (Kotlin Multiplatform models).",
+   "status": "observed",
+   "evidence": [
+    "S1",
+    "S57",
+    "S58"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F5",
+   "area": "identity",
+   "claim": "UI is hybrid: XML layouts + ViewBinding Fragments/Activities with growing Jetpack Compose (Material3) usage, often Compose hosted inside Fragments (FragmentComposeBinding).",
+   "status": "observed",
+   "evidence": [
+    "S2",
+    "S5",
+    "S59"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F6",
+   "area": "identity",
+   "claim": "Stack: Kotlin, Hilt DI, Retrofit 3 + OkHttp 5 + Gson, Realm Java SDK (10.19), Coroutines, Jetpack Navigation (safeargs), Paging, WorkManager, Glance widgets, Coil 3 images, Credential Manager + Google ID sign-in.",
+   "status": "observed",
+   "evidence": [
+    "S4",
+    "S5"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F7",
+   "area": "identity",
+   "claim": "Product flavors (dimension buildType): dev, staff, setup, partners, alpha, beta, prod; build types debug, debugIAP, release (R8 minify + resource shrink).",
+   "status": "observed",
+   "evidence": [
+    "S2",
+    "S6"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F8",
+   "area": "identity",
+   "claim": "Firebase SDKs present: Crashlytics, Messaging, Remote Config, Performance (+ Play Services auth & wearable). Firebase Analytics library is not in the google-services bundle.",
+   "status": "observed",
+   "evidence": [
+    "S4",
+    "S5"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F9",
+   "area": "manifest",
+   "claim": "Seven runtime-relevant permissions incl. SCHEDULE_EXACT_ALARM, RECEIVE_BOOT_COMPLETED, POST_NOTIFICATIONS (reminders) and BILLING; biometric permissions explicitly removed.",
+   "status": "observed",
+   "evidence": [
+    "S9"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F10",
+   "area": "manifest",
+   "claim": "Verified app links on https://habitica.com for MainActivity (whole host), PrefsActivity (/settings/.*) and FullProfileActivity (/profile/.*); in-app nav graph adds ~40 habitica.com deep link patterns plus custom scheme habitica://user/tasks/{taskType}.",
+   "status": "observed",
+   "evidence": [
+    "S10",
+    "S14"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F11",
+   "area": "manifest",
+   "claim": "Exported non-launcher components: TaskReceiver (action NOTIFY), DeviceCommunicationService (wearable messages), two widget configure activities. Whether TaskReceiver validates callers is not checked here.",
+   "status": "observed",
+   "evidence": [
+    "S11"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F12",
+   "area": "manifest",
+   "claim": "Seven home-screen widgets: avatar stats, avatar image, dailies list, to-do list, habit button, dailies count, add task (+ multi add task); Glance-based implementation exists alongside classic providers with a migration receiver.",
+   "status": "observed",
+   "evidence": [
+    "S11",
+    "S60"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F13",
+   "area": "navigation",
+   "claim": "Main shell is MainActivity with a drawer (NavigationDrawerFragment) plus custom bottom navigation of 4 task tabs (Habits, Dailies, To-Dos, Rewards) and a center add button; destinations come from one nav graph.",
+   "status": "observed",
+   "evidence": [
+    "S10",
+    "S14",
+    "S19"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F14",
+   "area": "navigation",
+   "claim": "Onboarding/auth is a single Compose flow in OnboardingActivity: Intro -> Login (local, Google, Apple endpoints exist) -> Username selection -> Avatar setup.",
+   "status": "observed",
+   "evidence": [
+    "S18",
+    "S32"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F15",
+   "area": "navigation",
+   "claim": "Inspected UI scope: 24 concrete user-facing activities, ~60 user-facing fragments (excl. base classes), plus Compose screens; listed in screens[].",
+   "status": "observed",
+   "evidence": [
+    "S15",
+    "S16",
+    "S17"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F16",
+   "area": "design",
+   "claim": "Brand color is a purple ramp: brand_50 #36205D ... brand_300 #6133B4 (primary background/notification color) ... brand_400 #925CF3 (accent) ... brand_800 #F6F4FC; launcher background #5A2CC8.",
+   "status": "observed",
+   "evidence": [
+    "S20",
+    "S22",
+    "S11"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F17",
+   "area": "design",
+   "claim": "Dark mode via values-night overrides: content background gray_1 #1A181D, window gray_5 #23202A, brand_background becomes gray_10 #34313A, text_primary flips gray_50 -> gray_700.",
+   "status": "observed",
+   "evidence": [
+    "S21",
+    "S23"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F18",
+   "area": "design",
+   "claim": "User-selectable app color themes: default purple + Red, Maroon, Orange, Yellow, Green, Teal, Blue, each with Dark variant; base theme Material3 DynamicColors DayNight.",
+   "status": "observed",
+   "evidence": [
+    "S28",
+    "S29"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F19",
+   "area": "design",
+   "claim": "Typography uses system sans-serif / sans-serif-medium (no bundled custom font in phone app); Compose type scale 12-28sp; Wear OS bundles Press Start pixel font.",
+   "status": "observed",
+   "evidence": [
+    "S24",
+    "S25"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F20",
+   "area": "design",
+   "claim": "Shape/spacing tokens: Compose shapes 4/8/12dp; XML radii checkbox 4dp, bar 5dp, rounded button 12dp, bottom sheet 20dp; spacing scale 4/8/16/32dp, card padding 12dp, screen margin 16dp.",
+   "status": "observed",
+   "evidence": [
+    "S24",
+    "S26",
+    "S27"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F21",
+   "area": "design",
+   "claim": "Task value -> color scale: value < -20 maroon, < -10 red, < -1 orange, < 1 yellow, < 5 green, < 10 teal, else blue; 8 tone levels per hue (lightest _700 ... extra dark _1).",
+   "status": "observed",
+   "evidence": [
+    "S30",
+    "S20"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F22",
+   "area": "design",
+   "claim": "Stat bar colors: HP red_100 #FF6165, XP yellow_100 #FFBE5D, MP blue_100 #50B5E9; gem icon #24CC8F.",
+   "status": "observed",
+   "evidence": [
+    "S62",
+    "S22"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F23",
+   "area": "design",
+   "claim": "Icons are PaintCode-generated vector drawing code (HabiticaIcons.java) plus 250 drawables; game sprites fetched remotely from S3 image base URL.",
+   "status": "observed",
+   "evidence": [
+    "S31",
+    "S36"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F24",
+   "area": "design",
+   "claim": "Reusable components (by file presence and usage): HabiticaBottomNavigationView, HabiticaButton, LoadingButton, HabiticaSnackbar (typed: DROP, SUBSCRIBER_BENEFIT...), LabeledBar, CurrencyView/CurrencyText, PixelArtView, AppHeaderView, NPCBannerView, SegmentedControl, CollapsibleSectionView, DeathOverlay, YesterdailyDialog. Visual details beyond names not inspected for each.",
+   "status": "inferred",
+   "evidence": [
+    "S19",
+    "S45",
+    "S43",
+    "S47"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F25",
+   "area": "api",
+   "claim": "API base = BuildConfig.BASE_URL (example https://habitica.com) + /api/v4/; auth via x-api-user / x-api-key headers, client tag x-client: habitica-android.",
+   "status": "observed",
+   "evidence": [
+    "S8",
+    "S33",
+    "S35"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F26",
+   "area": "api",
+   "claim": "Production BASE_URL value comes from an uncommitted habitica.properties; the example equals https://habitica.com and deep links target habitica.com, so production is inferred to be https://habitica.com/api/v4/.",
+   "status": "inferred",
+   "evidence": [
+    "S7",
+    "S8",
+    "S10"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F27",
+   "area": "api",
+   "claim": "Secondary static endpoints on S3: mobileApp/endpoint/maintenance-android.json and deprecation-android.json (MaintenanceActivity), and mobileApp/images/ for sprites.",
+   "status": "observed",
+   "evidence": [
+    "S34",
+    "S36"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F28",
+   "area": "api",
+   "claim": "ApiService declares 136 endpoints; largest groups user/* (46), groups/* (25), tasks/* (21), challenges/* (9), members/* (8).",
+   "status": "observed",
+   "evidence": [
+    "S32"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F29",
+   "area": "api",
+   "claim": "Local persistence is Realm (Java SDK) with destructive migration (deleteRealmIfMigrationNeeded); repositories split into network Impl + Realm local repo.",
+   "status": "observed",
+   "evidence": [
+    "S37",
+    "S38"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F30",
+   "area": "api",
+   "claim": "Sync is server-authoritative pull: full user (optionally with tasks) fetched when forced or after 3 minutes, then written to Realm; UI observes Realm flows. Task create is optimistic (local UUID first).",
+   "status": "observed",
+   "evidence": [
+    "S39",
+    "S40"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F31",
+   "area": "mechanics",
+   "claim": "Task scoring is computed server-side (POST tasks/{id}/score/up|down); the response's stats/drop drive UI. A local predictive scorer exists but is behind Remote Config flag enableLocalTaskScoring (default false).",
+   "status": "observed",
+   "evidence": [
+    "S40",
+    "S41",
+    "S42"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F32",
+   "area": "mechanics",
+   "claim": "Local scorer formula: delta = 0.9747^value (value clamped to [-47.27, 21.27]); XP += round(delta * (1+0.025*INT) * priority * 6); gold += delta*priority*(1+0.02*PER)*(1+streak/100); HP -= |delta|*max(0.1,1-CON/250)*priority*2; on level-up hp reset to 50. Gear stat bonuses not applied (list built, unused).",
+   "status": "observed",
+   "evidence": [
+    "S41"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F33",
+   "area": "mechanics",
+   "claim": "Missed dailies: on app open when user.needsCron, a 'yesterdailies' dialog lets the user tick yesterday's due dailies before POST cron; damage itself is computed by the server (not in inspected client code).",
+   "status": "observed",
+   "evidence": [
+    "S43",
+    "S32"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F34",
+   "area": "mechanics",
+   "claim": "Death: fainted when hp <= 0 -> DeathOverlay (revive endpoint user/revive); subscribers get a once-per-day 'second chance' that sets stats.hp=1 client-side via updateUser.",
+   "status": "observed",
+   "evidence": [
+    "S44",
+    "S45",
+    "S32"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F35",
+   "area": "mechanics",
+   "claim": "Level up handled by LevelUpUseCase with dialog; level 10 triggers class selection prompt (ClassSelectionActivity).",
+   "status": "observed",
+   "evidence": [
+    "S46"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F36",
+   "area": "mechanics",
+   "claim": "Drops are server-determined; client only displays data.drop.dialog and quest item counts in a DROP snackbar with sound.",
+   "status": "observed",
+   "evidence": [
+    "S47"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F37",
+   "area": "mechanics",
+   "claim": "Streak is a Task field shown as badge and used in local gold bonus; streak increment rules live server-side.",
+   "status": "inferred",
+   "evidence": [
+    "S30",
+    "S41"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F38",
+   "area": "monetization",
+   "claim": "Google Play Billing: 4 gem packs (4/21/42/84 gems; sale amounts 5/30/60/125), 4 auto-renew subscriptions (1/3/6/12 months), 4 non-renewing gift subscriptions, 1 pet IAP (Jubilant Gryphatrice); purchases verified server-side via /iap/android/*.",
+   "status": "observed",
+   "evidence": [
+    "S48",
+    "S49",
+    "S32"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F39",
+   "area": "monetization",
+   "claim": "No ad SDK is linked within inspected build files and sources; an AdMob APPLICATION_ID meta-data placeholder and disabled remote flags (enableArmoireAds/FaintAds/SpellAds) remain without call sites.",
+   "status": "observed",
+   "evidence": [
+    "S12",
+    "S13",
+    "S42"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F40",
+   "area": "monetization",
+   "claim": "Tracking: Crashlytics + Firebase Performance, both gated on user consent (PrivacyPreferencesActivity); Firebase Analytics collection disabled in manifest and no analytics event logging API exists in AnalyticsManager.",
+   "status": "observed",
+   "evidence": [
+    "S50",
+    "S51"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F41",
+   "area": "monetization",
+   "claim": "Push notifications via FCM with 10 server-defined types (party/guild/quest invites, PMs, gifted gems/subscription, challenge won, ...); local reminders via exact alarms.",
+   "status": "observed",
+   "evidence": [
+    "S52",
+    "S11",
+    "S9"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F42",
+   "area": "i18n",
+   "claim": "23 locales are shipped (localeFilters + locales_config), Korean (ko) included.",
+   "status": "observed",
+   "evidence": [
+    "S2",
+    "S53"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F43",
+   "area": "i18n",
+   "claim": "values-ko exists with 1540 strings in strings.xml vs 1615 in base (~95% key coverage by count; untranslated fallback to English).",
+   "status": "observed",
+   "evidence": [
+    "S55"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F44",
+   "area": "i18n",
+   "claim": "Locale mismatch: 'lt' is in localeFilters but there is no values-lt dir; 8+ translated dirs (ar, cs, da, ro, sk, sr, sv, es-419) are filtered out of the build.",
+   "status": "observed",
+   "evidence": [
+    "S53",
+    "S54"
+   ],
+   "confidence": "high"
+  },
+  {
+   "id": "F45",
+   "area": "api",
+   "claim": "API credentials are protected using Android KeyStore-based helper (KeyHelper) in :common.",
+   "status": "inferred",
+   "evidence": [
+    "S56"
+   ],
+   "confidence": "medium"
+  },
+  {
+   "id": "F46",
+   "area": "manifest",
+   "claim": "allowBackup=false and custom networkSecurityConfig; contents of network_security_config.xml not inspected.",
+   "status": "observed",
+   "evidence": [
+    "S10"
+   ],
+   "confidence": "high"
+  }
+ ],
+ "screens": [
+  {
+   "id": "scr-onboarding",
+   "name": "Onboarding",
+   "kind": "activity",
+   "class": "ui.activities.OnboardingActivity",
+   "feature": "onboarding/auth",
+   "purpose": "Compose host for intro, login, username and avatar setup steps",
+   "evidence": [
+    "S18"
+   ]
+  },
+  {
+   "id": "scr-intro",
+   "name": "Intro",
+   "kind": "compose",
+   "class": "ui.views.intro.IntroScreen",
+   "feature": "onboarding/auth",
+   "purpose": "Intro carousel before auth",
+   "evidence": [
+    "S17",
+    "S18"
+   ]
+  },
+  {
+   "id": "scr-login",
+   "name": "Login / Register",
+   "kind": "compose",
+   "class": "ui.views.login.LoginScreen",
+   "feature": "onboarding/auth",
+   "purpose": "Email/password and social sign-in/registration",
+   "evidence": [
+    "S17",
+    "S18"
+   ]
+  },
+  {
+   "id": "scr-username",
+   "name": "Username selection",
+   "kind": "compose",
+   "class": "ui.views.setup.UsernameSelectionScreen",
+   "feature": "onboarding/auth",
+   "purpose": "Choose/verify username for new accounts",
+   "evidence": [
+    "S17",
+    "S18"
+   ]
+  },
+  {
+   "id": "scr-setup",
+   "name": "Avatar setup",
+   "kind": "compose",
+   "class": "ui.views.setup.SetupScreen",
+   "feature": "onboarding/auth",
+   "purpose": "Initial avatar customization",
+   "evidence": [
+    "S17",
+    "S18"
+   ]
+  },
+  {
+   "id": "scr-adventure-guide",
+   "name": "Adventure Guide",
+   "kind": "activity",
+   "class": "ui.activities.AdventureGuideActivity",
+   "feature": "onboarding/auth",
+   "purpose": "Onboarding achievements checklist (deep link /user/onboarding)",
+   "evidence": [
+    "S14",
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-maintenance",
+   "name": "Maintenance",
+   "kind": "activity",
+   "class": "ui.activities.MaintenanceActivity",
+   "feature": "onboarding/auth",
+   "purpose": "Blocking maintenance/deprecation notice driven by S3 JSON",
+   "evidence": [
+    "S15",
+    "S34"
+   ]
+  },
+  {
+   "id": "scr-main",
+   "name": "Main shell",
+   "kind": "activity",
+   "class": "ui.activities.MainActivity",
+   "feature": "tasks",
+   "purpose": "Launcher; drawer + bottom task tabs; hosts nav graph",
+   "evidence": [
+    "S10",
+    "S19"
+   ]
+  },
+  {
+   "id": "scr-tasks",
+   "name": "Tasks",
+   "kind": "fragment",
+   "class": "ui.fragments.tasks.TasksFragment",
+   "feature": "tasks",
+   "purpose": "Pager of Habits/Dailies/To-Dos/Rewards lists",
+   "evidence": [
+    "S14",
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-task-list",
+   "name": "Task list",
+   "kind": "fragment",
+   "class": "ui.fragments.tasks.TaskRecyclerViewFragment",
+   "feature": "tasks",
+   "purpose": "Recycler list per task type with scoring",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-rewards-list",
+   "name": "Rewards list",
+   "kind": "fragment",
+   "class": "ui.fragments.tasks.RewardsRecyclerviewFragment",
+   "feature": "tasks",
+   "purpose": "Custom rewards + in-app reward items",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-task-form",
+   "name": "Task form",
+   "kind": "activity",
+   "class": "ui.activities.TaskFormActivity",
+   "feature": "tasks",
+   "purpose": "Create/edit habit, daily, to-do, reward",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-task-summary",
+   "name": "Task summary",
+   "kind": "activity",
+   "class": "ui.activities.TaskSummaryActivity",
+   "feature": "tasks",
+   "purpose": "Read-only task details (Compose TaskSummaryView), e.g. group tasks",
+   "evidence": [
+    "S15",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-yesterdailies",
+   "name": "Yesterdailies dialog",
+   "kind": "dialog",
+   "class": "ui.views.yesterdailies.YesterdailyDialog",
+   "feature": "tasks",
+   "purpose": "Check off yesterday's dailies before cron",
+   "evidence": [
+    "S43"
+   ]
+  },
+  {
+   "id": "scr-avatar-overview",
+   "name": "Avatar overview",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.customization.AvatarOverviewFragment",
+   "feature": "avatar/customization",
+   "purpose": "Entry to avatar appearance & equipment (Compose)",
+   "evidence": [
+    "S14",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-avatar-customization",
+   "name": "Avatar customization",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.customization.ComposeAvatarCustomizationFragment",
+   "feature": "avatar/customization",
+   "purpose": "Pick hair/skin/shirt/background etc.",
+   "evidence": [
+    "S14",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-avatar-equipment",
+   "name": "Avatar equipment",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.customization.ComposeAvatarEquipmentFragment",
+   "feature": "avatar/customization",
+   "purpose": "Pick equipment per slot",
+   "evidence": [
+    "S14",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-equipment-overview",
+   "name": "Equipment overview",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.customization.EquipmentOverviewFragment",
+   "feature": "avatar/customization",
+   "purpose": "Battle gear vs costume overview",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-equipment-detail",
+   "name": "Equipment detail",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.equipment.EquipmentDetailFragment",
+   "feature": "avatar/customization",
+   "purpose": "List of owned gear for a slot",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-class-selection",
+   "name": "Class selection",
+   "kind": "activity",
+   "class": "ui.activities.ClassSelectionActivity",
+   "feature": "avatar/customization",
+   "purpose": "Choose Warrior/Mage/Healer/Rogue at level 10",
+   "evidence": [
+    "S15",
+    "S46"
+   ]
+  },
+  {
+   "id": "scr-full-profile",
+   "name": "Full profile",
+   "kind": "activity",
+   "class": "ui.activities.FullProfileActivity",
+   "feature": "avatar/customization",
+   "purpose": "Public profile of a user (app link /profile/*)",
+   "evidence": [
+    "S10"
+   ]
+  },
+  {
+   "id": "scr-items",
+   "name": "Items",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.items.ItemsFragment",
+   "feature": "inventory",
+   "purpose": "Eggs, potions, food, quest scrolls, special items",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-item-list",
+   "name": "Item list",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.items.ItemRecyclerFragment",
+   "feature": "inventory",
+   "purpose": "Item grid per item type",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-item-dialog",
+   "name": "Item dialog",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.items.ItemDialogFragment",
+   "feature": "inventory",
+   "purpose": "Item selection dialog (e.g. hatch/feed)",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-stable",
+   "name": "Stable",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.stable.StableFragment",
+   "feature": "inventory",
+   "purpose": "Pets & mounts tabs",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-stable-list",
+   "name": "Stable list",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.stable.StableRecyclerFragment",
+   "feature": "inventory",
+   "purpose": "Pet/mount groups grid",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-pet-detail",
+   "name": "Pet detail",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.stable.PetDetailRecyclerFragment",
+   "feature": "inventory",
+   "purpose": "Pets of one species/color; feed/use",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-mount-detail",
+   "name": "Mount detail",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.stable.MountDetailRecyclerFragment",
+   "feature": "inventory",
+   "purpose": "Mounts of one species",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-armoire",
+   "name": "Enchanted Armoire",
+   "kind": "activity",
+   "class": "ui.activities.ArmoireActivity",
+   "feature": "inventory",
+   "purpose": "Armoire reward reveal",
+   "evidence": [
+    "S14",
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-market",
+   "name": "Market",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.shops.MarketFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Gold/gem items shop (Alex)",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-quest-shop",
+   "name": "Quest shop",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.shops.QuestShopFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Buy quest scrolls",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-seasonal-shop",
+   "name": "Seasonal shop",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.shops.SeasonalShopFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Seasonal gear/items",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-time-travelers",
+   "name": "Time Travelers shop",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.shops.TimeTravelersShopFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Mystic hourglass purchases",
+   "evidence": [
+    "S14",
+    "S32"
+   ]
+  },
+  {
+   "id": "scr-customizations-shop",
+   "name": "Customizations shop",
+   "kind": "fragment",
+   "class": "ui.fragments.inventory.shops.CustomizationsShopFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Buy backgrounds/hair/skins",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-gems",
+   "name": "Gem purchase",
+   "kind": "fragment",
+   "class": "ui.fragments.purchases.GemsPurchaseFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Buy gem packs via Play Billing",
+   "evidence": [
+    "S14",
+    "S48"
+   ]
+  },
+  {
+   "id": "scr-subscription",
+   "name": "Subscription",
+   "kind": "fragment",
+   "class": "ui.fragments.purchases.SubscriptionFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Subscription plans & benefits",
+   "evidence": [
+    "S14",
+    "S48"
+   ]
+  },
+  {
+   "id": "scr-change-subscription",
+   "name": "Change subscription",
+   "kind": "fragment",
+   "class": "ui.fragments.purchases.ChangeSubscriptionFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Upgrade/downgrade plan (Compose)",
+   "evidence": [
+    "S16",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-subscription-sheet",
+   "name": "Subscription bottom sheet",
+   "kind": "fragment",
+   "class": "ui.fragments.purchases.SubscriptionBottomSheetFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Upsell sheet; EventOutcome variant used on death screen",
+   "evidence": [
+    "S16",
+    "S45"
+   ]
+  },
+  {
+   "id": "scr-gift-gems",
+   "name": "Gift gems",
+   "kind": "activity",
+   "class": "ui.activities.GiftGemsActivity",
+   "feature": "shops/gems/subscription",
+   "purpose": "Gift gems from balance or purchase (GiftBalance/GiftPurchase fragments)",
+   "evidence": [
+    "S15",
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-gift-subscription",
+   "name": "Gift subscription",
+   "kind": "activity",
+   "class": "ui.activities.GiftSubscriptionActivity",
+   "feature": "shops/gems/subscription",
+   "purpose": "Gift non-renewing subscription",
+   "evidence": [
+    "S15",
+    "S48"
+   ]
+  },
+  {
+   "id": "scr-birthday",
+   "name": "Birthday promo",
+   "kind": "activity",
+   "class": "ui.activities.BirthdayActivity",
+   "feature": "shops/gems/subscription",
+   "purpose": "Birthday event promo (Compose)",
+   "evidence": [
+    "S14",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-promo-info",
+   "name": "Promo info",
+   "kind": "fragment",
+   "class": "ui.fragments.PromoInfoFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "Active promotion info",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-promo-web",
+   "name": "Promo web",
+   "kind": "fragment",
+   "class": "ui.fragments.PromoWebFragment",
+   "feature": "shops/gems/subscription",
+   "purpose": "WebView for promo URL",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-party",
+   "name": "Party",
+   "kind": "fragment",
+   "class": "ui.fragments.social.party.PartyFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Party tabs: details & chat",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-party-detail",
+   "name": "Party detail",
+   "kind": "fragment",
+   "class": "ui.fragments.social.party.PartyDetailFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Members, quest progress",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-party-chat",
+   "name": "Party chat",
+   "kind": "fragment",
+   "class": "ui.fragments.social.PartyChatFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Group chat for party",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-chat",
+   "name": "Chat",
+   "kind": "fragment",
+   "class": "ui.fragments.social.ChatFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Generic group chat list",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-no-party",
+   "name": "No party",
+   "kind": "fragment",
+   "class": "ui.fragments.social.party.NoPartyFragmentFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Create/join party empty state",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-party-seeking",
+   "name": "Party seeking",
+   "kind": "fragment",
+   "class": "ui.fragments.social.party.PartySeekingFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Browse users looking for party (Compose)",
+   "evidence": [
+    "S16",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-party-invite",
+   "name": "Party invite",
+   "kind": "fragment",
+   "class": "ui.fragments.social.party.PartyInvitePagerFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Invite members by username/email",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-group-invite",
+   "name": "Group invite",
+   "kind": "activity",
+   "class": "ui.activities.GroupInviteActivity",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Invite activity wrapper",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-group-form",
+   "name": "Group form",
+   "kind": "activity",
+   "class": "ui.activities.GroupFormActivity",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Create/edit party or guild",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-guild",
+   "name": "Guild",
+   "kind": "fragment",
+   "class": "ui.fragments.social.guilds.GuildFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Guild/group plan detail & chat",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-guild-detail",
+   "name": "Guild detail",
+   "kind": "fragment",
+   "class": "ui.fragments.social.guilds.GuildDetailFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Guild info tab",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-quest-detail",
+   "name": "Quest detail",
+   "kind": "fragment",
+   "class": "ui.fragments.social.QuestDetailFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Active quest, accept/reject/start",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-inbox",
+   "name": "Inbox",
+   "kind": "fragment",
+   "class": "ui.fragments.social.InboxOverviewFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Private message conversations",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-inbox-thread",
+   "name": "Inbox thread",
+   "kind": "fragment",
+   "class": "ui.fragments.social.InboxMessageListFragment",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Messages with one user",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-report",
+   "name": "Report message",
+   "kind": "activity",
+   "class": "ui.activities.ReportMessageActivity",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Flag chat message/user",
+   "evidence": [
+    "S11",
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-guidelines",
+   "name": "Community guidelines",
+   "kind": "activity",
+   "class": "ui.activities.GuidelinesActivity",
+   "feature": "party/guilds/quests/chat",
+   "purpose": "Community guidelines text",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-challenges",
+   "name": "Challenges overview",
+   "kind": "fragment",
+   "class": "ui.fragments.social.challenges.ChallengesOverviewFragment",
+   "feature": "challenges",
+   "purpose": "My / discover challenges tabs",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-challenge-list",
+   "name": "Challenge list",
+   "kind": "fragment",
+   "class": "ui.fragments.social.challenges.ChallengeListFragment",
+   "feature": "challenges",
+   "purpose": "List of challenges",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-challenge-detail",
+   "name": "Challenge detail",
+   "kind": "fragment",
+   "class": "ui.fragments.social.challenges.ChallengeDetailFragment",
+   "feature": "challenges",
+   "purpose": "Challenge tasks, join/leave",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-challenge-form",
+   "name": "Challenge form",
+   "kind": "activity",
+   "class": "ui.activities.ChallengeFormActivity",
+   "feature": "challenges",
+   "purpose": "Create/edit challenge",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-stats",
+   "name": "Stats",
+   "kind": "fragment",
+   "class": "ui.fragments.StatsFragment",
+   "feature": "stats/achievements",
+   "purpose": "Attributes, allocate stat points",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-skills",
+   "name": "Skills",
+   "kind": "fragment",
+   "class": "ui.fragments.skills.SkillsFragment",
+   "feature": "stats/achievements",
+   "purpose": "Class skills (spells) using mana",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-skill-tasks",
+   "name": "Skill target task",
+   "kind": "activity",
+   "class": "ui.activities.SkillTasksActivity",
+   "feature": "stats/achievements",
+   "purpose": "Pick task as skill target",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-skill-member",
+   "name": "Skill target member",
+   "kind": "activity",
+   "class": "ui.activities.SkillMemberActivity",
+   "feature": "stats/achievements",
+   "purpose": "Pick party member as skill target",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-achievements",
+   "name": "Achievements",
+   "kind": "fragment",
+   "class": "ui.fragments.AchievementsFragment",
+   "feature": "stats/achievements",
+   "purpose": "Badges/achievements",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-notifications",
+   "name": "Notifications",
+   "kind": "activity",
+   "class": "ui.activities.NotificationsActivity",
+   "feature": "notifications",
+   "purpose": "In-app notification center",
+   "evidence": [
+    "S14",
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-news",
+   "name": "News",
+   "kind": "fragment",
+   "class": "ui.fragments.NewsFragment",
+   "feature": "notifications",
+   "purpose": "Bailey news / new stuff",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-settings",
+   "name": "Settings",
+   "kind": "activity",
+   "class": "ui.activities.PrefsActivity",
+   "feature": "settings",
+   "purpose": "Preferences host (app link /settings/*)",
+   "evidence": [
+    "S10"
+   ]
+  },
+  {
+   "id": "scr-preferences",
+   "name": "Preferences",
+   "kind": "fragment",
+   "class": "ui.fragments.preferences.PreferencesFragment",
+   "feature": "settings",
+   "purpose": "Main settings list (theme, day start, sounds...)",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-account-prefs",
+   "name": "Account",
+   "kind": "fragment",
+   "class": "ui.fragments.preferences.AccountPreferenceFragment",
+   "feature": "settings",
+   "purpose": "Account details; Compose edit screens (email, username, password, display name, about, photo)",
+   "evidence": [
+    "S16",
+    "S17"
+   ]
+  },
+  {
+   "id": "scr-push-prefs",
+   "name": "Push notifications",
+   "kind": "fragment",
+   "class": "ui.fragments.preferences.PushNotificationsPreferencesFragment",
+   "feature": "settings",
+   "purpose": "Push notification toggles",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-email-prefs",
+   "name": "Email notifications",
+   "kind": "fragment",
+   "class": "ui.fragments.preferences.EmailNotificationsPreferencesFragment",
+   "feature": "settings",
+   "purpose": "Email notification toggles",
+   "evidence": [
+    "S16"
+   ]
+  },
+  {
+   "id": "scr-privacy",
+   "name": "Privacy preferences",
+   "kind": "activity",
+   "class": "ui.activities.PrivacyPreferencesActivity",
+   "feature": "settings",
+   "purpose": "Consent for analytics/crash collection",
+   "evidence": [
+    "S15",
+    "S50"
+   ]
+  },
+  {
+   "id": "scr-fix-values",
+   "name": "Fix character values",
+   "kind": "activity",
+   "class": "ui.activities.FixCharacterValuesActivity",
+   "feature": "settings",
+   "purpose": "Manually edit HP/XP/gold/level",
+   "evidence": [
+    "S15"
+   ]
+  },
+  {
+   "id": "scr-support",
+   "name": "Support main",
+   "kind": "fragment",
+   "class": "ui.fragments.support.SupportMainFragment",
+   "feature": "settings",
+   "purpose": "Help hub",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-faq",
+   "name": "FAQ",
+   "kind": "fragment",
+   "class": "ui.fragments.support.FAQOverviewFragment",
+   "feature": "settings",
+   "purpose": "FAQ list (+ FAQDetailFragment)",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-bugfix",
+   "name": "Bug report",
+   "kind": "fragment",
+   "class": "ui.fragments.support.BugFixFragment",
+   "feature": "settings",
+   "purpose": "Known issues + report bug",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-about",
+   "name": "About",
+   "kind": "fragment",
+   "class": "ui.fragments.AboutFragment",
+   "feature": "settings",
+   "purpose": "App info",
+   "evidence": [
+    "S14"
+   ]
+  },
+  {
+   "id": "scr-widget-add-task-config",
+   "name": "Add task widget config",
+   "kind": "activity",
+   "class": "ui.activities.AddTaskWidgetActivity",
+   "feature": "widgets",
+   "purpose": "Configure add-task widget (translucent sheet)",
+   "evidence": [
+    "S11"
+   ]
+  },
+  {
+   "id": "scr-widget-habit-config",
+   "name": "Habit button widget config",
+   "kind": "activity",
+   "class": "ui.activities.HabitButtonWidgetActivity",
+   "feature": "widgets",
+   "purpose": "Pick habit for habit-button widget",
+   "evidence": [
+    "S11"
+   ]
+  }
+ ],
+ "ui_images": [
+  {
+   "id": "P01",
+   "file": "ui/play/01.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/nj5rkn_DI0xFqVR5RGl4Anp1ndw8ggzG1SQO_Dx1LCl-xN_bFpk94e7vmvkftSwpi_HzZIZGDA9yaPPgik8S7PU=s0",
+   "sha256": "5f93d70cef78cfeb5a6199230fc66c22689cc29ef01c14f1a16919955a6e30a9",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1755870,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#29262d",
+    "#925ef0",
+    "#9b7066",
+    "#7846e4",
+    "#d5c4f5",
+    "#3aa7b6"
+   ],
+   "palette_share": [
+    0.425,
+    0.364,
+    0.071,
+    0.06,
+    0.059,
+    0.022
+   ],
+   "screen": "Task list (Habits) home with avatar/stats header, dark theme",
+   "feature": "tasks",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Stick with your habits like never before!",
+   "regions": [
+    "marketing caption (top, pixel font)",
+    "tilted phone mockup",
+    "status bar",
+    "top app bar: hamburger menu, user name, search, filter",
+    "avatar header: pixel avatar tile + Lvl/class + 3 stat bars + currency row",
+    "task list (cards with colored left control strip)",
+    "FAB (+, rotated-square shape, bottom-right)",
+    "bottom nav (partially visible, calendar icon)",
+    "Editor's Choice badge overlay (bottom-left, Play marketing)"
+   ],
+   "components": [
+    "pixel-art avatar tile with scenic background",
+    "HP bar (red) 36/50 with heart icon",
+    "XP bar (yellow) 570/1,370 with star icon",
+    "MP bar (blue) 123/136 with gem icon",
+    "currency row: hourglass 12, gold coin 102, green gem 11",
+    "class badge 'Lvl 53 Rogue' with dagger icon",
+    "task cards with colored square control strip (yellow, green, red, orange, cyan, blue)",
+    "card title + secondary notes line",
+    "FAB"
+   ],
+   "visible_text": [
+    "Stick with your habits like never before!",
+    "12:41",
+    "Lydda Sneakthief",
+    "Health",
+    "36 / 50",
+    "Experience",
+    "570 / 1,370",
+    "Mana",
+    "123 / 136",
+    "12",
+    "102",
+    "11",
+    "Lvl 53 Rogue",
+    "Go to the Gym every other day",
+    "Eat a healthy breakfast",
+    "1h Personal Project",
+    "15 Minutes of cleaning",
+    "make it easier to keep on top of!",
+    "Do something relaxing",
+    "mental health is important too",
+    "Brush teeth",
+    "45m Reading",
+    "If you miss a Dail...",
+    "EDITOR'S CHOICE"
+   ],
+   "notes": "Only phone screenshot showing the persistent avatar+stats header and dark mode. Control-strip color encodes task value (red=weak ... blue=strong, per caption of P02). Palette dominated by purple marketing background.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/01.jpg"
+  },
+  {
+   "id": "P02",
+   "file": "ui/play/02.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/LvpKOQmJGlU4Ie28KzWvmmUQ_Z4AoN3ZVdQtdc9LqU2IPiCb9rQs64eSvD4CZkhdqvkllyinlLN9sFbUBTMV=s0",
+   "sha256": "33db3c9241d0d645880db0b5e872256be12df8388b89e968b138dbe6bb2fe5fa",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1413983,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#4cadde",
+    "#f7f8f8",
+    "#2b282f",
+    "#bccde0",
+    "#6b9da2",
+    "#faaf7b"
+   ],
+   "palette_share": [
+    0.44,
+    0.315,
+    0.099,
+    0.075,
+    0.041,
+    0.031
+   ],
+   "screen": "Task card variety (Habit, Daily, To Do with checklist) light theme, floating over dark list",
+   "feature": "tasks",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Create a routine with repeating tasks. Colors show which tasks you're good at",
+   "regions": [
+    "exploded/floating task cards (top)",
+    "tilted dark phone mockup (left) with bottom nav: To Do's, Rewards",
+    "marketing caption (bottom-right)"
+   ],
+   "components": [
+    "Habit card with +/- circular buttons and streak counter (>> 9)",
+    "Daily card with due chip 'Today' + reminder 8:00 AM",
+    "To Do card with notes, due 'In 2 days', checklist counter badge 1/3 (grey)",
+    "expanded checklist rows with square checkboxes (checked = grey text)",
+    "Habit card with + left and - right colored side blocks",
+    "bottom nav items: To Do's (check-circle), Rewards (chest)"
+   ],
+   "visible_text": [
+    "Clear inbox",
+    "Take some time to write down goals for the day",
+    "9",
+    "Walk the dog",
+    "Today",
+    "8:00 AM",
+    "Household chores",
+    "Complete all checklist items each week",
+    "In 2 days",
+    "1",
+    "3",
+    "Buy Groceries",
+    "Cut the grass",
+    "Vacuum",
+    "Drink water instead of soda",
+    "it will turn darker",
+    "To Do's",
+    "Rewards",
+    "2",
+    "1",
+    "6",
+    "Create a routine with repeating tasks. Colors show which tasks you're good at"
+   ],
+   "notes": "Defines task card anatomy: left control strip (color = value), body (title, notes, meta chips), optional right control/counter. Emoji in titles. Blue background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/02.jpg"
+  },
+  {
+   "id": "P03",
+   "file": "ui/play/03.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Ndyi0JPKllxmNXgvowSmdx1tVr3mGmQ05v63zdI7kp91GLsbRouSNDZ1a82XX5Dft7AT5QJ00ca3Dc5HHwJ59w=s0",
+   "sha256": "af9d37cd35c5b23aefefc9cd4133444c03605053f78bb89b1b957b5ed4b2b700",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 915241,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#8484ef",
+    "#f6f5fc",
+    "#cdc1f5",
+    "#eeeafb",
+    "#6335b5",
+    "#d466a6"
+   ],
+   "palette_share": [
+    0.285,
+    0.221,
+    0.153,
+    0.151,
+    0.118,
+    0.072
+   ],
+   "screen": "New Daily form (task editor)",
+   "feature": "task-editor",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Flexbile scheduling lets you be in charge of your goals",
+   "regions": [
+    "marketing caption (top; typo 'Flexbile' in source)",
+    "purple header: back arrow + 'New Daily' + filled text fields",
+    "light body: Checklist, Difficulty, Scheduling sections"
+   ],
+   "components": [
+    "filled text fields (rounded, lavender): Daily Title, Notes",
+    "'+ New checklist' row button",
+    "difficulty picker: 4 tiles with 1-4 sparkle icons (Trivial/Easy/Medium/Hard), selected tile filled purple",
+    "dropdown fields: Start Date, Repeats",
+    "numeric field: Every 1 Days"
+   ],
+   "visible_text": [
+    "Flexbile scheduling lets you be in charge of your goals",
+    "New Daily",
+    "Daily Title",
+    "Go for a short walk",
+    "Notes",
+    "At least 15min - a silly little walk is good for you!!!!",
+    "Checklist",
+    "New checklist",
+    "Difficulty",
+    "Trivial",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Scheduling",
+    "Start Date",
+    "May 5th",
+    "Repeats",
+    "Daily",
+    "Every",
+    "1",
+    "Days"
+   ],
+   "notes": "Editor header tinted purple (brand or task-type color; unconfirmed). Material 3-style filled fields. Blue->purple->pink gradient background.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/03.jpg"
+  },
+  {
+   "id": "P04",
+   "file": "ui/play/04.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/qzuvsqCeoThwNhGL8IBFVHiWk3SCa7GLaIoBZRscBmcPPSNKWWZIstcg4oz4F6jWneKZ8ey3VGQtFS6OOmZ6CJM=s0",
+   "sha256": "b1150996c1e904b6a2bdd9f2234aa5062b81f5dded76f8797e8430d226327e67",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1245958,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fa5a5d",
+    "#f6f5f3",
+    "#b35f4f",
+    "#403b3b",
+    "#dbb9ba",
+    "#6a849e"
+   ],
+   "palette_share": [
+    0.591,
+    0.147,
+    0.094,
+    0.071,
+    0.063,
+    0.035
+   ],
+   "screen": "Rewards list (custom rewards with gold cost) + pixel item illustration",
+   "feature": "rewards",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Celebrate each completed task with Gold and rewards",
+   "regions": [
+    "marketing caption (top)",
+    "large pixel illustration: sword, potion, egg on treasure chests (marketing art)",
+    "reward cards (bottom)"
+   ],
+   "components": [
+    "reward card: title + optional notes, right price block with gold coin icon and amount",
+    "unaffordable/disabled state: greyed price block (100), inferred"
+   ],
+   "visible_text": [
+    "Celebrate each completed task with Gold and rewards",
+    "Watch 15 min of videos on your favorite app :)",
+    "3",
+    "Buy a coffee",
+    "20",
+    "Grab some take out",
+    "You deserve to treat yourself a lil!",
+    "100"
+   ],
+   "notes": "Price block tinted gold when affordable vs grey otherwise (inferred). Red background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/04.jpg"
+  },
+  {
+   "id": "P05",
+   "file": "ui/play/05.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/ijx42asBJI_m-QRwbwZF6-1oGXSPhgTPcFBk-perVcern9inCUH8uVqjJOj8VnoMP3vGcLI1BsbNIdrs2d0S=s0",
+   "sha256": "d0fdc8322f0438d9f0447497172d07bad589125ab460257528f2cb311b493bad",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 997477,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fafbfb",
+    "#26bd86",
+    "#c0d4cd",
+    "#78a29b",
+    "#40352f",
+    "#df8025"
+   ],
+   "palette_share": [
+    0.498,
+    0.311,
+    0.079,
+    0.05,
+    0.036,
+    0.026
+   ],
+   "screen": "Pets & Mounts collection grid (Special Pets)",
+   "feature": "pets",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Hatch, feed, and collect pets that grow with you",
+   "regions": [
+    "marketing caption",
+    "top bar: back, title 'Pets & Mounts', filter icon",
+    "section header 'SPECIAL PETS' + count pill 65 / 480",
+    "4-column pet grid",
+    "decorative oversized pixel pets overlapping corners (marketing)"
+   ],
+   "components": [
+    "letter-spaced uppercase section header",
+    "count pill",
+    "grid tile: pixel sprite + 2-line name; unowned = grey silhouette + grey label"
+   ],
+   "visible_text": [
+    "Hatch, feed, and collect pets that grow with you",
+    "Pets & Mounts",
+    "SPECIAL PETS",
+    "65 / 480",
+    "Veteran Wolf",
+    "Hydra",
+    "Mammoth",
+    "Gryphatrice",
+    "Phoenix",
+    "Royal Purple Gryphon",
+    "Mantis Shrimp",
+    "Jackalope",
+    "Skeleton Dragon",
+    "Golden Fox",
+    "Desert Velociraptor",
+    "White Tiger",
+    "Aquatic Panda",
+    "Floral Cactus",
+    "Autumn Leaf Tiger",
+    "Rainbow Pig",
+    "Peppermint Wolf",
+    "Watery Panda",
+    "Ember Fox",
+    "Glowing Fox",
+    "Rose Quartz Lion"
+   ],
+   "notes": "Collection completeness via silhouettes. Green background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/05.jpg"
+  },
+  {
+   "id": "P06",
+   "file": "ui/play/06.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/mTI-GcVzBxi9VvtTzFw_f1rlI_hxwbQtKaOcR5xtHuLwLcPGtrOB4H18DV3Zg60tLKoL8sPKvpHfPgEMxl4laA=s0",
+   "sha256": "db9e4de9d63c342959033f2de958037e63e2e93d6420f3652d757bb4d8004029",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1124721,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fffefe",
+    "#fab344",
+    "#fcc364",
+    "#fbcb8f",
+    "#efe3d8",
+    "#938f9b"
+   ],
+   "palette_share": [
+    0.426,
+    0.255,
+    0.148,
+    0.075,
+    0.054,
+    0.042
+   ],
+   "screen": "Achievements: Starting Objectives + streak badges",
+   "feature": "achievements",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Visualize your progress with Streaks and Achievements",
+   "regions": [
+    "marketing caption",
+    "card: Starting Objectives (coin cluster, progress bar, 4 shield badges)",
+    "card: 3 Perfect Days",
+    "card: 21 Day Streak (cropped)"
+   ],
+   "components": [
+    "rounded white cards with glow",
+    "purple progress bar (~25%)",
+    "pixel shield badges (grey = not yet earned, inferred)",
+    "pixel gold medals with sparkles"
+   ],
+   "visible_text": [
+    "Visualize your progress with Streaks and Achievements",
+    "Starting Objectives",
+    "3 Perfect Days",
+    "21 Day Streak"
+   ],
+   "notes": "Aligns with What's new 4.10.6 (enhanced Achievements). Likely composited cards, not a single real screen. Orange background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/06.jpg"
+  },
+  {
+   "id": "P07",
+   "file": "ui/play/07.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Lc0CDZnfiLxwMo96-HyBmaROL5JxkdGOrPS14-vTWeZiXTGf6EuQZS9KJ3WE6DljoJTo2Xl04b8-S8zf-k3c=s0",
+   "sha256": "3b2e0a44ee9d98504665a35bb473a292f4dd251eb49a89223322021d25a8df3f",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1334468,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#e3f8fb",
+    "#feffff",
+    "#73d7e2",
+    "#4ec2cc",
+    "#b2dbe2",
+    "#8ca6af"
+   ],
+   "palette_share": [
+    0.271,
+    0.211,
+    0.203,
+    0.2,
+    0.077,
+    0.039
+   ],
+   "screen": "Challenges list (cards with stacked task previews)",
+   "feature": "challenges",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Join Challenges to get curated task lists that fit your interests",
+   "regions": [
+    "marketing caption",
+    "3 challenge cards each with stacked task previews"
+   ],
+   "components": [
+    "challenge card: green gem icon (prize), title, subtitle",
+    "meta strip: members icon+count, calendar icon+count, check icon+count",
+    "stacked translucent task rows with circle control"
+   ],
+   "visible_text": [
+    "Join Challenges to get curated task lists that fit your interests",
+    "Daily Exercise Routine",
+    "Easy 10min exercises for the month",
+    "1,236",
+    "5",
+    "10",
+    "Do 10 Push-ups",
+    "Do 20 crunches",
+    "ADHD Tips and Tricks",
+    "Stay focused and productive",
+    "12,890",
+    "24",
+    "Break down a large task",
+    "Prioritize one task for the day",
+    "Pomodoro time!",
+    "Use the pomodoro method to work",
+    "589",
+    "31",
+    "Complete first pomodoro!"
+   ],
+   "notes": "Calendar/check counts probably = number of Dailies/To Dos in the challenge (inferred). Stylized composite. Teal background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/07.jpg"
+  },
+  {
+   "id": "P08",
+   "file": "ui/play/08.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/cKHG0MpbqKTgPuu6gsY1RftxvccdMo8oAoyQrjX9c9X4NsD0q5eE-dJhoUCSffkH88AQpi64kP9IgjHrZoXAww=s0",
+   "sha256": "dea58b5805619f21f68b066d753486e8ad1e52731edd9c6a735267ba229e9a31",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1024836,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fd7b46",
+    "#f6f5f5",
+    "#fefefe",
+    "#fab88a",
+    "#9ca8ac",
+    "#4d4254"
+   ],
+   "palette_share": [
+    0.33,
+    0.308,
+    0.219,
+    0.07,
+    0.039,
+    0.034
+   ],
+   "screen": "Party screen with active boss Quest and members",
+   "feature": "party",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Boost accountability by teaming up to take on Quests",
+   "regions": [
+    "marketing caption",
+    "top bar: 'Your Party' + menu/filter icon",
+    "quest card: name, participation, boss sprite, boss HP bar, damage banner",
+    "MEMBERS section: invite card, member rows"
+   ],
+   "components": [
+    "boss HP bar 1224/1500 with orange pending-damage segment",
+    "full-width orange banner '21 Damage Done'",
+    "member row: avatar tile, display name, @username, class icon, level-up chip, HP and MP bars, level, role",
+    "'Invite a Member' card button"
+   ],
+   "visible_text": [
+    "Boost accountability by teaming up to take on Quests",
+    "Your Party",
+    "Vice Awakens",
+    "3 / 10 Participating",
+    "Vice, the Shadow Wyrm",
+    "1224 / 1500 HP",
+    "21 Damage Done",
+    "MEMBERS",
+    "Invite a Member",
+    "Sophiala",
+    "@bestieee",
+    "Level 12",
+    "Leader",
+    "Aidowu",
+    "@getthatbread"
+   ],
+   "notes": "Two-tone boss bar suggests damage queued until daily reset (inferred). Orange background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/08.jpg"
+  },
+  {
+   "id": "P09",
+   "file": "ui/play/09.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/PiSbXEDBKGPoGaRT4jhPjjyY6x8U7yjFSWriKycD1gq1aFC1a5ZWdFdggO_K5pqMPpqTIx7dqESe2Ak9fuTC=s0",
+   "sha256": "e5ff1a3f92369c6f6e5d06598eeb0d6d6a304b02616c4109fe4bdaaa593c7524",
+   "w": 792,
+   "h": 792,
+   "bytes": 38272,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#24212b",
+    "#000000",
+    "#41a6a9",
+    "#ebcaa2",
+    "#1d1a24",
+    "#0e0d11"
+   ],
+   "palette_share": [
+    0.505,
+    0.35,
+    0.054,
+    0.051,
+    0.027,
+    0.013
+   ],
+   "screen": "Wear OS: Habits list",
+   "feature": "wear-tasks",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "title (purple)",
+    "pill-shaped list items"
+   ],
+   "components": [
+    "pill list item with circular colored action button (+ blue, - orange, diagonal split +/- green)"
+   ],
+   "visible_text": [
+    "6 Habits",
+    "Drink water",
+    "Think negatively",
+    "Clear inbox"
+   ],
+   "notes": "Raw watch UI on black, no marketing frame.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/09.jpg"
+  },
+  {
+   "id": "P10",
+   "file": "ui/play/10.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Uy0L7FOQ2evgt7oz3Gw_azh2q8nAwquisY8x8QgWIscd-PkK3iTvpdS0GJRGfXLwu0Emm0Ox11tmQurUSZKsnQA=s0",
+   "sha256": "559a4d4898f356d5a83575162c1102e1da95eb5547bbc6a2b9a92a3c17da956d",
+   "w": 792,
+   "h": 792,
+   "bytes": 26047,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#000000",
+    "#24cb8f",
+    "#156146",
+    "#eca736",
+    "#d6d4c8",
+    "#469ac1"
+   ],
+   "palette_share": [
+    0.763,
+    0.21,
+    0.011,
+    0.008,
+    0.004,
+    0.004
+   ],
+   "screen": "Wear OS: score feedback after completing a task",
+   "feature": "wear-feedback",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "centered cluster of 4 green pills"
+   ],
+   "components": [
+    "delta pills: 14 + XP star, 2 + gold coin, .5 + mana gem, .6 + sword (quest damage, inferred)"
+   ],
+   "visible_text": [
+    "14",
+    "2",
+    ".5",
+    ".6"
+   ],
+   "notes": "Green = positive outcome.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/10.jpg"
+  },
+  {
+   "id": "P11",
+   "file": "ui/play/11.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/WkqwbnlEnDZMsbxLE9DqhEAKzKFqWg4hO9-RTGDZm9RyNcle8Mtf1QurKclTuAz5MMSwWeNLeBiKK2QQluI6yQ=s0",
+   "sha256": "1566e714c312efe03dd6f23d8f2f2dac3acdd2730defe1f34860a638655e81af",
+   "w": 792,
+   "h": 792,
+   "bytes": 32083,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#25222d",
+    "#000000",
+    "#a87cf9",
+    "#1d1a23",
+    "#0c0a0f",
+    "#030204"
+   ],
+   "palette_share": [
+    0.374,
+    0.348,
+    0.243,
+    0.023,
+    0.007,
+    0.006
+   ],
+   "screen": "Wear OS: main menu",
+   "feature": "wear-nav",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "user name header",
+    "primary pill action",
+    "task-type pills with counts"
+   ],
+   "components": [
+    "primary filled pill 'New Task' (purple)",
+    "nav pills: icon + label + count"
+   ],
+   "visible_text": [
+    "Sophiala",
+    "New Task",
+    "Dailies",
+    "7",
+    "To Do's",
+    "12"
+   ],
+   "notes": "Watch navigation = vertical menu of task types.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/11.jpg"
+  },
+  {
+   "id": "P12",
+   "file": "ui/play/12.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/-MdbHPHwPyCMTDw98zDnTQwOy4tD7J_SCgI_wKiYWoR_dwyRtCpfl-VA-GJnOiIBLMEU2xxcWykLaRpaul5Xzg=s0",
+   "sha256": "3a7c66cf3a8f28681435c444af81757a592b57688184177d39b1adfa49bc8c69",
+   "w": 792,
+   "h": 792,
+   "bytes": 62930,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#0c0c0c",
+    "#000000",
+    "#bb8b89",
+    "#38343b",
+    "#090a09",
+    "#050606"
+   ],
+   "palette_share": [
+    0.444,
+    0.297,
+    0.094,
+    0.092,
+    0.046,
+    0.026
+   ],
+   "screen": "Wear OS: stats rings (HP/XP/MP)",
+   "feature": "wear-stats",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "3 concentric progress rings",
+    "center stacked stat values"
+   ],
+   "components": [
+    "concentric arcs: red HP, yellow XP, blue MP",
+    "pixel-font numerals with heart/star/gem icons"
+   ],
+   "visible_text": [
+    "41",
+    "/50",
+    "50",
+    "/620",
+    "35",
+    "/68"
+   ],
+   "notes": "Same HP/XP/MP color code as phone header [P01].",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/12.jpg"
+  },
+  {
+   "id": "P13",
+   "file": "ui/play/13.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/4DzTfps3yIln4WurjrjBUHbtXSlyhJ86ipvC1ZSnn90LA03zAom8trWpS8owss6PY5u_1Qksg8yv-L7tQ4jA4xE=s0",
+   "sha256": "da505a08ebaae30c4b1da39b6dcb3996cd0eefceb0948f4ae1ca5a46c43b0c37",
+   "w": 792,
+   "h": 792,
+   "bytes": 9754,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#467c25",
+    "#494c39",
+    "#f0edd9",
+    "#c1a392",
+    "#ad8939",
+    "#010201"
+   ],
+   "palette_share": [
+    0.289,
+    0.219,
+    0.149,
+    0.136,
+    0.104,
+    0.103
+   ],
+   "screen": "Wear OS: avatar view (pixel avatar with pet and background)",
+   "feature": "wear-avatar",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "full-bleed pixel avatar scene in black frame"
+   ],
+   "components": [
+    "layered avatar sprite (hair, outfit), pet sprite, background scene"
+   ],
+   "visible_text": [],
+   "notes": "Low-res sprite upscaled nearest-neighbor; palette reflects art, not UI.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/13.jpg"
+  },
+  {
+   "id": "P_ICON",
+   "file": "ui/play/icon.png",
+   "kind": "icon",
+   "url": "https://play-lh.googleusercontent.com/ZriBVMfdmkJSABIh3vnrbKp5wD__dPuM8UWCTyGk_oQR6XZpNXY7vyVVPgXr-eRBQ5xrk52PcUgFqCiP7QzEaA=s0",
+   "sha256": "2593faaca945767d05d06a322addbf842d643d76889ee3a4997d8febe6466100",
+   "w": 512,
+   "h": 512,
+   "bytes": 17754,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    512,
+    512
+   ],
+   "palette": [
+    "#6a30d3",
+    "#ddd3fc",
+    "#e1d9fd",
+    "#a280e7",
+    "#662ad2",
+    "#692ed3"
+   ],
+   "palette_share": [
+    0.827,
+    0.139,
+    0.011,
+    0.009,
+    0.008,
+    0.007
+   ],
+   "screen": "App icon",
+   "feature": "branding",
+   "is_marketing_frame": false,
+   "device": "n/a",
+   "caption_text": "",
+   "regions": [
+    "solid purple square",
+    "lavender gryphon silhouette with pixel-step tail"
+   ],
+   "components": [
+    "logo mark"
+   ],
+   "visible_text": [],
+   "notes": "Brand purple ~#6a30d3; gryphon mixes smooth vector with pixel staircase (RPG motif).",
+   "palette_note": "",
+   "status": "observed",
+   "thumb": "ui/thumbs/icon.jpg"
+  },
+  {
+   "id": "P_FEATURE",
+   "file": "ui/play/feature.png",
+   "kind": "feature",
+   "url": "https://play-lh.googleusercontent.com/iKyLzHqiMKYqT9-C7EJHVCmJqQ0m3J51m6m37CkBdeVgXiJVZtQNR-ny8apxTVPnVNLjhPKselHpIWnkJwLjPA=s0",
+   "sha256": "ad4b241bfe6787670c1fc47f6c5c8fb386c428503840227e42d2d1d3135af413",
+   "w": 1024,
+   "h": 500,
+   "bytes": 355043,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    500,
+    1024
+   ],
+   "palette": [
+    "#7143df",
+    "#6455df",
+    "#8449d1",
+    "#5969e0",
+    "#9856c5",
+    "#f7f6fd"
+   ],
+   "palette_share": [
+    0.432,
+    0.16,
+    0.146,
+    0.131,
+    0.086,
+    0.045
+   ],
+   "screen": "Feature graphic",
+   "feature": "branding",
+   "is_marketing_frame": true,
+   "device": "n/a",
+   "caption_text": "habitica",
+   "regions": [
+    "purple-to-blue gradient background with outline pentagon/squiggle confetti",
+    "centered white rounded wordmark"
+   ],
+   "components": [
+    "wordmark with red and cyan dots over the i's"
+   ],
+   "visible_text": [
+    "habitica"
+   ],
+   "notes": "Same confetti motif (pentagons, squiggles) as phone screenshot backgrounds.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/feature.jpg"
+  }
+ ],
+ "design_tokens": {
+  "colors": [
+   {
+    "name": "white",
+    "hex": "#FFFFFF",
+    "source": "S20"
+   },
+   {
+    "name": "black",
+    "hex": "#000000",
+    "source": "S20"
+   },
+   {
+    "name": "watch_white",
+    "hex": "#FFFFFF",
+    "source": "S20"
+   },
+   {
+    "name": "watch_black",
+    "hex": "#000000",
+    "source": "S20"
+   },
+   {
+    "name": "brand_50",
+    "hex": "#36205D",
+    "source": "S20"
+   },
+   {
+    "name": "brand_100",
+    "hex": "#432874",
+    "source": "S20"
+   },
+   {
+    "name": "brand_200",
+    "hex": "#4F2A93",
+    "source": "S20"
+   },
+   {
+    "name": "brand_300",
+    "hex": "#6133B4",
+    "source": "S20"
+   },
+   {
+    "name": "brand_400",
+    "hex": "#925CF3",
+    "source": "S20"
+   },
+   {
+    "name": "brand_500",
+    "hex": "#BDA8FF",
+    "source": "S20"
+   },
+   {
+    "name": "brand_50012",
+    "hex": "#1FBDA8FF",
+    "source": "S20"
+   },
+   {
+    "name": "brand_600",
+    "hex": "#D5C8FF",
+    "source": "S20"
+   },
+   {
+    "name": "brand_700",
+    "hex": "#EEEBF8",
+    "source": "S20"
+   },
+   {
+    "name": "brand_800",
+    "hex": "#F6F4FC",
+    "source": "S20"
+   },
+   {
+    "name": "brand",
+    "hex": "#432874",
+    "source": "S20",
+    "alias_of": "brand_100",
+    "dark_hex": "#925CF3",
+    "dark_source": "S21"
+   },
+   {
+    "name": "maroon_700",
+    "hex": "#FFF7F7",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_600",
+    "hex": "#F7E9E9",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_500",
+    "hex": "#F19595",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_50012",
+    "hex": "#1FF19595",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_400",
+    "hex": "#EC9295",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_100",
+    "hex": "#DE3F3F",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_50",
+    "hex": "#C92B2B",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_10",
+    "hex": "#B01515",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_5",
+    "hex": "#7D0C0C",
+    "source": "S20"
+   },
+   {
+    "name": "red_700",
+    "hex": "#FFF7F7",
+    "source": "S20"
+   },
+   {
+    "name": "red_600",
+    "hex": "#F7E9E9",
+    "source": "S20"
+   },
+   {
+    "name": "red_500",
+    "hex": "#FFB6B8",
+    "source": "S20"
+   },
+   {
+    "name": "red_50012",
+    "hex": "#1FFFB6B8",
+    "source": "S20"
+   },
+   {
+    "name": "red_400",
+    "hex": "#FF8F93",
+    "source": "S20"
+   },
+   {
+    "name": "red_100",
+    "hex": "#FF6165",
+    "source": "S20"
+   },
+   {
+    "name": "red_50",
+    "hex": "#F74E52",
+    "source": "S20"
+   },
+   {
+    "name": "red_10",
+    "hex": "#F23035",
+    "source": "S20"
+   },
+   {
+    "name": "red_5",
+    "hex": "#BF262B",
+    "source": "S20"
+   },
+   {
+    "name": "orange_700",
+    "hex": "#FFF9F5",
+    "source": "S20"
+   },
+   {
+    "name": "orange_600",
+    "hex": "#F7EDED",
+    "source": "S20"
+   },
+   {
+    "name": "orange_500",
+    "hex": "#FFC8A7",
+    "source": "S20"
+   },
+   {
+    "name": "orange_50012",
+    "hex": "#1FFFC8A7",
+    "source": "S20"
+   },
+   {
+    "name": "orange_400",
+    "hex": "#F9A974",
+    "source": "S20"
+   },
+   {
+    "name": "orange_100",
+    "hex": "#FF944C",
+    "source": "S20"
+   },
+   {
+    "name": "orange_50",
+    "hex": "#FA8537",
+    "source": "S20"
+   },
+   {
+    "name": "orange_10",
+    "hex": "#F47825",
+    "source": "S20"
+   },
+   {
+    "name": "orange_5",
+    "hex": "#A85219",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_700",
+    "hex": "#FFFCF7",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_600",
+    "hex": "#FCF3E5",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_500",
+    "hex": "#FEDEAD",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_50012",
+    "hex": "#1FFEDEAD",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_400",
+    "hex": "#FFCE85",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_100",
+    "hex": "#FFBE5D",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_50",
+    "hex": "#FFB445",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_10",
+    "hex": "#FFA624",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_5",
+    "hex": "#EE9109",
+    "source": "S20"
+   },
+   {
+    "name": "green_700",
+    "hex": "#F3FBF8",
+    "source": "S20"
+   },
+   {
+    "name": "green_600",
+    "hex": "#EBF5F5",
+    "source": "S20"
+   },
+   {
+    "name": "green_500",
+    "hex": "#77F4C7",
+    "source": "S20"
+   },
+   {
+    "name": "green_50012",
+    "hex": "#1F77F4C7",
+    "source": "S20"
+   },
+   {
+    "name": "green_50030",
+    "hex": "#4D77F4C7",
+    "source": "S20"
+   },
+   {
+    "name": "green_400",
+    "hex": "#9AD9BA",
+    "source": "S20"
+   },
+   {
+    "name": "green_100",
+    "hex": "#24CC8F",
+    "source": "S20"
+   },
+   {
+    "name": "green_50",
+    "hex": "#20B780",
+    "source": "S20"
+   },
+   {
+    "name": "green_10",
+    "hex": "#1CA372",
+    "source": "S20"
+   },
+   {
+    "name": "green_1030",
+    "hex": "#4D1CA372",
+    "source": "S20"
+   },
+   {
+    "name": "green_5",
+    "hex": "#168059",
+    "source": "S20"
+   },
+   {
+    "name": "teal_700",
+    "hex": "#F5FFFE",
+    "source": "S20"
+   },
+   {
+    "name": "teal_600",
+    "hex": "#E5F5F5",
+    "source": "S20"
+   },
+   {
+    "name": "teal_500",
+    "hex": "#8EEDF6",
+    "source": "S20"
+   },
+   {
+    "name": "teal_50012",
+    "hex": "#1F8EEDF6",
+    "source": "S20"
+   },
+   {
+    "name": "teal_400",
+    "hex": "#9EE2E8",
+    "source": "S20"
+   },
+   {
+    "name": "teal_100",
+    "hex": "#3BCAD7",
+    "source": "S20"
+   },
+   {
+    "name": "teal_50",
+    "hex": "#34B5C1",
+    "source": "S20"
+   },
+   {
+    "name": "teal_10",
+    "hex": "#26A0AB",
+    "source": "S20"
+   },
+   {
+    "name": "teal_5",
+    "hex": "#1A7078",
+    "source": "S20"
+   },
+   {
+    "name": "blue_700",
+    "hex": "#FAFDFF",
+    "source": "S20"
+   },
+   {
+    "name": "blue_600",
+    "hex": "#EEF5F9",
+    "source": "S20"
+   },
+   {
+    "name": "blue_500",
+    "hex": "#A9DCF6",
+    "source": "S20"
+   },
+   {
+    "name": "blue_50012",
+    "hex": "#1FA9DCF6",
+    "source": "S20"
+   },
+   {
+    "name": "blue_400",
+    "hex": "#8CCFF1",
+    "source": "S20"
+   },
+   {
+    "name": "blue_100",
+    "hex": "#50B5E9",
+    "source": "S20"
+   },
+   {
+    "name": "blue_50",
+    "hex": "#46A7D9",
+    "source": "S20"
+   },
+   {
+    "name": "blue_10",
+    "hex": "#2995CD",
+    "source": "S20"
+   },
+   {
+    "name": "blue_5",
+    "hex": "#217AA6",
+    "source": "S20"
+   },
+   {
+    "name": "gray_1",
+    "hex": "#1A181D",
+    "source": "S20"
+   },
+   {
+    "name": "gray_5",
+    "hex": "#23202A",
+    "source": "S20"
+   },
+   {
+    "name": "gray_10",
+    "hex": "#34313A",
+    "source": "S20"
+   },
+   {
+    "name": "gray_50",
+    "hex": "#4E4A57",
+    "source": "S20"
+   },
+   {
+    "name": "gray_100",
+    "hex": "#686274",
+    "source": "S20"
+   },
+   {
+    "name": "gray_200",
+    "hex": "#878190",
+    "source": "S20"
+   },
+   {
+    "name": "gray_300",
+    "hex": "#A5A1AC",
+    "source": "S20"
+   },
+   {
+    "name": "gray_400",
+    "hex": "#C3C0C7",
+    "source": "S20"
+   },
+   {
+    "name": "gray_500",
+    "hex": "#E1E0E3",
+    "source": "S20"
+   },
+   {
+    "name": "gray_600",
+    "hex": "#EDECEE",
+    "source": "S20"
+   },
+   {
+    "name": "gray_700",
+    "hex": "#F9F9F9",
+    "source": "S20"
+   },
+   {
+    "name": "gray_1_30",
+    "hex": "#4D1A181D",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_1",
+    "hex": "#4C0001",
+    "source": "S20"
+   },
+   {
+    "name": "red_1",
+    "hex": "#6C0406",
+    "source": "S20"
+   },
+   {
+    "name": "blue_1",
+    "hex": "#033F5E",
+    "source": "S20"
+   },
+   {
+    "name": "teal_1",
+    "hex": "#005158",
+    "source": "S20"
+   },
+   {
+    "name": "green_1",
+    "hex": "#005737",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_1",
+    "hex": "#794B00",
+    "source": "S20"
+   },
+   {
+    "name": "orange_1",
+    "hex": "#7F3300",
+    "source": "S20"
+   },
+   {
+    "name": "brand_0",
+    "hex": "#2F283F",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_0",
+    "hex": "#3D2828",
+    "source": "S20"
+   },
+   {
+    "name": "red_0",
+    "hex": "#3D2828",
+    "source": "S20"
+   },
+   {
+    "name": "blue_0",
+    "hex": "#28373D",
+    "source": "S20"
+   },
+   {
+    "name": "teal_0",
+    "hex": "#283C3D",
+    "source": "S20"
+   },
+   {
+    "name": "green_0",
+    "hex": "#283D36",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_0",
+    "hex": "#3D3528",
+    "source": "S20"
+   },
+   {
+    "name": "orange_0",
+    "hex": "#3D3028",
+    "source": "S20"
+   },
+   {
+    "name": "brand_00",
+    "hex": "#1A181D",
+    "source": "S20"
+   },
+   {
+    "name": "maroon_00",
+    "hex": "#261C1C",
+    "source": "S20"
+   },
+   {
+    "name": "red_00",
+    "hex": "#261C1C",
+    "source": "S20"
+   },
+   {
+    "name": "blue_00",
+    "hex": "#191D21",
+    "source": "S20"
+   },
+   {
+    "name": "teal_00",
+    "hex": "#1C2526",
+    "source": "S20"
+   },
+   {
+    "name": "green_00",
+    "hex": "#1C2622",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_00",
+    "hex": "#26221C",
+    "source": "S20"
+   },
+   {
+    "name": "orange_00",
+    "hex": "#26201C",
+    "source": "S20"
+   },
+   {
+    "name": "brand_sub_text",
+    "hex": "#6133B4",
+    "source": "S20",
+    "alias_of": "brand_300",
+    "dark_hex": "#BDA8FF",
+    "dark_source": "S21"
+   },
+   {
+    "name": "maroon_sub_text",
+    "hex": "#AB6565",
+    "source": "S20"
+   },
+   {
+    "name": "red_sub_text",
+    "hex": "#AB6570",
+    "source": "S20"
+   },
+   {
+    "name": "orange_sub_text",
+    "hex": "#AB8165",
+    "source": "S20"
+   },
+   {
+    "name": "yellow_sub_text",
+    "hex": "#AB9065",
+    "source": "S20"
+   },
+   {
+    "name": "green_sub_text",
+    "hex": "#65AB94",
+    "source": "S20"
+   },
+   {
+    "name": "teal_sub_text",
+    "hex": "#65A7AB",
+    "source": "S20"
+   },
+   {
+    "name": "blue_sub_text",
+    "hex": "#6594AB",
+    "source": "S20"
+   },
+   {
+    "name": "hpColor",
+    "hex": "#FF6165",
+    "source": "S20",
+    "alias_of": "red_100"
+   },
+   {
+    "name": "xpColor",
+    "hex": "#FFBE5D",
+    "source": "S20",
+    "alias_of": "yellow_100"
+   },
+   {
+    "name": "mpColor",
+    "hex": "#50B5E9",
+    "source": "S20",
+    "alias_of": "blue_100"
+   },
+   {
+    "name": "text_title",
+    "hex": "#1A181D",
+    "source": "S20",
+    "alias_of": "gray_1",
+    "dark_hex": "#FFFFFF",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_primary",
+    "hex": "#4E4A57",
+    "source": "S20",
+    "alias_of": "gray_50",
+    "dark_hex": "#F9F9F9",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_secondary",
+    "hex": "#686274",
+    "source": "S20",
+    "alias_of": "gray_100",
+    "dark_hex": "#E1E0E3",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_ternary",
+    "hex": "#878190",
+    "source": "S20",
+    "alias_of": "gray_200",
+    "dark_hex": "#C3C0C7",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_quad",
+    "hex": "#A5A1AC",
+    "source": "S20",
+    "alias_of": "gray_300",
+    "dark_hex": "#A5A1AC",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_dimmed",
+    "hex": "#C3C0C7",
+    "source": "S20",
+    "alias_of": "gray_400",
+    "dark_hex": "#878190",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_inverted",
+    "hex": "#F9F9F9",
+    "source": "S20",
+    "alias_of": "gray_700",
+    "dark_hex": "#34313A",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_brand",
+    "hex": "#6133B4",
+    "source": "S20",
+    "alias_of": "brand_300",
+    "dark_hex": "#D5C8FF",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_brand_neon",
+    "hex": "#925CF3",
+    "source": "S20",
+    "alias_of": "brand_400",
+    "dark_hex": "#BDA8FF",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_maroon",
+    "hex": "#B01515",
+    "source": "S20",
+    "alias_of": "maroon_10",
+    "dark_hex": "#F19595",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_red",
+    "hex": "#DE3F3F",
+    "source": "S20",
+    "alias_of": "maroon_100",
+    "dark_hex": "#FFB6B8",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_orange",
+    "hex": "#F47825",
+    "source": "S20",
+    "alias_of": "orange_10",
+    "dark_hex": "#FFC8A7",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_yellow",
+    "hex": "#FFA624",
+    "source": "S20",
+    "alias_of": "yellow_10",
+    "dark_hex": "#FEDEAD",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_green",
+    "hex": "#1CA372",
+    "source": "S20",
+    "alias_of": "green_10",
+    "dark_hex": "#77F4C7",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_blue",
+    "hex": "#2995CD",
+    "source": "S20",
+    "alias_of": "blue_10",
+    "dark_hex": "#A9DCF6",
+    "dark_source": "S21"
+   },
+   {
+    "name": "text_teal",
+    "hex": "#26A0AB",
+    "source": "S20",
+    "alias_of": "teal_10",
+    "dark_hex": "#8EEDF6",
+    "dark_source": "S21"
+   },
+   {
+    "name": "material_card_background_color",
+    "hex": "#F9F9F9",
+    "source": "S20",
+    "alias_of": "gray_700",
+    "dark_hex": "#23202A",
+    "dark_source": "S21"
+   },
+   {
+    "name": "material_card_background_inverse_color",
+    "hex": "#23202A",
+    "source": "S20",
+    "alias_of": "gray_5",
+    "dark_hex": "#F9F9F9",
+    "dark_source": "S21"
+   },
+   {
+    "name": "divider_color",
+    "hex": "#E1E0E3",
+    "source": "S20",
+    "alias_of": "gray_500",
+    "dark_hex": "#686274",
+    "dark_source": "S21"
+   },
+   {
+    "name": "background_red",
+    "hex": "#FF6165",
+    "source": "S20",
+    "alias_of": "red_100",
+    "dark_hex": "#F74E52",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_orange",
+    "hex": "#FF944C",
+    "source": "S20",
+    "alias_of": "orange_100",
+    "dark_hex": "#FA8537",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_yellow",
+    "hex": "#FFBE5D",
+    "source": "S20",
+    "alias_of": "yellow_100",
+    "dark_hex": "#FFA624",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_green",
+    "hex": "#24CC8F",
+    "source": "S20",
+    "alias_of": "green_100",
+    "dark_hex": "#20B780",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_blue",
+    "hex": "#50B5E9",
+    "source": "S20",
+    "alias_of": "blue_100",
+    "dark_hex": "#46A7D9",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_teal",
+    "hex": "#3BCAD7",
+    "source": "S20",
+    "alias_of": "teal_100",
+    "dark_hex": "#34B5C1",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_brand",
+    "hex": "#6133B4",
+    "source": "S20",
+    "alias_of": "brand_300",
+    "dark_hex": "#4F2A93",
+    "dark_source": "S23"
+   },
+   {
+    "name": "background_brand_30",
+    "hex": "#4D6033B5",
+    "source": "S20",
+    "dark_hex": "#4D4F2A93",
+    "dark_source": "S23"
+   },
+   {
+    "name": "dim_background",
+    "hex": "#40BDA8FF",
+    "source": "S20",
+    "dark_hex": "#40502B94",
+    "dark_source": "S21"
+   },
+   {
+    "name": "color_accent",
+    "hex": "#925CF3",
+    "dark_hex": "#925CF3",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_400"
+   },
+   {
+    "name": "content_background",
+    "hex": "#FFFFFF",
+    "dark_hex": "#1A181D",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "white"
+   },
+   {
+    "name": "window_background",
+    "hex": "#F9F9F9",
+    "dark_hex": "#23202A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_700"
+   },
+   {
+    "name": "offset_background",
+    "hex": "#EDECEE",
+    "dark_hex": "#4E4A57",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_600"
+   },
+   {
+    "name": "offset_background_30",
+    "hex": "#4CEDECEE",
+    "dark_hex": "#4C4E4A57",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_background_offset",
+    "hex": "#E1E0E3",
+    "dark_hex": "#686274",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_500"
+   },
+   {
+    "name": "brand_background",
+    "hex": "#6133B4",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_300"
+   },
+   {
+    "name": "brand_background_dark",
+    "hex": "#4F2A93",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_200"
+   },
+   {
+    "name": "dimmed_background",
+    "hex": "#A5A1AC",
+    "dark_hex": "#878190",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_300"
+   },
+   {
+    "name": "disabled_background",
+    "hex": "#C3C0C7",
+    "dark_hex": "#878190",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_400"
+   },
+   {
+    "name": "separator",
+    "hex": "#C3C0C7",
+    "dark_hex": "#878190",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_400"
+   },
+   {
+    "name": "system_bars",
+    "hex": "#4F2A93",
+    "dark_hex": "#1A181D",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_200"
+   },
+   {
+    "name": "account_dialog_bars",
+    "hex": "#FFFFFF",
+    "dark_hex": "#1A181D",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "white"
+   },
+   {
+    "name": "habit_inactive_gray",
+    "hex": "#F9F9F9",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "window_background"
+   },
+   {
+    "name": "equipment_overview_background",
+    "hex": "#4E4A57",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_50"
+   },
+   {
+    "name": "equipment_column_background",
+    "hex": "#EDECEE",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_600"
+   },
+   {
+    "name": "inverted_background",
+    "hex": "#686274",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_100"
+   },
+   {
+    "name": "inverted_background_offset",
+    "hex": "#878190",
+    "dark_hex": "#4E4A57",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_200"
+   },
+   {
+    "name": "text_brown",
+    "hex": "#7F3300",
+    "dark_hex": "#F26100",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "checkbox_fill",
+    "hex": "#50FFFFFF",
+    "dark_hex": "#40000000",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "checkbox_fill_inactive",
+    "hex": "#99FFFFFF",
+    "dark_hex": "#80000000",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "checkbox_fill_selected",
+    "hex": "#EDECEE",
+    "dark_hex": "#40FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_600"
+   },
+   {
+    "name": "taskform_gray",
+    "hex": "#99EDECEE",
+    "dark_hex": "#3D3945",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "reward_buy_button_text",
+    "hex": "#D9784A00",
+    "dark_hex": "#FFFFB445",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "back_button",
+    "hex": "#000000",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_95_alpha",
+    "hex": "#F2FFFFFF",
+    "dark_hex": "#F21A181D",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_80_alpha",
+    "hex": "#CCFFFFFF",
+    "dark_hex": "#CC1A181D",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_75_alpha",
+    "hex": "#BFFFFFFF",
+    "dark_hex": "#BF1A181D",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_50_alpha",
+    "hex": "#7FFFFFFF",
+    "dark_hex": "#7F1A181D",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "content_15_alpha",
+    "hex": "#26FFFFFF",
+    "dark_hex": "#261A181D",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "text_red_white",
+    "hex": "#F23035",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "red_10"
+   },
+   {
+    "name": "text_orange_white",
+    "hex": "#F47825",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "orange_10"
+   },
+   {
+    "name": "text_yellow_white",
+    "hex": "#FFA624",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "yellow_10"
+   },
+   {
+    "name": "text_green_white",
+    "hex": "#1CA372",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "green_10"
+   },
+   {
+    "name": "text_blue_white",
+    "hex": "#2995CD",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "blue_10"
+   },
+   {
+    "name": "text_teal_white",
+    "hex": "#26A0AB",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "teal_10"
+   },
+   {
+    "name": "text_brown_white",
+    "hex": "#7F3300",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23"
+   },
+   {
+    "name": "text_brand_white",
+    "hex": "#6133B4",
+    "dark_hex": "#FFFFFF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_300"
+   },
+   {
+    "name": "text_red_maroon",
+    "hex": "#DE3F3F",
+    "dark_hex": "#FF6165",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "maroon_100"
+   },
+   {
+    "name": "lightly_tinted_background",
+    "hex": "#EEEBF8",
+    "dark_hex": "#36205D",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_700"
+   },
+   {
+    "name": "text_green1_green500",
+    "hex": "#005737",
+    "dark_hex": "#77F4C7",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "green_1"
+   },
+   {
+    "name": "bg_green50030_green1030",
+    "hex": "#4D77F4C7",
+    "dark_hex": "#4D1CA372",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "green_50030"
+   },
+   {
+    "name": "dialog_background",
+    "hex": "#FFFFFF",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "white"
+   },
+   {
+    "name": "armoire_text",
+    "hex": "#878190",
+    "dark_hex": "#C3C0C7",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_200"
+   },
+   {
+    "name": "widget_background",
+    "hex": "#FFFFFF",
+    "dark_hex": "#2B203A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "white"
+   },
+   {
+    "name": "text_gold",
+    "hex": "#794B00",
+    "dark_hex": "#FFBE5D",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "yellow_1"
+   },
+   {
+    "name": "purple400_purple500",
+    "hex": "#925CF3",
+    "dark_hex": "#BDA8FF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_400"
+   },
+   {
+    "name": "text_green10_green500",
+    "hex": "#1CA372",
+    "dark_hex": "#77F4C7",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "green_10"
+   },
+   {
+    "name": "gray100_gray400",
+    "hex": "#686274",
+    "dark_hex": "#C3C0C7",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_100"
+   },
+   {
+    "name": "gray100_gray500",
+    "hex": "#686274",
+    "dark_hex": "#E1E0E3",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_100"
+   },
+   {
+    "name": "gray200_gray400",
+    "hex": "#878190",
+    "dark_hex": "#C3C0C7",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_200"
+   },
+   {
+    "name": "gray600_gray10",
+    "hex": "#EDECEE",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_600"
+   },
+   {
+    "name": "gray600_gray50",
+    "hex": "#EDECEE",
+    "dark_hex": "#4E4A57",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_600"
+   },
+   {
+    "name": "gray50_gray600",
+    "hex": "#4E4A57",
+    "dark_hex": "#EDECEE",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_50"
+   },
+   {
+    "name": "gray700_gray10",
+    "hex": "#F9F9F9",
+    "dark_hex": "#34313A",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "gray_700"
+   },
+   {
+    "name": "maroon100_red100",
+    "hex": "#DE3F3F",
+    "dark_hex": "#FF6165",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "maroon_100"
+   },
+   {
+    "name": "brand_button",
+    "hex": "#925CF3",
+    "dark_hex": "#D5C8FF",
+    "source": "S22",
+    "dark_source": "S23",
+    "alias_of": "brand_400"
+   },
+   {
+    "name": "ic_launcher_background",
+    "hex": "#5A2CC8",
+    "source": "S22"
+   },
+   {
+    "name": "ic_launcher_foreground_color",
+    "hex": "#E0D3FF",
+    "source": "S22"
+   },
+   {
+    "name": "gem_icon_color",
+    "hex": "#24CC8F",
+    "source": "S22"
+   },
+   {
+    "name": "btn_success",
+    "hex": "#1CA372",
+    "source": "S22",
+    "alias_of": "green_10"
+   },
+   {
+    "name": "btn_danger",
+    "hex": "#F23035",
+    "source": "S22",
+    "alias_of": "red_10"
+   }
+  ],
+  "theme_variants": [
+   "MainAppTheme (purple)",
+   "Red",
+   "Maroon",
+   "Orange",
+   "Yellow",
+   "Green",
+   "Teal",
+   "Blue",
+   "each + .Dark"
+  ],
+  "typography": [
+   {
+    "name": "font_family_regular",
+    "value": "sans-serif",
+    "source": "S25"
+   },
+   {
+    "name": "font_family_medium",
+    "value": "sans-serif-medium",
+    "source": "S25"
+   },
+   {
+    "name": "displayLarge",
+    "size_sp": 20,
+    "weight": "Medium",
+    "letter_spacing_sp": 0.05,
+    "source": "S24"
+   },
+   {
+    "name": "displayMedium",
+    "size_sp": 28,
+    "weight": "Normal",
+    "letter_spacing_sp": 0.05,
+    "source": "S24"
+   },
+   {
+    "name": "titleLarge",
+    "size_sp": 16,
+    "weight": "Medium",
+    "source": "S24"
+   },
+   {
+    "name": "titleMedium",
+    "size_sp": 16,
+    "weight": "Normal",
+    "letter_spacing_sp": 0.1,
+    "source": "S24"
+   },
+   {
+    "name": "titleSmall",
+    "size_sp": 14,
+    "weight": "SemiBold",
+    "source": "S24"
+   },
+   {
+    "name": "bodyLarge",
+    "size_sp": 14,
+    "weight": "Medium",
+    "letter_spacing_sp": 0.35,
+    "line_height_sp": 16,
+    "source": "S24"
+   },
+   {
+    "name": "bodyMedium",
+    "size_sp": 14,
+    "weight": "Normal",
+    "letter_spacing_sp": 0.2,
+    "line_height_sp": 16,
+    "source": "S24"
+   },
+   {
+    "name": "labelMedium/caption1",
+    "size_sp": 14,
+    "weight": "Medium",
+    "letter_spacing_sp": 1.25,
+    "source": "S24"
+   },
+   {
+    "name": "labelSmall",
+    "size_sp": 12,
+    "weight": "Bold",
+    "source": "S24"
+   },
+   {
+    "name": "caption2",
+    "size_sp": 12,
+    "weight": "Medium",
+    "letter_spacing_sp": 0.4,
+    "source": "S24"
+   },
+   {
+    "name": "caption3",
+    "size_sp": 12,
+    "weight": "Medium",
+    "letter_spacing_sp": 0.3,
+    "line_height_sp": 14,
+    "source": "S24"
+   },
+   {
+    "name": "caption4",
+    "size_sp": 12,
+    "weight": "Normal",
+    "letter_spacing_sp": 0.35,
+    "source": "S24"
+   },
+   {
+    "name": "subtitle3",
+    "size_sp": 16,
+    "weight": "Normal",
+    "letter_spacing_sp": 0.15,
+    "source": "S24"
+   },
+   {
+    "name": "card_medium_text",
+    "size_sp": 18,
+    "source": "S26"
+   },
+   {
+    "name": "card_small_text",
+    "size_sp": 14,
+    "source": "S26"
+   },
+   {
+    "name": "wear pixel font",
+    "value": "press_start_reg.ttf (wearos only)",
+    "source": "S25"
+   }
+  ],
+  "radius": [
+   {
+    "name": "compose shapes small/medium/large",
+    "dp": [
+     4,
+     8,
+     12
+    ],
+    "source": "S24"
+   },
+   {
+    "name": "daily_checkbox_corner_radius",
+    "dp": 4,
+    "source": "S27"
+   },
+   {
+    "name": "bar_radius",
+    "dp": 5,
+    "source": "S26"
+   },
+   {
+    "name": "rounded_button_radius",
+    "dp": 12,
+    "source": "S27"
+   },
+   {
+    "name": "bottom_sheet_radius",
+    "dp": 20,
+    "source": "S27"
+   }
+  ],
+  "spacing": [
+   {
+    "name": "spacing_small",
+    "dp": 4,
+    "source": "S26"
+   },
+   {
+    "name": "spacing_medium",
+    "dp": 8,
+    "source": "S26"
+   },
+   {
+    "name": "spacing_large",
+    "dp": 16,
+    "source": "S26"
+   },
+   {
+    "name": "spacing_xlarge",
+    "dp": 32,
+    "source": "S26"
+   },
+   {
+    "name": "spacing_sides",
+    "dp": 25,
+    "source": "S26"
+   },
+   {
+    "name": "activity_horizontal_margin",
+    "dp": 16,
+    "source": "S27"
+   },
+   {
+    "name": "activity_vertical_margin",
+    "dp": 8,
+    "source": "S27"
+   },
+   {
+    "name": "card_padding",
+    "dp": 12,
+    "source": "S27"
+   },
+   {
+    "name": "row_padding",
+    "dp": 12,
+    "source": "S27"
+   },
+   {
+    "name": "task_spacing_vertical/horizontal",
+    "dp": [
+     4,
+     10
+    ],
+    "source": "S27"
+   },
+   {
+    "name": "dialog_marginLeftRight",
+    "dp": 24,
+    "source": "S27"
+   },
+   {
+    "name": "bar_size (stat bar height)",
+    "dp": 8,
+    "source": "S26"
+   },
+   {
+    "name": "icon_size",
+    "dp": 18,
+    "source": "S26"
+   }
+  ],
+  "task_value_scale": [
+   {
+    "range": "value < -20",
+    "hue": "maroon",
+    "light_hex": "#DE3F3F",
+    "medium_hex": "#C92B2B",
+    "dark_hex": "#B01515",
+    "extra_light_hex": "#F19595",
+    "lightest_hex": "#FFF7F7",
+    "source": "S30"
+   },
+   {
+    "range": "-20 <= value < -10",
+    "hue": "red",
+    "light_hex": "#FF6165",
+    "medium_hex": "#F74E52",
+    "dark_hex": "#F23035",
+    "extra_light_hex": "#FFB6B8",
+    "lightest_hex": "#FFF7F7",
+    "source": "S30"
+   },
+   {
+    "range": "-10 <= value < -1",
+    "hue": "orange",
+    "light_hex": "#FF944C",
+    "medium_hex": "#FA8537",
+    "dark_hex": "#F47825",
+    "extra_light_hex": "#FFC8A7",
+    "lightest_hex": "#FFF9F5",
+    "source": "S30"
+   },
+   {
+    "range": "-1 <= value < 1",
+    "hue": "yellow",
+    "light_hex": "#FFBE5D",
+    "medium_hex": "#FFA624",
+    "dark_hex": "#EE9109",
+    "extra_light_hex": "#FEDEAD",
+    "lightest_hex": "#FFFCF7",
+    "source": "S30"
+   },
+   {
+    "range": "1 <= value < 5",
+    "hue": "green",
+    "light_hex": "#24CC8F",
+    "medium_hex": "#20B780",
+    "dark_hex": "#1CA372",
+    "extra_light_hex": "#77F4C7",
+    "lightest_hex": "#F3FBF8",
+    "source": "S30"
+   },
+   {
+    "range": "5 <= value < 10",
+    "hue": "teal",
+    "light_hex": "#3BCAD7",
+    "medium_hex": "#34B5C1",
+    "dark_hex": "#26A0AB",
+    "extra_light_hex": "#8EEDF6",
+    "lightest_hex": "#F5FFFE",
+    "source": "S30"
+   },
+   {
+    "range": "value >= 10",
+    "hue": "blue",
+    "light_hex": "#50B5E9",
+    "medium_hex": "#46A7D9",
+    "dark_hex": "#2995CD",
+    "extra_light_hex": "#A9DCF6",
+    "lightest_hex": "#FAFDFF",
+    "source": "S30"
+   }
+  ]
+ },
+ "api": {
+  "base_urls": [
+   {
+    "url": "${BuildConfig.BASE_URL}/api/v4/",
+    "example_value": "https://habitica.com/api/v4/",
+    "status": "observed (example), production value inferred",
+    "evidence": [
+     "S8",
+     "S33"
+    ]
+   },
+   {
+    "url": "https://habitica-assets.s3.amazonaws.com/mobileApp/endpoint/",
+    "purpose": "maintenance/deprecation JSON",
+    "evidence": [
+     "S34"
+    ]
+   },
+   {
+    "url": "https://habitica-assets.s3.amazonaws.com/mobileApp/images/",
+    "purpose": "sprite/image assets",
+    "evidence": [
+     "S36"
+    ]
+   }
+  ],
+  "auth": "headers x-api-user, x-api-key; x-client: habitica-android [S35]",
+  "total_endpoints": 136,
+  "endpoint_groups": [
+   {
+    "group": "user",
+    "count": 46,
+    "examples": [
+     "GET user/",
+     "PUT user/",
+     "POST user/buy/{key}",
+     "POST user/purchase/{type}/{key}",
+     "POST user/feed/{pet}/{food}",
+     "POST user/hatch/{egg}/{hatchingPotion}",
+     "POST user/class/cast/{skill}",
+     "POST user/sleep",
+     "POST user/revive",
+     "POST user/allocate",
+     "POST user/auth/local/login",
+     "POST user/auth/local/register",
+     "POST user/auth/social",
+     "POST user/auth/apple",
+     "POST user/rebirth",
+     "POST user/reroll"
+    ]
+   },
+   {
+    "group": "groups (party/guild/chat/quests)",
+    "count": 25,
+    "examples": [
+     "GET groups/{gid}",
+     "GET groups/{gid}/chat",
+     "POST groups/{gid}/chat",
+     "POST groups/{gid}/invite",
+     "POST groups/{gid}/quests/accept",
+     "POST groups/{gid}/quests/force-start",
+     "POST groups/{gid}/quests/invite/{questKey}"
+    ]
+   },
+   {
+    "group": "tasks",
+    "count": 21,
+    "examples": [
+     "GET tasks/user",
+     "POST tasks/user",
+     "PUT tasks/{id}",
+     "DELETE tasks/{id}",
+     "POST tasks/{id}/score/{direction}",
+     "POST tasks/bulk-score",
+     "POST tasks/{id}/move/to/{position}",
+     "POST tasks/{taskId}/checklist/{itemId}/score",
+     "POST tasks/{taskID}/assign"
+    ]
+   },
+   {
+    "group": "challenges",
+    "count": 9,
+    "examples": [
+     "GET challenges/user",
+     "GET challenges/{challengeId}",
+     "POST challenges/{challengeId}/join",
+     "POST challenges",
+     "POST challenges/{challengeId}/flag"
+    ]
+   },
+   {
+    "group": "members",
+    "count": 8,
+    "examples": [
+     "GET members/{mid}",
+     "GET members/{mid}/achievements",
+     "POST members/send-private-message",
+     "POST members/transfer-gems"
+    ]
+   },
+   {
+    "group": "iap",
+    "count": 4,
+    "examples": [
+     "POST /iap/android/verify",
+     "POST /iap/android/subscribe",
+     "POST /iap/android/norenew-subscribe",
+     "GET /iap/android/subscribe/cancel"
+    ]
+   },
+   {
+    "group": "tags",
+    "count": 3,
+    "examples": [
+     "POST tags",
+     "PUT tags/{id}",
+     "DELETE tags/{id}"
+    ]
+   },
+   {
+    "group": "notifications",
+    "count": 3,
+    "examples": [
+     "POST notifications/{id}/read",
+     "POST notifications/read",
+     "POST notifications/see"
+    ]
+   },
+   {
+    "group": "inbox",
+    "count": 3,
+    "examples": [
+     "GET inbox/messages",
+     "GET inbox/conversations",
+     "DELETE inbox/messages/{messageId}"
+    ]
+   },
+   {
+    "group": "shops",
+    "count": 2,
+    "examples": [
+     "GET shops/{identifier}",
+     "GET shops/market-gear"
+    ]
+   },
+   {
+    "group": "hall",
+    "count": 2,
+    "examples": [
+     "GET hall/heroes/{memberID}",
+     "PUT hall/heroes/{memberID}"
+    ]
+   },
+   {
+    "group": "misc",
+    "count": 10,
+    "examples": [
+     "GET status",
+     "GET content",
+     "GET world-state",
+     "GET news",
+     "POST cron",
+     "GET looking-for-party",
+     "GET group-plans",
+     "POST group-tasks/{id}/move/to/{position}",
+     "POST debug/add-ten-gems",
+     "DELETE user (@HTTP)"
+    ]
+   }
+  ],
+  "core_models": [
+   "Task (RealmObject; type habit/daily/todo/reward, value, priority, streak, checklist, reminders)",
+   "User (stats, items, preferences, party, purchases, flags)",
+   "Stats (hp, mp, exp, gp, lvl, toNextLevel, maxHealth, maxMP, str/int/con/per, buffs)",
+   "Group (party/guild)",
+   "Challenge",
+   "ChatMessage",
+   "InboxConversation",
+   "Shop/ShopItem",
+   "OwnedPet/OwnedMount/OwnedItem",
+   "SubscriptionPlan"
+  ],
+  "local_db": "Realm Java SDK 10.19, deleteRealmIfMigrationNeeded [S37]",
+  "sync": "pull full user (+tasks) via GET user / tasks/user, throttled 3 min unless forced; write-through to Realm; mutations call API then save server response [S39,S40]",
+  "endpoint_groups_note": "counts by first path segment of @GET/@POST/@PUT/@DELETE/@HTTP annotations in ApiService.kt; misc includes status, content, world-state, news, cron, looking-for-party, group-plans, group-tasks, debug + 1 @HTTP"
+ },
+ "synthesis": {
+  "summary_ko": "Habitica는 할 일 관리 앱의 기본 구조(습관·일일·할 일·보상 네 탭) 위에 RPG 규칙(체력·경험치·골드, 일일을 놓치면 피해, 레벨과 직업, 펫과 탈것)을 얹은 앱이에요. 게임 계산은 서버가 하고 앱은 3분마다 사용자 전체를 받아 와 보여 줘요. 화면은 XML과 Compose가 섞인 과도기 구조이고, 디자인은 보라색 브랜드 색과 할 일 상태를 빨강→파랑으로 보여 주는 색 단계가 중심이에요. 수익은 광고 없이 젬 구매와 구독으로 내요.",
+  "lessons_ko": [
+   "할 일 하나하나에 숫자 값(value)을 두고, 그 값을 색으로 보여 주면 상태가 한눈에 들어와요.",
+   "벌(체력 감소)과 보상(경험치·골드·드롭)을 같이 둬야 게임처럼 느껴져요.",
+   "계산은 서버에 두면 앱·웹·워치가 같은 규칙을 공유해요.",
+   "UI는 평평한 머티리얼, 보상과 캐릭터는 픽셀 아트로 나눠서 '일'과 '게임'의 경계를 시각적으로 구분해요."
+  ]
+ },
+ "unknowns": [
+  {
+   "q": "Exact production BASE_URL and API keys baked into release builds",
+   "why": "habitica.properties / google-services.json are not committed (only .example files)",
+   "next_step": "Inspect a released APK's BuildConfig (dynamic/static APK analysis) or Play Store build metadata"
+  },
+  {
+   "q": "Server-side scoring/cron formulas (daily damage, boss damage, drop chances, streak rules)",
+   "why": "Client calls POST tasks/{id}/score and POST cron; logic lives in HabitRPG/habitica server repo (common/script/ops)",
+   "next_step": "Statically analyze github.com/HabitRPG/habitica website/common/script/ops/scoreTask.js and cron.js"
+  },
+  {
+   "q": "Live Remote Config values (e.g. enableLocalTaskScoring, ad flags, promos)",
+   "why": "Only defaults in remote_config_defaults.xml are visible",
+   "next_step": "Observe Firebase Remote Config fetch at runtime on a test device (requires consent and dynamic analysis)"
+  },
+  {
+   "q": "Whether TaskReceiver (exported, action NOTIFY) validates intent extras/callers",
+   "why": "Receiver source not read in this pass",
+   "next_step": "Read receivers/TaskReceiver.kt"
+  },
+  {
+   "q": "Contents of network_security_config.xml (cleartext/pinning)",
+   "why": "File not inspected",
+   "next_step": "Read Habitica/res/xml/network_security_config.xml"
+  },
+  {
+   "q": "Play Store listing versionName/versionCode currently live vs repo HEAD 4.11.0/27850",
+   "why": "Repo HEAD may be ahead of or differ from published build",
+   "next_step": "Compare with Play Store / GitHub releases tags"
+  },
+  {
+   "q": "Detailed visual specs of each reusable component (paddings, states)",
+   "why": "Only file presence and select usages inspected",
+   "next_step": "Read layouts in Habitica/res/layout and Compose component sources per component"
+  },
+  {
+   "q": "Prices of SKUs",
+   "why": "Prices are defined in Play Console, not in source",
+   "next_step": "Check Play Store listing in-app products"
+  }
+ ]
+}

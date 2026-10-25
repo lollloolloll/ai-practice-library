@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Habitica 앱 분해</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../css/app.css?v=20261025b">
+<style>
+/* 레이아웃: 화면 이미지가 주인공인 앱 해부도. 왼쪽 목차, 오른쪽 섹션. 증거 등급은 모양(●◐○)으로도 구분 */
+.case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.toc { position: sticky; top: calc(76px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; font-size: 13px; }
+.toc a { text-decoration: none; color: var(--muted); padding: 5px 8px; border-radius: 6px; }
+.toc a:hover { color: var(--fg); background: var(--surface-2); }
+.doc { display: grid; gap: 48px; min-width: 0; }
+.doc section { display: grid; gap: 14px; scroll-margin-top: 90px; min-width: 0; }
+.doc h2 { font-size: 22px; display: flex; gap: 10px; align-items: baseline; }
+.doc h2 .no { font: 400 26px var(--f-display); font-style: italic; color: var(--muted); }
+.doc p { margin: 0; max-width: 72ch; line-height: 1.75; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.ev { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.ev.observed { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.ev.observed::before { content: '●'; }
+.ev.inferred { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+.ev.inferred::before { content: '◐'; }
+.ev.unknown { background: var(--surface-2); color: var(--muted); border: 1px dashed var(--line); }
+.ev.unknown::before { content: '○'; }
+.ref { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 10px; }
+.fact { padding: 12px 14px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); display: grid; gap: 2px; min-width: 0; }
+.fact span { font-size: 12px; color: var(--muted); }
+.fact b { font-size: 15px; overflow-wrap: anywhere; }
+.shots { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x proximity; }
+.shot { flex: none; width: 170px; display: grid; gap: 6px; scroll-snap-align: start; border: 0; background: none; padding: 0; text-align: left; }
+.shot img { width: 100%; border-radius: 12px; border: 1px solid var(--line); display: block; background: var(--surface-2); }
+.shot[aria-pressed="true"] img { outline: 3px solid var(--accent); outline-offset: 2px; }
+.shot span { font-size: 12px; color: var(--muted); }
+.shot b { font-size: 13px; }
+.detail { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 20px; padding: 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.detail img { width: 100%; border-radius: 10px; border: 1px solid var(--line); }
+.detail dl { margin: 0; display: grid; gap: 10px; font-size: 14px; }
+.detail dt { font-size: 12px; color: var(--muted); font-weight: 600; }
+.detail dd { margin: 0; }
+.detail ul { margin: 0; padding-left: 18px; }
+.sw { display: flex; gap: 6px; flex-wrap: wrap; }
+.sw i { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--line); display: inline-block; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.swatch { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 12px; }
+.swatch i { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--line); }
+.swatch b { display: block; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.swatch code { font-family: var(--f-mono); color: var(--muted); font-size: 11px; }
+.scale { display: flex; border-radius: 8px; overflow: hidden; height: 34px; }
+.scale div { flex: 1; display: grid; place-items: center; font-size: 11px; font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+.group { padding: 14px 16px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); display: grid; gap: 8px; align-content: start; min-width: 0; }
+.group h3 { font-size: 15px; margin: 0; display: flex; justify-content: space-between; gap: 8px; }
+.group ul { margin: 0; padding-left: 16px; font-size: 13px; display: grid; gap: 4px; }
+.group li small { color: var(--muted); }
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.t th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.filters { margin: 0; }
+.ai { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 10px; }
+.ai a { padding: 12px 14px; border-radius: var(--r); border: 1px dashed var(--line); text-decoration: none; display: grid; gap: 2px; }
+.ai a:hover { border-style: solid; border-color: var(--fg); }
+.ai a span { font-size: 12px; color: var(--muted); }
+.ai a b { font-family: var(--f-mono); font-size: 13px; }
+.loading { color: var(--muted); }
+@media (max-width: 900px) {
+  .case { grid-template-columns: minmax(0, 1fr); }
+  .toc { display: none; }
+  .detail { grid-template-columns: minmax(0, 1fr); }
+  .detail img { max-width: 300px; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><b>Prompt Lexicon</b><span>프롬프트 언어 사전</span></a>
+    <nav class="nav" aria-label="사이트">
+      <a href="../index.html#image">이미지</a><a href="../index.html#editing">영상 편집</a><a href="../index.html#design">디자인</a><a href="../index.html#coding">코딩</a><span class="sep" aria-hidden="true"></span><a href="./index.html" aria-current="page">실전 사례</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="detail-h" style="margin-top:8px">
+    <div class="crumbs"><a href="./index.html">실전 사례</a> › 앱 리버스 엔지니어링</div>
+    <h1>Habitica</h1>
+    <p class="fx">할 일을 RPG 게임으로 바꾸는 습관 관리 앱이에요. 공식 소스 코드와 Play 스토어 화면으로 구조, 화면, 디자인 시스템, 게임 규칙을 분해했어요.</p>
+    <div class="legend">
+      <span><span class="ev observed">관찰</span> 소스나 화면에서 직접 확인했어요</span>
+      <span><span class="ev inferred">추론</span> 근거로 짐작했어요</span>
+      <span><span class="ev unknown">미해결</span> 아직 몰라요</span>
+      <span><span class="ref">[S12]</span> 근거 번호</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <nav class="toc" aria-label="목차">
+      <a href="#overview">1. 한눈에</a>
+      <a href="#ui">2. 화면 이미지</a>
+      <a href="#screens">3. 화면 지도</a>
+      <a href="#design">4. 디자인 시스템</a>
+      <a href="#findings">5. 발견 사항</a>
+      <a href="#api">6. 서버 API</a>
+      <a href="#unknowns">7. 미해결 질문</a>
+      <a href="#files">8. AI용 파일</a>
+    </nav>
+    <div class="doc" id="doc"><p class="loading">분석 결과를 불러오고 있어요</p></div>
+  </div>
+</main>
+
+<script>
+(async () => {
+  const doc = document.getElementById('doc');
+  const BASE = '../analyses/habitica/';
+  let D;
+  try {
+    D = await (await fetch(BASE + 'dossier.json?v=' + Date.now().toString().slice(0, 7))).json();
+  } catch (e) {
+    doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>';
+    return;
+  }
+  const h = (tag, attrs, ...kids) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else if (k === 'class') el.className = v;
+      else if (k === 'style') el.setAttribute('style', v);
+      else el.setAttribute(k, v);
+    }
+    const add = (c) => { if (c == null || c === false) return; if (Array.isArray(c)) c.forEach(add); else el.append(c.nodeType ? c : document.createTextNode(String(c))); };
+    kids.forEach(add);
+    return el;
+  };
+  const STATUS = { observed: '관찰', inferred: '추론', unknown: '미해결' };
+  const ev = (s) => h('span', { class: 'ev ' + (s || 'unknown') }, STATUS[s] || s || '미해결');
+  const refs = (arr) => (arr && arr.length ? h('span', { class: 'ref' }, ' [' + arr.join(', ') + ']') : null);
+  const sec = (id, no, title, ...kids) => h('section', { id }, h('h2', null, h('span', { class: 'no' }, String(no)), title), kids);
+  const AREA = { identity: '앱 정보', manifest: '매니페스트·권한', navigation: '화면 구성', design: '디자인', api: '서버 API', mechanics: '게임 규칙', monetization: '수익·추적', i18n: '언어', ui: 'UI', listing: '스토어' };
+
+  const T = D.target || {}, L = D.listing || {};
+  const fact = (k, v) => (v == null || v === '' ? null : h('div', { class: 'fact' }, h('span', null, k), h('b', null, v)));
+  doc.textContent = '';
+
+  /* 1. 한눈에 */
+  doc.append(sec('overview', 1, '한눈에',
+    h('div', { class: 'facts' },
+      fact('패키지', T.applicationId || T.package || L.package),
+      fact('버전', T.versionName ? T.versionName + (T.versionCode ? ' (' + T.versionCode + ')' : '') : L.version),
+      fact('SDK', T.minSdk ? 'min ' + T.minSdk + ' · target ' + T.targetSdk : null),
+      fact('UI 방식', T.ui_toolkit),
+      fact('평점', L.rating ? Number(L.rating).toFixed(1) + (L.rating_count ? ' · ' + Number(L.rating_count).toLocaleString('ko-KR') + '명' : '') : null),
+      fact('설치 수', L.installs),
+      fact('최근 업데이트', typeof L.last_updated === 'object' && L.last_updated ? (L.last_updated.iso || L.last_updated.ko) : (L.last_updated || L.updated)),
+      fact('분석한 소스', T.commit ? (T.repo || '').replace('https://github.com/', '') + ' @ ' + String(T.commit).slice(0, 7) : null)),
+    D.synthesis && D.synthesis.summary_ko ? h('p', null, D.synthesis.summary_ko) : null,
+    D.synthesis && D.synthesis.lessons_ko ? [h('h3', { style: 'font-size:16px;margin:8px 0 0' }, '가져갈 점'), h('ol', { style: 'margin:0;padding-left:22px;display:grid;gap:6px;max-width:72ch' }, D.synthesis.lessons_ko.map((l) => h('li', null, l)))] : null));
+
+  /* 2. 화면 이미지 */
+  const imgs = (D.ui_images || []).filter((i) => i.kind !== 'icon');
+  const detail = h('div', { class: 'detail' });
+  const shotBtns = [];
+  const showImg = (im) => {
+    shotBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === im.id)));
+    detail.textContent = '';
+    const list = (arr) => (arr && arr.length ? h('ul', null, arr.map((x) => h('li', null, typeof x === 'string' ? x : (x.name || x.region || JSON.stringify(x)) + (x.description || x.desc ? ' — ' + (x.description || x.desc) : '')))) : '—');
+    detail.append(
+      h('img', { src: BASE + im.file, alt: im.screen || '', loading: 'lazy' }),
+      h('dl', null,
+        h('dt', null, '화면'), h('dd', null, h('b', null, im.screen || '—'), ' ', ev(im.status || 'observed'), refs([im.id])),
+        im.caption_text ? [h('dt', null, '홍보 문구'), h('dd', null, im.caption_text)] : null,
+        h('dt', null, '구역'), h('dd', null, list(im.regions)),
+        h('dt', null, '구성 요소'), h('dd', null, list(im.components)),
+        im.visible_text && im.visible_text.length ? [h('dt', null, '화면 글자'), h('dd', null, im.visible_text.slice(0, 18).join(' · '))] : null,
+        im.palette ? [h('dt', null, '주요 색'), h('dd', null, h('div', { class: 'sw' }, im.palette.map((c) => h('i', { style: 'background:' + c, title: c }))))] : null,
+        im.notes ? [h('dt', null, '메모'), h('dd', null, im.notes)] : null));
+  };
+  const shots = h('div', { class: 'shots', role: 'group', 'aria-label': '화면 이미지' }, imgs.map((im) => {
+    const b = h('button', { class: 'shot', type: 'button', 'data-id': im.id, 'aria-pressed': 'false', onclick: () => showImg(im) },
+      h('img', { src: BASE + (im.thumb || im.file), alt: im.screen || im.id }), h('b', null, im.screen || im.id), h('span', null, im.id + ' · ' + (im.kind === 'feature' ? '대표 이미지' : '스크린샷')));
+    shotBtns.push(b);
+    return b;
+  }));
+  doc.append(sec('ui', 2, '화면 이미지',
+    h('p', null, 'Play 스토어에 공개된 화면을 따로 보관해 분해했어요. 이미지를 누르면 구역, 구성 요소, 색을 보여 줘요.'),
+    shots, imgs.length ? detail : h('p', null, '보관한 이미지가 없어요.')));
+  if (imgs.length) showImg(imgs[0]);
+
+  /* 3. 화면 지도 */
+  const byFeat = {};
+  (D.screens || []).forEach((s) => { (byFeat[s.feature || '기타'] = byFeat[s.feature || '기타'] || []).push(s); });
+  doc.append(sec('screens', 3, '화면 지도',
+    h('p', null, '소스 코드에서 찾은 화면을 기능별로 묶었어요. 총 ' + (D.screens || []).length + '개예요.'),
+    h('div', { class: 'groups' }, Object.entries(byFeat).sort((a, b) => b[1].length - a[1].length).map(([f, arr]) =>
+      h('div', { class: 'group' }, h('h3', null, f, h('span', { class: 'ref' }, arr.length)),
+        h('ul', null, arr.slice(0, 14).map((s) => h('li', null, s.name, ' ', h('small', null, s.purpose || ''))), arr.length > 14 ? h('li', null, h('small', null, '외 ' + (arr.length - 14) + '개')) : null))))));
+
+  /* 4. 디자인 시스템 */
+  const dt = D.design_tokens || {};
+  const colors = (dt.colors || []).filter((c) => /^#?[0-9a-f]{3,8}$/i.test(String(c.hex || '').replace('#', '')));
+  const hex = (x) => (String(x).startsWith('#') ? x : '#' + x);
+  const scale = dt.task_value_scale || [];
+  doc.append(sec('design', 4, '디자인 시스템',
+    scale.length ? [h('h3', null, '할 일 색 단계'), h('p', null, '할 일을 꾸준히 할수록 빨강에서 파랑으로 바뀌어요. 이 앱의 가장 중요한 색 규칙이에요.'),
+      h('div', { class: 'scale' }, scale.map((s) => h('div', { style: 'background:' + hex(s.medium_hex || s.hex || s.color || '#888'), title: (s.range || '') + ' ' + (s.medium_hex || '') }, s.hue || s.label || s.name || '')))] : null,
+    colors.length ? [h('h3', null, '색 팔레트 ' + colors.length + '개'),
+      h('div', { class: 'swatches' }, colors.slice(0, 60).map((c) => h('div', { class: 'swatch' }, h('i', { style: 'background:' + hex(c.hex) }), h('div', null, h('b', null, c.name), h('code', null, hex(c.hex) + (c.dark_hex ? ' / ' + hex(c.dark_hex) : ''))))))] : null,
+    (dt.typography || []).length ? [h('h3', null, '글꼴'), h('ul', null, dt.typography.slice(0, 12).map((t) => h('li', null, typeof t === 'string' ? t : [t.name, t.value].filter(Boolean).join(': '), t.source ? h('span', { class: 'ref' }, ' [' + t.source + ']') : null)))] : null));
+
+  /* 5. 발견 사항 */
+  const findings = D.findings || [];
+  const areas = ['all'].concat([...new Set(findings.map((f) => f.area))]);
+  let cur = 'all';
+  const tbody = h('tbody');
+  const drawF = () => {
+    tbody.textContent = '';
+    findings.filter((f) => cur === 'all' || f.area === cur).forEach((f) => tbody.append(h('tr', null,
+      h('td', null, AREA[f.area] || f.area), h('td', null, f.claim, refs(f.evidence)), h('td', null, ev(f.status)))));
+    filt.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.a === cur)));
+  };
+  const filt = h('div', { class: 'filters', role: 'group', 'aria-label': '영역 거르기' }, areas.map((a) =>
+    h('button', { type: 'button', 'data-a': a, onclick: () => { cur = a; drawF(); } }, a === 'all' ? '전체 ' + findings.length : (AREA[a] || a))));
+  doc.append(sec('findings', 5, '발견 사항', filt, h('div', { class: 'scroll' }, h('table', { class: 't' },
+    h('thead', null, h('tr', null, h('th', null, '영역'), h('th', null, '내용'), h('th', null, '등급'))), tbody))));
+  drawF();
+
+  /* 6. API */
+  const api = D.api || {};
+  doc.append(sec('api', 6, '서버 API',
+    (api.base_urls || []).length ? h('p', null, '기본 주소: ', h('code', { class: 'mono' }, api.base_urls.join(', '))) : null,
+    h('div', { class: 'groups' }, (api.endpoint_groups || []).map((g) => h('div', { class: 'group' },
+      h('h3', null, g.group, h('span', { class: 'ref' }, g.count)),
+      h('ul', null, (g.examples || []).slice(0, 6).map((x) => h('li', null, h('code', { class: 'mono', style: 'font-size:12px' }, x)))))))));
+
+  /* 7. 미해결 */
+  doc.append(sec('unknowns', 7, '미해결 질문',
+    h('div', { class: 'scroll' }, h('table', { class: 't' },
+      h('thead', null, h('tr', null, h('th', null, '질문'), h('th', null, '이유'), h('th', null, '다음 단계'))),
+      h('tbody', null, (D.unknowns || []).map((u) => h('tr', null, h('td', null, u.q), h('td', null, u.why || ''), h('td', null, u.next_step || ''))))))));
+
+  /* 8. AI용 파일 */
+  const link = (f, d) => h('a', { href: BASE + f }, h('b', null, f), h('span', null, d));
+  doc.append(sec('files', 8, 'AI용 파일',
+    h('p', null, '다른 AI에게 이 앱을 설명할 때는 아래 파일을 그대로 주면 돼요. 모든 결론에 근거 번호가 붙어 있어요.'),
+    h('div', { class: 'ai' },
+      link('README.md', '먼저 읽을 안내. 범위, 방법, 파일 구성'),
+      link('dossier.json', '모든 결과를 합친 하나의 파일'),
+      link('source-report.md', '소스 코드 정적 분석 보고서'),
+      link('ui/ui-report.md', '화면 이미지 분석 보고서'),
+      link('ui/index.json', '보관한 이미지 목록과 화면별 분해'))));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+{
+ "source": "Google Play",
+ "fetched_at": "2026-10-25",
+ "listing": {
+  "title": "Habitica: Gamify Your Tasks",
+  "package_id": "com.habitrpg.android.habitica",
+  "developer": "HabitRPG, Inc.",
+  "developer_id": "7023585019856140116",
+  "url": "https://play.google.com/store/apps/details?id=com.habitrpg.android.habitica",
+  "rating": 4.642405,
+  "rating_display": "4.6",
+  "rating_count": 76007,
+  "rating_histogram_1to5": [
+   2400,
+   1081,
+   2884,
+   8535,
+   61094
+  ],
+  "review_count_en_US": 3943,
+  "review_count_ko": 372,
+  "installs": "5,000,000+",
+  "installs_min": 5000000,
+  "installs_estimate_raw": 8389823,
+  "content_rating": {
+   "en": "Everyone",
+   "ko": "3세 이상",
+   "descriptor_en": "Content is generally suitable for all ages. May contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
+  },
+  "released": {
+   "en": "Dec 10, 2015",
+   "ko": "2015. 12. 10."
+  },
+  "last_updated": {
+   "en": "Oct 5, 2026",
+   "ko": "2026. 10. 5.",
+   "iso": "2026-10-05"
+  },
+  "version": "4.10.6 (inferred from What's new header; Play no longer shows version field on web)",
+  "min_android": "8.0",
+  "target_sdk_hint": 36,
+  "category": {
+   "en": "Productivity",
+   "ko": "생산성",
+   "id": "PRODUCTIVITY"
+  },
+  "price": "Free",
+  "contains_ads": {
+   "en": "Contains ads",
+   "ko": "광고 포함"
+  },
+  "in_app_purchases": {
+   "en": "$0.99 - $47.99 per item",
+   "ko": "항목당 ₩1,200 - ₩64,900"
+  },
+  "short_description": {
+   "en": "Treat your life like a game to stay motivated and organized!",
+   "ko": "인생을 게임처럼 즐기면서 동기를 부여하고 계획적인 삶을 사세요!"
+  },
+  "full_description": {
+   "en": "Habitica is a free habit-building and productivity app that uses retro RPG elements to gamify your tasks and goals.\nUse Habitica to help with ADHD, self care, New Year’s resolutions, household chores, work tasks, creative projects, fitness goals, back-to-school routines, and more!\n\nHow it works:\nCreate an avatar then add tasks, chores, or goals you’d like to work on. When you do something in real life, check it off in the app and receive gold, experience, and items that can be used in-game!\n\nFeatures:\n  • Automatically repeating tasks scheduled for your daily, weekly, or monthly routines\n  • Flexible habit tracker for tasks you want to do multiple times a day or only once in awhile\n  • Traditional to do list for tasks that only need to be done once\n  • Color coded tasks and streak counters help you see how you’re doing at a glance\n  • Leveling system to visualize your overall progress\n  • Tons of collectable gear and pets to suit your personal style\n  • Inclusive avatar customizations: wheelchairs, hair styles, skin tones, and more\n  • Regular content releases and seasonal events to keep things fresh\n  • Parties let you team up with friends for extra accountability and battle fierce foes by completing tasks\n  • Challenges offer shared task lists you can add to your personal tasks\n  • Reminders and widgets to help keep you on track\n  • Customizable color themes with dark and light mode\n  • Syncing across devices\n\n\nWant even more flexibility to take your tasks on the go? We have a Wear OS app on the watch!\n\nWear OS features:\n  • View, create, and complete Habits, Dailies, and To do’s\n  • Receive rewards for your efforts with experience, food, eggs, and potions\n  • Track your stats with dynamic progress bars\n  • Show off your stunning pixel avatar on the watch face\n\n\n—\n\n\nRun by a small team, Habitica is an open-source app made better by contributors who create translations, bug fixes, and more. If you’d like to contribute, you can check out our GitHub or reach out for more information!\nWe highly value community, privacy, and transparency. Rest assured, your tasks remain private and we never sell your personal data to third parties.\nQuestions or feedback? Feel free to reach us at admin@habitica.com! If you’re enjoying Habitica, we’d be thrilled if you leave us a review.\nStart your journey towards productivity, download Habitica now!",
+   "ko": "동기부여와 체계적인 삶을 위해 당신의 인생을 게임처럼 다루세요! Habitica는 목표를 달성하는 것을 재미있게 만들어줍니다. 습관, 하루 목표, 할일 목록을 입력한 다음 자신만의 아바타를 만드세요. \n\n할일을 확인하여 아바타의 레벨을 올리고 갑옷, 애완 동물, 스킬 및 퀘스트와 같은 기능을 잠금 해제하세요! 친구들과 함께 각자의 할일을 함으로써 몬스터와 대항하고, 골드로 장비 등의 보상을 획득하세요. TV쇼를 볼 수 있는 보상과 같은 자신만의 보상도 가능합니다. 소셜과 연계된 재밌는 Habitica는 무엇이든 성취 할 수 있도록 동기를 부여하는 완벽한 방법입니다.\n\n특징:\n  • 매일, 매주 또는 매월 루틴에 대해 예약된 작업을 자동으로 반복합니다.\n  • 하루에 여러 번 또는 가끔씩만 수행하려는 작업을 위한 유연한 습관 추적기\n  • 한 번만 수행하면 되는 작업에 대한 전통적인 작업 목록\n  • 색상으로 구분된 작업과 연속 카운터를 통해 자신의 진행 상황을 한눈에 확인할 수 있습니다.\n  • 전반적인 진행 상황을 시각화하는 레벨링 시스템\n  • 개인 스타일에 맞는 수많은 수집 가능한 장비와 애완동물\n  • 포괄적인 아바타 사용자 정의: 휠체어, 머리 스타일, 피부색 등\n  • 정기적인 콘텐츠 출시와 시즌 이벤트를 통해 최신 정보 유지\n  • 파티를 통해 친구와 팀을 이루어 추가 책임감을 갖고 작업을 완료하여 치열한 적과 싸울 수 있습니다.\n  • 챌린지는 개인 작업에 추가할 수 있는 공유 작업 목록을 제공합니다.\n  • 순조롭게 진행하는 데 도움이 되는 알림 및 위젯\n  • 어두운 모드와 밝은 모드로 사용자 정의 가능한 색상 테마\n  • 여러 기기에서 동기화\n\n이동 중에도 작업을 수행할 수 있는 더 많은 유연성을 원하십니까? 시계에 Wear OS 앱이 있습니다!\n\nWear OS 기능:\n  • 습관, 일일 일, 할 일을 보고, 만들고, 완료합니다.\n  • 경험치, 음식, 계란, 물약으로 노력에 대한 보상을 받으세요.\n  • 동적 진행률 표시줄로 통계를 추적하세요.\n  • 시계 모드에서 멋진 픽셀 아바타를 뽐내세요.\n\n질문이 있으시면 mobile@habitica.com으로 피드백을 보내주세요! 앱이 재미있다면 리뷰를 남겨 주시면 감사하겠습니다."
+  },
+  "whats_new": {
+   "en": "New in 4.10.6:\n- Enhanced Achievements!\n- You'll now receive a notification when you unlock a new Achievement\n- Added support for a new type of Achievement\n- Stacked streak Achievements will now show a toast when unlocked",
+   "ko": "New in 4.10.6:\n- Enhanced Achievements!\n- You'll now receive a notification when you unlock a new Achievement\n- Added support for a new type of Achievement\n- Stacked streak Achievements will now show a toast when unlocked",
+   "note": "ko page serves English release notes"
+  },
+  "data_safety": {
+   "en": [
+    {
+     "heading": "This app may share these data types with third parties",
+     "detail": "Personal info and App info and performance"
+    },
+    {
+     "heading": "This app may collect these data types",
+     "detail": "Personal info, App info and performance, and Device or other IDs"
+    },
+    {
+     "heading": "Data is encrypted in transit",
+     "detail": null
+    },
+    {
+     "heading": "You can request that data be deleted",
+     "detail": null
+    }
+   ],
+   "ko": [
+    {
+     "heading": "앱에서 제3자와 공유할 수 있는 데이터 유형",
+     "detail": "개인 정보 및 앱 정보 및 성능"
+    },
+    {
+     "heading": "앱에서 수집할 수 있는 데이터 유형",
+     "detail": "개인 정보, 앱 정보 및 성능 및 기기 또는 기타 ID"
+    },
+    {
+     "heading": "전송 중 데이터 암호화됨",
+     "detail": null
+    },
+    {
+     "heading": "데이터 삭제를 요청할 수 있음",
+     "detail": null
+    }
+   ]
+  },
+  "permissions_en": [
+   "view network connections",
+   "full network access",
+   "run at startup",
+   "control vibration",
+   "prevent device from sleeping",
+   "receive data from Internet"
+  ],
+  "website": "https://habitica.com",
+  "support_email": "mobile@habitica.com",
+  "privacy_policy": "https://habitica.com/static/privacy",
+  "developer_contact": {
+   "name": "HabitRPG, Inc.",
+   "email": "admin@habitica.com",
+   "address": "120 Washington St APT 202\nSalem, MA 01970-6396\nUnited States",
+   "phone": "+1 415-562-6350"
+  },
+  "screenshot_count": 13,
+  "screenshots_same_in_ko": true
+ },
+ "method": "curl desktop Chrome UA, hl=ko and hl=en&gl=US; metadata from AF_initDataCallback ds:5; images fetched at =s0 (original) from play-lh.googleusercontent.com, verified with PIL; palette = PIL median-cut + k-means refine (6) on 256px thumbnail",
+ "images": [
+  {
+   "id": "P01",
+   "file": "ui/play/01.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/nj5rkn_DI0xFqVR5RGl4Anp1ndw8ggzG1SQO_Dx1LCl-xN_bFpk94e7vmvkftSwpi_HzZIZGDA9yaPPgik8S7PU=s0",
+   "sha256": "5f93d70cef78cfeb5a6199230fc66c22689cc29ef01c14f1a16919955a6e30a9",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1755870,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#29262d",
+    "#925ef0",
+    "#9b7066",
+    "#7846e4",
+    "#d5c4f5",
+    "#3aa7b6"
+   ],
+   "palette_share": [
+    0.425,
+    0.364,
+    0.071,
+    0.06,
+    0.059,
+    0.022
+   ],
+   "screen": "Task list (Habits) home with avatar/stats header, dark theme",
+   "feature": "tasks",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Stick with your habits like never before!",
+   "regions": [
+    "marketing caption (top, pixel font)",
+    "tilted phone mockup",
+    "status bar",
+    "top app bar: hamburger menu, user name, search, filter",
+    "avatar header: pixel avatar tile + Lvl/class + 3 stat bars + currency row",
+    "task list (cards with colored left control strip)",
+    "FAB (+, rotated-square shape, bottom-right)",
+    "bottom nav (partially visible, calendar icon)",
+    "Editor's Choice badge overlay (bottom-left, Play marketing)"
+   ],
+   "components": [
+    "pixel-art avatar tile with scenic background",
+    "HP bar (red) 36/50 with heart icon",
+    "XP bar (yellow) 570/1,370 with star icon",
+    "MP bar (blue) 123/136 with gem icon",
+    "currency row: hourglass 12, gold coin 102, green gem 11",
+    "class badge 'Lvl 53 Rogue' with dagger icon",
+    "task cards with colored square control strip (yellow, green, red, orange, cyan, blue)",
+    "card title + secondary notes line",
+    "FAB"
+   ],
+   "visible_text": [
+    "Stick with your habits like never before!",
+    "12:41",
+    "Lydda Sneakthief",
+    "Health",
+    "36 / 50",
+    "Experience",
+    "570 / 1,370",
+    "Mana",
+    "123 / 136",
+    "12",
+    "102",
+    "11",
+    "Lvl 53 Rogue",
+    "Go to the Gym every other day",
+    "Eat a healthy breakfast",
+    "1h Personal Project",
+    "15 Minutes of cleaning",
+    "make it easier to keep on top of!",
+    "Do something relaxing",
+    "mental health is important too",
+    "Brush teeth",
+    "45m Reading",
+    "If you miss a Dail...",
+    "EDITOR'S CHOICE"
+   ],
+   "notes": "Only phone screenshot showing the persistent avatar+stats header and dark mode. Control-strip color encodes task value (red=weak ... blue=strong, per caption of P02). Palette dominated by purple marketing background.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/01.jpg"
+  },
+  {
+   "id": "P02",
+   "file": "ui/play/02.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/LvpKOQmJGlU4Ie28KzWvmmUQ_Z4AoN3ZVdQtdc9LqU2IPiCb9rQs64eSvD4CZkhdqvkllyinlLN9sFbUBTMV=s0",
+   "sha256": "33db3c9241d0d645880db0b5e872256be12df8388b89e968b138dbe6bb2fe5fa",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1413983,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#4cadde",
+    "#f7f8f8",
+    "#2b282f",
+    "#bccde0",
+    "#6b9da2",
+    "#faaf7b"
+   ],
+   "palette_share": [
+    0.44,
+    0.315,
+    0.099,
+    0.075,
+    0.041,
+    0.031
+   ],
+   "screen": "Task card variety (Habit, Daily, To Do with checklist) light theme, floating over dark list",
+   "feature": "tasks",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Create a routine with repeating tasks. Colors show which tasks you're good at",
+   "regions": [
+    "exploded/floating task cards (top)",
+    "tilted dark phone mockup (left) with bottom nav: To Do's, Rewards",
+    "marketing caption (bottom-right)"
+   ],
+   "components": [
+    "Habit card with +/- circular buttons and streak counter (>> 9)",
+    "Daily card with due chip 'Today' + reminder 8:00 AM",
+    "To Do card with notes, due 'In 2 days', checklist counter badge 1/3 (grey)",
+    "expanded checklist rows with square checkboxes (checked = grey text)",
+    "Habit card with + left and - right colored side blocks",
+    "bottom nav items: To Do's (check-circle), Rewards (chest)"
+   ],
+   "visible_text": [
+    "Clear inbox",
+    "Take some time to write down goals for the day",
+    "9",
+    "Walk the dog",
+    "Today",
+    "8:00 AM",
+    "Household chores",
+    "Complete all checklist items each week",
+    "In 2 days",
+    "1",
+    "3",
+    "Buy Groceries",
+    "Cut the grass",
+    "Vacuum",
+    "Drink water instead of soda",
+    "it will turn darker",
+    "To Do's",
+    "Rewards",
+    "2",
+    "1",
+    "6",
+    "Create a routine with repeating tasks. Colors show which tasks you're good at"
+   ],
+   "notes": "Defines task card anatomy: left control strip (color = value), body (title, notes, meta chips), optional right control/counter. Emoji in titles. Blue background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/02.jpg"
+  },
+  {
+   "id": "P03",
+   "file": "ui/play/03.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Ndyi0JPKllxmNXgvowSmdx1tVr3mGmQ05v63zdI7kp91GLsbRouSNDZ1a82XX5Dft7AT5QJ00ca3Dc5HHwJ59w=s0",
+   "sha256": "af9d37cd35c5b23aefefc9cd4133444c03605053f78bb89b1b957b5ed4b2b700",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 915241,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#8484ef",
+    "#f6f5fc",
+    "#cdc1f5",
+    "#eeeafb",
+    "#6335b5",
+    "#d466a6"
+   ],
+   "palette_share": [
+    0.285,
+    0.221,
+    0.153,
+    0.151,
+    0.118,
+    0.072
+   ],
+   "screen": "New Daily form (task editor)",
+   "feature": "task-editor",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Flexbile scheduling lets you be in charge of your goals",
+   "regions": [
+    "marketing caption (top; typo 'Flexbile' in source)",
+    "purple header: back arrow + 'New Daily' + filled text fields",
+    "light body: Checklist, Difficulty, Scheduling sections"
+   ],
+   "components": [
+    "filled text fields (rounded, lavender): Daily Title, Notes",
+    "'+ New checklist' row button",
+    "difficulty picker: 4 tiles with 1-4 sparkle icons (Trivial/Easy/Medium/Hard), selected tile filled purple",
+    "dropdown fields: Start Date, Repeats",
+    "numeric field: Every 1 Days"
+   ],
+   "visible_text": [
+    "Flexbile scheduling lets you be in charge of your goals",
+    "New Daily",
+    "Daily Title",
+    "Go for a short walk",
+    "Notes",
+    "At least 15min - a silly little walk is good for you!!!!",
+    "Checklist",
+    "New checklist",
+    "Difficulty",
+    "Trivial",
+    "Easy",
+    "Medium",
+    "Hard",
+    "Scheduling",
+    "Start Date",
+    "May 5th",
+    "Repeats",
+    "Daily",
+    "Every",
+    "1",
+    "Days"
+   ],
+   "notes": "Editor header tinted purple (brand or task-type color; unconfirmed). Material 3-style filled fields. Blue->purple->pink gradient background.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/03.jpg"
+  },
+  {
+   "id": "P04",
+   "file": "ui/play/04.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/qzuvsqCeoThwNhGL8IBFVHiWk3SCa7GLaIoBZRscBmcPPSNKWWZIstcg4oz4F6jWneKZ8ey3VGQtFS6OOmZ6CJM=s0",
+   "sha256": "b1150996c1e904b6a2bdd9f2234aa5062b81f5dded76f8797e8430d226327e67",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1245958,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fa5a5d",
+    "#f6f5f3",
+    "#b35f4f",
+    "#403b3b",
+    "#dbb9ba",
+    "#6a849e"
+   ],
+   "palette_share": [
+    0.591,
+    0.147,
+    0.094,
+    0.071,
+    0.063,
+    0.035
+   ],
+   "screen": "Rewards list (custom rewards with gold cost) + pixel item illustration",
+   "feature": "rewards",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Celebrate each completed task with Gold and rewards",
+   "regions": [
+    "marketing caption (top)",
+    "large pixel illustration: sword, potion, egg on treasure chests (marketing art)",
+    "reward cards (bottom)"
+   ],
+   "components": [
+    "reward card: title + optional notes, right price block with gold coin icon and amount",
+    "unaffordable/disabled state: greyed price block (100), inferred"
+   ],
+   "visible_text": [
+    "Celebrate each completed task with Gold and rewards",
+    "Watch 15 min of videos on your favorite app :)",
+    "3",
+    "Buy a coffee",
+    "20",
+    "Grab some take out",
+    "You deserve to treat yourself a lil!",
+    "100"
+   ],
+   "notes": "Price block tinted gold when affordable vs grey otherwise (inferred). Red background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/04.jpg"
+  },
+  {
+   "id": "P05",
+   "file": "ui/play/05.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/ijx42asBJI_m-QRwbwZF6-1oGXSPhgTPcFBk-perVcern9inCUH8uVqjJOj8VnoMP3vGcLI1BsbNIdrs2d0S=s0",
+   "sha256": "d0fdc8322f0438d9f0447497172d07bad589125ab460257528f2cb311b493bad",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 997477,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fafbfb",
+    "#26bd86",
+    "#c0d4cd",
+    "#78a29b",
+    "#40352f",
+    "#df8025"
+   ],
+   "palette_share": [
+    0.498,
+    0.311,
+    0.079,
+    0.05,
+    0.036,
+    0.026
+   ],
+   "screen": "Pets & Mounts collection grid (Special Pets)",
+   "feature": "pets",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Hatch, feed, and collect pets that grow with you",
+   "regions": [
+    "marketing caption",
+    "top bar: back, title 'Pets & Mounts', filter icon",
+    "section header 'SPECIAL PETS' + count pill 65 / 480",
+    "4-column pet grid",
+    "decorative oversized pixel pets overlapping corners (marketing)"
+   ],
+   "components": [
+    "letter-spaced uppercase section header",
+    "count pill",
+    "grid tile: pixel sprite + 2-line name; unowned = grey silhouette + grey label"
+   ],
+   "visible_text": [
+    "Hatch, feed, and collect pets that grow with you",
+    "Pets & Mounts",
+    "SPECIAL PETS",
+    "65 / 480",
+    "Veteran Wolf",
+    "Hydra",
+    "Mammoth",
+    "Gryphatrice",
+    "Phoenix",
+    "Royal Purple Gryphon",
+    "Mantis Shrimp",
+    "Jackalope",
+    "Skeleton Dragon",
+    "Golden Fox",
+    "Desert Velociraptor",
+    "White Tiger",
+    "Aquatic Panda",
+    "Floral Cactus",
+    "Autumn Leaf Tiger",
+    "Rainbow Pig",
+    "Peppermint Wolf",
+    "Watery Panda",
+    "Ember Fox",
+    "Glowing Fox",
+    "Rose Quartz Lion"
+   ],
+   "notes": "Collection completeness via silhouettes. Green background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/05.jpg"
+  },
+  {
+   "id": "P06",
+   "file": "ui/play/06.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/mTI-GcVzBxi9VvtTzFw_f1rlI_hxwbQtKaOcR5xtHuLwLcPGtrOB4H18DV3Zg60tLKoL8sPKvpHfPgEMxl4laA=s0",
+   "sha256": "db9e4de9d63c342959033f2de958037e63e2e93d6420f3652d757bb4d8004029",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1124721,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fffefe",
+    "#fab344",
+    "#fcc364",
+    "#fbcb8f",
+    "#efe3d8",
+    "#938f9b"
+   ],
+   "palette_share": [
+    0.426,
+    0.255,
+    0.148,
+    0.075,
+    0.054,
+    0.042
+   ],
+   "screen": "Achievements: Starting Objectives + streak badges",
+   "feature": "achievements",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Visualize your progress with Streaks and Achievements",
+   "regions": [
+    "marketing caption",
+    "card: Starting Objectives (coin cluster, progress bar, 4 shield badges)",
+    "card: 3 Perfect Days",
+    "card: 21 Day Streak (cropped)"
+   ],
+   "components": [
+    "rounded white cards with glow",
+    "purple progress bar (~25%)",
+    "pixel shield badges (grey = not yet earned, inferred)",
+    "pixel gold medals with sparkles"
+   ],
+   "visible_text": [
+    "Visualize your progress with Streaks and Achievements",
+    "Starting Objectives",
+    "3 Perfect Days",
+    "21 Day Streak"
+   ],
+   "notes": "Aligns with What's new 4.10.6 (enhanced Achievements). Likely composited cards, not a single real screen. Orange background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/06.jpg"
+  },
+  {
+   "id": "P07",
+   "file": "ui/play/07.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Lc0CDZnfiLxwMo96-HyBmaROL5JxkdGOrPS14-vTWeZiXTGf6EuQZS9KJ3WE6DljoJTo2Xl04b8-S8zf-k3c=s0",
+   "sha256": "3b2e0a44ee9d98504665a35bb473a292f4dd251eb49a89223322021d25a8df3f",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1334468,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#e3f8fb",
+    "#feffff",
+    "#73d7e2",
+    "#4ec2cc",
+    "#b2dbe2",
+    "#8ca6af"
+   ],
+   "palette_share": [
+    0.271,
+    0.211,
+    0.203,
+    0.2,
+    0.077,
+    0.039
+   ],
+   "screen": "Challenges list (cards with stacked task previews)",
+   "feature": "challenges",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Join Challenges to get curated task lists that fit your interests",
+   "regions": [
+    "marketing caption",
+    "3 challenge cards each with stacked task previews"
+   ],
+   "components": [
+    "challenge card: green gem icon (prize), title, subtitle",
+    "meta strip: members icon+count, calendar icon+count, check icon+count",
+    "stacked translucent task rows with circle control"
+   ],
+   "visible_text": [
+    "Join Challenges to get curated task lists that fit your interests",
+    "Daily Exercise Routine",
+    "Easy 10min exercises for the month",
+    "1,236",
+    "5",
+    "10",
+    "Do 10 Push-ups",
+    "Do 20 crunches",
+    "ADHD Tips and Tricks",
+    "Stay focused and productive",
+    "12,890",
+    "24",
+    "Break down a large task",
+    "Prioritize one task for the day",
+    "Pomodoro time!",
+    "Use the pomodoro method to work",
+    "589",
+    "31",
+    "Complete first pomodoro!"
+   ],
+   "notes": "Calendar/check counts probably = number of Dailies/To Dos in the challenge (inferred). Stylized composite. Teal background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/07.jpg"
+  },
+  {
+   "id": "P08",
+   "file": "ui/play/08.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/cKHG0MpbqKTgPuu6gsY1RftxvccdMo8oAoyQrjX9c9X4NsD0q5eE-dJhoUCSffkH88AQpi64kP9IgjHrZoXAww=s0",
+   "sha256": "dea58b5805619f21f68b066d753486e8ad1e52731edd9c6a735267ba229e9a31",
+   "w": 1344,
+   "h": 2688,
+   "bytes": 1024836,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    2688,
+    1344
+   ],
+   "palette": [
+    "#fd7b46",
+    "#f6f5f5",
+    "#fefefe",
+    "#fab88a",
+    "#9ca8ac",
+    "#4d4254"
+   ],
+   "palette_share": [
+    0.33,
+    0.308,
+    0.219,
+    0.07,
+    0.039,
+    0.034
+   ],
+   "screen": "Party screen with active boss Quest and members",
+   "feature": "party",
+   "is_marketing_frame": true,
+   "device": "phone",
+   "caption_text": "Boost accountability by teaming up to take on Quests",
+   "regions": [
+    "marketing caption",
+    "top bar: 'Your Party' + menu/filter icon",
+    "quest card: name, participation, boss sprite, boss HP bar, damage banner",
+    "MEMBERS section: invite card, member rows"
+   ],
+   "components": [
+    "boss HP bar 1224/1500 with orange pending-damage segment",
+    "full-width orange banner '21 Damage Done'",
+    "member row: avatar tile, display name, @username, class icon, level-up chip, HP and MP bars, level, role",
+    "'Invite a Member' card button"
+   ],
+   "visible_text": [
+    "Boost accountability by teaming up to take on Quests",
+    "Your Party",
+    "Vice Awakens",
+    "3 / 10 Participating",
+    "Vice, the Shadow Wyrm",
+    "1224 / 1500 HP",
+    "21 Damage Done",
+    "MEMBERS",
+    "Invite a Member",
+    "Sophiala",
+    "@bestieee",
+    "Level 12",
+    "Leader",
+    "Aidowu",
+    "@getthatbread"
+   ],
+   "notes": "Two-tone boss bar suggests damage queued until daily reset (inferred). Orange background skews palette.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/08.jpg"
+  },
+  {
+   "id": "P09",
+   "file": "ui/play/09.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/PiSbXEDBKGPoGaRT4jhPjjyY6x8U7yjFSWriKycD1gq1aFC1a5ZWdFdggO_K5pqMPpqTIx7dqESe2Ak9fuTC=s0",
+   "sha256": "e5ff1a3f92369c6f6e5d06598eeb0d6d6a304b02616c4109fe4bdaaa593c7524",
+   "w": 792,
+   "h": 792,
+   "bytes": 38272,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#24212b",
+    "#000000",
+    "#41a6a9",
+    "#ebcaa2",
+    "#1d1a24",
+    "#0e0d11"
+   ],
+   "palette_share": [
+    0.505,
+    0.35,
+    0.054,
+    0.051,
+    0.027,
+    0.013
+   ],
+   "screen": "Wear OS: Habits list",
+   "feature": "wear-tasks",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "title (purple)",
+    "pill-shaped list items"
+   ],
+   "components": [
+    "pill list item with circular colored action button (+ blue, - orange, diagonal split +/- green)"
+   ],
+   "visible_text": [
+    "6 Habits",
+    "Drink water",
+    "Think negatively",
+    "Clear inbox"
+   ],
+   "notes": "Raw watch UI on black, no marketing frame.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/09.jpg"
+  },
+  {
+   "id": "P10",
+   "file": "ui/play/10.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/Uy0L7FOQ2evgt7oz3Gw_azh2q8nAwquisY8x8QgWIscd-PkK3iTvpdS0GJRGfXLwu0Emm0Ox11tmQurUSZKsnQA=s0",
+   "sha256": "559a4d4898f356d5a83575162c1102e1da95eb5547bbc6a2b9a92a3c17da956d",
+   "w": 792,
+   "h": 792,
+   "bytes": 26047,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#000000",
+    "#24cb8f",
+    "#156146",
+    "#eca736",
+    "#d6d4c8",
+    "#469ac1"
+   ],
+   "palette_share": [
+    0.763,
+    0.21,
+    0.011,
+    0.008,
+    0.004,
+    0.004
+   ],
+   "screen": "Wear OS: score feedback after completing a task",
+   "feature": "wear-feedback",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "centered cluster of 4 green pills"
+   ],
+   "components": [
+    "delta pills: 14 + XP star, 2 + gold coin, .5 + mana gem, .6 + sword (quest damage, inferred)"
+   ],
+   "visible_text": [
+    "14",
+    "2",
+    ".5",
+    ".6"
+   ],
+   "notes": "Green = positive outcome.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/10.jpg"
+  },
+  {
+   "id": "P11",
+   "file": "ui/play/11.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/WkqwbnlEnDZMsbxLE9DqhEAKzKFqWg4hO9-RTGDZm9RyNcle8Mtf1QurKclTuAz5MMSwWeNLeBiKK2QQluI6yQ=s0",
+   "sha256": "1566e714c312efe03dd6f23d8f2f2dac3acdd2730defe1f34860a638655e81af",
+   "w": 792,
+   "h": 792,
+   "bytes": 32083,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#25222d",
+    "#000000",
+    "#a87cf9",
+    "#1d1a23",
+    "#0c0a0f",
+    "#030204"
+   ],
+   "palette_share": [
+    0.374,
+    0.348,
+    0.243,
+    0.023,
+    0.007,
+    0.006
+   ],
+   "screen": "Wear OS: main menu",
+   "feature": "wear-nav",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "user name header",
+    "primary pill action",
+    "task-type pills with counts"
+   ],
+   "components": [
+    "primary filled pill 'New Task' (purple)",
+    "nav pills: icon + label + count"
+   ],
+   "visible_text": [
+    "Sophiala",
+    "New Task",
+    "Dailies",
+    "7",
+    "To Do's",
+    "12"
+   ],
+   "notes": "Watch navigation = vertical menu of task types.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/11.jpg"
+  },
+  {
+   "id": "P12",
+   "file": "ui/play/12.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/-MdbHPHwPyCMTDw98zDnTQwOy4tD7J_SCgI_wKiYWoR_dwyRtCpfl-VA-GJnOiIBLMEU2xxcWykLaRpaul5Xzg=s0",
+   "sha256": "3a7c66cf3a8f28681435c444af81757a592b57688184177d39b1adfa49bc8c69",
+   "w": 792,
+   "h": 792,
+   "bytes": 62930,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#0c0c0c",
+    "#000000",
+    "#bb8b89",
+    "#38343b",
+    "#090a09",
+    "#050606"
+   ],
+   "palette_share": [
+    0.444,
+    0.297,
+    0.094,
+    0.092,
+    0.046,
+    0.026
+   ],
+   "screen": "Wear OS: stats rings (HP/XP/MP)",
+   "feature": "wear-stats",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "3 concentric progress rings",
+    "center stacked stat values"
+   ],
+   "components": [
+    "concentric arcs: red HP, yellow XP, blue MP",
+    "pixel-font numerals with heart/star/gem icons"
+   ],
+   "visible_text": [
+    "41",
+    "/50",
+    "50",
+    "/620",
+    "35",
+    "/68"
+   ],
+   "notes": "Same HP/XP/MP color code as phone header [P01].",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/12.jpg"
+  },
+  {
+   "id": "P13",
+   "file": "ui/play/13.png",
+   "kind": "screenshot",
+   "url": "https://play-lh.googleusercontent.com/4DzTfps3yIln4WurjrjBUHbtXSlyhJ86ipvC1ZSnn90LA03zAom8trWpS8owss6PY5u_1Qksg8yv-L7tQ4jA4xE=s0",
+   "sha256": "da505a08ebaae30c4b1da39b6dcb3996cd0eefceb0948f4ae1ca5a46c43b0c37",
+   "w": 792,
+   "h": 792,
+   "bytes": 9754,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    792,
+    792
+   ],
+   "palette": [
+    "#467c25",
+    "#494c39",
+    "#f0edd9",
+    "#c1a392",
+    "#ad8939",
+    "#010201"
+   ],
+   "palette_share": [
+    0.289,
+    0.219,
+    0.149,
+    0.136,
+    0.104,
+    0.103
+   ],
+   "screen": "Wear OS: avatar view (pixel avatar with pet and background)",
+   "feature": "wear-avatar",
+   "is_marketing_frame": false,
+   "device": "wear",
+   "caption_text": "",
+   "regions": [
+    "full-bleed pixel avatar scene in black frame"
+   ],
+   "components": [
+    "layered avatar sprite (hair, outfit), pet sprite, background scene"
+   ],
+   "visible_text": [],
+   "notes": "Low-res sprite upscaled nearest-neighbor; palette reflects art, not UI.",
+   "palette_note": "Raw watch UI/art; black background dominates.",
+   "status": "observed",
+   "thumb": "ui/thumbs/13.jpg"
+  },
+  {
+   "id": "P_ICON",
+   "file": "ui/play/icon.png",
+   "kind": "icon",
+   "url": "https://play-lh.googleusercontent.com/ZriBVMfdmkJSABIh3vnrbKp5wD__dPuM8UWCTyGk_oQR6XZpNXY7vyVVPgXr-eRBQ5xrk52PcUgFqCiP7QzEaA=s0",
+   "sha256": "2593faaca945767d05d06a322addbf842d643d76889ee3a4997d8febe6466100",
+   "w": 512,
+   "h": 512,
+   "bytes": 17754,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    512,
+    512
+   ],
+   "palette": [
+    "#6a30d3",
+    "#ddd3fc",
+    "#e1d9fd",
+    "#a280e7",
+    "#662ad2",
+    "#692ed3"
+   ],
+   "palette_share": [
+    0.827,
+    0.139,
+    0.011,
+    0.009,
+    0.008,
+    0.007
+   ],
+   "screen": "App icon",
+   "feature": "branding",
+   "is_marketing_frame": false,
+   "device": "n/a",
+   "caption_text": "",
+   "regions": [
+    "solid purple square",
+    "lavender gryphon silhouette with pixel-step tail"
+   ],
+   "components": [
+    "logo mark"
+   ],
+   "visible_text": [],
+   "notes": "Brand purple ~#6a30d3; gryphon mixes smooth vector with pixel staircase (RPG motif).",
+   "palette_note": "",
+   "status": "observed",
+   "thumb": "ui/thumbs/icon.jpg"
+  },
+  {
+   "id": "P_FEATURE",
+   "file": "ui/play/feature.png",
+   "kind": "feature",
+   "url": "https://play-lh.googleusercontent.com/iKyLzHqiMKYqT9-C7EJHVCmJqQ0m3J51m6m37CkBdeVgXiJVZtQNR-ny8apxTVPnVNLjhPKselHpIWnkJwLjPA=s0",
+   "sha256": "ad4b241bfe6787670c1fc47f6c5c8fb386c428503840227e42d2d1d3135af413",
+   "w": 1024,
+   "h": 500,
+   "bytes": 355043,
+   "format": "PNG",
+   "play_declared_dims_hw": [
+    500,
+    1024
+   ],
+   "palette": [
+    "#7143df",
+    "#6455df",
+    "#8449d1",
+    "#5969e0",
+    "#9856c5",
+    "#f7f6fd"
+   ],
+   "palette_share": [
+    0.432,
+    0.16,
+    0.146,
+    0.131,
+    0.086,
+    0.045
+   ],
+   "screen": "Feature graphic",
+   "feature": "branding",
+   "is_marketing_frame": true,
+   "device": "n/a",
+   "caption_text": "habitica",
+   "regions": [
+    "purple-to-blue gradient background with outline pentagon/squiggle confetti",
+    "centered white rounded wordmark"
+   ],
+   "components": [
+    "wordmark with red and cyan dots over the i's"
+   ],
+   "visible_text": [
+    "habitica"
+   ],
+   "notes": "Same confetti motif (pentagons, squiggles) as phone screenshot backgrounds.",
+   "palette_note": "Marketing background/frame dominates; UI colors are minority clusters.",
+   "status": "observed",
+   "thumb": "ui/thumbs/feature.jpg"
+  }
+ ]
+}

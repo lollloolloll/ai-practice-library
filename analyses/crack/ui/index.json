@@ -1,0 +1,404 @@
+{
+ "source": "crack.wrtn.ai (공개 페이지, 로그인 안 함)",
+ "fetched_at": "2026-10-25",
+ "method": "Playwright + 설치된 Chrome, 새 프로필(쿠키 없음), 데스크톱 1440×900과 모바일 390×844",
+ "images": [
+  {
+   "id": "C01",
+   "file": "ui/shots/c01-home-onboarding.jpg",
+   "raw": "ui/raw/d01-home-onboarding.png",
+   "title": "첫 방문 온보딩: 가입 없이 취향 선택",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "d5e1118664ed3da1cbf38dc755db6bff600aea2a6fe839bd1e0306df9530a621",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C02",
+   "file": "ui/shots/c02-home-scroll.jpg",
+   "raw": "ui/raw/d03-home-scroll.png",
+   "title": "홈 상단: 장르 칩, 배너 캐러셀, 오직 크랙에서만",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "438c6f7f5e45e12920e0db3c387ecb92235bc6e4a45e0d9a85272a67751272d5",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C03",
+   "file": "ui/shots/c03-home-scroll.jpg",
+   "raw": "ui/raw/d04-home-scroll.png",
+   "title": "홈: 조회수 큰 오리지널 줄, 할로윈 특집, 신예 창작자",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "3e0fc2eb5566bd0b4896f63f500a120a71b5845327f173d6f420c94cdcc7f6e8",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C04",
+   "file": "ui/shots/c04-home-scroll.jpg",
+   "raw": "ui/raw/d05-home-scroll.png",
+   "title": "홈: 공식 크리에이터 신작, 요즘 트렌드",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "ed8cbc95fcf55960b45c21925e8ebaaef10c71ee27e4c4774ea555c30862a46d",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C05",
+   "file": "ui/shots/c05-home-scroll.jpg",
+   "raw": "ui/raw/d06-home-scroll.png",
+   "title": "홈: 순위 숫자가 박힌 신규 랭킹",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "a6fcb13232850e20ba7309288c5dc8fe9fcb568dae9d786ba9705902f3037243",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C06",
+   "file": "ui/shots/c06-home-scroll.jpg",
+   "raw": "ui/raw/d07-home-scroll.png",
+   "title": "홈: 베스트 랭킹, 태그별 모아보기",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "fc8a4c7c8ef96f834bd9d718e19e876230b082eede18ec02a08cd2a6e3209827",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C07",
+   "file": "ui/shots/c07-home-scroll.jpg",
+   "raw": "ui/raw/d08-home-scroll.png",
+   "title": "홈: QWER 콜라보, ZB1 광고 속 작품",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "291c414968ead084abd85466a070f394f168c5755454fc28036aa0af9aa244f9",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C08",
+   "file": "ui/shots/c08-home-scroll.jpg",
+   "raw": "ui/raw/d09-home-scroll.png",
+   "title": "홈: 오직 크랙에만 있는 인기 작품 그리드, 호버 미리보기",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "cb083cbf059958d9ba2c047e43bd0429d16f33cc0d1dee488377a57f89c57ca1",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C09",
+   "file": "ui/shots/c09-characters.jpg",
+   "raw": "ui/raw/d20-characters.png",
+   "title": "캐릭터 탭: 대사 한 줄 배너, 대화 수가 붙은 신예 창작자 캐릭터",
+   "url": "https://crack.wrtn.ai/characters",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "04eba14335c00f8ff5a05035ca588ae646e264ae4644446c9288c82be374bd3c",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C10",
+   "file": "ui/shots/c10-story-detail.jpg",
+   "raw": "ui/raw/d26-story-detail.png",
+   "title": "작품 상세 모달: 조회·좋아요·댓글 수, 팔로우, 친구랑 같이 대화",
+   "url": "https://crack.wrtn.ai/",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "13b9a4ffb645740ba82376d6cb1f0e6800dbd1bc10f67fcc325f6c8d581ef63b",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C11",
+   "file": "ui/shots/c11-cracker.jpg",
+   "raw": "ui/raw/d21-cracker.png",
+   "title": "유료 재화 크래커: 묶음 보너스, 추천 표시, 자동 구매",
+   "url": "https://crack.wrtn.ai/cracker",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "801dbe21e47d97e351b2c11f42dbe185bd7946e02764ca2cc824d1b5c6e4f746",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C12",
+   "file": "ui/shots/c12-event.jpg",
+   "raw": "ui/raw/d24-event.png",
+   "title": "아이돌 굿즈 이벤트: 광고 작품 플레이하면 굿즈 증정",
+   "url": "https://crack.wrtn.ai/event/zb1-event",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "216e158d00d1b20b114861402e9471301cbea9433316edf2bc200286f4c8c49e",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C13",
+   "file": "ui/shots/c13-visual-novel.jpg",
+   "raw": "ui/raw/d25-visual-novel.png",
+   "title": "오리지널 비주얼 노벨형 콘텐츠",
+   "url": "https://crack.wrtn.ai/visual-novels/6a4cbdfc814365a9c488ca24",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "9a449ff4e5aa29088428968b8d7efb2704dd6b8c67ac6befd17827a73600f0db",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C14",
+   "file": "ui/shots/c14-original-list.jpg",
+   "raw": "ui/raw/d22-original-list.png",
+   "title": "크랙 오리지널 전체 목록",
+   "url": "https://crack.wrtn.ai/original?pageId=682c89c39d1325983179b65b&setId=698e8737c25b9e82f77dfe1b&setType=crack_original",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "01b2396723caf41f03eca2d9faec6c9fbe529743527b9789cb36928310a028dd",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C15",
+   "file": "ui/shots/c15-trending-creator.jpg",
+   "raw": "ui/raw/d23-trending-creator.png",
+   "title": "공식 크리에이터 신작 목록",
+   "url": "https://crack.wrtn.ai/trending?type=creator&isSafetyOnly=true&setId=682c89c39d1325983179b6f8&setType=trending_creator&pageId=682c89c39d1325983179b65b",
+   "w": 1440,
+   "h": 900,
+   "sha256_raw": "a6c4ac4cb048aad259e7558322bd8c03cdcae09fe0aa58ba7ddec08cf539ce63",
+   "viewport": "desktop 1440x900",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C16",
+   "file": "ui/shots/c16-home-onboarding.jpg",
+   "raw": "ui/raw/m01-home-onboarding.png",
+   "title": "모바일 첫 화면 온보딩",
+   "url": "https://crack.wrtn.ai/",
+   "w": 780,
+   "h": 1688,
+   "sha256_raw": "191d2fc2dacb2589105298bff46f5df51d2a40069830dfd01d045d6476e2e0d0",
+   "viewport": "mobile 390x844@2x",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  },
+  {
+   "id": "C17",
+   "file": "ui/shots/c17-home-scroll.jpg",
+   "raw": "ui/raw/m02-home-scroll.png",
+   "title": "모바일 홈",
+   "url": "https://crack.wrtn.ai/",
+   "w": 780,
+   "h": 1688,
+   "sha256_raw": "ccca1177ba3b81c6e827d6568500880d4c59bd28432f56dcc44a33c18b59234d",
+   "viewport": "mobile 390x844@2x",
+   "captured_at": "2026-10-25",
+   "logged_in": false
+  }
+ ],
+ "hooks": [
+  {
+   "id": "H01",
+   "name": "가입 없는 취향 선택",
+   "what": "첫 방문 시 '남성향·여성향·전체' 세 장의 그림 카드 중 하나만 고르면 가입 없이 바로 추천을 시작해요. 건너뛰기(SKIP)도 있어요.",
+   "principle": "마찰 제거, 첫 화면 개인화",
+   "evidence": [
+    "C01",
+    "C16"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H02",
+   "name": "어디에나 붙은 숫자",
+   "what": "작품마다 대화 수(예: 국가의 시대 18.1M), 좋아요·댓글 수가 붙고, 랭킹은 표지 위에 큰 순위 숫자를 박아요.",
+   "principle": "사회적 증거, 밴드왜건 효과",
+   "evidence": [
+    "C03",
+    "C05",
+    "C06",
+    "C10"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H03",
+   "name": "웹툰·웹소설 표지 문법",
+   "what": "세로 표지에 큰 한글 제목 타이포를 얹고, '소꿉친구의 랜선여친', '왕따 대공비로 살아남기'처럼 상황이 한 줄로 보이는 제목을 써요.",
+   "principle": "익숙한 소비 문법 재사용, 호기심 간극",
+   "evidence": [
+    "C05",
+    "C06",
+    "C08"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H04",
+   "name": "대사 한 줄 훅",
+   "what": "캐릭터 카드와 배너가 설명 대신 캐릭터의 대사 한 줄(\"살려준 게 아니야. 착각 마.\")을 보여 줘요.",
+   "principle": "호기심 간극, 대화 시작 유도",
+   "evidence": [
+    "C09"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H05",
+   "name": "촘촘한 취향 칩",
+   "what": "상단에 GL, BL, 로판, 무협, 1:1 롤플레잉, 시뮬레이션, 2차 창작까지 20개 넘는 장르 칩이 가로로 이어져요.",
+   "principle": "니치 취향의 즉시 발견, 선택 비용 감소",
+   "evidence": [
+    "C02",
+    "C09"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H06",
+   "name": "창작자를 전면에",
+   "what": "'떠오르는 신예 창작자', '공식 크리에이터들의 뜨거운 신작' 줄이 있고, 작품마다 창작자 이름과 인증 배지, '크랙 초기 입주자' 배지, 팔로우 버튼이 붙어요.",
+   "principle": "창작자 경제, 정체성·지위 보상",
+   "evidence": [
+    "C03",
+    "C04",
+    "C09",
+    "C10"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H07",
+   "name": "시즌·아이돌 콜라보",
+   "what": "헤더에 거미줄 장식과 '할로윈 특집' 줄을 두고, QWER 콜라보 작품 모음과 ZB1 '광고 속 작품'을 홈에 올려요. 광고 작품을 플레이하면 굿즈를 주는 이벤트도 있어요.",
+   "principle": "시의성, 팬덤 유입, 희소성(FOMO)",
+   "evidence": [
+    "C03",
+    "C07",
+    "C12"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H08",
+   "name": "채팅을 넘어선 게임 형식",
+   "what": "국가 운영 시뮬레이션, 비주얼 노벨, ARPG, 플립테일 같은 형식을 '오직 크랙에서만'으로 묶어 보여 줘요.",
+   "principle": "게임화, 형식 다양성으로 체류 연장",
+   "evidence": [
+    "C02",
+    "C10",
+    "C13"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H09",
+   "name": "같이 하는 대화",
+   "what": "작품 상세의 플레이 버튼 옆에 '친구랑 같이 대화해요!' 말풍선이 떠요.",
+   "principle": "사회적 놀이, 바이럴 루프",
+   "evidence": [
+    "C10"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H10",
+   "name": "재화 묶음 설계",
+   "what": "유료 재화 '크래커'를 6단계로 팔아요. 클수록 보너스가 커지고(+100개 → +10,000개) 28,000원 묶음에 '추천' 표시가 있어요. 자동 구매, 무료로 받기 탭, 토스페이 첫 결제 포인트 혜택도 보여요.",
+   "principle": "앵커링, 미끼 가격, 묶음 보너스",
+   "evidence": [
+    "C11"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H11",
+   "name": "기억력을 유료 품질로",
+   "what": "홈 배너가 '메모리 PRO 이용권'을 '더 강력한 기억력으로 스토리에 더 깊이'라고 홍보해요.",
+   "principle": "몰입의 질을 유료화",
+   "evidence": [
+    "C02"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H12",
+   "name": "늘 떠 있는 로그인 권유",
+   "what": "왼쪽 아래에 구글·카카오·네이버 간편 로그인 카드가 모든 화면에 고정돼 있어요.",
+   "principle": "반복 노출, 간편 전환",
+   "evidence": [
+    "C02",
+    "C09",
+    "C11"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H13",
+   "name": "미리보기 카드",
+   "what": "표지에 마우스를 올리면 해시태그와 줄거리를 담은 미리보기 카드가 떠요.",
+   "principle": "정보 냄새(information scent), 클릭 전 기대 형성",
+   "evidence": [
+    "C08"
+   ],
+   "status": "observed"
+  },
+  {
+   "id": "H14",
+   "name": "안전 표시",
+   "what": "로그인하지 않은 상태의 목록은 안전 콘텐츠만 보여 주는 설정(주소의 isSafetyOnly=true)이고, 일부 제목에 'safe' 표기가 붙어요.",
+   "principle": "첫인상 관리, 청소년 보호 신호",
+   "evidence": [
+    "C02",
+    "C15"
+   ],
+   "status": "observed"
+  }
+ ],
+ "unknowns": [
+  {
+   "q": "로그인 후 홈과 대화 화면은 어떻게 다른가요?",
+   "why": "계정을 만들지 않아서 볼 수 없었어요",
+   "next_step": "직접 로그인해 같은 방식으로 캡처해 주세요"
+  },
+  {
+   "q": "대화 중 재화가 언제 얼마나 쓰이나요?",
+   "why": "대화 화면을 보지 못했어요",
+   "next_step": "로그인 후 대화 몇 턴의 재화 소모를 기록"
+  },
+  {
+   "q": "추천 결과가 남성향·여성향 선택에 따라 얼마나 달라지나요?",
+   "why": "SKIP만 눌러서 비교하지 않았어요",
+   "next_step": "세 가지를 각각 골라 홈을 캡처해 비교"
+  }
+ ]
+}

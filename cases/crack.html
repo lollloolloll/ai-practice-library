@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>크랙 이목 분석</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../css/app.css?v=20261025b">
+<style>
+/* 레이아웃: 퍼널 6단계를 세로로 내려가며, 포인트마다 근거 화면을 붙인 해부도 */
+.case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
+.toc { position: sticky; top: calc(76px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; font-size: 13px; }
+.toc a { text-decoration: none; color: var(--muted); padding: 5px 8px; border-radius: 6px; }
+.toc a:hover { color: var(--fg); background: var(--surface-2); }
+.doc { display: grid; gap: 48px; min-width: 0; }
+.doc section { display: grid; gap: 14px; scroll-margin-top: 90px; min-width: 0; }
+.doc h2 { font-size: 22px; display: flex; gap: 10px; align-items: baseline; }
+.doc h2 .no { font: 400 26px var(--f-display); font-style: italic; color: var(--muted); }
+.doc p { margin: 0; max-width: 72ch; line-height: 1.75; }
+.answer { font-size: 17px; line-height: 1.8; max-width: 72ch; padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 var(--r) var(--r) 0; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.ev { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.ev.observed { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.ev.observed::before { content: '●'; }
+.ev.reported { background: var(--accent-soft); color: var(--accent); }
+.ev.reported::before { content: '◆'; }
+.ev.unverified { background: color-mix(in srgb, var(--warn) 16%, transparent); color: var(--warn); }
+.ev.unverified::before { content: '◐'; }
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 10px; }
+.fact { padding: 12px 14px; border-radius: var(--r); background: var(--surface); border: 1px solid var(--line); display: grid; gap: 4px; align-content: start; min-width: 0; }
+.fact span { font-size: 12px; color: var(--muted); }
+.fact b { font-size: 17px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.fact small { font-size: 11px; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.stage { display: grid; gap: 12px; }
+.stage-h { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.stage-h h3 { font-size: 18px; margin: 0; }
+.stage-h span { color: var(--muted); font-size: 14px; }
+.hooks { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.hook { display: grid; grid-template-rows: auto 1fr; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); overflow: hidden; min-width: 0; }
+.hook .pic { border: 0; padding: 0; background: var(--surface-2); display: block; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; cursor: zoom-in; }
+.hook .pic img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.hook .body { padding: 12px 14px 14px; display: grid; gap: 6px; align-content: start; }
+.hook h4 { margin: 0; font-size: 15px; display: flex; gap: 8px; justify-content: space-between; align-items: baseline; }
+.hook p { font-size: 13.5px; line-height: 1.65; color: var(--fg); }
+.hook .pr { font-size: 12px; color: var(--accent); font-weight: 600; }
+.hook .src { font-size: 11px; color: var(--muted); font-family: var(--f-mono); }
+.ref { font-family: var(--f-mono); font-size: 11px; color: var(--muted); }
+.tag-src { font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 4px; background: var(--surface-2); color: var(--muted); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.gallery button { border: 1px solid var(--line); border-radius: 10px; padding: 0; background: var(--surface); overflow: hidden; text-align: left; cursor: zoom-in; display: grid; }
+.gallery img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; display: block; }
+.gallery .m img { aspect-ratio: 9 / 16; }
+.gallery span { padding: 8px 10px; font-size: 12px; color: var(--muted); }
+.gallery b { color: var(--fg); font-family: var(--f-mono); margin-right: 6px; }
+table.t { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.t th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 72ch; font-size: 15px; }
+.ai { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 10px; }
+.ai a { padding: 12px 14px; border-radius: var(--r); border: 1px dashed var(--line); text-decoration: none; display: grid; gap: 2px; }
+.ai a:hover { border-style: solid; border-color: var(--fg); }
+.ai a span { font-size: 12px; color: var(--muted); }
+.ai a b { font-family: var(--f-mono); font-size: 13px; }
+.lightbox { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, .85); display: grid; place-items: center; padding: 24px; }
+.lightbox figure { margin: 0; display: grid; gap: 8px; max-width: min(1200px, 100%); max-height: 100%; }
+.lightbox img { max-width: 100%; max-height: calc(100vh - 110px); object-fit: contain; border-radius: 8px; }
+.lightbox figcaption { color: #fff; font-size: 14px; }
+.lightbox button { position: absolute; top: 14px; right: 16px; background: #fff; color: #111; border: 0; border-radius: 999px; padding: 6px 12px; font-weight: 700; }
+@media (max-width: 900px) { .case { grid-template-columns: minmax(0, 1fr); } .toc { display: none; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><b>Prompt Lexicon</b><span>프롬프트 언어 사전</span></a>
+    <nav class="nav" aria-label="사이트">
+      <a href="../index.html#image">이미지</a><a href="../index.html#writing">글쓰기</a><a href="../index.html#design">디자인</a><span class="sep" aria-hidden="true"></span><a href="./index.html" aria-current="page">실전 사례</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="detail-h" style="margin-top:8px">
+    <div class="crumbs"><a href="./index.html">실전 사례</a> › 서비스 이목 분석</div>
+    <h1>Crack</h1>
+    <p class="fx">뤼튼의 AI 캐릭터·스토리 플랫폼이에요. 무엇이 사람들의 눈길을 끌고, 머물게 하고, 돈을 쓰게 하는지 실제 화면과 공개 자료로 분해했어요.</p>
+    <div class="legend">
+      <span><span class="ev observed">관찰</span> 화면·스토어에서 직접 확인했어요</span>
+      <span><span class="ev reported">보도</span> 언론·리서치 보도예요</span>
+      <span><span class="ev unverified">미검증</span> 회사 주장·위키·추정이에요</span>
+    </div>
+  </div>
+  <div class="case">
+    <nav class="toc" aria-label="목차">
+      <a href="#answer">1. 한 줄 답</a>
+      <a href="#numbers">2. 숫자로 보기</a>
+      <a href="#funnel">3. 이목을 끄는 포인트</a>
+      <a href="#money">4. 돈을 쓰게 하는 구조</a>
+      <a href="#tour">5. 화면 투어</a>
+      <a href="#lessons">6. 가져갈 점</a>
+      <a href="#risks">7. 리스크</a>
+      <a href="#unknowns">8. 아직 모르는 것</a>
+      <a href="#files">9. AI용 파일</a>
+    </nav>
+    <div class="doc" id="doc"><p class="muted">분석 결과를 불러오고 있어요</p></div>
+  </div>
+</main>
+
+<script>
+(async () => {
+  const BASE = '../analyses/crack/';
+  const doc = document.getElementById('doc');
+  const get = (f) => fetch(BASE + f + '?v=20261025b').then((r) => r.json());
+  let UI, R, S;
+  try { [UI, R, S] = await Promise.all([get('ui/index.json'), get('research.json'), get('synthesis.json')]); }
+  catch (e) { doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>'; return; }
+  const h = (tag, attrs, ...kids) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k.startsWith('on')) el.addEventListener(k.slice(2), v);
+      else if (k === 'class') el.className = v; else el.setAttribute(k, v);
+    }
+    const add = (c) => { if (c == null || c === false) return; if (Array.isArray(c)) c.forEach(add); else el.append(c.nodeType ? c : document.createTextNode(String(c))); };
+    kids.forEach(add);
+    return el;
+  };
+  const LBL = { observed: '관찰', reported: '보도', unverified: '미검증' };
+  const ev = (s) => h('span', { class: 'ev ' + s }, LBL[s] || s);
+  const sec = (id, no, title, ...kids) => h('section', { id }, h('h2', null, h('span', { class: 'no' }, String(no)), title), kids);
+  const IMG = Object.fromEntries(UI.images.map((i) => [i.id, i]));
+  const FACT = Object.fromEntries(R.facts.map((f) => [f.id, f]));
+  const UIH = Object.fromEntries(UI.hooks.map((x) => ['UI:' + x.id, x]));
+  const RH = Object.fromEntries(R.hooks.map((x) => ['R:' + x.id, x]));
+
+  // 라이트박스
+  const zoom = (im) => {
+    const box = h('div', { class: 'lightbox', role: 'dialog', 'aria-label': im.title, onclick: (e) => { if (e.target === box) box.remove(); } },
+      h('figure', null, h('img', { src: BASE + im.file, alt: im.title }), h('figcaption', null, im.id + ' · ' + im.title + ' · ' + im.viewport)),
+      h('button', { type: 'button', onclick: () => box.remove() }, '닫기'));
+    document.body.append(box);
+    const esc = (e) => { if (e.key === 'Escape') { box.remove(); removeEventListener('keydown', esc); } };
+    addEventListener('keydown', esc);
+  };
+  const factStatus = (ids) => {
+    const st = ids.map((i) => (FACT[i] || {}).status).filter(Boolean);
+    return st.includes('unverified') ? 'unverified' : st.includes('reported') ? 'reported' : 'observed';
+  };
+  doc.textContent = '';
+
+  /* 1 */
+  doc.append(sec('answer', 1, '한 줄 답', h('p', { class: 'muted' }, S.question), h('div', { class: 'answer' }, S.answer_ko)));
+
+  /* 2 */
+  const num = (label, fid, val) => { const f = FACT[fid]; if (!f) return null;
+    return h('div', { class: 'fact' }, h('span', null, label), h('b', null, val || f.value), h('small', null, ev(f.status), f.date + ' · ' + fid)); };
+  doc.append(sec('numbers', 2, '숫자로 보기',
+    h('p', null, '집계 기관마다 숫자가 크게 달라요. 같은 지표도 출처와 시점을 함께 보세요.'),
+    h('div', { class: 'facts' },
+      num('월 이용자 (모바일인덱스)', 'W9', '53.9만 명'),
+      num('월 이용자 (와이즈앱)', 'W10', '98만 명'),
+      num('1인당 월 사용시간', 'W10', '약 10.1시간'),
+      num('구글플레이 비게임 매출 순위', 'W12', '17위'),
+      num('연 환산 매출 (회사 제시)', 'W13', '약 7,000만 달러'),
+      num('청소년 이용자 비중', 'W19', '약 10%'),
+      num('구글플레이 평점', 'W5', '4.2 · 100만+ 다운로드'),
+      num('뤼튼 2025 실적', 'W16', '매출 471억 · 영업손실 589억'))));
+
+  /* 3 퍼널 */
+  const hookCard = (key) => {
+    const ui = UIH[key], r = RH[key];
+    if (!ui && !r) return null;
+    const x = ui || r;
+    const imgs = (x.evidence || []).filter((e) => IMG[e]);
+    const pic = imgs.length ? h('button', { class: 'pic', type: 'button', 'aria-label': '근거 화면 크게 보기', onclick: () => zoom(IMG[imgs[0]]) },
+      h('img', { src: BASE + IMG[imgs[0]].file, alt: IMG[imgs[0]].title, loading: 'lazy' })) : null;
+    return h('article', { class: 'hook' }, pic || h('div'),
+      h('div', { class: 'body' },
+        h('h4', null, x.name, h('span', { class: 'tag-src' }, ui ? '화면' : '조사')),
+        h('p', null, ui ? x.what : x.mechanism),
+        h('span', { class: 'pr' }, x.principle),
+        h('span', { class: 'src' }, ui ? ev('observed') : ev(factStatus(x.evidence || [])), ' ', (x.evidence || []).join(', '))));
+  };
+  doc.append(sec('funnel', 3, '이목을 끄는 포인트',
+    h('p', null, '화면에서 직접 본 포인트(화면)와 자료로 확인한 포인트(조사)를 사용자 흐름 6단계로 묶었어요. 사진을 누르면 근거 화면을 크게 보여 줘요.'),
+    S.stages.map((st) => h('div', { class: 'stage', id: 'st-' + st.id },
+      h('div', { class: 'stage-h' }, h('h3', null, st.name), h('span', null, st.goal)),
+      h('div', { class: 'hooks' }, st.hooks.map(hookCard))))));
+
+  /* 4 돈 */
+  const packs = [['2,000개', '-', '2,000원'], ['4,900개', '+100개', '4,900원'], ['9,600개', '+400개', '9,600원'], ['28,000개', '+2,000개 · 추천', '28,000원'], ['46,000개', '+4,000개', '46,000원'], ['90,000개', '+10,000개', '90,000원']];
+  doc.append(sec('money', 4, '돈을 쓰게 하는 구조',
+    h('p', null, '대화에 쓰는 재화 "크래커"를 팔아요. 웹 결제 화면에서 본 묶음이에요. 클수록 보너스 비율이 커지고, 가운데 고가 묶음에 "추천"을 붙였어요.'),
+    h('div', { class: 'scroll' }, h('table', { class: 't' },
+      h('thead', null, h('tr', null, h('th', null, '묶음'), h('th', null, '보너스'), h('th', null, '웹 가격'))),
+      h('tbody', null, packs.map((p) => h('tr', null, p.map((c) => h('td', null, c))))))),
+    h('p', null, h('span', { class: 'ref' }, '근거 '), 'C11 ', ev('observed'),
+      ' · 같은 묶음이 앱스토어에서는 더 비싸요(2,000개 2,800원 ~ 90,000개 126,000원) ', ev(FACT.W7 ? FACT.W7.status : 'observed'), ' W7'),
+    h('p', null, '메시지 한 번에 쓰는 크래커는 모델 등급에 따라 20개 남짓부터 230개까지 차이가 나요. 더 똑똑한 모델과 더 긴 기억(메모리 PRO)을 사는 구조예요. ', ev('unverified'), ' W30')));
+
+  /* 5 화면 투어 */
+  doc.append(sec('tour', 5, '화면 투어',
+    h('p', null, '로그인하지 않은 새 브라우저로 2026-10-25에 캡처했어요. 누르면 크게 보여 줘요.'),
+    h('div', { class: 'gallery' }, UI.images.map((im) => h('button', { type: 'button', class: im.viewport.startsWith('mobile') ? 'm' : '', onclick: () => zoom(im) },
+      h('img', { src: BASE + im.file, alt: im.title, loading: 'lazy' }), h('span', null, h('b', null, im.id), im.title))))));
+
+  /* 6 */
+  doc.append(sec('lessons', 6, '가져갈 점', h('p', null, '내 서비스나 콘텐츠에 바로 써 볼 수 있는 것만 골랐어요.'), h('ol', { class: 'lessons' }, S.lessons_ko.map((l) => h('li', null, l)))));
+
+  /* 7 */
+  doc.append(sec('risks', 7, '리스크', h('ul', { class: 'lessons' }, S.risks_ko.map((l) => h('li', null, l)))));
+
+  /* 8 */
+  doc.append(sec('unknowns', 8, '아직 모르는 것',
+    h('div', { class: 'scroll' }, h('table', { class: 't' },
+      h('thead', null, h('tr', null, h('th', null, '질문'), h('th', null, '이유'), h('th', null, '다음 단계'))),
+      h('tbody', null, UI.unknowns.map((u) => h('tr', null, h('td', null, u.q), h('td', null, u.why), h('td', null, u.next_step))))))));
+
+  /* 9 */
+  const link = (f, d) => h('a', { href: BASE + f }, h('b', null, f), h('span', null, d));
+  doc.append(sec('files', 9, 'AI용 파일',
+    h('p', null, '다른 AI에게 크랙을 설명할 때는 README.md부터 주면 돼요.'),
+    h('div', { class: 'ai' },
+      link('README.md', '먼저 읽을 안내. 범위, 방법, 근거 번호 규칙'),
+      link('synthesis.json', '결론: 단계별 포인트, 가져갈 점, 리스크'),
+      link('ui/index.json', '화면 17장과 화면에서 본 포인트 14개'),
+      link('research.json', '공개 자료 사실 44개와 포인트 14개'),
+      link('research.md', '공개 자료 조사 보고서'))));
+})();
+</script>
+</body>
+</html>
