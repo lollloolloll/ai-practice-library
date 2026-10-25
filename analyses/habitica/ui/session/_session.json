@@ -1,0 +1,184 @@
+{
+ "captured_at": "2026-10-25",
+ "method": "Playwright + installed Chrome, dedicated profile; user logged in themselves; profile deleted after capture",
+ "pii_masking": "display name, nickname, username and real name replaced in the DOM with 테스트 계정 / @test-account before each screenshot",
+ "files": [
+  {
+   "file": "session\\h01-yesterdailies.png",
+   "sha256": "1779fbd6cf446cecbd8bd3b51d3ed45b7ccc545e802c5a5360382d17e694cd6d",
+   "bytes": 146407
+  },
+  {
+   "file": "session\\h01b-news-modal.png",
+   "sha256": "1779fbd6cf446cecbd8bd3b51d3ed45b7ccc545e802c5a5360382d17e694cd6d",
+   "bytes": 146407
+  },
+  {
+   "file": "session\\h02-task-board.png",
+   "sha256": "8e87b76ff16fd281177172456fef063a445ee065e094e44e15f34dcdb8a3de71",
+   "bytes": 106823
+  },
+  {
+   "file": "session\\h03-habit-plus.png",
+   "sha256": "147210c262fe86f0ea8e3831d6548f9c9f3273716981c89488517101724e27fc",
+   "bytes": 115745
+  },
+  {
+   "file": "session\\h03b-level-up.png",
+   "sha256": "fbc1ce100acaa80ebfb36c040eaf0bc3f7971373694bbce712a17b0a09693db2",
+   "bytes": 106927
+  },
+  {
+   "file": "session\\h04-daily-check.png",
+   "sha256": "ae557e08d08e646563c8ff303cb7ca48488de07beb1a6f6c24254a0499138907",
+   "bytes": 121537
+  },
+  {
+   "file": "session\\h05-todo-done.png",
+   "sha256": "8d49e6ff9f521b6c6fbbe345834e073496c581dd17c9f7bce9bc3310255d415f",
+   "bytes": 123234
+  },
+  {
+   "file": "session\\h06-after-play.png",
+   "sha256": "a6aed59284804b8285cef1ffedd7e5febf583e1c052c6383dbbb2f08f9c66f7e",
+   "bytes": 119331
+  },
+  {
+   "file": "session\\h07-task-edit.png",
+   "sha256": "10569d387f7fd8b6cb58fd88cb21e1d4e4397122007d570773a6892a69d2d6a8",
+   "bytes": 121806
+  },
+  {
+   "file": "session\\h08-inventory-items.png",
+   "sha256": "aea1ebbb678fca9db88e7e00815ec90102cde01c6a3189a743319d9b365baed0",
+   "bytes": 66961
+  },
+  {
+   "file": "session\\h09-equipment.png",
+   "sha256": "eef0cf76d1d89e7ad1a058518657033062d37317ec09c354531d5ed86123221c",
+   "bytes": 95233
+  },
+  {
+   "file": "session\\h10-stable.png",
+   "sha256": "a49bb2aadf3a2954740167168ca176efc147d3e41d1d808a7c2e7e68031f6548",
+   "bytes": 80357
+  },
+  {
+   "file": "session\\h11-market.png",
+   "sha256": "e6ce020c0bdcf622d21682e6feeb8e10bdf20e611dc7a0b8648660ca35ed6ff6",
+   "bytes": 105538
+  },
+  {
+   "file": "session\\h12-party.png",
+   "sha256": "e6d72427e2101d8c1bc700f2441a1e6d91804cccc399322698c87311d04f8920",
+   "bytes": 189869
+  },
+  {
+   "file": "session\\h13-challenges.png",
+   "sha256": "5daa60ce1d07d6b068d6334e1c3765ce4d80c15c615b0cb795daea39c36223c5",
+   "bytes": 169423
+  },
+  {
+   "file": "session\\h14-stats.png",
+   "sha256": "f6fe429b869b8fc205f98b8e567cd9abb78ec9ae65addde6931dad0bc9b86490",
+   "bytes": 72968
+  },
+  {
+   "file": "session\\h15-achievements.png",
+   "sha256": "f6fe429b869b8fc205f98b8e567cd9abb78ec9ae65addde6931dad0bc9b86490",
+   "bytes": 72968
+  },
+  {
+   "file": "session\\h16-avatar-customize.png",
+   "sha256": "70dd0b2ecf8fa1e224db4c9e156ad69059169fbe41fbcdaf79defc6110077a77",
+   "bytes": 90080
+  },
+  {
+   "file": "session\\h17-mobile-board.png",
+   "sha256": "579f36f2eca5e4ca5ffa5d99954b8385043ed137b3f67725b5bcc7133264abfc",
+   "bytes": 45386
+  }
+ ],
+ "steps": [
+  {
+   "file": "ui/session/h02-task-board.png",
+   "note": "할 일 보드: 습관·일일·할 일·보상 네 칸과 아바타·체력·경험치",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h03-habit-plus.png",
+   "note": "습관 + 누름: 경험치·골드 획득 알림",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h04-daily-check.png",
+   "note": "일일 할 일 체크: 보상 알림과 체크 상태",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h05-todo-done.png",
+   "note": "할 일 완료: 보상과 목록에서 사라지는 모습",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h06-after-play.png",
+   "note": "플레이 뒤 보드: 경험치·골드 증가, 할 일 색 변화",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h07-task-edit.png",
+   "note": "할 일 편집 창: 난이도, 태그, 반복, 체크리스트",
+   "url": "https://habitica.com/"
+  },
+  {
+   "file": "ui/session/h08-inventory-items.png",
+   "note": "인벤토리: 알, 부화 물약, 먹이",
+   "url": "https://habitica.com/inventory/items"
+  },
+  {
+   "file": "ui/session/h09-equipment.png",
+   "note": "장비: 직업별 장비와 능력치",
+   "url": "https://habitica.com/inventory/equipment"
+  },
+  {
+   "file": "ui/session/h10-stable.png",
+   "note": "마구간: 펫과 탈것 수집판",
+   "url": "https://habitica.com/inventory/stable"
+  },
+  {
+   "file": "ui/session/h11-market.png",
+   "note": "상점: 골드로 사는 아이템",
+   "url": "https://habitica.com/shops/market"
+  },
+  {
+   "file": "ui/session/h12-party.png",
+   "note": "파티: 함께 보스와 싸우는 소셜 기능",
+   "url": "https://habitica.com/party"
+  },
+  {
+   "file": "ui/session/h13-challenges.png",
+   "note": "챌린지 찾기: 다른 사람이 만든 과제 묶음",
+   "url": "https://habitica.com/challenges/findChallenges"
+  },
+  {
+   "file": "ui/session/h14-stats.png",
+   "note": "능력치·업적",
+   "url": "https://habitica.com/user/stats"
+  },
+  {
+   "file": "ui/session/h15-achievements.png",
+   "note": "업적 배지",
+   "url": "https://habitica.com/user/achievements"
+  },
+  {
+   "file": "ui/session/h16-avatar-customize.png",
+   "note": "아바타 꾸미기 창",
+   "url": "https://habitica.com/profile/13293783-612b-424c-be0f-68fbc80af6d0"
+  },
+  {
+   "file": "ui/session/h17-mobile-board.png",
+   "note": "좁은 화면(390px)의 할 일 보드",
+   "url": "https://habitica.com/"
+  }
+ ]
+}

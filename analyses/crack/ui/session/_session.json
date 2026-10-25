@@ -1,0 +1,149 @@
+{
+ "captured_at": "2026-10-25",
+ "method": "Playwright + installed Chrome, dedicated profile; user logged in themselves; profile deleted after capture",
+ "pii_masking": "display name, nickname, username and real name replaced in the DOM with 테스트 계정 / @test-account before each screenshot",
+ "files": [
+  {
+   "file": "session\\l01-home-logged-in.png",
+   "sha256": "89546d13ddeb1588dd1b25b1d57b9c79b244af6f3c2e86f7aa734fdf19c5e3c6",
+   "bytes": 900957
+  },
+  {
+   "file": "session\\s01-room-logged-in.png",
+   "sha256": "627f9f3a36af289c3e5a31022561b03824440c8b44b4d474cd5c0263c454dc31",
+   "bytes": 117030
+  },
+  {
+   "file": "session\\s01-room-open.png",
+   "sha256": "518445a18493104bf36fa23dbb8fcc742d1ec70bee1cadec92e20f0f7a6c25a7",
+   "bytes": 77495
+  },
+  {
+   "file": "session\\s03-reply-1-1.png",
+   "sha256": "52cfdffdadc41fe4f8a1314a1a984a65c359053328a3b6f976d4b4578ebfaef3",
+   "bytes": 117013
+  },
+  {
+   "file": "session\\s03-reply-1-2.png",
+   "sha256": "52cfdffdadc41fe4f8a1314a1a984a65c359053328a3b6f976d4b4578ebfaef3",
+   "bytes": 117013
+  },
+  {
+   "file": "session\\s03-reply-1-3.png",
+   "sha256": "52cfdffdadc41fe4f8a1314a1a984a65c359053328a3b6f976d4b4578ebfaef3",
+   "bytes": 117013
+  },
+  {
+   "file": "session\\s03-reply-1.png",
+   "sha256": "52cfdffdadc41fe4f8a1314a1a984a65c359053328a3b6f976d4b4578ebfaef3",
+   "bytes": 117013
+  },
+  {
+   "file": "session\\s04-suggestions.png",
+   "sha256": "bc4f4d20b43959c921ad2eebc18ba5e366f67ffd402931649871fabe875d43ea",
+   "bytes": 123882
+  },
+  {
+   "file": "session\\s05-typing.png",
+   "sha256": "26c5eecf03e413f2de7cfe3fee7b7245f8a29cbbd672ff52b3e81b3c5becf234",
+   "bytes": 125017
+  },
+  {
+   "file": "session\\s06-reply-2.png",
+   "sha256": "2983db76abdf2e209949f44766be8c17163cc2adadc2b7a032309ad592c90af0",
+   "bytes": 142228
+  },
+  {
+   "file": "session\\s07-room-settings.png",
+   "sha256": "21961bda1b2b98c461d116784fe99e2740159e86cd5c3e1de325afa61b466493",
+   "bytes": 166924
+  },
+  {
+   "file": "session\\s11-mypage-balance.png",
+   "sha256": "ad143eb2e9a3e6108e9b625850ec02974b35724df3d21ea6bbad8bdbb28c18ab",
+   "bytes": 79264
+  },
+  {
+   "file": "session\\v01-vn-intro.png",
+   "sha256": "e2460c1c9ede1ee9c843855e3db75793bda7a7674d385a0af4ebe537d8d24dd0",
+   "bytes": 557931
+  },
+  {
+   "file": "session\\v02-vn-play.png",
+   "sha256": "3d1af6eaa2d7485cb0e28b0d26b59f64b305b347eb858f6ec2e56afb37d7e166",
+   "bytes": 1169466
+  },
+  {
+   "file": "session\\v03-vn-play-2.png",
+   "sha256": "8a7764be99abb7328f2cf176c5446eebb980f3d216cf15654dac2ab337af6b62",
+   "bytes": 1169622
+  }
+ ],
+ "steps": [
+  {
+   "file": "ui/session/l01-home-logged-in.png",
+   "note": "로그인 후 홈",
+   "url": "https://crack.wrtn.ai/"
+  },
+  {
+   "file": "ui/session/s01-room-logged-in.png",
+   "note": "로그인 후 대화방: 오프닝, 추천 답변 칩, 무료대화권 안내",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s03-reply-1.png",
+   "note": "첫 응답(칩 대한민국·2024·보통모드를 고른 결과): 상황 설명",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s03-reply-1-1.png",
+   "note": "첫 응답 계속 1",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s03-reply-1-2.png",
+   "note": "첫 응답 계속 2",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s03-reply-1-3.png",
+   "note": "첫 응답 계속 3",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s04-suggestions.png",
+   "note": "추천답변 버튼: 다음에 할 말을 AI가 제안",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s05-typing.png",
+   "note": "직접 입력한 메시지",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s06-reply-2.png",
+   "note": "두 번째 응답: 내 선택이 반영된 전개",
+   "url": "https://crack.wrtn.ai/stories/667f9121e8ace1413a6b8e16/episodes/6addfe27cd81052b0d0ca04d"
+  },
+  {
+   "file": "ui/session/s11-mypage-balance.png",
+   "note": "마이페이지: 크래커 잔액, 메모리 PRO, 크리에이터 도전, 친구 초대",
+   "url": "https://crack.wrtn.ai/my-page"
+  },
+  {
+   "file": "ui/session/v01-vn-intro.png",
+   "note": "비주얼 노벨형 오리지널 소개",
+   "url": "https://crack.wrtn.ai/visual-novels/6a4cbdfc814365a9c488ca24"
+  },
+  {
+   "file": "ui/session/v02-vn-play.png",
+   "note": "비주얼 노벨 플레이 화면",
+   "url": "https://crack.wrtn.ai/visual-novels/6a4cbdfc814365a9c488ca24/play"
+  },
+  {
+   "file": "ui/session/v03-vn-play-2.png",
+   "note": "비주얼 노벨 진행",
+   "url": "https://crack.wrtn.ai/visual-novels/6a4cbdfc814365a9c488ca24/play"
+  }
+ ]
+}
