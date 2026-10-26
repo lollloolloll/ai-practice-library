@@ -1,0 +1,477 @@
+{
+ "target": "crack.wrtn.ai",
+ "purpose": "Real logged-in usage, in order. Each scene = one archived screenshot + numbered marks (box = [x, y, w, h] in image px).",
+ "captured_at": "2026-10-25",
+ "image_size": [
+  1440,
+  900
+ ],
+ "source_dir": "ui/session/",
+ "annotated_dir": "ui/annotated/",
+ "pii": "Display name, nickname and username were replaced in the DOM with 테스트 계정 before capture. The AI reused the account name as the protagonist name, so 테스트 계정 also appears inside story text.",
+ "scenes": [
+  {
+   "n": 1,
+   "id": "home",
+   "image": "ui/session/l01-home-logged-in.png",
+   "title": "로그인 후 홈",
+   "caption": "들어오자마자 취향 칩, 큰 얼굴 배너, 독점작, 방금 한 작품 기반 추천이 한 화면에 모여요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      280,
+      64,
+      1160,
+      44
+     ],
+     "label": "취향 칩: 장르와 플레이 방식으로 바로 골라요"
+    },
+    {
+     "n": 2,
+     "box": [
+      280,
+      118,
+      816,
+      294
+     ],
+     "label": "캐릭터 얼굴이 큰 이벤트 배너"
+    },
+    {
+     "n": 3,
+     "box": [
+      280,
+      448,
+      1012,
+      234
+     ],
+     "label": "오직 크랙에서만: 독점 오리지널"
+    },
+    {
+     "n": 4,
+     "box": [
+      276,
+      716,
+      1124,
+      34
+     ],
+     "label": "방금 한 작품을 근거로 다음 작품 추천"
+    },
+    {
+     "n": 5,
+     "box": [
+      8,
+      320,
+      242,
+      56
+     ],
+     "label": "이어 하던 대화가 왼쪽에 늘 보여요"
+    },
+    {
+     "n": 6,
+     "box": [
+      1306,
+      10,
+      36,
+      36
+     ],
+     "label": "재화(크래커) 아이콘 상시 노출"
+    }
+   ],
+   "annotated": "ui/annotated/l01-home-logged-in.jpg",
+   "thumb": "ui/annotated/thumbs/l01-home-logged-in.jpg"
+  },
+  {
+   "n": 2,
+   "id": "room-logged-out",
+   "image": "ui/session/s01-room-open.png",
+   "title": "대화방 첫 화면 (로그인 전)",
+   "caption": "AI가 먼저 질문하고, 답은 버튼으로 골라요. 첫 메시지를 보내려면 로그인해야 해요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      455,
+      108,
+      420,
+      178
+     ],
+     "label": "AI가 시작 조건(국가·연도·모드)을 먼저 물어봐요"
+    },
+    {
+     "n": 2,
+     "box": [
+      994,
+      302,
+      242,
+      160
+     ],
+     "label": "답을 버튼 하나로 골라요"
+    },
+    {
+     "n": 3,
+     "box": [
+      14,
+      704,
+      232,
+      178
+     ],
+     "label": "로그인 벽: 보내는 순간 가입 유도"
+    },
+    {
+     "n": 4,
+     "box": [
+      1252,
+      60,
+      124,
+      38
+     ],
+     "label": "모델 선택(슈퍼챗 2.5)"
+    }
+   ],
+   "annotated": "ui/annotated/s01-room-open.jpg",
+   "thumb": "ui/annotated/thumbs/s01-room-open.jpg"
+  },
+  {
+   "n": 3,
+   "id": "reply-1",
+   "image": "ui/session/s03-reply-1.png",
+   "title": "첫 응답: 뉴스와 상태창",
+   "caption": "AI 답이 뉴스 속보와 숫자 상태창으로 와요. 대화가 아니라 게임처럼 느껴져요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      464,
+      200,
+      752,
+      88
+     ],
+     "label": "[속보] 뉴스: 세계가 내 행동에 반응해요. 계정 이름이 주인공 이름으로 쓰여요"
+    },
+    {
+     "n": 2,
+     "box": [
+      462,
+      348,
+      232,
+      32
+     ],
+     "label": "매 턴 끝에 결정을 요구해요"
+    },
+    {
+     "n": 3,
+     "box": [
+      464,
+      398,
+      768,
+      268
+     ],
+     "label": "상태창: 인구·재정·GDP 숫자판"
+    },
+    {
+     "n": 4,
+     "box": [
+      406,
+      794,
+      240,
+      42
+     ],
+     "label": "기능 안내 말풍선(단축어)"
+    }
+   ],
+   "annotated": "ui/annotated/s03-reply-1.jpg",
+   "thumb": "ui/annotated/thumbs/s03-reply-1.jpg"
+  },
+  {
+   "n": 4,
+   "id": "suggestions",
+   "image": "ui/session/s04-suggestions.png",
+   "title": "추천답변 3개",
+   "caption": "다음에 할 말을 AI가 세 개 써 줘요. 고르기만 해도 이야기가 이어져요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      624,
+      478,
+      608,
+      234
+     ],
+     "label": "AI가 쓴 다음 행동 후보 3개"
+    },
+    {
+     "n": 2,
+     "box": [
+      548,
+      842,
+      96,
+      30
+     ],
+     "label": "추천답변 버튼"
+    }
+   ],
+   "annotated": "ui/annotated/s04-suggestions.jpg",
+   "thumb": "ui/annotated/thumbs/s04-suggestions.jpg"
+  },
+  {
+   "n": 5,
+   "id": "typing",
+   "image": "ui/session/s05-typing.png",
+   "title": "직접 입력",
+   "caption": "원하면 직접 써요. \"한 달 뒤 결과를 뉴스 형식으로 보여 줘\"처럼 형식까지 주문할 수 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      640,
+      798,
+      594,
+      32
+     ],
+     "label": "직접 쓴 명령"
+    },
+    {
+     "n": 2,
+     "box": [
+      464,
+      128,
+      768,
+      268
+     ],
+     "label": "상태창은 계속 위에 남아요"
+    }
+   ],
+   "annotated": "ui/annotated/s05-typing.jpg",
+   "thumb": "ui/annotated/thumbs/s05-typing.jpg"
+  },
+  {
+   "n": 6,
+   "id": "reply-2",
+   "image": "ui/session/s07-room-settings.png",
+   "title": "두 번째 응답: 한 달 뒤",
+   "caption": "내 명령대로 날짜가 넘어가고, 결과가 분야별 뉴스로 와요. 새 추천답변도 바로 붙어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      464,
+      164,
+      772,
+      212
+     ],
+     "label": "2024년 2월 1일 뉴스: 내 선택의 결과"
+    },
+    {
+     "n": 2,
+     "box": [
+      504,
+      410,
+      96,
+      28
+     ],
+     "label": "이어서 생성: 더 길게 받기"
+    },
+    {
+     "n": 3,
+     "box": [
+      624,
+      476,
+      608,
+      234
+     ],
+     "label": "새 추천답변 3개"
+    },
+    {
+     "n": 4,
+     "box": [
+      14,
+      324,
+      236,
+      48
+     ],
+     "label": "대화 목록 미리보기도 최신 내용으로 바뀌어요"
+    }
+   ],
+   "annotated": "ui/annotated/s07-room-settings.jpg",
+   "thumb": "ui/annotated/thumbs/s07-room-settings.jpg"
+  },
+  {
+   "n": 7,
+   "id": "upsell",
+   "image": "ui/session/s06-reply-2.png",
+   "title": "출력량 결제 창",
+   "caption": "\"이어서 생성\"을 누르면 크래커로 출력량을 늘리라는 창이 떠요. 몰입한 순간에 결제를 권해요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      560,
+      358,
+      320,
+      184
+     ],
+     "label": "\"최대 출력량을 조절하시겠어요?\" 크래커 사용 권유"
+    },
+    {
+     "n": 2,
+     "box": [
+      728,
+      472,
+      128,
+      46
+     ],
+     "label": "확인이 검은색으로 더 눈에 띄어요"
+    }
+   ],
+   "annotated": "ui/annotated/s06-reply-2.jpg",
+   "thumb": "ui/annotated/thumbs/s06-reply-2.jpg"
+  },
+  {
+   "n": 8,
+   "id": "mypage",
+   "image": "ui/session/s11-mypage-balance.png",
+   "title": "마이페이지: 크래커 잔액",
+   "caption": "대화를 여러 번 했는데 크래커는 500 그대로예요. 무료 대화권을 먼저 써요. 그 아래로 업셀이 줄지어 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      464,
+      164,
+      756,
+      36
+     ],
+     "label": "크래커 500 + 충전 버튼"
+    },
+    {
+     "n": 2,
+     "box": [
+      455,
+      240,
+      776,
+      42
+     ],
+     "label": "메모리 PRO: 기억력 유료 업그레이드"
+    },
+    {
+     "n": 3,
+     "box": [
+      455,
+      734,
+      776,
+      42
+     ],
+     "label": "크리에이터 도전: 만드는 쪽으로 초대"
+    },
+    {
+     "n": 4,
+     "box": [
+      455,
+      828,
+      776,
+      42
+     ],
+     "label": "친구 초대 보상"
+    }
+   ],
+   "annotated": "ui/annotated/s11-mypage-balance.jpg",
+   "thumb": "ui/annotated/thumbs/s11-mypage-balance.jpg"
+  },
+  {
+   "n": 9,
+   "id": "vn-intro",
+   "image": "ui/session/v01-vn-intro.png",
+   "title": "비주얼 노벨 소개",
+   "caption": "채팅 말고 그림 중심의 공식 작품도 있어요. 선택형 추리물이에요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      1100,
+      168,
+      302,
+      88
+     ],
+     "label": "공식 · 선택형 · 추리물 배지"
+    },
+    {
+     "n": 2,
+     "box": [
+      282,
+      622,
+      788,
+      92
+     ],
+     "label": "장면 스틸 미리보기"
+    },
+    {
+     "n": 3,
+     "box": [
+      1100,
+      522,
+      304,
+      48
+     ],
+     "label": "플레이 버튼 하나"
+    }
+   ],
+   "annotated": "ui/annotated/v01-vn-intro.jpg",
+   "thumb": "ui/annotated/thumbs/v01-vn-intro.jpg"
+  },
+  {
+   "n": 10,
+   "id": "vn-play",
+   "image": "ui/session/v02-vn-play.png",
+   "title": "비주얼 노벨 시작",
+   "caption": "누르면 화면 전체가 일러스트로 바뀌어요. 채팅과 다른 몰입 방식이에요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      554,
+      740,
+      332,
+      54
+     ],
+     "label": "새로하기"
+    },
+    {
+     "n": 2,
+     "box": [
+      10,
+      12,
+      96,
+      34
+     ],
+     "label": "나가기"
+    }
+   ],
+   "annotated": "ui/annotated/v02-vn-play.jpg",
+   "thumb": "ui/annotated/thumbs/v02-vn-play.jpg"
+  }
+ ],
+ "excluded": [
+  {
+   "file": "ui/session/s01-room-logged-in.png",
+   "reason": "Same view as s03-reply-1 after the first reply loaded"
+  },
+  {
+   "file": "ui/session/s03-reply-1-1.png",
+   "reason": "Byte-identical to s03-reply-1 (scroll did not move)"
+  },
+  {
+   "file": "ui/session/s03-reply-1-2.png",
+   "reason": "Byte-identical to s03-reply-1"
+  },
+  {
+   "file": "ui/session/s03-reply-1-3.png",
+   "reason": "Byte-identical to s03-reply-1"
+  },
+  {
+   "file": "ui/session/v03-vn-play-2.png",
+   "reason": "Same frame as v02"
+  }
+ ],
+ "file_name_note": "s06-reply-2.png actually shows the output-limit modal and s07-room-settings.png shows the second reply; names are kept to preserve sha256 in _session.json."
+}

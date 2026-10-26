@@ -1,0 +1,608 @@
+{
+ "target": "habitica.com (web, same account model as the Android app)",
+ "purpose": "Real logged-in play, in order. Each scene = one archived screenshot + numbered marks (box = [x, y, w, h] in image px).",
+ "captured_at": "2026-10-25",
+ "image_size": [
+  1440,
+  900
+ ],
+ "source_dir": "ui/session/",
+ "annotated_dir": "ui/annotated/",
+ "pii": "Display name and username were replaced in the DOM with 테스트 계정 / @test-account before capture.",
+ "scenes": [
+  {
+   "n": 1,
+   "id": "news",
+   "image": "ui/session/h01-yesterdailies.png",
+   "title": "들어가자마자 소식 창",
+   "caption": "로그인하면 운영팀 소식이 먼저 떠요. 기간 한정 아이템을 알려 줘요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      340,
+      76,
+      760,
+      124
+     ],
+     "label": "날짜가 박힌 운영 소식: 10/22 새 물약"
+    },
+    {
+     "n": 2,
+     "box": [
+      506,
+      224,
+      428,
+      152
+     ],
+     "label": "기간 한정 펫 미리보기 (11월 21일까지)"
+    },
+    {
+     "n": 3,
+     "box": [
+      822,
+      680,
+      268,
+      38
+     ],
+     "label": "나중에 / 닫기"
+    }
+   ],
+   "annotated": "ui/annotated/h01-yesterdailies.jpg",
+   "thumb": "ui/annotated/thumbs/h01-yesterdailies.jpg"
+  },
+  {
+   "n": 2,
+   "id": "board",
+   "image": "ui/session/h02-task-board.png",
+   "title": "할 일 보드",
+   "caption": "할 일이 네 칸으로 나뉘고, 위에는 캐릭터와 체력·경험치 막대가 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      178,
+      118,
+      290,
+      56
+     ],
+     "label": "체력 50/50 · 경험치 5/50"
+    },
+    {
+     "n": 2,
+     "box": [
+      18,
+      298,
+      1400,
+      34
+     ],
+     "label": "습관 · 일일 · 할 일 · 보상, 네 칸"
+    },
+    {
+     "n": 3,
+     "box": [
+      30,
+      394,
+      44,
+      428
+     ],
+     "label": "색 막대: 잘 지키면 초록, 안 지키면 빨강"
+    },
+    {
+     "n": 4,
+     "box": [
+      1098,
+      498,
+      306,
+      394
+     ],
+     "label": "골드로 사는 보상"
+    },
+    {
+     "n": 5,
+     "box": [
+      1134,
+      10,
+      124,
+      36
+     ],
+     "label": "보석 0 · 골드 5"
+    }
+   ],
+   "annotated": "ui/annotated/h02-task-board.jpg",
+   "thumb": "ui/annotated/thumbs/h02-task-board.jpg"
+  },
+  {
+   "n": 3,
+   "id": "habit-plus",
+   "image": "ui/session/h03-habit-plus.png",
+   "title": "습관 + 누르기",
+   "caption": "+를 한 번 누르면 바로 골드와 경험치 알림이 떠요. 막대도 같이 차요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      1162,
+      62,
+      270,
+      88
+     ],
+     "label": "골드 +1 · 경험치 +6 알림"
+    },
+    {
+     "n": 2,
+     "box": [
+      30,
+      504,
+      44,
+      92
+     ],
+     "label": "누른 +"
+    },
+    {
+     "n": 3,
+     "box": [
+      178,
+      148,
+      290,
+      28
+     ],
+     "label": "경험치 5 → 11"
+    }
+   ],
+   "annotated": "ui/annotated/h03-habit-plus.jpg",
+   "thumb": "ui/annotated/thumbs/h03-habit-plus.jpg"
+  },
+  {
+   "n": 4,
+   "id": "level-up",
+   "image": "ui/session/h03b-level-up.png",
+   "title": "레벨업",
+   "caption": "경험치가 차면 화면을 덮는 레벨업 창이 떠요. 체력도 다시 꽉 차요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      556,
+      48,
+      328,
+      370
+     ],
+     "label": "\"You Reached Level 2\""
+    },
+    {
+     "n": 2,
+     "box": [
+      1162,
+      62,
+      270,
+      176
+     ],
+     "label": "체력 +19 · 골드 · 경험치 · Level Up! 알림이 쌓여요"
+    }
+   ],
+   "annotated": "ui/annotated/h03b-level-up.jpg",
+   "thumb": "ui/annotated/thumbs/h03b-level-up.jpg"
+  },
+  {
+   "n": 5,
+   "id": "daily-check",
+   "image": "ui/session/h04-daily-check.png",
+   "title": "일일 할 일 체크",
+   "caption": "체크하면 카드가 회색으로 바뀌고 보상이 또 와요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      384,
+      394,
+      318,
+      76
+     ],
+     "label": "체크한 일일 할 일은 회색"
+    },
+    {
+     "n": 2,
+     "box": [
+      1162,
+      62,
+      270,
+      130
+     ],
+     "label": "보상 알림"
+    },
+    {
+     "n": 3,
+     "box": [
+      178,
+      148,
+      290,
+      28
+     ],
+     "label": "경험치 17/50"
+    }
+   ],
+   "annotated": "ui/annotated/h04-daily-check.jpg",
+   "thumb": "ui/annotated/thumbs/h04-daily-check.jpg"
+  },
+  {
+   "n": 6,
+   "id": "todo-done",
+   "image": "ui/session/h05-todo-done.png",
+   "title": "할 일 완료",
+   "caption": "끝낸 할 일은 목록에서 사라져요. 남은 개수가 2에서 1로 줄어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      728,
+      300,
+      90,
+      30
+     ],
+     "label": "할 일 2 → 1"
+    },
+    {
+     "n": 2,
+     "box": [
+      738,
+      394,
+      318,
+      64
+     ],
+     "label": "체크한 카드, 하나는 이미 사라짐"
+    },
+    {
+     "n": 3,
+     "box": [
+      1194,
+      10,
+      62,
+      36
+     ],
+     "label": "골드 5 → 10"
+    }
+   ],
+   "annotated": "ui/annotated/h05-todo-done.jpg",
+   "thumb": "ui/annotated/thumbs/h05-todo-done.jpg"
+  },
+  {
+   "n": 7,
+   "id": "edit",
+   "image": "ui/session/h07-task-edit.png",
+   "title": "할 일 편집",
+   "caption": "난이도에 따라 보상이 달라지고, 요일 반복과 체크리스트를 붙일 수 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      518,
+      316,
+      404,
+      58
+     ],
+     "label": "체크리스트"
+    },
+    {
+     "n": 2,
+     "box": [
+      518,
+      388,
+      404,
+      58
+     ],
+     "label": "난이도: 보상 크기를 정해요"
+    },
+    {
+     "n": 3,
+     "box": [
+      518,
+      698,
+      404,
+      34
+     ],
+     "label": "요일 반복"
+    },
+    {
+     "n": 4,
+     "box": [
+      518,
+      788,
+      404,
+      60
+     ],
+     "label": "태그"
+    }
+   ],
+   "annotated": "ui/annotated/h07-task-edit.jpg",
+   "thumb": "ui/annotated/thumbs/h07-task-edit.jpg"
+  },
+  {
+   "n": 8,
+   "id": "items",
+   "image": "ui/session/h08-inventory-items.png",
+   "title": "인벤토리",
+   "caption": "할 일을 하다 보면 알, 부화 물약, 먹이가 떨어져요. 알과 물약을 합치면 펫이 돼요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      256,
+      352,
+      184,
+      294
+     ],
+     "label": "알 + 부화 물약 = 펫"
+    },
+    {
+     "n": 2,
+     "box": [
+      256,
+      660,
+      222,
+      142
+     ],
+     "label": "먹이: 펫을 탈것으로 키워요"
+    }
+   ],
+   "annotated": "ui/annotated/h08-inventory-items.jpg",
+   "thumb": "ui/annotated/thumbs/h08-inventory-items.jpg"
+  },
+  {
+   "n": 9,
+   "id": "equipment",
+   "image": "ui/session/h09-equipment.png",
+   "title": "장비",
+   "caption": "장비 칸이 비어 있어서 채우고 싶어져요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      368,
+      774,
+      934,
+      122
+     ],
+     "label": "빈 장비 칸 8개"
+    },
+    {
+     "n": 2,
+     "box": [
+      1104,
+      748,
+      202,
+      28
+     ],
+     "label": "새 장비 자동 장착"
+    }
+   ],
+   "annotated": "ui/annotated/h09-equipment.jpg",
+   "thumb": "ui/annotated/thumbs/h09-equipment.jpg"
+  },
+  {
+   "n": 10,
+   "id": "stable",
+   "image": "ui/session/h10-stable.png",
+   "title": "마구간",
+   "caption": "펫 0/90. 물음표 칸이 수집 욕구를 자극해요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      256,
+      362,
+      1164,
+      172
+     ],
+     "label": "펫 0/90, 빈칸은 물음표"
+    },
+    {
+     "n": 2,
+     "box": [
+      728,
+      708,
+      604,
+      172
+     ],
+     "label": "바로 먹일 수 있는 먹이 서랍"
+    }
+   ],
+   "annotated": "ui/annotated/h10-stable.jpg",
+   "thumb": "ui/annotated/thumbs/h10-stable.jpg"
+  },
+  {
+   "n": 11,
+   "id": "market",
+   "image": "ui/session/h11-market.png",
+   "title": "상점",
+   "caption": "번 골드를 쓰는 곳이에요. 시즌 상점과 추천 아이템이 맨 위에 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      600,
+      240,
+      362,
+      32
+     ],
+     "label": "시즌 상점 · 시간 여행자 탭"
+    },
+    {
+     "n": 2,
+     "box": [
+      610,
+      304,
+      456,
+      182
+     ],
+     "label": "추천 아이템: 할로윈 장비"
+    },
+    {
+     "n": 3,
+     "box": [
+      842,
+      574,
+      184,
+      36
+     ],
+     "label": "내 직업(전사)용 장비만 보기"
+    }
+   ],
+   "annotated": "ui/annotated/h11-market.jpg",
+   "thumb": "ui/annotated/thumbs/h11-market.jpg"
+  },
+  {
+   "n": 12,
+   "id": "party",
+   "image": "ui/session/h12-party.png",
+   "title": "파티",
+   "caption": "친구와 함께 보스와 싸우자고 권해요. 혼자여도 파티를 찾는다고 알릴 수 있어요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      438,
+      330,
+      564,
+      162
+     ],
+     "label": "파티 만들기"
+    },
+    {
+     "n": 2,
+     "box": [
+      438,
+      618,
+      564,
+      168
+     ],
+     "label": "파티 찾는 중 표시"
+    }
+   ],
+   "annotated": "ui/annotated/h12-party.jpg",
+   "thumb": "ui/annotated/thumbs/h12-party.jpg"
+  },
+  {
+   "n": 13,
+   "id": "challenges",
+   "image": "ui/session/h13-challenges.png",
+   "title": "챌린지",
+   "caption": "다른 사람이 만든 할 일 묶음에 참여해요. 우승하면 보석을 받아요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      716,
+      368,
+      110,
+      82
+     ],
+     "label": "상금: 보석"
+    },
+    {
+     "n": 2,
+     "box": [
+      278,
+      452,
+      94,
+      26
+     ],
+     "label": "참여자 수"
+    },
+    {
+     "n": 3,
+     "box": [
+      278,
+      628,
+      548,
+      68
+     ],
+     "label": "챌린지에 든 습관·일일·할 일 개수"
+    }
+   ],
+   "annotated": "ui/annotated/h13-challenges.jpg",
+   "thumb": "ui/annotated/thumbs/h13-challenges.jpg"
+  },
+  {
+   "n": 14,
+   "id": "profile",
+   "image": "ui/session/h16-avatar-customize.png",
+   "title": "프로필: 출석 보상",
+   "caption": "다음 출석 보상까지 남은 날을 보여 줘요. 내일도 들어올 이유예요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      848,
+      384,
+      194,
+      28
+     ],
+     "label": "총 로그인 횟수"
+    },
+    {
+     "n": 2,
+     "box": [
+      848,
+      440,
+      194,
+      30
+     ],
+     "label": "다음 출석 보상까지 2일"
+    }
+   ],
+   "annotated": "ui/annotated/h16-avatar-customize.jpg",
+   "thumb": "ui/annotated/thumbs/h16-avatar-customize.jpg"
+  },
+  {
+   "n": 15,
+   "id": "mobile",
+   "image": "ui/session/h17-mobile-board.png",
+   "title": "좁은 화면",
+   "caption": "폰 폭에서는 네 칸이 한 칸씩 쌓여요. 할 일 추가 버튼은 위에 남아요.",
+   "marks": [
+    {
+     "n": 1,
+     "box": [
+      256,
+      246,
+      112,
+      38
+     ],
+     "label": "할 일 추가"
+    },
+    {
+     "n": 2,
+     "box": [
+      22,
+      394,
+      340,
+      428
+     ],
+     "label": "습관 칸 하나만 보여요"
+    }
+   ],
+   "annotated": "ui/annotated/h17-mobile-board.jpg",
+   "thumb": "ui/annotated/thumbs/h17-mobile-board.jpg"
+  }
+ ],
+ "excluded": [
+  {
+   "file": "ui/session/h01b-news-modal.png",
+   "reason": "Byte-identical to h01-yesterdailies.png (both show the news modal; the Yesterdailies dialog was not captured)"
+  },
+  {
+   "file": "ui/session/h06-after-play.png",
+   "reason": "Same state as h05 minus one toast"
+  },
+  {
+   "file": "ui/session/h14-stats.png",
+   "reason": "Capture shows only the page footer"
+  },
+  {
+   "file": "ui/session/h15-achievements.png",
+   "reason": "Byte-identical to h14"
+  }
+ ],
+ "file_name_note": "h01-yesterdailies.png shows the news modal, and h16-avatar-customize.png shows the profile modal; names kept to preserve sha256 in _session.json."
+}

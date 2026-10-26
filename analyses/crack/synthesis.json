@@ -2,12 +2,75 @@
  "question": "크랙은 무엇으로 사람들의 눈길을 끌고, 머물게 하고, 돈을 쓰게 하나요?",
  "answer_ko": "웹소설·웹툰 독자에게 익숙한 표지와 장르 문법으로 첫 클릭을 만들고, 가입 없는 취향 선택과 숫자로 된 인기 신호로 고르는 비용을 줄여요. 들어온 뒤에는 '내가 주인공'인 매번 다른 전개와 나를 기억하는 캐릭터로 몰입을 만들고, 출석 재화로 매일 돌아오게 해요. 돈은 더 똑똑한 모델과 더 긴 기억을 파는 재화 사다리에서 나오고, 창작자 수익과 아이돌 콜라보가 공급과 유입을 계속 채워요.",
  "stages": [
-  {"id": "enter", "name": "들어오게", "goal": "처음 온 사람이 바로 시작하게", "hooks": ["UI:H01", "UI:H07", "UI:H12", "UI:H14", "R:H11", "R:H14"]},
-  {"id": "choose", "name": "고르게", "goal": "수많은 작품 중 하나를 빨리 고르게", "hooks": ["UI:H02", "UI:H03", "UI:H05", "UI:H13", "R:H8", "R:H9"]},
-  {"id": "immerse", "name": "빠지게", "goal": "대화를 시작하면 멈추기 어렵게", "hooks": ["UI:H04", "UI:H08", "R:H1", "R:H2", "R:H3", "R:H4"]},
-  {"id": "return", "name": "돌아오게", "goal": "매일 다시 열게", "hooks": ["R:H5"]},
-  {"id": "pay", "name": "돈 쓰게", "goal": "무료 사용자를 유료로", "hooks": ["UI:H10", "UI:H11", "R:H6", "R:H13"]},
-  {"id": "spread", "name": "만들고 퍼뜨리게", "goal": "창작자와 친구가 콘텐츠와 사람을 데려오게", "hooks": ["UI:H06", "UI:H09", "R:H7", "R:H12"]}
+  {
+   "id": "enter",
+   "name": "들어오게",
+   "goal": "처음 온 사람이 바로 시작하게",
+   "hooks": [
+    "UI:H01",
+    "UI:H07",
+    "UI:H12",
+    "UI:H14",
+    "R:H11",
+    "R:H14"
+   ]
+  },
+  {
+   "id": "choose",
+   "name": "고르게",
+   "goal": "수많은 작품 중 하나를 빨리 고르게",
+   "hooks": [
+    "UI:H02",
+    "UI:H03",
+    "UI:H05",
+    "UI:H13",
+    "R:H8",
+    "R:H9"
+   ]
+  },
+  {
+   "id": "immerse",
+   "name": "빠지게",
+   "goal": "대화를 시작하면 멈추기 어렵게",
+   "hooks": [
+    "UI:H04",
+    "UI:H08",
+    "R:H1",
+    "R:H2",
+    "R:H3",
+    "R:H4"
+   ]
+  },
+  {
+   "id": "return",
+   "name": "돌아오게",
+   "goal": "매일 다시 열게",
+   "hooks": [
+    "R:H5"
+   ]
+  },
+  {
+   "id": "pay",
+   "name": "돈 쓰게",
+   "goal": "무료 사용자를 유료로",
+   "hooks": [
+    "UI:H10",
+    "UI:H11",
+    "R:H6",
+    "R:H13"
+   ]
+  },
+  {
+   "id": "spread",
+   "name": "만들고 퍼뜨리게",
+   "goal": "창작자와 친구가 콘텐츠와 사람을 데려오게",
+   "hooks": [
+    "UI:H06",
+    "UI:H09",
+    "R:H7",
+    "R:H12"
+   ]
+  }
  ],
  "lessons_ko": [
   "첫 화면은 질문 하나로 개인화해요. 가입은 가치를 맛본 뒤에 요구해요.",
@@ -21,5 +84,93 @@
   "청소년 보호: 연령 확인 부족, 세이프티 모드에서의 선정성 보도 [W22, W23]",
   "과몰입과 지출: 단건 최대 12만6000원, 누적 한도 없음 [W21]. 청소년 한도는 2027년 초 시행 예정 [W20]",
   "가격 인상과 출석 보상 축소에 대한 이용자 불만 [W33]"
+ ],
+ "realplay_findings": [
+  {
+   "id": "RP1",
+   "status": "observed",
+   "claim": "The room opens with an AI question and 3 one-tap answer chips; sending the first message from a logged-out session triggers a login wall in the left rail.",
+   "evidence": [
+    "ui/session/s01-room-open.png"
+   ]
+  },
+  {
+   "id": "RP2",
+   "status": "observed",
+   "claim": "Replies are formatted as game output: a [속보] news list, a closing decision prompt, and a dark INFO status panel with numeric state (population, budget, GDP, date).",
+   "evidence": [
+    "ui/session/s03-reply-1.png",
+    "ui/session/s03.txt"
+   ]
+  },
+  {
+   "id": "RP3",
+   "status": "observed",
+   "claim": "The AI wrote the account display name into the story as the protagonist (\"테스트 계정 신임 통치자\"); the name was masked to 테스트 계정 before capture.",
+   "evidence": [
+    "ui/session/s03.txt"
+   ]
+  },
+  {
+   "id": "RP4",
+   "status": "observed",
+   "claim": "After every reply the 추천답변 button produces 3 AI-written next actions, so a user can continue without typing.",
+   "evidence": [
+    "ui/session/s04-suggestions.png",
+    "ui/session/s07-room-settings.png"
+   ]
+  },
+  {
+   "id": "RP5",
+   "status": "observed",
+   "claim": "A typed instruction that also asked for format (\"한 달 뒤 결과를 뉴스 형식으로\") advanced the in-story date to 2024-02-01 and returned sector-tagged news.",
+   "evidence": [
+    "ui/session/s05-typing.png",
+    "ui/session/s07-room-settings.png",
+    "ui/session/s06.txt"
+   ]
+  },
+  {
+   "id": "RP6",
+   "status": "observed",
+   "claim": "Pressing 이어서 생성 opened a modal \"최대 출력량을 조절하시겠어요? 크래커를 이용해 최대출력량을 조절할 수 있어요.\" with a visually dominant black 확인 button. Not confirmed (no spend).",
+   "evidence": [
+    "ui/session/s06-reply-2.png"
+   ]
+  },
+  {
+   "id": "RP7",
+   "status": "observed",
+   "claim": "After several turns the cracker balance was still 500: turns were paid by a free chat ticket, not crackers.",
+   "evidence": [
+    "ui/session/s11-mypage-balance.png",
+    "ui/session/s01-room-logged-in.png"
+   ]
+  },
+  {
+   "id": "RP8",
+   "status": "observed",
+   "claim": "My page stacks upsells under the balance: 충전, 메모리 PRO, 크리에이터 도전하기, 친구 초대.",
+   "evidence": [
+    "ui/session/s11-mypage-balance.png"
+   ]
+  },
+  {
+   "id": "RP9",
+   "status": "observed",
+   "claim": "Logged-in home adds a 'because you played X' row (국가의 시대에 관심 있다면, 이 작품도!) and keeps the open chat in the left rail.",
+   "evidence": [
+    "ui/session/l01-home-logged-in.png"
+   ]
+  },
+  {
+   "id": "RP10",
+   "status": "observed",
+   "claim": "Official visual novels (공식 · 선택형 · 추리물) switch to a full-screen illustrated player, a separate immersion mode from chat.",
+   "evidence": [
+    "ui/session/v01-vn-intro.png",
+    "ui/session/v02-vn-play.png"
+   ]
+  }
  ]
 }

@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/app.css?v=20261025b">
+<link rel="stylesheet" href="../css/app.css?v=20261026a">
 <style>
 /* 레이아웃: 화면 이미지가 주인공인 앱 해부도. 왼쪽 목차, 오른쪽 섹션. 증거 등급은 모양(●◐○)으로도 구분 */
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
@@ -75,7 +75,10 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
   .detail { grid-template-columns: minmax(0, 1fr); }
   .detail img { max-width: 300px; }
 }
+details summary { cursor: pointer; color: var(--muted); font-size: 14px; padding: 6px 0; }
+details > .shots { margin-top: 10px; }
 </style>
+<script src="storyboard.js?v=20261026a"></script>
 </head>
 <body>
 <header class="top">
@@ -102,8 +105,9 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
 
   <div class="case">
     <nav class="toc" aria-label="목차">
+      <a href="#real">0. 실제로 해 보면</a>
       <a href="#overview">1. 한눈에</a>
-      <a href="#ui">2. 화면 이미지</a>
+      <a href="#ui">2. 스토어 화면</a>
       <a href="#screens">3. 화면 지도</a>
       <a href="#design">4. 디자인 시스템</a>
       <a href="#findings">5. 발견 사항</a>
@@ -119,9 +123,10 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
 (async () => {
   const doc = document.getElementById('doc');
   const BASE = '../analyses/habitica/';
-  let D;
+  let D, SB;
   try {
-    D = await (await fetch(BASE + 'dossier.json?v=' + Date.now().toString().slice(0, 7))).json();
+    const v = '?v=' + Date.now().toString().slice(0, 7);
+    [D, SB] = await Promise.all([fetch(BASE + 'dossier.json' + v).then((r) => r.json()), fetch(BASE + 'ui/storyboard.json' + v).then((r) => r.json())]);
   } catch (e) {
     doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>';
     return;
@@ -148,6 +153,12 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
   const T = D.target || {}, L = D.listing || {};
   const fact = (k, v) => (v == null || v === '' ? null : h('div', { class: 'fact' }, h('span', null, k), h('b', null, v)));
   doc.textContent = '';
+
+  /* 0. 실사용 */
+  const real = sec('real', 0, '실제로 해 보면',
+    h('p', null, '웹에서 로그인하고 습관·일일·할 일을 직접 눌러 레벨 2까지 올렸어요. 빨간 번호가 동기를 만드는 장치예요. 화살표 키나 밀기로 넘겨요.'));
+  doc.append(real);
+  Storyboard(real, BASE, SB);
 
   /* 1. 한눈에 */
   doc.append(sec('overview', 1, '한눈에',
@@ -188,9 +199,9 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
     shotBtns.push(b);
     return b;
   }));
-  doc.append(sec('ui', 2, '화면 이미지',
-    h('p', null, 'Play 스토어에 공개된 화면을 따로 보관해 분해했어요. 이미지를 누르면 구역, 구성 요소, 색을 보여 줘요.'),
-    shots, imgs.length ? detail : h('p', null, '보관한 이미지가 없어요.')));
+  doc.append(sec('ui', 2, '스토어 화면',
+    h('p', null, 'Play 스토어에 공개된 홍보 화면이에요. 이미지를 누르면 구역, 구성 요소, 색을 보여 줘요.'),
+    h('details', null, h('summary', null, '스토어 화면 ' + imgs.length + '장 펼치기'), shots, imgs.length ? detail : h('p', null, '보관한 이미지가 없어요.'))));
   if (imgs.length) showImg(imgs[0]);
 
   /* 3. 화면 지도 */
@@ -254,7 +265,8 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
       link('dossier.json', '모든 결과를 합친 하나의 파일'),
       link('source-report.md', '소스 코드 정적 분석 보고서'),
       link('ui/ui-report.md', '화면 이미지 분석 보고서'),
-      link('ui/index.json', '보관한 이미지 목록과 화면별 분해'))));
+      link('ui/storyboard.json', '실제 플레이 15장면: 순서, 설명, 표시 좌표'),
+      link('ui/index.json', '스토어 이미지 목록과 화면별 분해'))));
 })();
 </script>
 </body>

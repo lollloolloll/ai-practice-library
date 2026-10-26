@@ -36,6 +36,8 @@ def main(target):
         'design_tokens': src.get('design_tokens', {}),
         'api': src.get('api', {}),
         'synthesis': extra.get('synthesis', {}),
+        'realplay_findings': extra.get('realplay_findings', []),
+        'storyboard': 'ui/storyboard.json' if os.path.exists(os.path.join(base, 'ui', 'storyboard.json')) else None,
         'unknowns': src.get('unknowns', []) + ui.get('unknowns', []) + extra.get('unknowns', []),
     }
     ids = [e['id'] for e in evidence]

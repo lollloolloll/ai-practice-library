@@ -4,6 +4,7 @@
 
 | 날짜 | 보고서 | 내용 |
 |---|---|---|
+| 2026-10-26 | 실사용 스토리보드 | 크랙 실제 대화 10장면, Habitica 실제 플레이 15장면. 번호 표시본은 `analyses/*/ui/annotated/`, 순서·설명은 `ui/storyboard.json`에 있어요 |
 | 2026-10-25 | [Habitica 앱 분해](../../analyses/habitica/README.md) | 공식 소스 정적 분석(83개 화면, 디자인 토큰 216개, API 136개) + Play 화면 15장. 사람용: [`cases/habitica.html`](../../cases/habitica.html) |
 | 2026-10-25 | [크랙 이목 분석](../../analyses/crack/README.md) | 공개 화면 17장 + 공개 자료 44건으로 본 끌림·리텐션·수익 포인트. 사람용: [`cases/crack.html`](../../cases/crack.html) |
 | 2026-10-25 | [rea 하네스 분석](2026-10-25-rea-harness-analysis.md) | 리버스 엔지니어링 하네스 rea의 구조, 분석 순서, 맨 Claude와의 차이, 영상 분석에 옮겨 쓸 원칙 |

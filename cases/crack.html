@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/app.css?v=20261025b">
+<link rel="stylesheet" href="../css/app.css?v=20261026a">
 <style>
 /* 레이아웃: 퍼널 6단계를 세로로 내려가며, 포인트마다 근거 화면을 붙인 해부도 */
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
@@ -70,7 +70,10 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
 .lightbox figcaption { color: #fff; font-size: 14px; }
 .lightbox button { position: absolute; top: 14px; right: 16px; background: #fff; color: #111; border: 0; border-radius: 999px; padding: 6px 12px; font-weight: 700; }
 @media (max-width: 900px) { .case { grid-template-columns: minmax(0, 1fr); } .toc { display: none; } }
+details summary { cursor: pointer; color: var(--muted); font-size: 14px; padding: 6px 0; }
+details .gallery { margin-top: 10px; }
 </style>
+<script src="storyboard.js?v=20261026a"></script>
 </head>
 <body>
 <header class="top">
@@ -95,11 +98,12 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
   </div>
   <div class="case">
     <nav class="toc" aria-label="목차">
+      <a href="#real">0. 실제로 써 보면</a>
       <a href="#answer">1. 한 줄 답</a>
       <a href="#numbers">2. 숫자로 보기</a>
       <a href="#funnel">3. 이목을 끄는 포인트</a>
       <a href="#money">4. 돈을 쓰게 하는 구조</a>
-      <a href="#tour">5. 화면 투어</a>
+      <a href="#tour">5. 로그인 전 화면</a>
       <a href="#lessons">6. 가져갈 점</a>
       <a href="#risks">7. 리스크</a>
       <a href="#unknowns">8. 아직 모르는 것</a>
@@ -113,9 +117,9 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
 (async () => {
   const BASE = '../analyses/crack/';
   const doc = document.getElementById('doc');
-  const get = (f) => fetch(BASE + f + '?v=20261025b').then((r) => r.json());
-  let UI, R, S;
-  try { [UI, R, S] = await Promise.all([get('ui/index.json'), get('research.json'), get('synthesis.json')]); }
+  const get = (f) => fetch(BASE + f + '?v=20261026a').then((r) => r.json());
+  let UI, R, S, SB;
+  try { [UI, R, S, SB] = await Promise.all([get('ui/index.json'), get('research.json'), get('synthesis.json'), get('ui/storyboard.json')]); }
   catch (e) { doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>'; return; }
   const h = (tag, attrs, ...kids) => {
     const el = document.createElement(tag);
@@ -150,6 +154,12 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
     return st.includes('unverified') ? 'unverified' : st.includes('reported') ? 'reported' : 'observed';
   };
   doc.textContent = '';
+
+  /* 0 실사용 */
+  const real = sec('real', 0, '실제로 써 보면',
+    h('p', null, '로그인하고 "국가의 시대"를 직접 두 턴 플레이했어요. 빨간 번호가 눈길을 끄는 지점이에요. 화살표 키나 밀기로 넘겨요.'));
+  doc.append(real);
+  Storyboard(real, BASE, SB);
 
   /* 1 */
   doc.append(sec('answer', 1, '한 줄 답', h('p', { class: 'muted' }, S.question), h('div', { class: 'answer' }, S.answer_ko)));
@@ -202,10 +212,10 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
     h('p', null, '메시지 한 번에 쓰는 크래커는 모델 등급에 따라 20개 남짓부터 230개까지 차이가 나요. 더 똑똑한 모델과 더 긴 기억(메모리 PRO)을 사는 구조예요. ', ev('unverified'), ' W30')));
 
   /* 5 화면 투어 */
-  doc.append(sec('tour', 5, '화면 투어',
-    h('p', null, '로그인하지 않은 새 브라우저로 2026-10-25에 캡처했어요. 누르면 크게 보여 줘요.'),
-    h('div', { class: 'gallery' }, UI.images.map((im) => h('button', { type: 'button', class: im.viewport.startsWith('mobile') ? 'm' : '', onclick: () => zoom(im) },
-      h('img', { src: BASE + im.file, alt: im.title, loading: 'lazy' }), h('span', null, h('b', null, im.id), im.title))))));
+  doc.append(sec('tour', 5, '로그인 전 화면',
+    h('p', null, '처음 온 사람이 보는 화면이에요. 로그인하지 않은 새 브라우저로 2026-10-25에 캡처했어요.'),
+    h('details', null, h('summary', null, '화면 ' + UI.images.length + '장 펼치기'), h('div', { class: 'gallery' }, UI.images.map((im) => h('button', { type: 'button', class: im.viewport.startsWith('mobile') ? 'm' : '', onclick: () => zoom(im) },
+      h('img', { src: BASE + im.file, alt: im.title, loading: 'lazy' }), h('span', null, h('b', null, im.id), im.title)))))));
 
   /* 6 */
   doc.append(sec('lessons', 6, '가져갈 점', h('p', null, '내 서비스나 콘텐츠에 바로 써 볼 수 있는 것만 골랐어요.'), h('ol', { class: 'lessons' }, S.lessons_ko.map((l) => h('li', null, l)))));
@@ -226,7 +236,8 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
     h('div', { class: 'ai' },
       link('README.md', '먼저 읽을 안내. 범위, 방법, 근거 번호 규칙'),
       link('synthesis.json', '결론: 단계별 포인트, 가져갈 점, 리스크'),
-      link('ui/index.json', '화면 17장과 화면에서 본 포인트 14개'),
+      link('ui/storyboard.json', '실사용 10장면: 장면 순서, 설명, 표시 좌표'),
+      link('ui/index.json', '로그인 전 화면 17장과 화면에서 본 포인트 14개'),
       link('research.json', '공개 자료 사실 44개와 포인트 14개'),
       link('research.md', '공개 자료 조사 보고서'))));
 })();

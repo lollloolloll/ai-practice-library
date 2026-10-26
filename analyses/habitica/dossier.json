@@ -1,6 +1,6 @@
 {
  "format_version": 1,
- "built_at": "2026-10-25",
+ "built_at": "2026-10-26",
  "target": {
   "name": "Habitica (Android)",
   "package": "com.habitrpg.android.habitica",
@@ -4921,6 +4921,76 @@
    "UI는 평평한 머티리얼, 보상과 캐릭터는 픽셀 아트로 나눠서 '일'과 '게임'의 경계를 시각적으로 구분해요."
   ]
  },
+ "realplay_findings": [
+  {
+   "id": "RP1",
+   "status": "observed",
+   "claim": "On login a dated staff news modal (10/22/2026, Ghost/Vampire/Spooky potions, available until Nov 21) appears before the board: live-ops content pushed on entry.",
+   "evidence": [
+    "ui/session/h01-yesterdailies.png"
+   ]
+  },
+  {
+   "id": "RP2",
+   "status": "observed",
+   "claim": "One tap on a habit + instantly shows stacked toasts (Gold +1, Experience +6) and fills the XP bar 5 → 11/50.",
+   "evidence": [
+    "ui/session/h02-task-board.png",
+    "ui/session/h03-habit-plus.png"
+   ]
+  },
+  {
+   "id": "RP3",
+   "status": "observed",
+   "claim": "Crossing 50 XP opens a full-screen 'You Reached Level 2' modal and fully restores health (Health +19 toast).",
+   "evidence": [
+    "ui/session/h03b-level-up.png"
+   ]
+  },
+  {
+   "id": "RP4",
+   "status": "observed",
+   "claim": "Checked dailies turn grey; completed to-dos leave the active list (count 2 → 1); gold 5 → 10 over one short session.",
+   "evidence": [
+    "ui/session/h04-daily-check.png",
+    "ui/session/h05-todo-done.png"
+   ]
+  },
+  {
+   "id": "RP5",
+   "status": "observed",
+   "claim": "Collection pressure: stable shows Pets 0/90 as grey question-mark slots; equipment shows 8 empty slots; inventory already holds a dropped egg, potion and food.",
+   "evidence": [
+    "ui/session/h10-stable.png",
+    "ui/session/h09-equipment.png",
+    "ui/session/h08-inventory-items.png"
+   ]
+  },
+  {
+   "id": "RP6",
+   "status": "observed",
+   "claim": "Profile shows 'Next Log In Reward: 2 Days' — a login-streak reason to return tomorrow.",
+   "evidence": [
+    "ui/session/h16-avatar-customize.png"
+   ]
+  },
+  {
+   "id": "RP7",
+   "status": "observed",
+   "claim": "Social layer: party modal offers Create a Party or 'looking for a party'; challenges show gem prizes and participant counts (e.g. 494, 3974).",
+   "evidence": [
+    "ui/session/h12-party.png",
+    "ui/session/h13-challenges.png"
+   ]
+  },
+  {
+   "id": "RP8",
+   "status": "unknown",
+   "claim": "The Yesterdailies (missed dailies) dialog was not captured; h01 and h01b are the same news modal.",
+   "evidence": []
+  }
+ ],
+ "storyboard": "ui/storyboard.json",
  "unknowns": [
   {
    "q": "Exact production BASE_URL and API keys baked into release builds",

@@ -25,12 +25,15 @@ Each subfolder is one reverse-engineered target. Read `<target>/README.md` first
 | `source.json` / `source-report.md` | Static analysis of source code (or decompiled code) |
 | `ui/index.json` / `ui/ui-report.md` | Archived UI images with per-image breakdown (regions, components, visible text, palette) |
 | `ui/play/*` | Archived store screenshots, icon, feature graphic |
+| `ui/session/*` | Real logged-in usage screenshots (PII replaced before capture) with `_session.json` (sha256, steps) |
+| `ui/storyboard.json` | Ordered scenes of real usage: title, caption, numbered marks with px boxes |
+| `ui/annotated/*` | Marked copies of session screenshots (`tools/annotate.py`); `thumbs/` for strips |
 
 ## Targets
 
 | Target | Kind | Dossier |
 |---|---|---|
-| Habitica (Android) | Mobile app, open source (GPL-3.0); static source + store UI | [habitica/](habitica/) |
-| Crack (crack.wrtn.ai) | Web/app service; attention & engagement teardown, logged-out UI + desk research | [crack/](crack/) |
+| Habitica (Android) | Mobile app, open source (GPL-3.0); static source + store UI + logged-in web play | [habitica/](habitica/) |
+| Crack (crack.wrtn.ai) | Web/app service; attention & engagement teardown, logged-out UI + logged-in play + desk research | [crack/](crack/) |
 
 Human-readable pages: `/cases/` on the site.
