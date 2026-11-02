@@ -1,0 +1,197 @@
+{
+ "purpose": "First-person player teardown: where a player gets pulled in, what the task is, where the dopamine hits, where it cools. Sequence (moments, heat curve) + syntax (reusable grammar).",
+ "written_at": "2026-10-27",
+ "basis": "Moments follow the real 2026-10-25 web session (ui/session/*). 'felt' is the player's inner voice reconstructed from those screens; 'heat' (1-5) is the analyst's judgment, not a measurement. Items with status 'inferred' come from Habitica's published game rules or the source analysis, not from this session.",
+ "persona": "할 일 앱을 몇 번 깔았다가 사흘 만에 지운 사람이에요. RPG는 좋아해요. \"게임처럼 하면 좀 하려나\" 하고 Habitica에 들어왔어요.",
+ "verdict": "Habitica의 쾌감은 \"현실에서 한 일이 그 자리에서 숫자가 된다\"예요. 버튼 한 번에 경험치와 골드가 튀어나와요. 첫 레벨업은 몇 분 안에 와요. 그런데 진짜 몰입 장치는 보상이 아니라 빈칸과 벌이에요. 물음표 90칸짜리 마구간, 90골드짜리 검, 안 하면 깎이는 체력이 다음 날 다시 열게 해요.",
+ "loop": {
+  "name": "할 일 하나의 고리",
+  "steps": [
+   { "k": "과제", "t": "보드에 습관·일일·할 일이 이미 놓여 있어요" },
+   { "k": "현실 행동", "t": "진짜로 스트레칭을 하고 와요" },
+   { "k": "누르기", "t": "+나 체크를 눌러요. 게임 입력은 이게 전부예요" },
+   { "k": "보상", "t": "경험치 +6, 골드 +1 알림이 겹쳐 쌓이고 막대가 차요" },
+   { "k": "욕심", "t": "옆 칸의 90골드짜리 검과 빈 마구간이 다음 목표가 돼요" }
+  ]
+ },
+ "timescales": [
+  { "scale": "10초", "what": "현실 행동 → 누름 → 알림과 막대 → 다음 칸. 보상까지 0초예요." },
+  { "scale": "하루", "what": "일일을 다 체크하면 연속 기록(▶▶)이 1씩 올라요. 못 하면 다음 날 체력이 깎여요(Yesterdailies).", "status": "inferred" },
+  { "scale": "몇 주", "what": "알과 포션으로 펫을 부화하고, 펫을 키워 탈것으로 만들어요. 레벨 10에 직업을 고르고, 파티와 보스 퀘스트를 해요.", "status": "inferred" }
+ ],
+ "moments": [
+  {
+   "id": "news",
+   "image": "ui/annotated/h01-yesterdailies.jpg",
+   "title": "들어오자마자 한정 소식",
+   "did": "로그인하자 보드보다 소식 창이 먼저 떴어요. 할로윈 포션이 11월 21일까지래요.",
+   "felt": "유령 포션? 아직 뭔지 모르지만 지금만 준다니까 궁금하네.",
+   "why": "첫 화면에서 \"이 세계는 지금도 움직인다\"를 보여 줘요. 기간 한정은 아직 의미를 몰라도 기대를 먼저 심어요.",
+   "kick": "기대",
+   "heat": 2,
+   "status": "observed"
+  },
+  {
+   "id": "board",
+   "image": "ui/annotated/h02-task-board.jpg",
+   "title": "할 일이 이미 차 있다",
+   "did": "보드를 봤어요. 습관 5개, 일일 3개, 할 일 2개가 예시로 들어 있었어요. 위에는 내 픽셀 캐릭터와 체력 50/50, 경험치 5/50이 있었어요.",
+   "felt": "뭘 적을지 고민 안 해도 되네. 일단 이거라도 눌러 보자. 경험치 막대가 거의 비었어.",
+   "why": "빈 화면은 첫날의 가장 큰 적이에요. 예시 할 일이 첫 클릭을 대신 준비해 줘요. 거의 빈 경험치 막대는 채우고 싶은 그릇이에요.",
+   "kick": "과제",
+   "heat": 2,
+   "status": "observed"
+  },
+  {
+   "id": "plus",
+   "image": "ui/annotated/h03-habit-plus.jpg",
+   "title": "누르자마자 +6",
+   "did": "습관 +를 눌렀어요. 오른쪽 위에 \"골드 +1\", \"경험치 +6\" 초록 알림이 겹쳐 떴어요. 막대가 5에서 11로 찼어요.",
+   "felt": "오, 바로 나오네. 하나 더 눌러 볼까?",
+   "why": "보상까지 기다림이 0초예요. 알림이 숫자와 함께 겹쳐 쌓여서, 많이 할수록 화면이 초록으로 차요.",
+   "kick": "보상",
+   "heat": 4,
+   "status": "observed"
+  },
+  {
+   "id": "levelup",
+   "image": "ui/annotated/h03b-level-up.jpg",
+   "title": "몇 분 만에 레벨업",
+   "did": "몇 번 눌렀더니 화면이 어두워지고 \"You Reached Level 2\" 창이 떴어요. 캐릭터 주변에 반짝이가 있고, 체력도 다 찼어요(+19).",
+   "felt": "벌써 레벨 2? 별로 한 것도 없는데. 기분 좋다, Onwards!",
+   "why": "첫 레벨업은 일부러 아주 가깝게 둬요. 첫 경험치 막대가 50이라 몇 분이면 넘어요. 화면 전체를 쓰는 연출과 체력 회복으로 \"레벨업은 좋은 일\"이라고 몸에 새겨요.",
+   "kick": "보상",
+   "heat": 5,
+   "status": "observed"
+  },
+  {
+   "id": "daily",
+   "image": "ui/annotated/h04-daily-check.jpg",
+   "title": "회색으로 바뀌는 시원함",
+   "did": "일일 \"창작 작업하기\"를 체크했어요. 카드가 회색이 됐고, 연속 기록(▶▶)이 0에서 1이 됐어요.",
+   "felt": "오늘 할 거 하나 끝. 내일 하면 2가 되겠지?",
+   "why": "회색은 \"끝났다\"를 보여 줘요. 연속 기록 숫자는 내일 다시 할 이유가 돼요. 끊기면 0으로 돌아가니 아까워져요.",
+   "kick": "연속",
+   "heat": 3,
+   "status": "observed"
+  },
+  {
+   "id": "todo",
+   "image": "ui/annotated/h05-todo-done.jpg",
+   "title": "목록이 줄어든다",
+   "did": "할 일 하나를 끝냈어요. 목록에서 사라져 2개가 1개가 됐어요. 골드는 5에서 10이 됐어요.",
+   "felt": "목록이 줄어드는 게 보이니까 진짜 일한 것 같아.",
+   "why": "할 일은 끝나면 사라지고, 습관은 남고, 일일은 회색이 돼요. 세 칸이 끝을 다르게 보여 줘서 각각 다른 성취감을 줘요.",
+   "kick": "정리감",
+   "heat": 3,
+   "status": "observed"
+  },
+  {
+   "id": "shelf",
+   "image": "ui/session/h06-after-play.png",
+   "title": "10골드와 90골드짜리 검",
+   "did": "플레이 뒤 보드를 다시 봤어요. 오른쪽 보상 칸에 검(90), 갑옷(90), 투구(60)가 진열돼 있었어요. 내 골드는 10이에요.",
+   "felt": "검 90골드. 지금 10이니까… 80골드 더. 몇십 개는 해야겠네. 그래도 해 볼 만해.",
+   "why": "살 수 있는 물건을 할 일 바로 옆에 진열해요. 목표와 현재 거리가 숫자로 보여서 \"조금만 더\"를 계산하게 돼요. \"Reward yourself\" 칸은 TV 보기 같은 현실 보상을 골드로 사게 해요.",
+   "kick": "욕심",
+   "heat": 4,
+   "status": "observed"
+  },
+  {
+   "id": "drop",
+   "image": "ui/annotated/h08-inventory-items.jpg",
+   "title": "뭔가 떨어졌다",
+   "did": "인벤토리를 열었더니 알 1개, 부화 포션 1개, 펫 먹이 2개가 있었어요. 할 일을 하다가 떨어진 거예요.",
+   "felt": "어? 언제 이런 게 나왔지? 알이랑 포션을 합치면 펫이 나온대.",
+   "why": "고정 보상(경험치·골드) 위에 무작위 드롭을 얹었어요. 언제 뭐가 나올지 모르니 다음 클릭이 작은 뽑기가 돼요.",
+   "kick": "뽑기",
+   "heat": 4,
+   "status": "observed"
+  },
+  {
+   "id": "stable",
+   "image": "ui/annotated/h10-stable.jpg",
+   "title": "물음표 90칸",
+   "did": "마구간을 열었어요. 펫 0/90, 전부 회색 물음표였어요.",
+   "felt": "90마리… 하나씩 채우면 기분 좋겠다. 물음표 뒤엔 뭐가 있을까.",
+   "why": "빈칸은 가장 오래가는 동기예요. 모양을 숨긴 물음표는 수집 욕구에 궁금증까지 더해요.",
+   "kick": "수집",
+   "heat": 3,
+   "status": "observed"
+  },
+  {
+   "id": "market",
+   "image": "ui/annotated/h11-market.jpg",
+   "title": "젬이 0이다",
+   "did": "상점에 갔어요. 한정 할로윈 포션이 보였는데 골드가 아니라 젬(유료)으로 사야 했어요.",
+   "felt": "아까 소식 창에서 본 그거네. 젬이 0이라 못 사.",
+   "why": "처음 소식 창에서 심은 기대를 여기서 결제로 연결해요. 기본 재미는 골드로 충분하게, 한정품과 꾸미기는 젬으로 나눴어요.",
+   "kick": "결제 유혹",
+   "heat": 2,
+   "status": "observed"
+  },
+  {
+   "id": "party",
+   "image": "ui/annotated/h13-challenges.jpg",
+   "title": "혼자는 심심할 때",
+   "did": "파티와 챌린지를 열었어요. 파티를 만들거나 \"파티 찾는 중\"으로 표시할 수 있었어요. 챌린지에는 젬 상금과 참가자 494명, 3,974명이 붙어 있었어요.",
+   "felt": "몇천 명이 같이 한다고? 상금도 있네. 혼자보다 덜 빠지겠다.",
+   "why": "혼자 하는 앱을 남이 보는 무대로 바꿔요. 공식 규칙상 파티 보스전에서는 내가 일일을 빼먹으면 파티원 모두가 피해를 봐요. 그래서 나 때문에라도 하게 돼요.",
+   "kick": "소속",
+   "heat": 3,
+   "status": "observed"
+  },
+  {
+   "id": "login",
+   "image": "ui/annotated/h16-avatar-customize.jpg",
+   "title": "이틀 뒤 보상",
+   "did": "프로필에서 \"다음 출석 보상까지 2일\"을 봤어요.",
+   "felt": "이틀만 더 들어오면 뭘 주는구나. 내일도 열어야지.",
+   "why": "다음 보상까지 남은 날을 숫자로 보여 줘서 내일 올 이유를 만들어요.",
+   "kick": "연속",
+   "heat": 2,
+   "status": "observed"
+  },
+  {
+   "id": "tomorrow",
+   "image": "",
+   "title": "다음 날 아침: 어제 못 한 것",
+   "did": "(이번 세션에서는 못 봤어요) 다음 날 열면 어제 못 한 일일을 묻는 창(Yesterdailies)이 먼저 떠요. 정말 안 했으면 체력이 깎여요.",
+   "felt": "아, 스트레칭 안 했지… 체력 깎이기 싫은데.",
+   "why": "보상만 있으면 가볍지만 벌이 있으면 무거워져요. 잃기 싫은 마음(체력, 연속 기록)이 얻고 싶은 마음보다 더 세게 불러요. 체력이 0이 되면 레벨과 골드, 장비 하나를 잃어요.",
+   "kick": "긴장",
+   "heat": 4,
+   "status": "inferred"
+  }
+ ],
+ "dopamine": [
+  { "name": "0초 보상", "trigger": "+ 한 번에 경험치 +6, 골드 +1 알림", "why": "행동과 보상 사이에 기다림이 없어요. 뇌가 \"누르면 좋다\"를 바로 배워요.", "evidence": ["ui/session/h03-habit-plus.png"], "status": "observed" },
+  { "name": "첫 레벨업", "trigger": "몇 분 만에 \"You Reached Level 2\" + 체력 회복", "why": "첫 성공을 아주 가깝게 둬서 첫날에 \"할 만하다\"를 느끼게 해요.", "evidence": ["ui/session/h03b-level-up.png"], "status": "observed" },
+  { "name": "무작위 드롭", "trigger": "할 일 끝에 알·포션·먹이가 떨어져요", "why": "언제 나올지 모르는 보상이 가장 오래 당겨요.", "evidence": ["ui/session/h08-inventory-items.png"], "status": "observed" },
+  { "name": "진열된 목표", "trigger": "10골드 옆의 90골드 검", "why": "목표까지 남은 거리가 숫자로 보여서 \"조금만 더\"를 계산해요.", "evidence": ["ui/session/h06-after-play.png"], "status": "observed" },
+  { "name": "빈칸 채우기", "trigger": "펫 0/90 물음표, 장비 빈칸 8개", "why": "채워지지 않은 칸은 끝나지 않은 일처럼 마음에 남아요.", "evidence": ["ui/session/h10-stable.png", "ui/session/h09-equipment.png"], "status": "observed" },
+  { "name": "잃기 싫음", "trigger": "연속 기록 ▶▶, 다음 날 체력 피해", "why": "쌓은 걸 잃는 아픔이 새로 얻는 기쁨보다 커요.", "evidence": ["ui/session/h04-daily-check.png"], "status": "inferred" }
+ ],
+ "cooldown": [
+  { "what": "셀프 채점", "why": "아무 때나 +를 눌러도 막을 사람이 없어요. 거짓으로 누르기 시작하면 보상이 가벼워지고 재미가 빠져요.", "evidence": ["ui/session/h03-habit-plus.png"], "status": "inferred" },
+  { "what": "할 일을 내가 적어야 함", "why": "예시를 지우고 내 할 일을 넣는 일(난이도, 반복, 체크리스트 설정)이 귀찮아요. 여기서 많이 떨어져 나가요.", "evidence": ["ui/session/h07-task-edit.png"], "status": "inferred" },
+  { "what": "반복되는 알림", "why": "레벨이 오를수록 필요한 경험치가 늘고, 같은 초록 알림이 반복돼요. 몇 주 뒤에는 새 목표(펫, 퀘스트, 파티)가 없으면 식어요.", "evidence": [], "status": "inferred" },
+  { "what": "한정품은 젬", "why": "첫 화면에서 기대하게 한 할로윈 포션을 골드로는 못 사요. 기대가 결제 벽에서 꺾여요.", "evidence": ["ui/session/h11-market.png", "ui/session/h01-yesterdailies.png"], "status": "observed" }
+ ],
+ "syntax": [
+  { "element": "현실 행동 = 게임 입력", "rule": "게임 조작은 버튼 하나예요. 실제 게임 플레이는 현실에서 해요.", "reuse": "사용자가 이미 하는 행동에 버튼 하나만 얹고 보상을 붙여요." },
+  { "element": "첫 레벨업은 몇 분 안에", "rule": "첫 막대를 짧게 두고 화면 전체로 축하해요.", "reuse": "첫 세션 안에 큰 성공 하나를 보장해요." },
+  { "element": "겹쳐 쌓이는 숫자 알림", "rule": "보상은 숫자와 함께 바로, 여러 개면 쌓아서 보여 줘요.", "reuse": "보상은 말보다 숫자로, 늦지 않게 보여 줘요." },
+  { "element": "옆에 진열된 목표", "rule": "살 수 있는 물건과 가격을 할 일 바로 옆에 둬요.", "reuse": "다음 목표와 남은 거리를 늘 같은 화면에 둬요." },
+  { "element": "끝의 모양이 셋", "rule": "습관은 남고, 일일은 회색이 되고, 할 일은 사라져요.", "reuse": "성격이 다른 과제는 끝나는 모습도 다르게 보여 줘요." },
+  { "element": "물음표 빈칸", "rule": "모을 것의 수(0/90)와 숨긴 모양을 먼저 보여 줘요.", "reuse": "수집 요소는 전체 크기를 먼저 보여 주고, 내용은 숨겨요." },
+  { "element": "벌이 있는 보상", "rule": "놓치면 체력이 깎이고, 파티원도 같이 맞아요.", "reuse": "잃을 것이 있어야 얻는 것이 무거워져요. 남에게 미치는 영향은 더 세요." }
+ ],
+ "not_played": [
+  "다음 날 Yesterdailies 창과 체력 피해: 벌이 실제로 얼마나 아픈지",
+  "펫 부화와 탈것 키우기: 수집이 언제 지루해지는지",
+  "레벨 10 직업 선택과 스킬",
+  "파티 보스 퀘스트: 남 때문에 하는 힘이 얼마나 센지",
+  "모바일 앱 알림: 하루 중 언제 불러내는지"
+ ]
+}

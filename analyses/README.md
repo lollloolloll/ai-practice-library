@@ -26,6 +26,7 @@ Each subfolder is one reverse-engineered target. Read `<target>/README.md` first
 | `ui/index.json` / `ui/ui-report.md` | Archived UI images with per-image breakdown (regions, components, visible text, palette) |
 | `ui/play/*` | Archived store screenshots, icon, feature graphic |
 | `ui/session/*` | Real logged-in usage screenshots (PII replaced before capture) with `_session.json` (sha256, steps) |
+| `experience.json` | First-person player teardown: moments with heat 1-5 and kick type, core loop, timescales, dopamine and cool-down points, reusable syntax, what is still unplayed. `felt` is reconstructed inner voice; `status` marks observed vs inferred |
 | `ui/storyboard.json` | Ordered scenes of real usage: title, caption, numbered marks with px boxes |
 | `ui/annotated/*` | Marked copies of session screenshots (`tools/annotate.py`); `thumbs/` for strips |
 

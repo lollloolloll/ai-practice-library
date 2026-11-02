@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/app.css?v=20261026a">
+<link rel="stylesheet" href="../css/app.css?v=20261027a">
 <style>
 /* 레이아웃: 화면 이미지가 주인공인 앱 해부도. 왼쪽 목차, 오른쪽 섹션. 증거 등급은 모양(●◐○)으로도 구분 */
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
@@ -78,7 +78,8 @@ table.t td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-a
 details summary { cursor: pointer; color: var(--muted); font-size: 14px; padding: 6px 0; }
 details > .shots { margin-top: 10px; }
 </style>
-<script src="storyboard.js?v=20261026a"></script>
+<script src="storyboard.js?v=20261027a"></script>
+<script src="experience.js?v=20261027a"></script>
 </head>
 <body>
 <header class="top">
@@ -105,15 +106,16 @@ details > .shots { margin-top: 10px; }
 
   <div class="case">
     <nav class="toc" aria-label="목차">
-      <a href="#real">0. 실제로 해 보면</a>
-      <a href="#overview">1. 한눈에</a>
-      <a href="#ui">2. 스토어 화면</a>
-      <a href="#screens">3. 화면 지도</a>
-      <a href="#design">4. 디자인 시스템</a>
-      <a href="#findings">5. 발견 사항</a>
-      <a href="#api">6. 서버 API</a>
-      <a href="#unknowns">7. 미해결 질문</a>
-      <a href="#files">8. AI용 파일</a>
+      <a href="#feel">0. 해 본 사람의 기록</a>
+      <a href="#real">1. 실제로 해 보면</a>
+      <a href="#overview">2. 한눈에</a>
+      <a href="#ui">3. 스토어 화면</a>
+      <a href="#screens">4. 화면 지도</a>
+      <a href="#design">5. 디자인 시스템</a>
+      <a href="#findings">6. 발견 사항</a>
+      <a href="#api">7. 서버 API</a>
+      <a href="#unknowns">8. 미해결 질문</a>
+      <a href="#files">9. AI용 파일</a>
     </nav>
     <div class="doc" id="doc"><p class="loading">분석 결과를 불러오고 있어요</p></div>
   </div>
@@ -123,10 +125,10 @@ details > .shots { margin-top: 10px; }
 (async () => {
   const doc = document.getElementById('doc');
   const BASE = '../analyses/habitica/';
-  let D, SB;
+  let D, SB, XP;
   try {
     const v = '?v=' + Date.now().toString().slice(0, 7);
-    [D, SB] = await Promise.all([fetch(BASE + 'dossier.json' + v).then((r) => r.json()), fetch(BASE + 'ui/storyboard.json' + v).then((r) => r.json())]);
+    [D, SB, XP] = await Promise.all([fetch(BASE + 'dossier.json' + v).then((r) => r.json()), fetch(BASE + 'ui/storyboard.json' + v).then((r) => r.json()), fetch(BASE + 'experience.json' + v).then((r) => r.json())]);
   } catch (e) {
     doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>';
     return;
@@ -154,14 +156,19 @@ details > .shots { margin-top: 10px; }
   const fact = (k, v) => (v == null || v === '' ? null : h('div', { class: 'fact' }, h('span', null, k), h('b', null, v)));
   doc.textContent = '';
 
-  /* 0. 실사용 */
-  const real = sec('real', 0, '실제로 해 보면',
+  /* 체험기 */
+  const feel = sec('feel', 0, '해 본 사람의 기록', h('p', null, '10월 25일 실제 플레이를 게임을 좋아하는 사람의 눈으로 다시 따라갔어요. 어떤 과제가 있고, 어디서 짜릿하고, 어디서 식는지 장면 순서대로 적었어요.'));
+  doc.append(feel);
+  Experience(feel, BASE, XP);
+
+  /* 실사용 */
+  const real = sec('real', 1, '실제로 해 보면',
     h('p', null, '웹에서 로그인하고 습관·일일·할 일을 직접 눌러 레벨 2까지 올렸어요. 빨간 번호가 동기를 만드는 장치예요. 화살표 키나 밀기로 넘겨요.'));
   doc.append(real);
   Storyboard(real, BASE, SB);
 
   /* 1. 한눈에 */
-  doc.append(sec('overview', 1, '한눈에',
+  doc.append(sec('overview', 2, '한눈에',
     h('div', { class: 'facts' },
       fact('패키지', T.applicationId || T.package || L.package),
       fact('버전', T.versionName ? T.versionName + (T.versionCode ? ' (' + T.versionCode + ')' : '') : L.version),
@@ -199,7 +206,7 @@ details > .shots { margin-top: 10px; }
     shotBtns.push(b);
     return b;
   }));
-  doc.append(sec('ui', 2, '스토어 화면',
+  doc.append(sec('ui', 3, '스토어 화면',
     h('p', null, 'Play 스토어에 공개된 홍보 화면이에요. 이미지를 누르면 구역, 구성 요소, 색을 보여 줘요.'),
     h('details', null, h('summary', null, '스토어 화면 ' + imgs.length + '장 펼치기'), shots, imgs.length ? detail : h('p', null, '보관한 이미지가 없어요.'))));
   if (imgs.length) showImg(imgs[0]);
@@ -207,7 +214,7 @@ details > .shots { margin-top: 10px; }
   /* 3. 화면 지도 */
   const byFeat = {};
   (D.screens || []).forEach((s) => { (byFeat[s.feature || '기타'] = byFeat[s.feature || '기타'] || []).push(s); });
-  doc.append(sec('screens', 3, '화면 지도',
+  doc.append(sec('screens', 4, '화면 지도',
     h('p', null, '소스 코드에서 찾은 화면을 기능별로 묶었어요. 총 ' + (D.screens || []).length + '개예요.'),
     h('div', { class: 'groups' }, Object.entries(byFeat).sort((a, b) => b[1].length - a[1].length).map(([f, arr]) =>
       h('div', { class: 'group' }, h('h3', null, f, h('span', { class: 'ref' }, arr.length)),
@@ -218,7 +225,7 @@ details > .shots { margin-top: 10px; }
   const colors = (dt.colors || []).filter((c) => /^#?[0-9a-f]{3,8}$/i.test(String(c.hex || '').replace('#', '')));
   const hex = (x) => (String(x).startsWith('#') ? x : '#' + x);
   const scale = dt.task_value_scale || [];
-  doc.append(sec('design', 4, '디자인 시스템',
+  doc.append(sec('design', 5, '디자인 시스템',
     scale.length ? [h('h3', null, '할 일 색 단계'), h('p', null, '할 일을 꾸준히 할수록 빨강에서 파랑으로 바뀌어요. 이 앱의 가장 중요한 색 규칙이에요.'),
       h('div', { class: 'scale' }, scale.map((s) => h('div', { style: 'background:' + hex(s.medium_hex || s.hex || s.color || '#888'), title: (s.range || '') + ' ' + (s.medium_hex || '') }, s.hue || s.label || s.name || '')))] : null,
     colors.length ? [h('h3', null, '색 팔레트 ' + colors.length + '개'),
@@ -238,33 +245,34 @@ details > .shots { margin-top: 10px; }
   };
   const filt = h('div', { class: 'filters', role: 'group', 'aria-label': '영역 거르기' }, areas.map((a) =>
     h('button', { type: 'button', 'data-a': a, onclick: () => { cur = a; drawF(); } }, a === 'all' ? '전체 ' + findings.length : (AREA[a] || a))));
-  doc.append(sec('findings', 5, '발견 사항', filt, h('div', { class: 'scroll' }, h('table', { class: 't' },
+  doc.append(sec('findings', 6, '발견 사항', filt, h('div', { class: 'scroll' }, h('table', { class: 't' },
     h('thead', null, h('tr', null, h('th', null, '영역'), h('th', null, '내용'), h('th', null, '등급'))), tbody))));
   drawF();
 
   /* 6. API */
   const api = D.api || {};
-  doc.append(sec('api', 6, '서버 API',
+  doc.append(sec('api', 7, '서버 API',
     (api.base_urls || []).length ? h('p', null, '기본 주소: ', h('code', { class: 'mono' }, api.base_urls.join(', '))) : null,
     h('div', { class: 'groups' }, (api.endpoint_groups || []).map((g) => h('div', { class: 'group' },
       h('h3', null, g.group, h('span', { class: 'ref' }, g.count)),
       h('ul', null, (g.examples || []).slice(0, 6).map((x) => h('li', null, h('code', { class: 'mono', style: 'font-size:12px' }, x)))))))));
 
   /* 7. 미해결 */
-  doc.append(sec('unknowns', 7, '미해결 질문',
+  doc.append(sec('unknowns', 8, '미해결 질문',
     h('div', { class: 'scroll' }, h('table', { class: 't' },
       h('thead', null, h('tr', null, h('th', null, '질문'), h('th', null, '이유'), h('th', null, '다음 단계'))),
       h('tbody', null, (D.unknowns || []).map((u) => h('tr', null, h('td', null, u.q), h('td', null, u.why || ''), h('td', null, u.next_step || ''))))))));
 
   /* 8. AI용 파일 */
   const link = (f, d) => h('a', { href: BASE + f }, h('b', null, f), h('span', null, d));
-  doc.append(sec('files', 8, 'AI용 파일',
+  doc.append(sec('files', 9, 'AI용 파일',
     h('p', null, '다른 AI에게 이 앱을 설명할 때는 아래 파일을 그대로 주면 돼요. 모든 결론에 근거 번호가 붙어 있어요.'),
     h('div', { class: 'ai' },
       link('README.md', '먼저 읽을 안내. 범위, 방법, 파일 구성'),
       link('dossier.json', '모든 결과를 합친 하나의 파일'),
       link('source-report.md', '소스 코드 정적 분석 보고서'),
       link('ui/ui-report.md', '화면 이미지 분석 보고서'),
+      link('experience.json', '사용자 시점 체험기: 장면별 몰입도, 도파민·식는 지점, 문법'),
       link('ui/storyboard.json', '실제 플레이 15장면: 순서, 설명, 표시 좌표'),
       link('ui/index.json', '스토어 이미지 목록과 화면별 분해'))));
 })();

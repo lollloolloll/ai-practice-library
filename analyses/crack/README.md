@@ -47,3 +47,6 @@ Currency spend per turn once free tickets run out, onboarding branch differences
 
 ## Rights
 Screenshots are of a public website for analysis and commentary. Character art belongs to Wrtn and its creators.
+
+## Player view (`experience.json`, 2026-10-27)
+Same real session re-read as a fan: where immersion rises and falls (heat 1-5 per moment), the per-turn loop, dopamine triggers, cool-down points, and the reusable grammar (syntax). Rendered at the top of `/cases/crack.html`. `not_played` lists what a deeper session should cover next.

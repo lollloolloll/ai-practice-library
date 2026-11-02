@@ -36,3 +36,6 @@ evidence_contract: ../README.md
 
 ## Open questions
 See `dossier.json` → `unknowns` (production URL/keys, server formulas, live remote-config values, exported receiver caller checks, SKU prices).
+
+## Player view (`experience.json`, 2026-10-27)
+Same real session re-read as a fan: where immersion rises and falls (heat 1-5 per moment), the per-turn loop, dopamine triggers, cool-down points, and the reusable grammar (syntax). Rendered at the top of `/cases/habitica.html`. `not_played` lists what a deeper session should cover next.

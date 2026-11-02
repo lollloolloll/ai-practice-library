@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../css/app.css?v=20261026a">
+<link rel="stylesheet" href="../css/app.css?v=20261027a">
 <style>
 /* 레이아웃: 퍼널 6단계를 세로로 내려가며, 포인트마다 근거 화면을 붙인 해부도 */
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
@@ -73,7 +73,8 @@ ol.lessons { margin: 0; padding-left: 22px; display: grid; gap: 8px; max-width: 
 details summary { cursor: pointer; color: var(--muted); font-size: 14px; padding: 6px 0; }
 details .gallery { margin-top: 10px; }
 </style>
-<script src="storyboard.js?v=20261026a"></script>
+<script src="storyboard.js?v=20261027a"></script>
+<script src="experience.js?v=20261027a"></script>
 </head>
 <body>
 <header class="top">
@@ -98,16 +99,17 @@ details .gallery { margin-top: 10px; }
   </div>
   <div class="case">
     <nav class="toc" aria-label="목차">
-      <a href="#real">0. 실제로 써 보면</a>
-      <a href="#answer">1. 한 줄 답</a>
-      <a href="#numbers">2. 숫자로 보기</a>
-      <a href="#funnel">3. 이목을 끄는 포인트</a>
-      <a href="#money">4. 돈을 쓰게 하는 구조</a>
-      <a href="#tour">5. 로그인 전 화면</a>
-      <a href="#lessons">6. 가져갈 점</a>
-      <a href="#risks">7. 리스크</a>
-      <a href="#unknowns">8. 아직 모르는 것</a>
-      <a href="#files">9. AI용 파일</a>
+      <a href="#feel">0. 써 본 사람의 기록</a>
+      <a href="#real">1. 실제로 써 보면</a>
+      <a href="#answer">2. 한 줄 답</a>
+      <a href="#numbers">3. 숫자로 보기</a>
+      <a href="#funnel">4. 이목을 끄는 포인트</a>
+      <a href="#money">5. 돈을 쓰게 하는 구조</a>
+      <a href="#tour">6. 로그인 전 화면</a>
+      <a href="#lessons">7. 가져갈 점</a>
+      <a href="#risks">8. 리스크</a>
+      <a href="#unknowns">9. 아직 모르는 것</a>
+      <a href="#files">10. AI용 파일</a>
     </nav>
     <div class="doc" id="doc"><p class="muted">분석 결과를 불러오고 있어요</p></div>
   </div>
@@ -117,9 +119,9 @@ details .gallery { margin-top: 10px; }
 (async () => {
   const BASE = '../analyses/crack/';
   const doc = document.getElementById('doc');
-  const get = (f) => fetch(BASE + f + '?v=20261026a').then((r) => r.json());
-  let UI, R, S, SB;
-  try { [UI, R, S, SB] = await Promise.all([get('ui/index.json'), get('research.json'), get('synthesis.json'), get('ui/storyboard.json')]); }
+  const get = (f) => fetch(BASE + f + '?v=20261027a').then((r) => r.json());
+  let UI, R, S, SB, XP;
+  try { [UI, R, S, SB, XP] = await Promise.all([get('ui/index.json'), get('research.json'), get('synthesis.json'), get('ui/storyboard.json'), get('experience.json')]); }
   catch (e) { doc.innerHTML = '<p>분석 결과를 불러오지 못했어요. 서버로 열었는지 확인해 주세요.</p>'; return; }
   const h = (tag, attrs, ...kids) => {
     const el = document.createElement(tag);
@@ -155,19 +157,24 @@ details .gallery { margin-top: 10px; }
   };
   doc.textContent = '';
 
+  /* 체험기 */
+  const feel = sec('feel', 0, '써 본 사람의 기록', h('p', null, '10월 25일 실제 플레이를 크랙 애호가의 눈으로 다시 따라갔어요. 어디서 빠져들고, 어디서 짜릿하고, 어디서 식는지 장면 순서대로 적었어요.'));
+  doc.append(feel);
+  Experience(feel, BASE, XP);
+
   /* 0 실사용 */
-  const real = sec('real', 0, '실제로 써 보면',
+  const real = sec('real', 1, '실제로 써 보면',
     h('p', null, '로그인하고 "국가의 시대"를 직접 두 턴 플레이했어요. 빨간 번호가 눈길을 끄는 지점이에요. 화살표 키나 밀기로 넘겨요.'));
   doc.append(real);
   Storyboard(real, BASE, SB);
 
   /* 1 */
-  doc.append(sec('answer', 1, '한 줄 답', h('p', { class: 'muted' }, S.question), h('div', { class: 'answer' }, S.answer_ko)));
+  doc.append(sec('answer', 2, '한 줄 답', h('p', { class: 'muted' }, S.question), h('div', { class: 'answer' }, S.answer_ko)));
 
   /* 2 */
   const num = (label, fid, val) => { const f = FACT[fid]; if (!f) return null;
     return h('div', { class: 'fact' }, h('span', null, label), h('b', null, val || f.value), h('small', null, ev(f.status), f.date + ' · ' + fid)); };
-  doc.append(sec('numbers', 2, '숫자로 보기',
+  doc.append(sec('numbers', 3, '숫자로 보기',
     h('p', null, '집계 기관마다 숫자가 크게 달라요. 같은 지표도 출처와 시점을 함께 보세요.'),
     h('div', { class: 'facts' },
       num('월 이용자 (모바일인덱스)', 'W9', '53.9만 명'),
@@ -194,7 +201,7 @@ details .gallery { margin-top: 10px; }
         h('span', { class: 'pr' }, x.principle),
         h('span', { class: 'src' }, ui ? ev('observed') : ev(factStatus(x.evidence || [])), ' ', (x.evidence || []).join(', '))));
   };
-  doc.append(sec('funnel', 3, '이목을 끄는 포인트',
+  doc.append(sec('funnel', 4, '이목을 끄는 포인트',
     h('p', null, '화면에서 직접 본 포인트(화면)와 자료로 확인한 포인트(조사)를 사용자 흐름 6단계로 묶었어요. 사진을 누르면 근거 화면을 크게 보여 줘요.'),
     S.stages.map((st) => h('div', { class: 'stage', id: 'st-' + st.id },
       h('div', { class: 'stage-h' }, h('h3', null, st.name), h('span', null, st.goal)),
@@ -202,7 +209,7 @@ details .gallery { margin-top: 10px; }
 
   /* 4 돈 */
   const packs = [['2,000개', '-', '2,000원'], ['4,900개', '+100개', '4,900원'], ['9,600개', '+400개', '9,600원'], ['28,000개', '+2,000개 · 추천', '28,000원'], ['46,000개', '+4,000개', '46,000원'], ['90,000개', '+10,000개', '90,000원']];
-  doc.append(sec('money', 4, '돈을 쓰게 하는 구조',
+  doc.append(sec('money', 5, '돈을 쓰게 하는 구조',
     h('p', null, '대화에 쓰는 재화 "크래커"를 팔아요. 웹 결제 화면에서 본 묶음이에요. 클수록 보너스 비율이 커지고, 가운데 고가 묶음에 "추천"을 붙였어요.'),
     h('div', { class: 'scroll' }, h('table', { class: 't' },
       h('thead', null, h('tr', null, h('th', null, '묶음'), h('th', null, '보너스'), h('th', null, '웹 가격'))),
@@ -212,30 +219,31 @@ details .gallery { margin-top: 10px; }
     h('p', null, '메시지 한 번에 쓰는 크래커는 모델 등급에 따라 20개 남짓부터 230개까지 차이가 나요. 더 똑똑한 모델과 더 긴 기억(메모리 PRO)을 사는 구조예요. ', ev('unverified'), ' W30')));
 
   /* 5 화면 투어 */
-  doc.append(sec('tour', 5, '로그인 전 화면',
+  doc.append(sec('tour', 6, '로그인 전 화면',
     h('p', null, '처음 온 사람이 보는 화면이에요. 로그인하지 않은 새 브라우저로 2026-10-25에 캡처했어요.'),
     h('details', null, h('summary', null, '화면 ' + UI.images.length + '장 펼치기'), h('div', { class: 'gallery' }, UI.images.map((im) => h('button', { type: 'button', class: im.viewport.startsWith('mobile') ? 'm' : '', onclick: () => zoom(im) },
       h('img', { src: BASE + im.file, alt: im.title, loading: 'lazy' }), h('span', null, h('b', null, im.id), im.title)))))));
 
   /* 6 */
-  doc.append(sec('lessons', 6, '가져갈 점', h('p', null, '내 서비스나 콘텐츠에 바로 써 볼 수 있는 것만 골랐어요.'), h('ol', { class: 'lessons' }, S.lessons_ko.map((l) => h('li', null, l)))));
+  doc.append(sec('lessons', 7, '가져갈 점', h('p', null, '내 서비스나 콘텐츠에 바로 써 볼 수 있는 것만 골랐어요.'), h('ol', { class: 'lessons' }, S.lessons_ko.map((l) => h('li', null, l)))));
 
   /* 7 */
-  doc.append(sec('risks', 7, '리스크', h('ul', { class: 'lessons' }, S.risks_ko.map((l) => h('li', null, l)))));
+  doc.append(sec('risks', 8, '리스크', h('ul', { class: 'lessons' }, S.risks_ko.map((l) => h('li', null, l)))));
 
   /* 8 */
-  doc.append(sec('unknowns', 8, '아직 모르는 것',
+  doc.append(sec('unknowns', 9, '아직 모르는 것',
     h('div', { class: 'scroll' }, h('table', { class: 't' },
       h('thead', null, h('tr', null, h('th', null, '질문'), h('th', null, '이유'), h('th', null, '다음 단계'))),
       h('tbody', null, UI.unknowns.map((u) => h('tr', null, h('td', null, u.q), h('td', null, u.why), h('td', null, u.next_step))))))));
 
   /* 9 */
   const link = (f, d) => h('a', { href: BASE + f }, h('b', null, f), h('span', null, d));
-  doc.append(sec('files', 9, 'AI용 파일',
+  doc.append(sec('files', 10, 'AI용 파일',
     h('p', null, '다른 AI에게 크랙을 설명할 때는 README.md부터 주면 돼요.'),
     h('div', { class: 'ai' },
       link('README.md', '먼저 읽을 안내. 범위, 방법, 근거 번호 규칙'),
       link('synthesis.json', '결론: 단계별 포인트, 가져갈 점, 리스크'),
+      link('experience.json', '사용자 시점 체험기: 장면별 몰입도, 도파민·식는 지점, 문법'),
       link('ui/storyboard.json', '실사용 10장면: 장면 순서, 설명, 표시 좌표'),
       link('ui/index.json', '로그인 전 화면 17장과 화면에서 본 포인트 14개'),
       link('research.json', '공개 자료 사실 44개와 포인트 14개'),
