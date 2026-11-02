@@ -5,7 +5,7 @@
 # 끄기: Unregister-ScheduledTask -TaskName LexiconAuto -Confirm:$false
 
 $ErrorActionPreference = 'Stop'
-$home2 = Join-Path $env:LOCALAPPDATA 'lexicon-auto'
+$home2 = Join-Path $env:USERPROFILE 'lexicon-auto'
 $repo = Join-Path $home2 'repo'
 $src = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 

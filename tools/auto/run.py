@@ -1,7 +1,7 @@
 """자동 실제 결과: PC가 켜져 있을 때 하루 몇 개씩 GPT(Codex CLI, ChatGPT 구독)로 실제 결과를 만들어 올려요.
 
 무엇을 만들지는 이 스크립트가 정하고, GPT는 이미지 한 장을 만드는 일만 해요.
-지금 쓰는 작업 폴더가 아니라 %LOCALAPPDATA%/lexicon-auto/repo 복사본에서 돌아서 작업 중인 파일과 부딪히지 않아요.
+지금 쓰는 작업 폴더가 아니라 ~/lexicon-auto/repo 복사본에서 돌아서 작업 중인 파일과 부딪히지 않아요.
 
 사용:
   python tools/auto/run.py            하루 몫(기본 10개) 실행
@@ -10,7 +10,8 @@
 """
 import argparse, datetime, json, os, re, shutil, subprocess, sys, time
 
-HOME = os.path.join(os.environ.get('LOCALAPPDATA', os.path.expanduser('~')), 'lexicon-auto')
+# AppData 아래는 앱(MSIX)에서 실행하면 경로가 가상화돼 Codex 샌드박스가 못 찾아요. 사용자 폴더에 둬요
+HOME = os.path.join(os.path.expanduser('~'), 'lexicon-auto')
 REPO = os.path.join(HOME, 'repo')
 HERE = os.path.dirname(os.path.abspath(__file__))
 DAILY = 10
