@@ -402,7 +402,11 @@
     const a = actualFor(t);
     const key = t.field + ':' + t.id;
     const accept = { image: 'image/*', video: 'video/*', editing: 'video/*', audio: 'audio/*', '3d': 'image/*,video/*', design: 'image/*' }[t.field] || 'image/*';
-    if (a && a.kind === 'data') { box.append(mediaView(a.res)); return; }
+    if (a && a.kind === 'data') {
+      box.append(mediaView(a.res));
+      if (a.res.auto) box.append(h('div', { class: 'mine-bar', title: a.res.note || '' }, h('span', null, 'GPT 자동 생성'), h('span', null, a.res.date || '')));
+      return;
+    }
     if (a && a.kind === 'mine') {
       const url = URL.createObjectURL(a.res.blob);
       box.append(mediaView({ src: url, type: (a.res.type || '').split('/')[0] }));
