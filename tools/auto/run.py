@@ -22,6 +22,8 @@ ORDER = ['lighting', 'lens-optics', 'shot-size', 'camera-angle', 'composition', 
 MODEL = 'GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)'
 NOWIN = 0x08000000 if os.name == 'nt' else 0
 LOG = None
+# 이 PC의 PATH에는 항목 앞에 줄바꿈이 섞여 있어 codex·node를 못 찾아요. 앞뒤 공백을 걷어 내요
+os.environ['PATH'] = os.pathsep.join(p.strip() for p in os.environ.get('PATH', '').split(os.pathsep) if p.strip())
 
 
 def log(*a):
@@ -109,6 +111,9 @@ def codex_cmd():
         p = shutil.which(name)
         if p:
             return p
+    p = os.path.join(os.environ.get('APPDATA', ''), 'npm', 'codex.cmd')  # 예약 작업은 PATH가 짧을 수 있어요
+    if os.path.exists(p):
+        return p
     raise RuntimeError('codex를 찾지 못했어요. npm i -g @openai/codex 후 codex login')
 
 

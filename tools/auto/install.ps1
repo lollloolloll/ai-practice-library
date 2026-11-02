@@ -1,4 +1,4 @@
-# 자동 실제 결과 예약 작업 등록
+﻿# 자동 실제 결과 예약 작업 등록
 # PC를 켜고 로그인하면 10분 뒤, 그리고 매일 13시에 돌아요. 꺼져 있어서 놓친 실행은 켜졌을 때 따라잡아요.
 # 하루 몫(10개)을 이미 채웠으면 바로 끝나요.
 # 사용: powershell -ExecutionPolicy Bypass -File tools\auto\install.ps1
