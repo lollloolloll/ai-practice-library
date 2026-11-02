@@ -12,7 +12,7 @@ PC가 켜져 있을 때 하루 10개씩, ChatGPT 구독(Codex CLI)으로 이미�
 ## 어디서 도나
 
 - 작업 폴더가 아니라 `%USERPROFILE%\lexicon-auto\repo` 복사본에서 돌아요. 원래 폴더는 `git pull`만 하면 결과가 따라와요.
-- 예약 작업 `LexiconAuto`: 로그인 10분 뒤, 매일 13시(놓치면 켜졌을 때). 하루 몫을 채웠으면 바로 끝나요.
+- 예약 작업 `LexiconAuto`: 로그인 10분 뒤, 매일 20시(놓치면 켜졌을 때). 사용자는 주로 19~24시에 PC를 켜요. 하루 몫을 채웠으면 바로 끝나요.
 - 기록: `%USERPROFILE%\lexicon-auto\logs\날짜.log`, 저장소에는 [log.md](log.md)
 
 ## 손볼 때
