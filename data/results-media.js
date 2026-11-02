@@ -1,1 +1,2 @@
 window.PD_RESULTS = window.PD_RESULTS || {};
+(function(R){R.terms=Object.assign(R.terms||{},{"rembrandt-lighting": [{"src": "assets/results/image/rembrandt-lighting.jpg", "type": "image", "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)", "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, Rembrandt lighting", "note": "인물과 호수 배경을 유지하고 반대쪽 뺨에 삼각형 빛이 생기는 렘브란트 조명을 적용했습니다.", "auto": true, "date": "2026-11-02"}]});})(window.PD_RESULTS["image"]=window.PD_RESULTS["image"]||{});
