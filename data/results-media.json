@@ -109,6 +109,116 @@
     "auto": true,
     "date": "2026-11-02"
    }
+  ],
+  "chiaroscuro": [
+   {
+    "src": "assets/results/image/chiaroscuro.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, chiaroscuro",
+    "note": "같은 인물과 호수·언덕 배경을 유지하면서 강한 측면광과 깊은 그림자로 극적인 명암 대비를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "low-key": [
+   {
+    "src": "assets/results/image/low-key.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, low-key lighting",
+    "note": "인물과 호수·언덕 배경 구도를 유지하면서 화면 대부분을 어둡게 하고 얼굴과 머리카락 일부만 밝히는 로우키 조명을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "high-key": [
+   {
+    "src": "assets/results/image/high-key.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, high-key lighting",
+    "note": "동일한 인물과 호수 배경 구도를 유지하면서 전체를 밝히고 그림자를 줄이는 하이키 조명을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "softbox": [
+   {
+    "src": "assets/results/image/softbox.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, softbox lighting, diffused",
+    "note": "원본 인물과 배경 구도를 유지하며 확산된 소프트박스 조명으로 얼굴과 목의 그림자 경계를 부드럽게 바꿨습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "hard-light": [
+   {
+    "src": "assets/results/image/hard-light.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, hard light, crisp shadows",
+    "note": "같은 인물과 호수 배경 구도를 유지하며 강한 직사광과 코·턱·머리카락의 선명한 그림자를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "direct-flash": [
+   {
+    "src": "assets/results/image/direct-flash.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, harsh direct flash",
+    "note": "원본의 인물과 구도를 유지하면서 강한 정면 플래시로 선명한 그림자와 피부·머리카락의 번들거림, 어두운 배경을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "window-light": [
+   {
+    "src": "assets/results/image/window-light.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, soft window light",
+    "note": "같은 인물과 호수 배경을 유지하고 왼쪽에서 들어오는 부드러운 창가 옆빛을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "neon-lighting": [
+   {
+    "src": "assets/results/image/neon-lighting.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, neon lighting",
+    "note": "원본 인물과 호수 배경, 구도를 유지하며 분홍·청록 네온 조명을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "practical-lighting": [
+   {
+    "src": "assets/results/image/practical-lighting.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, practical lighting",
+    "note": "원본 인물과 호수 배경 구도를 유지하며 화면 왼쪽 램프의 따뜻한 빛이 얼굴과 머리카락을 비추도록 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
+  ],
+  "candlelight": [
+   {
+    "src": "assets/results/image/candlelight.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, candlelight",
+    "note": "원본의 인물과 호수 배경, 구도를 유지하며 따뜻한 주황빛 촛불 조명과 부드러운 그림자를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-03"
+   }
   ]
  }
 }
