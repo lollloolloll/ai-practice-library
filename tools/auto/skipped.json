@@ -1,1 +1,12 @@
-{}
+{
+ "volumetric-light": {
+  "tries": 1,
+  "last": "fail: 15분 안에 끝나지 않았어요",
+  "final": false
+ },
+ "gel-lighting": {
+  "tries": 1,
+  "last": "fail: 15분 안에 끝나지 않았어요",
+  "final": false
+ }
+}

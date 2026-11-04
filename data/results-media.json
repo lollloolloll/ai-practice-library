@@ -219,6 +219,94 @@
     "auto": true,
     "date": "2026-11-03"
    }
+  ],
+  "caustics": [
+   {
+    "src": "assets/results/image/caustics.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, caustic light reflections",
+    "note": "원본의 인물과 배경을 유지하면서 얼굴과 목, 옷에 물결 모양의 빛 반사를 추가했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "lens-14mm": [
+   {
+    "src": "assets/results/image/lens-14mm.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, 14mm ultra-wide lens",
+    "note": "동일한 인물과 호수 배경을 유지하며 14mm 초광각 렌즈의 넓은 화각과 가까운 얼굴의 과장된 원근감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "lens-35mm": [
+   {
+    "src": "assets/results/image/lens-35mm.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, 35mm lens",
+    "note": "같은 인물과 호수 풍경을 유지하며 35mm 렌즈의 넓은 화각으로 주변 환경을 더 담았습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "lens-50mm": [
+   {
+    "src": "assets/results/image/lens-50mm.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, 50mm lens",
+    "note": "같은 인물과 호수 배경을 유지하며 50mm 렌즈의 왜곡이 적고 자연스러운 원근감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "lens-85mm": [
+   {
+    "src": "assets/results/image/lens-85mm.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, 85mm portrait lens",
+    "note": "같은 인물과 구도를 유지하면서 배경 언덕이 더 가까워 보이는 압축감과 자연스러운 얼굴 원근으로 85mm 인물 렌즈 느낌을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "telephoto-lens": [
+   {
+    "src": "assets/results/image/telephoto-lens.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, telephoto lens (200mm), compressed perspective",
+    "note": "200mm 망원 렌즈의 압축 원근감을 적용해 인물 뒤의 언덕이 더 크고 가깝게 보이도록 했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "fisheye-lens": [
+   {
+    "src": "assets/results/image/fisheye-lens.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, fisheye lens",
+    "note": "원본 도심 거리와 전차 선로 장면에 건물과 도로 가장자리가 둥글게 휘는 강한 어안렌즈 왜곡을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
+  ],
+  "tilt-shift": [
+   {
+    "src": "assets/results/image/tilt-shift.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, tilt-shift lens, miniature effect",
+    "note": "원본 거리와 구도를 유지하면서 위아래를 강하게 흐려 미니어처처럼 보이는 틸트시프트 효과를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-04"
+   }
   ]
  }
 }
