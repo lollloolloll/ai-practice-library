@@ -13,6 +13,11 @@
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
 .toc { position: sticky; top: calc(76px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; font-size: 13px; }
 .toc a { text-decoration: none; color: var(--muted); padding: 5px 8px; border-radius: 6px; }
+.remix { display: grid; gap: 4px; margin-top: 18px; padding: 16px 18px; border-radius: 14px; border: 1px solid var(--accent, #6133b4); background: var(--surface-2); color: var(--fg); text-decoration: none; }
+.remix small { font: 600 12px var(--f-mono, monospace); color: var(--accent, #6133b4); }
+.remix b { font-size: 17px; }
+.remix span { font-size: 14px; color: var(--muted); }
+.remix:hover { background: var(--surface); }
 .toc a:hover { color: var(--fg); background: var(--surface-2); }
 .doc { display: grid; gap: 48px; min-width: 0; }
 .doc section { display: grid; gap: 14px; scroll-margin-top: 90px; min-width: 0; }
@@ -161,6 +166,10 @@ details .gallery { margin-top: 10px; }
   const feel = sec('feel', 0, '써 본 사람의 기록', h('p', null, '10월 25일 실제 플레이를 크랙 애호가의 눈으로 다시 따라갔어요. 어디서 빠져들고, 어디서 짜릿하고, 어디서 식는지 장면 순서대로 적었어요.'));
   doc.append(feel);
   Experience(feel, BASE, XP);
+  feel.append(h('a', { class: 'remix', href: 'remix/story.html' },
+    h('small', null, '재조립 2호'),
+    h('b', null, '이 문법으로 만든 이야기 프롬프트, 판 깔기'),
+    h('span', null, '판을 고르고 복사하면 아무 챗봇에서나 속보, 성과와 청구서, 상태창, 세 갈래 추천이 돌아가요. 식었던 네 곳은 규칙으로 막았어요. →')));
 
   /* 0 실사용 */
   const real = sec('real', 1, '실제로 써 보면',

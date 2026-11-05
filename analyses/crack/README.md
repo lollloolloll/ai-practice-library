@@ -50,3 +50,6 @@ Screenshots are of a public website for analysis and commentary. Character art b
 
 ## Player view (`experience.json`, 2026-10-27)
 Same real session re-read as a fan: where immersion rises and falls (heat 1-5 per moment), the per-turn loop, dopamine triggers, cool-down points, and the reusable grammar (syntax). Rendered at the top of `/cases/crack.html`. `not_played` lists what a deeper session should cover next.
+
+## Remix (`/cases/remix/story.html`, 2026-11-05)
+Remix #2: a setup form that writes one copy-paste system prompt for any chatbot, built only from the syntax above (setup ritual, breaking-news line, gain + bill, status bar, three-way suggestions, every answer ends with a question, episode cuts). Four cool-down points become rules: no paywall at the cut (a 10-line `기록` card instead, pasted back via "이어 하기"), hidden success odds so wins are not free, at least one status value moves every turn with ▲▼, and the record card replaces paid memory. Three presets (청와대 2024, 조선 궁궐, 화성 기지); settings in localStorage (`remix-story-v1`). Not yet run against a real chatbot — status: inferred. Linked from the end of section 0 on `/cases/crack.html`.
