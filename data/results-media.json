@@ -307,6 +307,116 @@
     "auto": true,
     "date": "2026-11-04"
    }
+  ],
+  "volumetric-light": [
+   {
+    "src": "assets/results/image/volumetric-light.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, volumetric lighting, god rays",
+    "note": "원본 거리 구도를 유지하고 먼지와 옅은 안개 속으로 햇빛 줄기가 드러나는 볼류메트릭 조명을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "gel-lighting": [
+   {
+    "src": "assets/results/image/gel-lighting.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, colored gel lighting, teal and magenta",
+    "note": "원본 인물과 호수 배경 구도를 유지하면서 양쪽에서 청록색과 마젠타 젤 조명이 비추도록 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "macro-lens": [
+   {
+    "src": "assets/results/image/macro-lens.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, 100mm macro lens",
+    "note": "같은 인물과 호수 배경을 유지하며 100mm 매크로 렌즈의 미세한 피부·머리카락 질감과 매우 얕은 심도를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "anamorphic-lens": [
+   {
+    "src": "assets/results/image/anamorphic-lens.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, anamorphic lens",
+    "note": "원본 인물과 호수 풍경을 유지하며 타원형 보케, 가로 플레어, 약 2.39:1의 와이드 화면을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "aperture-f1-4": [
+   {
+    "src": "assets/results/image/aperture-f1-4.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, f/1.4 wide aperture",
+    "note": "f/1.4의 얕은 심도를 적용해 인물에 초점을 유지하고 호수와 언덕 배경을 더 크게 흐렸습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "aperture-f11": [
+   {
+    "src": "assets/results/image/aperture-f11.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, f/11 narrow aperture",
+    "note": "f/11의 깊은 피사계 심도를 적용해 가까운 선로부터 먼 건물까지 선명하게 표현했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "shallow-dof": [
+   {
+    "src": "assets/results/image/shallow-dof.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, shallow depth of field",
+    "note": "기존 거리 구도를 유지하고 가까운 전차 선로에 초점을 맞춰 먼 거리와 건물이 부드럽게 흐려지는 얕은 피사계 심도를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "deep-focus": [
+   {
+    "src": "assets/results/image/deep-focus.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, deep focus",
+    "note": "전경의 노면과 철로부터 먼 건물까지 초점이 선명한 딥 포커스를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "bokeh": [
+   {
+    "src": "assets/results/image/bokeh.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, bokeh",
+    "note": "인물과 구도를 유지하고 호수 배경의 반사광에 동그란 빛망울 형태의 보케를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
+  ],
+  "lens-flare": [
+   {
+    "src": "assets/results/image/lens-flare.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, lens flare",
+    "note": "원본의 도심 거리와 구도를 유지하면서 밝은 빛줄기와 반투명 원형 고스트가 나타나는 렌즈 플레어를 추가했습니다.",
+    "auto": true,
+    "date": "2026-11-05"
+   }
   ]
  }
 }
