@@ -69,7 +69,7 @@
   const st = document.createElement('style'); st.textContent = css; document.head.append(st);
 
   // 감정 종류별 색: 밝은 면과 어두운 면 모두에서 흰 글씨가 읽히는 중간 밝기
-  const KICK = { '보상': '#d9480f', '뽑기': '#c2255c', '수집': '#7048e8', '욕심': '#e8590c', '긴장': '#c92a2a', '주인공감': '#1971c2', '통제': '#0c8599', '기대': '#5f3dc4', '과제': '#495057', '연속': '#2b8a3e', '정리감': '#2f9e44', '소속': '#1864ab', '결제 유혹': '#868e96', '안심': '#868e96' };
+  const KICK = { '보상': '#d9480f', '뽑기': '#c2255c', '수집': '#7048e8', '욕심': '#e8590c', '긴장': '#c92a2a', '주인공감': '#1971c2', '통제': '#0c8599', '기대': '#5f3dc4', '과제': '#495057', '연속': '#2b8a3e', '정리감': '#2f9e44', '소속': '#1864ab', '결제 유혹': '#868e96', '안심': '#868e96', '궁금증': '#9c36b5' };
   const ST = { observed: '관찰', inferred: '추정', unknown: '미확인' };
 
   const h = (tag, attrs, ...kids) => {
@@ -124,6 +124,13 @@
     }).join(' ');
     svg.append(s('path', { d: d + ` L${pts[pts.length - 1][0]},${y(1) + 8} L${pts[0][0]},${y(1) + 8} Z`, style: 'fill:var(--accent-soft);stroke:none' }));
     svg.append(s('path', { d, style: 'fill:none;stroke:var(--accent);stroke-width:2.5' }));
+    // 날이 바뀌는 곳에 세로 구분선과 "n일 차" 표시
+    moments.forEach((m, i) => {
+      if (!m.day || (i && moments[i - 1].day === m.day)) return;
+      const dx = i ? (pts[i - 1][0] + pts[i][0]) / 2 : L;
+      if (i) svg.append(s('line', { x1: dx, x2: dx, y1: T - 8, y2: H - B + 4, style: 'stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3' }));
+      svg.append(s('text', { x: dx + 6, y: T - 4, style: 'fill:var(--muted);font:600 11px var(--f-mono)' }, m.day + '일 차'));
+    });
     moments.forEach((m, i) => {
       const g = s('g', { class: 'dot', tabindex: '0', role: 'button', 'aria-label': `${i + 1}. ${m.title}, 몰입도 ${m.heat}`, onclick: () => jump(i), onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jump(i); } } },
         s('circle', { cx: pts[i][0], cy: pts[i][1], r: 7, style: `fill:${KICK[m.kick] || '#495057'};stroke:var(--surface);stroke-width:2;${m.status === 'inferred' ? 'stroke-dasharray:3 2;' : ''}` }),
@@ -148,7 +155,7 @@
         : h('div', { class: 'nopic' }, '이번 플레이에서 못 본 장면이에요');
       const card = h('article', { class: 'xp-m', id: 'xp-' + m.id }, pic,
         h('div', { class: 'body' },
-          h('div', { class: 'top' }, '장면 ' + (i + 1), kick(m.kick), heat(m.heat), stTag(m.status)),
+          h('div', { class: 'top' }, (m.day ? m.day + '일 차 · ' : '') + '장면 ' + (i + 1), kick(m.kick), heat(m.heat), stTag(m.status)),
           h('h4', null, m.title),
           h('p', { class: 'did' }, m.did),
           h('blockquote', null, m.felt),

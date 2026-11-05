@@ -38,4 +38,4 @@ evidence_contract: ../README.md
 See `dossier.json` → `unknowns` (production URL/keys, server formulas, live remote-config values, exported receiver caller checks, SKU prices).
 
 ## Player view (`experience.json`, 2026-10-27)
-Same real session re-read as a fan: where immersion rises and falls (heat 1-5 per moment), the per-turn loop, dopamine triggers, cool-down points, and the reusable grammar (syntax). Rendered at the top of `/cases/habitica.html`. `not_played` lists what a deeper session should cover next.
+Day 1 = the 2026-10-25 session re-read as a fan; day 2 = a second session on 2026-10-27 after two days away (`ui/session2/`, 11 captures, name masked): Yesterdailies prompt, -4 HP, stacked news modals, check-in prize, first hatch (1/90), disliked food, streak bonus, level 3 full heal. Shows where immersion rises and falls (heat 1-5 per moment), the per-turn loop, dopamine triggers, cool-down points, and the reusable grammar (syntax). Rendered at the top of `/cases/habitica.html`. `not_played` lists what a deeper session should cover next.
