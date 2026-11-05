@@ -148,7 +148,7 @@ mark.ins { background: var(--mark); color: var(--mark-fg); padding: 0 3px; borde
 
 /* ── 분야 화면 ─────────────────────────── */
 .fieldpage { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; align-items: start; }
-.cats { position: sticky; top: calc(76px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; max-height: calc(100vh - 100px); overflow: auto; }
+.cats { position: sticky; top: calc(112px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; max-height: calc(100vh - 130px); overflow: auto; }
 .cats .ft { font: 400 30px/1.1 var(--f-display); font-style: italic; margin: 0 0 10px 10px; }
 .cats a {
   display: flex; justify-content: space-between; gap: 8px; padding: 7px 10px; border-radius: 8px; text-decoration: none;
@@ -287,11 +287,12 @@ a.card:hover { border-color: var(--fg); }
 }
 
 /* ── v2: 결과 우선 UI ─────────────────────────── */
-.top .wrap { flex-wrap: nowrap; }
-.nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
-.nav::-webkit-scrollbar { display: none; }
+/* 메뉴는 늘 두 번째 줄 전체를 써요. 한 줄에 두면 검색창 뒤로 잘려 안 눌렸어요. */
+.top .wrap { flex-wrap: wrap; row-gap: 6px; }
+.top .search { margin-left: auto; }
+.nav { order: 2; flex-basis: 100%; flex-wrap: wrap; }
 .nav a { white-space: nowrap; }
-@media (max-width: 860px) { .top .wrap { flex-wrap: wrap; } .nav { order: 2; flex-basis: 100%; } }
+@media (max-width: 600px) { .nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; } .nav::-webkit-scrollbar { display: none; } }
 .strip-bar .note { font-size: 12px; color: var(--muted); }
 .boxwrap { position: relative; }
 .diag { position: absolute; inset: 0; z-index: 2; border-radius: 8px; background: color-mix(in srgb, var(--surface) 94%, transparent); display: grid; place-items: center; padding: 10px; }
