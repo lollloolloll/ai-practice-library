@@ -771,7 +771,7 @@
     app.append(h('div', { class: 'fieldpage' }, sidebar(fid, '__combos'), main));
     main.append(h('div', { class: 'detail-h' },
       h('div', { class: 'crumbs' }, h('a', { href: '#combos.' + fid }, '조합 레시피'), '›', FMAP[fid].ko),
-      h('div', { class: 'ko', style: { fontSize: '28px' } }, cb.name_ko),
+      h('h1', { class: 'ko', style: { fontSize: '28px', margin: '0' } }, cb.name_ko),
       h('p', { class: 'fx' }, cb.goal_ko || ''),
       h('div', { class: 'chips' }, terms.map((t) => h('a', { class: 'chip', href: '#t.' + fid + '.' + t.id }, t.ko)))));
     if (FMAP[fid].kind === 'render') {
@@ -869,7 +869,7 @@
     const example = h('pre', { hidden: true }, b.filled_example_ko || '');
     app.append(h('div', { class: 'detail-h' },
       h('div', { class: 'crumbs' }, h('a', { href: '#briefs' }, '브리프 틀')),
-      h('div', { class: 'ko', style: { fontSize: '28px' } }, b.name_ko),
+      h('h1', { class: 'ko', style: { fontSize: '28px', margin: '0' } }, b.name_ko),
       h('p', { class: 'fx muted' }, '예시 값이 미리 들어 있어요. 내 내용으로 바꿔 보세요.')));
     app.append(h('div', { class: 'brief' }, form,
       h('div', { class: 'out' },
@@ -894,6 +894,9 @@
     a: String(t.name || '').toLowerCase(), b: String(t.ko || '').toLowerCase(), c: ((t.how_ko || '') + ' ' + (t.when_ko || '')).toLowerCase() }));
   D.briefs.forEach((b) => IDX.push({ kind: '브리프', t: b.name_ko, d: b.fields.map((f) => f.name_ko).join(' · '), f: '', href: '#b.' + b.id,
     a: '', b: b.name_ko.toLowerCase(), c: '' }));
+  // 띄어쓰기·하이픈 없이도 찾게: "림라이트" → "림 라이트", "goldenhour" → "golden hour"
+  const squash = (s) => s.replace(/[\s\-·._/]+/g, '');
+  IDX.forEach((it) => { it.an = squash(it.a); it.bn = squash(it.b); });
 
   // "원하는 결과"로 찾을 때 쓰는 말 → 사전에 실제로 쓰인 말
   const SYN = {
@@ -937,8 +940,9 @@
         alts.forEach((w, i) => {
           const direct = i < 2; // 입력한 말 그대로면 가산점
           let ws = 0;
-          if (it.a.startsWith(w) || it.b.startsWith(w)) ws = 100;
-          else if (it.a.includes(w) || it.b.includes(w)) ws = 70;
+          const wn = squash(w);
+          if (it.a.startsWith(w) || it.b.startsWith(w) || (wn && (it.an.startsWith(wn) || it.bn.startsWith(wn)))) ws = 100;
+          else if (it.a.includes(w) || it.b.includes(w) || (wn.length > 1 && (it.an.includes(wn) || it.bn.includes(wn)))) ws = 70;
           else if (it.c.includes(w)) ws = 25;
           if (ws && !direct) ws *= 0.6;
           best = Math.max(best, ws);
@@ -1003,6 +1007,7 @@
     const hash = decodeURIComponent(location.hash.replace(/^#/, ''));
     if (!force && hash === lastHash) return;
     const sameView = hash === lastHash;
+    if (!sameView) savePos();
     lastHash = hash;
     routeCleanups.forEach((fn) => { try { fn(); } catch (e) { console.error(e); } });
     routeCleanups = [];
@@ -1024,10 +1029,33 @@
     else if (p[0] === 'b') { current = 'briefs'; viewBrief(app, p.slice(1).join('.')); }
     else viewHome(app);
     nav(current);
+    // 뒤로·앞으로 가기로 돌아온 화면은 보던 자리로, 새로 연 화면은 맨 위로
+    const back = !sameView && history.state && history.state.k && POS[history.state.k] != null ? POS[history.state.k] : null;
+    if (!history.state || !history.state.k) { try { history.replaceState({ k: Date.now().toString(36) + Math.random().toString(36).slice(2, 6) }, ''); } catch (e) {} }
+    curKey = history.state && history.state.k;
     if (sameView) window.scrollTo(0, y);
+    else if (back != null) { window.scrollTo(0, back); requestAnimationFrame(() => window.scrollTo(0, back)); setTimeout(() => { if (Math.abs(window.scrollY - back) > 4) window.scrollTo(0, back); }, 350); }
     else if (p[0] !== 'k') window.scrollTo(0, 0);
-    document.title = '프롬프트 언어 사전';
+    // 탭 제목: 지금 보는 화면 이름 · 사이트 이름
+    const head = app.querySelector('h1, h2');
+    const LIST = { combos: '조합 레시피', tech: '기법', briefs: '브리프 틀' };
+    let name = !head ? '' : head.textContent.trim().split(String.fromCharCode(10))[0].replace(/\s+/g, ' ').slice(0, 40);
+    if (!hash || hash === 'home') name = '';
+    else if (FMAP[p[0]]) name = (p[1] && name ? name + ' · ' : '') + FMAP[p[0]].ko;
+    else if (LIST[p[0]]) name = LIST[p[0]];
+    document.title = name ? name + ' · 프롬프트 언어 사전' : '프롬프트 언어 사전';
   }
+  // 화면마다 스크롤 위치를 기억해요 (새로고침해도 이 탭 안에서는 유지)
+  let POS = {}, curKey = null;
+  try { POS = JSON.parse(sessionStorage.getItem('pd-pos') || '{}'); } catch (e) {}
+  function savePos() {
+    const k = curKey;
+    if (!k) return;
+    POS[k] = window.scrollY;
+    try { sessionStorage.setItem('pd-pos', JSON.stringify(POS)); } catch (e) {}
+  }
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('pagehide', savePos);
 
   function boot() {
     booted = true;

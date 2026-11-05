@@ -2006,9 +2006,15 @@ const IMPL = {
   }
 };
 
-// warm caches early
-loadHDR().catch(function () {});
-loadChair().catch(function () {});
+// 무거운 파일(HDR 1.5MB, 의자 4MB)은 3D 화면에 들어갈 때만 미리 받아요. 다른 화면에서는 받지 않아요.
+function warmIf3D() {
+  if (!/^#(3d|t\.3d\.|g\.3d|c\.3d)/.test(location.hash)) return;
+  window.removeEventListener('hashchange', warmIf3D);
+  loadHDR().catch(function () {});
+  loadChair().catch(function () {});
+}
+window.addEventListener('hashchange', warmIf3D);
+warmIf3D();
 
 (window.PD = window.PD || {});
 (window.PD._pendingRenderers = window.PD._pendingRenderers || []).push(['3d', IMPL]);
