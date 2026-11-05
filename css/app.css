@@ -353,3 +353,17 @@ a.card:hover { border-color: var(--fg); }
 @media (max-width: 600px) { .top.tuck { transform: translateY(-100%); } }
 @media (prefers-reduced-motion: reduce) { .top { transition: none; } }
 .btn.copied { color: var(--ok, #1f8a4c); border-color: currentColor; }
+
+/* ── 마감 3차 ─────────────────── */
+.search kbd.slash { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font: 500 11px var(--f-mono); color: var(--muted); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; background: var(--surface-2); pointer-events: none; }
+.search input:focus ~ kbd.slash, .search input:not(:placeholder-shown) ~ kbd.slash { display: none; }
+@media (pointer: coarse) { .search kbd.slash { display: none; } }
+.skel { display: grid; gap: 16px; padding-top: 28px; }
+.sk { border-radius: 10px; background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface) 50%, var(--surface-2) 100%); background-size: 200% 100%; animation: skm 1.3s ease-in-out infinite; }
+.sk-h1 { height: 56px; width: min(520px, 80%); }
+.sk-line { height: 16px; width: min(640px, 92%); } .sk-line.short { width: 40%; margin-top: 12px; }
+.sk-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.sk-box { aspect-ratio: 4 / 5; } .sk-card { height: 120px; }
+@media (max-width: 600px) { .sk-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@keyframes skm { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .sk { animation: none; } }

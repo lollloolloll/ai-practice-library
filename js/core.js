@@ -924,7 +924,7 @@
   const SYN = {
     '저녁': ['golden hour', '골든아워', 'blue hour', '블루아워', 'dusk', '노을', '해 질'], '노을': ['golden hour', '골든아워', 'sunset'],
     '새벽': ['blue hour', '블루아워', 'dawn'], '밤': ['night', '야간', 'neon', '네온'], '아침': ['morning', '아침', 'soft'],
-    '따뜻': ['warm', '따뜻', 'golden', '골든', 'portra', 'candle'], '차갑': ['cool', '차가운', 'blue', '푸른'], '차가운': ['cool', 'blue'],
+    '따뜻': ['warm', '따뜻', 'golden hour', '골든아워', 'portra', 'candle'], '차갑': ['cool', '차가운', 'blue', '푸른'], '차가운': ['cool', 'blue'],
     '영화': ['cinematic', '시네마틱', 'anamorphic', 'film', '필름'], '시네마틱': ['cinematic', 'anamorphic', 'teal'],
     '몽환': ['dreamy', '몽환', 'soft focus', 'haze', 'bloom'], '꿈': ['dreamy', '몽환', 'surreal'], '신비': ['eerie', 'mysterious', '신비', 'fog'],
     '레트로': ['retro', 'vintage', '80s', 'vhs', '레트로', '빈티지'], '옛날': ['vintage', 'retro', '빈티지', 'sepia'], '빈티지': ['vintage', 'retro', 'film', 'polaroid'],
@@ -946,9 +946,13 @@
     return [...out].filter((x) => x.length >= 1);
   }
   const FIELD_WORDS = { '이미지': 'image', '사진': 'image', '그림': 'image', '영상': 'video', '동영상': 'video', '비디오': 'video', '편집': 'editing', '자막': 'editing', '쇼츠': 'editing', '음악': 'audio', '노래': 'audio', '사운드': 'audio', '소리': 'audio', '음성': 'audio', '3d': '3d', '디자인': 'design', '로고': 'design', '포스터': 'design', '글': 'writing', '글쓰기': 'writing', '소설': 'writing', '카피': 'writing', '코딩': 'coding', '코드': 'coding', '앱': 'coding', '게임': 'coding' };
+  const FILLER = new Set(['느낌', '분위기', '스타일', '스타일로', '같은', '같이', '처럼', '느낌의', '느낌으로', '분위기의', '분위기로', '스러운', '감성', '감성의', '톤', '톤의', '룩', 'style', 'vibe', 'look', 'feel']);
   function search(q) {
     let words = q.toLowerCase().split(/\s+/).filter(Boolean);
     if (!words.length) return [];
+    // "느낌", "분위기", "스타일"처럼 어디에나 붙는 말은 다른 말이 있으면 빼요. 순위를 흐려요.
+    const plain = words.filter((w) => !FILLER.has(w) && !FILLER.has(stem(w)));
+    if (plain.length) words = plain;
     const fieldWord = words.find((w) => FIELD_WORDS[stem(w)] || FIELD_WORDS[w]);
     const wantField = fieldWord && (FIELD_WORDS[stem(fieldWord)] || FIELD_WORDS[fieldWord]);
     const FKO = wantField && FMAP[wantField].ko;
@@ -1003,6 +1007,13 @@
         cur = -1; box.hidden = false; paint();
       }, 60);
     });
+    // "/" 키로 어디서든 검색창으로 (글을 쓰는 중이면 그대로 두어요)
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== '/' || e.ctrlKey || e.metaKey || e.altKey) return;
+      const el = document.activeElement;
+      if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+      e.preventDefault(); q.focus(); q.select();
+    });
     q.addEventListener('keydown', (e) => {
       if (box.hidden) return;
       if (e.key === 'ArrowDown') { cur = Math.min(items.length - 1, cur + 1); paint(); e.preventDefault(); }
@@ -1049,7 +1060,7 @@
     PD.sound.stopAll();
     const app = document.getElementById('app');
     const y = window.scrollY;
-    app.textContent = '';
+    app.textContent = ''; app.removeAttribute('aria-busy');
     const p = hash.split('.');
     let current = '';
     if (!hash || hash === 'home') viewHome(app);

@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Gowun+Batang&display=swap">
-<link rel="stylesheet" href="css/app.css?v=20261105c">
+<link rel="stylesheet" href="css/app.css?v=20261105d">
 </head>
 <body>
 <header class="top">
@@ -30,19 +30,28 @@
     <nav class="nav" id="nav" aria-label="분야"></nav>
     <div class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="원하는 결과나 용어로 찾기" autocomplete="off" aria-label="검색">
+      <input id="q" type="search" placeholder="원하는 결과나 용어로 찾기" autocomplete="off" aria-label="검색" aria-keyshortcuts="/">
+      <kbd class="slash" aria-hidden="true" title="/ 키로 검색">/</kbd>
       <div class="results" id="results" hidden></div>
     </div>
   </div>
 </header>
-<main class="wrap" id="app"></main>
+<main class="wrap" id="app" aria-busy="true">
+  <!-- 데이터(약 2.8MB)를 받는 동안 보이는 뼈대. 첫 화면을 그리면 사라져요. -->
+  <div class="skel" aria-label="불러오는 중">
+    <div class="sk sk-h1"></div><div class="sk sk-line"></div>
+    <div class="sk-row"><div class="sk sk-box"></div><div class="sk sk-box"></div><div class="sk sk-box"></div><div class="sk sk-box"></div></div>
+    <div class="sk sk-line short"></div>
+    <div class="sk-row"><div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div></div>
+  </div>
+</main>
 
 <script src="data/dict.js?v=20261027a"></script>
 <script src="data/results-writing.js?v=20261027a" onerror="void 0"></script>
 <script src="data/results-coding.js?v=20261027a" onerror="void 0"></script>
 <script src="data/results-coding-2.js?v=20261027a" onerror="void 0"></script>
 <script src="data/results-media.js?v=auto202611052145" onerror="void 0"></script>
-<script src="js/core.js?v=20261105g"></script>
+<script src="js/core.js?v=20261105i"></script>
 <script src="js/diagrams.js?v=20261027a"></script>
 <script src="js/r-image.js?v=20261027a"></script>
 <script src="js/r-video.js?v=20261027a"></script>
@@ -51,5 +60,12 @@
 <script src="js/r-design.js?v=20261027a"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module" src="js/r-3d.js?v=20261105c"></script>
+<script>
+  // 20초가 지나도 뼈대만 있으면 멈춘 거예요. 가만히 두지 말고 알려요.
+  setTimeout(function () {
+    var s = document.querySelector('.skel');
+    if (s) s.outerHTML = '<div class="page-h" style="margin-top:28px"><h1>사전을 불러오지 못했어요</h1><p>인터넷 연결을 확인하고 <a href="javascript:location.reload()">새로고침</a>해 주세요.</p></div>';
+  }, 20000);
+</script>
 </body>
 </html>

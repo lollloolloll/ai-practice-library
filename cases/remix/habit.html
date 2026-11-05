@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../../css/app.css?v=20261105c">
+<link rel="stylesheet" href="../../css/app.css?v=20261105d">
 <style>
 /* 재조립 1호: Habitica에서 뽑은 문법만으로 만든 작은 습관 앱. 상태는 이 브라우저에만 저장해요. */
 body { background: var(--bg); }
@@ -73,7 +73,7 @@ body { background: var(--bg); }
 .bag button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 4px 8px; cursor: pointer; font: inherit; color: var(--fg); }
 .bag button.sel { border-color: var(--accent); background: var(--accent-soft); }
 .bag button:disabled { opacity: .35; cursor: default; }
-.toasts { position: fixed; top: 12px; right: 12px; display: grid; gap: 6px; z-index: 70; width: min(280px, calc(100vw - 24px)); pointer-events: none; }
+.toasts { position: fixed; top: 104px; right: 12px; display: grid; gap: 6px; z-index: 70; width: min(280px, calc(100vw - 24px)); pointer-events: none; }
 .qt { padding: 9px 12px; border-radius: 10px; color: #fff; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; box-shadow: var(--shadow); animation: tin .25s ease-out; }
 .qt.good { background: #1f8a4c; } .qt.bad { background: #c92a2a; } .qt.info { background: #3b4fd8; }
 @keyframes tin { from { transform: translateY(-8px); opacity: 0; } }
@@ -99,6 +99,14 @@ body { background: var(--bg); }
 </style>
 </head>
 <body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="../../index.html"><b>Prompt Lexicon</b><span>프롬프트 언어 사전</span></a>
+    <nav class="nav" aria-label="사이트">
+      <a href="../../index.html#image">이미지</a><a href="../../index.html#video">동영상</a><a href="../../index.html#writing">글쓰기</a><a href="../../index.html#coding">코딩</a><span class="sep" aria-hidden="true"></span><a href="../index.html" aria-current="page">실전 사례</a>
+    </nav>
+  </div>
+</header>
 <main class="q">
   <div class="q-crumbs"><a href="../index.html">실전 사례</a> › <a href="../habitica.html">Habitica</a> › 재조립 1호</div>
   <section class="qhero" aria-label="내 캐릭터">
