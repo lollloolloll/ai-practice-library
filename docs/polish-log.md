@@ -45,6 +45,7 @@
 ## 사전과 사례로 옮김 (2026-11-05)
 - 사전: 코딩 분야에 **마감·디테일** 카테고리 19개 용어(`research/coding.json` → `python -I tools/build_data.py`). 이미 있던 skeleton-loading, empty-state, lazy-loading, sticky-header 같은 일반 용어는 겹치지 않게 빼고 compare_with로 이었어요. 조합 레시피 "상용 서비스처럼 마감"(`commercial-polish`)도 추가.
 - 실전 사례: `cases/lexicon-polish.html` — 19개 전/후 카드(차례별 필터, 용어로 링크), 마감의 문법 5가지, 찾는 방법. 메인과 실전 사례 목록에 링크.
+- 전후 화면 (2026-11-06): 카드마다 실제 캡처 20장(`assets/polish/*.jpg`). 마감 전 커밋 5b1976d와 지금 사이트를 같은 상태로 나란히 열고, 바뀐 곳을 빨강(전)·초록(후) 테두리로 표시했어요. 누르면 크게 보여요.
 
 ## 남은 것
 - 판 깔기 프롬프트 실제 챗봇 검증 (이 PC에 모델이 없어 사용자 확인이 필요해요)
