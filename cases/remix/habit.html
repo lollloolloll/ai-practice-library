@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오늘의 퀘스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../../css/app.css?v=20261105a">
+<style>
+/* 재조립 1호: Habitica에서 뽑은 문법만으로 만든 작은 습관 앱. 상태는 이 브라우저에만 저장해요. */
+body { background: var(--bg); }
+.q { max-width: 1180px; margin: 0 auto; padding: 16px var(--gutter) 64px; display: grid; gap: 18px; }
+.q-crumbs { font-size: 13px; color: var(--muted); }
+.q-crumbs a { color: inherit; }
+.qhero { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 16px 18px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.ava { width: 76px; height: 76px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; font-size: 34px; position: relative; }
+.ava .pet { position: absolute; right: -8px; bottom: -6px; font-size: 26px; }
+.ava .gear { position: absolute; left: -6px; top: -8px; font-size: 18px; letter-spacing: -4px; }
+.stats { display: grid; gap: 7px; min-width: 0; }
+.stats h1 { margin: 0; font-size: 18px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.stats h1 small { font: 500 12px var(--f-mono); color: var(--muted); }
+.bar { display: grid; grid-template-columns: 22px minmax(0, 1fr) 64px; gap: 8px; align-items: center; font: 500 12px var(--f-mono); color: var(--muted); }
+.bar i { display: block; height: 10px; border-radius: 99px; background: var(--surface-2); overflow: hidden; border: 1px solid var(--line); }
+.bar i b { display: block; height: 100%; border-radius: 99px; transition: width .35s; }
+.bar.hp b { background: #e5484d; } .bar.xp b { background: #f5a524; }
+.wallet { display: grid; gap: 6px; justify-items: end; font: 600 14px var(--f-mono); }
+.wallet button { font-size: 12px; }
+.qb { border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 5px 12px; cursor: pointer; font: inherit; font-size: 13px; }
+.qb.pri { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
+.board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 12px; border-radius: 14px; background: var(--surface-2); border: 1px solid var(--line); min-width: 0; }
+.col h2 { margin: 0; font-size: 16px; display: flex; justify-content: space-between; align-items: baseline; }
+.col h2 small { font-size: 12px; color: var(--muted); font-weight: 500; }
+.add { display: flex; gap: 6px; }
+.add input { flex: 1; min-width: 0; width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; background: var(--surface); color: var(--fg); font: inherit; font-size: 13px; }
+.qcard { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: stretch; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); overflow: hidden; min-height: 50px; }
+.qcard .hit { border: 0; cursor: pointer; font-size: 18px; font-weight: 700; color: #fff; display: grid; place-items: center; }
+.qcard .t { padding: 9px 10px; font-size: 14px; line-height: 1.4; display: grid; gap: 2px; align-content: center; min-width: 0; overflow-wrap: anywhere; }
+.qcard .t small { font: 500 11px var(--f-mono); color: var(--muted); }
+.qcard .minus { border: 0; border-left: 1px solid var(--line); background: var(--surface-2); color: var(--muted); width: 36px; cursor: pointer; font-size: 18px; }
+.qcard.done { opacity: .55; } .qcard.done .t { text-decoration: line-through; }
+.shop { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.item { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 10px 6px 8px; display: grid; gap: 4px; justify-items: center; cursor: pointer; font: inherit; color: var(--fg); }
+.item .e { font-size: 26px; } .item b { font: 600 12px var(--f-mono); }
+.item small { font-size: 11px; color: var(--muted); text-align: center; }
+.item.poor { opacity: .55; } .item.own { border-color: var(--ok); }
+.goal { font-size: 12px; color: var(--muted); }
+.goal b { color: var(--fg); }
+.dex { display: grid; gap: 10px; padding: 14px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.dex h2 { margin: 0; font-size: 16px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.dex h2 small { font: 500 12px var(--f-mono); color: var(--muted); }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: 6px; }
+.slot { aspect-ratio: 1; border-radius: 10px; background: var(--surface-2); border: 1px dashed var(--line); display: grid; place-items: center; font-size: 26px; color: var(--muted); cursor: default; }
+.slot.got { border-style: solid; background: var(--accent-soft); cursor: pointer; }
+.slot.got.on { outline: 2px solid var(--accent); }
+.bag { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; }
+.bag button { border: 1px solid var(--line); background: var(--surface-2); border-radius: 8px; padding: 4px 8px; cursor: pointer; font: inherit; color: var(--fg); }
+.bag button.sel { border-color: var(--accent); background: var(--accent-soft); }
+.bag button:disabled { opacity: .35; cursor: default; }
+.toasts { position: fixed; top: 12px; right: 12px; display: grid; gap: 6px; z-index: 70; width: min(280px, calc(100vw - 24px)); pointer-events: none; }
+.qt { padding: 9px 12px; border-radius: 10px; color: #fff; font-size: 13px; font-weight: 600; display: flex; justify-content: space-between; gap: 8px; box-shadow: var(--shadow); animation: tin .25s ease-out; }
+.qt.good { background: #1f8a4c; } .qt.bad { background: #c92a2a; } .qt.info { background: #3b4fd8; }
+@keyframes tin { from { transform: translateY(-8px); opacity: 0; } }
+.modal { position: fixed; inset: 0; z-index: 80; background: rgba(10, 12, 20, .62); display: grid; place-items: center; padding: 16px; }
+.modal > div { width: min(380px, 100%); background: var(--surface); color: var(--fg); border-radius: 16px; padding: 20px; display: grid; gap: 12px; text-align: center; box-shadow: var(--shadow); }
+.modal h3 { margin: 0; font-size: 20px; }
+.modal p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.modal .big { font-size: 54px; }
+.modal label { display: flex; gap: 8px; align-items: center; text-align: left; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; }
+.why { padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.why summary { cursor: pointer; font-weight: 600; }
+.why table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 10px; }
+.why th { text-align: left; font-size: 12px; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.why td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.55; }
+.dev { font-size: 12px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+@media (max-width: 960px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .board { grid-template-columns: minmax(0, 1fr); }
+  .qhero { grid-template-columns: auto minmax(0, 1fr); }
+  .wallet { grid-column: 1 / -1; grid-auto-flow: column; justify-content: space-between; justify-items: start; }
+}
+@media (prefers-reduced-motion: reduce) { .qt { animation: none; } .bar i b { transition: none; } }
+</style>
+</head>
+<body>
+<main class="q">
+  <div class="q-crumbs"><a href="../index.html">실전 사례</a> › <a href="../habitica.html">Habitica</a> › 재조립 1호</div>
+  <section class="qhero" aria-label="내 캐릭터">
+    <div class="ava" id="ava"><span>🧑‍🌾</span></div>
+    <div class="stats">
+      <h1>오늘의 퀘스트 <small id="lvl"></small></h1>
+      <div class="bar hp"><span>❤</span><i><b id="hpb"></b></i><span id="hpt"></span></div>
+      <div class="bar xp"><span>★</span><i><b id="xpb"></b></i><span id="xpt"></span></div>
+    </div>
+    <div class="wallet"><span id="gold"></span><span class="goal" id="gift"></span></div>
+  </section>
+
+  <div class="board">
+    <section class="col" aria-label="습관"><h2>습관 <small>누를 때마다</small></h2><form class="add" data-k="habits"><input placeholder="습관 추가" aria-label="습관 추가"><button class="qb">+</button></form><div id="habits"></div></section>
+    <section class="col" aria-label="매일"><h2>매일 <small>자정에 다시</small></h2><form class="add" data-k="dailies"><input placeholder="매일 할 일 추가" aria-label="매일 할 일 추가"><button class="qb">+</button></form><div id="dailies"></div></section>
+    <section class="col" aria-label="할 일"><h2>할 일 <small>끝나면 사라져요</small></h2><form class="add" data-k="todos"><input placeholder="할 일 추가" aria-label="할 일 추가"><button class="qb">+</button></form><div id="todos"></div></section>
+    <section class="col" aria-label="보상"><h2>보상 <small>골드로 사요</small></h2><div class="goal" id="goal"></div><div class="shop" id="shop"></div></section>
+  </div>
+
+  <section class="dex" aria-label="도감">
+    <h2>도감 <small id="dexn"></small></h2>
+    <div class="bag" id="bag"></div>
+    <div class="slots" id="slots"></div>
+  </section>
+
+  <details class="why">
+    <summary>이 화면에 쓴 Habitica 문법</summary>
+    <table><thead><tr><th>문법</th><th>이 앱에서는</th></tr></thead><tbody id="why"></tbody></table>
+  </details>
+  <div class="dev">시험용: <button class="qb" id="nextday" type="button">다음 날로 넘기기</button><button class="qb" id="reset" type="button">처음부터</button></div>
+</main>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script>
+(() => {
+  const KEY = 'remix-habit-v1';
+  const EGGS = [['여우', '🦊'], ['고양이', '🐱'], ['토끼', '🐰'], ['용', '🐉']];
+  const POTIONS = [['하늘', 200], ['분홍', 300], ['황금', 40]]; // 이름, hue-rotate 각도
+  const SHOP = [
+    { id: 'hat', e: '🎩', n: '모자', p: 15 }, { id: 'shield', e: '🛡️', n: '방패', p: 30 },
+    { id: 'sword', e: '🗡️', n: '검', p: 45 }, { id: 'treat', e: '🍦', n: '나에게 주는 보상', s: '진짜로 먹어요', p: 10, repeat: true }
+  ];
+  const WHY = [
+    ['현실 행동 = 게임 입력', '버튼 하나가 전부예요. 실제 플레이는 화면 밖에서 해요.'],
+    ['첫 레벨업은 몇 분 안에', '첫 레벨은 경험치 30이에요. 예시 할 일 네댓 개면 넘어요. 그 뒤로는 1.5배씩 길어져요.'],
+    ['겹쳐 쌓이는 숫자 알림', '누르면 바로 오른쪽 위에 +경험치, +골드가 쌓여요.'],
+    ['끝의 모양이 셋', '습관은 남고, 매일은 줄이 그어지고, 할 일은 사라져요.'],
+    ['옆에 진열된 목표', '보상 칸에 가격을 붙여 두고, 다음 목표까지 남은 골드를 늘 보여 줘요.'],
+    ['물음표 빈칸 + 조합 도감', '알 4종 × 포션 3색 = 12칸. 알과 포션을 하나씩 고르면 부화해요.'],
+    ['벌 전에 묻기', '다음 날 열면 "어제 한 것 있나요?"를 먼저 물어요. 체크한 건 벌을 받지 않아요.'],
+    ['짧은 벌, 긴 흔적', '빼먹으면 체력이 3 깎이고, 카드 색은 점점 붉어져요. 체력은 레벨업으로 바로 회복돼요.'],
+    ['돌아온 날의 선물', '들어오기만 해도 이틀마다 알이나 포션을 줘요. 다음 선물까지 남은 횟수를 보여 줘요.'],
+    ['창은 두 개까지 (식는 곳에서 배운 것)', 'Habitica는 돌아온 날 창이 네 개 떴어요. 여기서는 "어제 한 것"과 "선물" 두 개만 띄워요.']
+  ];
+  const today = (off) => { const d = new Date(Date.now() + off * 864e5); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+  const uid = () => Math.random().toString(36).slice(2, 9);
+  const eul = (w) => { const c = w.charCodeAt(w.length - 1) - 0xac00; return w + (c >= 0 && c < 11172 && c % 28 ? '을' : '를'); };
+  const seed = () => ({
+    off: 0, day: today(0), lvl: 1, xp: 0, hp: 50, gold: 0, checkins: 1, gear: [], pets: {}, eggs: { '여우': 1 }, potions: {}, sel: {},
+    habits: [{ id: uid(), t: '물 한 잔 마시기', n: 0 }, { id: uid(), t: '10분 걷기', n: 0 }, { id: uid(), t: '야식 먹기', n: 0, bad: true }],
+    dailies: [{ id: uid(), t: '스트레칭', done: false, streak: 0, v: 0 }, { id: uid(), t: '가장 중요한 일 하나', done: false, streak: 0, v: 0 }, { id: uid(), t: '일기 한 줄', done: false, streak: 0, v: 0 }],
+    todos: [{ id: uid(), t: '습관 하나 내 것으로 바꾸기' }, { id: uid(), t: '오늘 할 일 세 개 적기' }]
+  });
+  let S;
+  try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) { S = null; }
+  if (!S || !S.habits) S = seed();
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* 저장이 막히면 이번 방문 동안만 기억해요 */ } };
+  const need = () => Math.round(30 * Math.pow(1.5, S.lvl - 1));
+  const $ = (id) => document.getElementById(id);
+  const h = (tag, attrs, ...kids) => {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) {
+      if (v == null || v === false) continue;
+      if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else if (k === 'class') el.className = v; else el.setAttribute(k, v);
+    }
+    kids.flat().forEach((c) => c != null && c !== false && el.append(c.nodeType ? c : document.createTextNode(String(c))));
+    return el;
+  };
+
+  const qt = (cls, text, num) => {
+    const t = h('div', { class: 'qt ' + cls }, h('span', null, text), num != null ? h('span', null, num) : null);
+    $('toasts').prepend(t);
+    while ($('toasts').children.length > 5) $('toasts').lastChild.remove();
+    setTimeout(() => t.remove(), 2600);
+  };
+  const modal = (body, buttons) => new Promise((res) => {
+    const m = h('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true' }, h('div', null, body,
+      h('div', null, buttons.map(([label, val, pri]) => h('button', { class: 'qb' + (pri ? ' pri' : ''), type: 'button', onclick: () => { m.remove(); res(val); } }, label)))));
+    document.body.append(m);
+    m.querySelector('.qb.pri')?.focus();
+  });
+
+  // 보상: 경험치·골드·드롭
+  const reward = async (xp, gold, label) => {
+    S.xp += xp; S.gold += gold;
+    qt('good', '경험치', '+' + xp); if (gold) qt('good', '골드', '+' + gold);
+    if (Math.random() < 0.3) {
+      const egg = Math.random() < 0.5;
+      const [name] = egg ? EGGS[Math.floor(Math.random() * EGGS.length)] : POTIONS[Math.floor(Math.random() * POTIONS.length)];
+      const bag = egg ? S.eggs : S.potions; bag[name] = (bag[name] || 0) + 1;
+      qt('info', (egg ? name + ' 알' : name + ' 포션') + '이 떨어졌어요!');
+    }
+    while (S.xp >= need()) {
+      S.xp -= need(); S.lvl += 1; S.hp = 50;
+      render();
+      await modal([h('div', { class: 'big' }, '🎉'), h('h3', null, '레벨 ' + S.lvl + ' 달성!'), h('p', null, '현실에서 한 일로 레벨이 올랐어요. 체력도 다 찼어요.')], [['계속하기', 1, true]]);
+    }
+    save(); render();
+  };
+  const hurt = async (n, why) => {
+    S.hp -= n; qt('bad', why, '-' + n);
+    if (S.hp <= 0) {
+      S.hp = 50; S.gold = Math.floor(S.gold / 2); S.lvl = Math.max(1, S.lvl - 1); S.xp = 0;
+      render();
+      await modal([h('div', { class: 'big' }, '💫'), h('h3', null, '쓰러졌어요'), h('p', null, '레벨 하나와 골드 절반을 잃었어요. 다시 일어나요.')], [['다시 시작', 1, true]]);
+    }
+    save(); render();
+  };
+
+  // 매일 카드 색: 빼먹을수록 붉고, 이어 갈수록 파래요
+  const tone = (v) => v <= -3 ? '#c92a2a' : v <= -2 ? '#e8590c' : v <= -1 ? '#f08c00' : v < 1 ? '#f5a524' : v < 3 ? '#2f9e44' : '#1971c2';
+
+  const render = () => {
+    $('lvl').textContent = '레벨 ' + S.lvl;
+    $('hpb').style.width = Math.max(0, S.hp / 50 * 100) + '%'; $('hpt').textContent = S.hp + '/50';
+    $('xpb').style.width = (S.xp / need() * 100) + '%'; $('xpt').textContent = S.xp + '/' + need();
+    $('gold').textContent = '🪙 ' + S.gold;
+    const left = 2 - (S.checkins % 2);
+    $('gift').textContent = '다음 출석 선물까지 ' + left + '번';
+    const pet = S.pet && S.pets[S.pet] ? S.pet : null;
+    $('ava').replaceChildren(...[h('span', null, '🧑‍🌾'), S.gear.length ? h('span', { class: 'gear' }, S.gear.map((g) => SHOP.find((x) => x.id === g).e).join('')) : null,
+      pet ? h('span', { class: 'pet', style: 'filter:hue-rotate(' + POTIONS.find((p) => p[0] === pet.split('-')[1])[1] + 'deg)' }, EGGS.find((e) => e[0] === pet.split('-')[0])[1]) : null].filter(Boolean));
+
+    $('habits').replaceChildren(...S.habits.map((x) => h('div', { class: 'qcard' },
+      h('button', { class: 'hit', type: 'button', style: 'background:' + (x.bad ? '#adb5bd' : '#f5a524'), 'aria-label': x.t + ' 했어요', disabled: x.bad || null, onclick: () => { x.n++; reward(6, 1); } }, x.bad ? '' : '+'),
+      h('div', { class: 't' }, x.t, h('small', null, '▶▶ ' + x.n)),
+      h('button', { class: 'minus', type: 'button', 'aria-label': x.t + ' 빼기', onclick: () => hurt(3, x.t) }, '−'))));
+    $('dailies').replaceChildren(...S.dailies.map((x) => h('div', { class: 'qcard' + (x.done ? ' done' : '') },
+      h('button', { class: 'hit', type: 'button', style: 'background:' + (x.done ? '#868e96' : tone(x.v)), 'aria-label': x.t + (x.done ? ' 취소' : ' 체크'), onclick: () => {
+        if (x.done) { x.done = false; x.streak = Math.max(0, x.streak - 1); S.xp = Math.max(0, S.xp - 8); S.gold = Math.max(0, S.gold - 2); save(); render(); return; }
+        x.done = true; x.streak++; x.v = Math.min(4, x.v + 1);
+        if (x.streak >= 2) qt('info', '연속 ' + x.streak + '일 보너스!', '+1');
+        reward(8, 2 + (x.streak >= 2 ? 1 : 0));
+      } }, x.done ? '✓' : ''),
+      h('div', { class: 't' }, x.t, h('small', null, '▶▶ ' + x.streak)), h('span'))));
+    $('todos').replaceChildren(...S.todos.map((x) => h('div', { class: 'qcard' },
+      h('button', { class: 'hit', type: 'button', style: 'background:#e8590c', 'aria-label': x.t + ' 끝내기', onclick: () => { S.todos = S.todos.filter((y) => y !== x); reward(10, 3); } }, ''),
+      h('div', { class: 't' }, x.t), h('span'))));
+
+    const next = SHOP.filter((x) => !x.repeat && !S.gear.includes(x.id)).sort((a, b) => a.p - b.p)[0];
+    $('goal').replaceChildren(next ? h('span', null, '다음 목표: ' + next.e + ' ' + next.n + ' · ', h('b', null, Math.max(0, next.p - S.gold) + '골드'), ' 남았어요') : '장비를 다 모았어요');
+    $('shop').replaceChildren(...SHOP.map((x) => {
+      const own = !x.repeat && S.gear.includes(x.id);
+      return h('button', { class: 'item' + (own ? ' own' : S.gold < x.p ? ' poor' : ''), type: 'button', onclick: () => {
+        if (own) return;
+        if (S.gold < x.p) { qt('bad', '골드가 ' + (x.p - S.gold) + ' 모자라요'); return; }
+        S.gold -= x.p; if (!x.repeat) S.gear.push(x.id);
+        qt('info', x.repeat ? '보상을 샀어요. 즐겨요!' : eul(x.n) + ' 장착했어요'); save(); render();
+      } }, h('span', { class: 'e' }, x.e), h('small', null, x.n), x.s ? h('small', null, x.s) : null, h('b', null, own ? '장착 중' : '🪙 ' + x.p));
+    }));
+
+    const got = Object.keys(S.pets).length;
+    $('dexn').textContent = got + '/' + (EGGS.length * POTIONS.length);
+    const canHatch = S.sel.egg && S.sel.potion;
+    $('bag').replaceChildren(
+      ...EGGS.filter(([n]) => S.eggs[n]).map(([n, e]) => h('button', { type: 'button', class: S.sel.egg === n ? 'sel' : '', onclick: () => { S.sel.egg = S.sel.egg === n ? null : n; render(); } }, e + ' ' + n + ' 알 ×' + S.eggs[n])),
+      ...POTIONS.filter(([n]) => S.potions[n]).map(([n]) => h('button', { type: 'button', class: S.sel.potion === n ? 'sel' : '', onclick: () => { S.sel.potion = S.sel.potion === n ? null : n; render(); } }, '🧪 ' + n + ' ×' + S.potions[n])),
+      h('button', { type: 'button', disabled: !canHatch || null, onclick: async () => {
+        const k = S.sel.egg + '-' + S.sel.potion;
+        S.eggs[S.sel.egg]--; S.potions[S.sel.potion]--;
+        if (!S.eggs[S.sel.egg]) delete S.eggs[S.sel.egg]; if (!S.potions[S.sel.potion]) delete S.potions[S.sel.potion];
+        const isNew = !S.pets[k]; S.pets[k] = 1; S.pet = k; S.sel = {};
+        save(); render();
+        const [, e] = EGGS.find((x) => x[0] === k.split('-')[0]); const hue = POTIONS.find((p) => p[0] === k.split('-')[1])[1];
+        await modal([h('div', { class: 'big', style: 'filter:hue-rotate(' + hue + 'deg)' }, e), h('h3', null, k.split('-')[1] + ' ' + (isNew ? k.split('-')[0] + ' 탄생!' : eul(k.split('-')[0]) + ' 또 만났어요')), h('p', null, isNew ? '도감 ' + Object.keys(S.pets).length + '/12칸이 찼어요. 다른 색 포션이면 다른 친구가 나와요.' : '이미 도감에 있어요.')], [['데려가기', 1, true]]);
+      } }, canHatch ? '부화하기' : '알 하나와 포션 하나를 고르면 부화해요'));
+    $('slots').replaceChildren(...EGGS.flatMap(([en, e]) => POTIONS.map(([pn, hue]) => {
+      const k = en + '-' + pn, has = S.pets[k];
+      return h('button', { class: 'slot' + (has ? ' got' : '') + (S.pet === k ? ' on' : ''), type: 'button', 'aria-label': has ? pn + ' ' + en + ' 데리고 다니기' : '아직 모르는 친구', title: has ? pn + ' ' + en : '?', disabled: !has || null, onclick: () => { S.pet = k; save(); render(); } },
+        has ? h('span', { style: 'filter:hue-rotate(' + hue + 'deg)' }, e) : '?');
+    })));
+  };
+
+  // 하루가 바뀌면: 어제 한 것 묻기 → 벌 → 출석 선물. 창은 두 개까지만 띄워요.
+  const newDay = async () => {
+    const day = today(S.off);
+    if (S.day === day) return;
+    const missed = S.dailies.filter((x) => !x.done);
+    if (missed.length) {
+      const box = missed.map((x) => h('label', null, h('input', { type: 'checkbox', value: x.id }), x.t));
+      await modal([h('h3', null, '다시 왔네요!'), h('p', null, '어제 한 것이 있으면 체크해 주세요. 체크하지 않은 것만 체력이 깎여요.'), h('div', { style: 'display:grid;gap:6px' }, box)], [['오늘 시작하기', 1, true]]);
+      const did = new Set(box.map((l) => l.querySelector('input')).filter((i) => i.checked).map((i) => i.value));
+      let dmg = 0;
+      for (const x of S.dailies) {
+        if (x.done || did.has(x.id)) { x.streak = x.done ? x.streak : x.streak + 1; continue; }
+        x.streak = 0; x.v = Math.max(-4, x.v - 1); dmg += 3;
+      }
+      if (dmg) { S.day = day; S.dailies.forEach((x) => { x.done = false; }); await hurt(dmg, '어제 빼먹은 일'); }
+    }
+    S.day = day; S.dailies.forEach((x) => { x.done = false; });
+    S.checkins++;
+    if (S.checkins % 2 === 0) {
+      const egg = Math.random() < 0.5;
+      const [name, e] = egg ? EGGS[Math.floor(Math.random() * EGGS.length)] : POTIONS[Math.floor(Math.random() * POTIONS.length)];
+      const bag = egg ? S.eggs : S.potions; bag[name] = (bag[name] || 0) + 1;
+      await modal([h('div', { class: 'big' }, egg ? e : '🧪'), h('h3', null, '출석 선물!'), h('p', null, (egg ? name + ' 알' : name + ' 포션') + '을 받았어요. 들어오기만 해도 이틀마다 줘요.')], [['받기', 1, true]]);
+    }
+    save(); render();
+  };
+
+  document.querySelectorAll('form.add').forEach((f) => f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const t = f.querySelector('input').value.trim(); if (!t) return;
+    const k = f.dataset.k;
+    S[k].push(k === 'dailies' ? { id: uid(), t, done: false, streak: 0, v: 0 } : k === 'habits' ? { id: uid(), t, n: 0 } : { id: uid(), t });
+    f.querySelector('input').value = ''; save(); render();
+  }));
+  $('nextday').addEventListener('click', () => { S.off++; newDay(); });
+  $('reset').addEventListener('click', async () => {
+    if (await modal([h('h3', null, '처음부터 할까요?'), h('p', null, '레벨, 골드, 도감이 모두 사라져요.')], [['그대로 두기', 0], ['처음부터', 1, true]])) { S = seed(); save(); render(); }
+  });
+  $('why').replaceChildren(...WHY.map(([a, b]) => h('tr', null, h('td', null, h('b', null, a)), h('td', null, b))));
+  render();
+  newDay();
+})();
+</script>
+</body>
+</html>

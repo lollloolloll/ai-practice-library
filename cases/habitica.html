@@ -13,6 +13,11 @@
 .case { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 32px; align-items: start; }
 .toc { position: sticky; top: calc(76px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; font-size: 13px; }
 .toc a { text-decoration: none; color: var(--muted); padding: 5px 8px; border-radius: 6px; }
+.remix { display: grid; gap: 4px; margin-top: 18px; padding: 16px 18px; border-radius: 14px; border: 1px solid var(--accent, #6133b4); background: var(--surface-2); color: var(--fg); text-decoration: none; }
+.remix small { font: 600 12px var(--f-mono, monospace); color: var(--accent, #6133b4); }
+.remix b { font-size: 17px; }
+.remix span { font-size: 14px; color: var(--muted); }
+.remix:hover { background: var(--surface); }
 .toc a:hover { color: var(--fg); background: var(--surface-2); }
 .doc { display: grid; gap: 48px; min-width: 0; }
 .doc section { display: grid; gap: 14px; scroll-margin-top: 90px; min-width: 0; }
@@ -157,9 +162,13 @@ details > .shots { margin-top: 10px; }
   doc.textContent = '';
 
   /* 체험기 */
-  const feel = sec('feel', 0, '해 본 사람의 기록', h('p', null, '10월 25일 실제 플레이를 게임을 좋아하는 사람의 눈으로 다시 따라갔어요. 어떤 과제가 있고, 어디서 짜릿하고, 어디서 식는지 장면 순서대로 적었어요.'));
+  const feel = sec('feel', 0, '해 본 사람의 기록', h('p', null, '10월 25일 첫날과 이틀 뒤 다시 들어간 날을 게임을 좋아하는 사람의 눈으로 따라갔어요. 어떤 과제가 있고, 어디서 짜릿하고, 어디서 식는지 장면 순서대로 적었어요.'));
   doc.append(feel);
   Experience(feel, BASE, XP);
+  feel.append(h('a', { class: 'remix', href: 'remix/habit.html' },
+    h('small', null, '재조립 1호'),
+    h('b', null, '이 문법으로 직접 만든 습관 앱, 오늘의 퀘스트'),
+    h('span', null, '누르면 바로 오르는 막대, 벌 전에 묻기, 조합으로 채우는 도감을 한 화면에 넣었어요. 기록은 이 브라우저에만 남아요. →')));
 
   /* 실사용 */
   const real = sec('real', 1, '실제로 해 보면',
