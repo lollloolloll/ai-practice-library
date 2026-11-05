@@ -109,20 +109,33 @@
     setTimeout(() => t.remove(), 1800);
   }
   function copy(text) {
-    const done = () => toast('복사했어요');
-    const fallback = () => {
-      const ta = h('textarea', { style: { position: 'fixed', opacity: '0' } }, text);
-      document.body.append(ta);
-      ta.select();
-      try { document.execCommand('copy'); done(); } catch (e) { toast('복사하지 못했어요. 직접 선택해서 복사해 주세요'); }
-      ta.remove();
-    };
-    try {
-      navigator.clipboard.writeText(text).then(done, fallback);
-    } catch (e) { fallback(); }
+    return new Promise((resolve) => {
+      const done = () => { toast('복사했어요'); resolve(true); };
+      const fail = () => { toast('복사하지 못했어요. 직접 선택해서 복사해 주세요'); resolve(false); };
+      const fallback = () => {
+        const ta = h('textarea', { style: { position: 'fixed', opacity: '0' } }, text);
+        document.body.append(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        ta.remove();
+        ok ? done() : fail();
+      };
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
   }
   const copyBtn = (getText, label = '복사') =>
-    h('button', { class: 'btn small copy', type: 'button', onclick: (e) => { e.stopPropagation(); copy(getText()); } }, label);
+    h('button', { class: 'btn small copy', type: 'button', onclick: (e) => {
+      e.stopPropagation();
+      const b = e.currentTarget;
+      // 누른 버튼 자체가 잠깐 "복사했어요 ✓"로 바뀌어요. 폭은 그대로 둬서 옆 요소가 밀리지 않아요.
+      copy(getText()).then((ok) => {
+        if (!ok) return;
+        b.style.minWidth = b.offsetWidth + 'px';
+        b.textContent = '복사했어요 ✓'; b.classList.add('copied');
+        clearTimeout(b._t); b._t = setTimeout(() => { b.textContent = label; b.classList.remove('copied'); }, 1600);
+      });
+    } }, label);
 
   /* ── 데이터 색인 ───────────────────────────────── */
   const FIELDS = D.fields;
@@ -587,6 +600,15 @@
         h('a', { class: 'layer', href: '#briefs' }, h('b', null, '브리프 틀 ' + D.briefs.length), h('span', null, '실제로 뭔가 만들 때 AI에게 맥락을 주는 순서예요')),
         h('a', { class: 'layer', href: 'cases/index.html' }, h('b', null, '실전 사례'), h('span', null, '잘 만든 결과물을 거꾸로 분해해 용어와 프롬프트로 풀어요')))));
 
+    // 분해한 문법으로 직접 만든 것: 메인에서 바로 들어가게
+    app.append(h('div', { class: 'section' },
+      h('div', { class: 'section-h' }, h('h2', null, '분해하고 다시 만들기'), h('a', { class: 'btn', href: 'cases/index.html' }, '실전 사례 전부 보기')),
+      h('div', { class: 'layers' },
+        h('a', { class: 'layer', href: 'cases/remix/habit.html' }, h('b', null, '오늘의 퀘스트'), h('span', null, '재조립 1호 · Habitica 문법으로 만든 습관 앱. 바로 써 볼 수 있어요')),
+        h('a', { class: 'layer', href: 'cases/remix/story.html' }, h('b', null, '판 깔기'), h('span', null, '재조립 2호 · 크랙 문법으로 만든 이야기 프롬프트. 아무 챗봇에 붙여 써요')),
+        h('a', { class: 'layer', href: 'cases/habitica.html' }, h('b', null, 'Habitica 분해'), h('span', null, '할 일을 RPG로 바꾸는 앱을 이틀 동안 직접 해 보고 문법을 뽑았어요')),
+        h('a', { class: 'layer', href: 'cases/crack.html' }, h('b', null, '크랙 분해'), h('span', null, 'AI 이야기 플랫폼에서 어디서 빠져들고 어디서 식는지 따라갔어요')))));
+
     app.append(h('div', { class: 'section' },
       h('div', { class: 'section-h' }, h('h2', null, '원본 출처')),
       h('p', { class: 'muted', style: { margin: 0, fontSize: '13px', maxWidth: '90ch' } },
@@ -663,7 +685,7 @@
   /* ── 화면: 용어 ───────────────────────────────── */
   function viewTerm(app, fid, id) {
     const t = getTerm(fid, id);
-    if (!t) { app.append(h('p', null, '이 용어를 찾지 못했어요. ', h('a', { href: '#' + fid }, FMAP[fid] ? FMAP[fid].ko + '로 돌아가기' : '처음으로'))); return; }
+    if (!t) { notFound(app, '이 용어', id, '#' + fid, FMAP[fid].ko, FMAP[fid].ko); return; }
     const key = 't:' + fid + ':' + id;
     if (!S.sel[key] || S.auto[key]) {
       const cw = (t.compare_with || []).map((x) => getTerm(fid, x)).filter(Boolean);
@@ -765,7 +787,7 @@
 
   function viewCombo(app, fid, id) {
     const cb = D.combos.find((c) => c.field === fid && c.id === id);
-    if (!cb) { app.append(h('p', null, '이 조합을 찾지 못했어요.')); return; }
+    if (!cb) { notFound(app, '이 조합', id, '#combos', '조합 레시피', FMAP[fid].ko); return; }
     const terms = (cb.term_ids || []).map((x) => getTerm(fid, x)).filter(Boolean);
     const main = h('div', { style: { minWidth: '0' } });
     app.append(h('div', { class: 'fieldpage' }, sidebar(fid, '__combos'), main));
@@ -849,7 +871,7 @@
 
   function viewBrief(app, id) {
     const b = D.briefs.find((x) => x.id === id);
-    if (!b) { app.append(h('p', null, '이 브리프 틀을 찾지 못했어요.')); return; }
+    if (!b) { notFound(app, '이 브리프 틀', id, '#briefs', '브리프 틀'); return; }
     const vals = {};
     const pre = h('pre', null);
     const build = () => {
@@ -991,6 +1013,19 @@
     document.addEventListener('click', (e) => { if (!e.target.closest('.search')) close(); });
   }
 
+
+  /* 없는 주소·용어: 막다른 길 대신 비슷한 것과 돌아갈 곳을 보여 줘요 */
+  const ro = (w) => { const c = w.charCodeAt(w.length - 1) - 0xac00; const j = c >= 0 && c < 11172 ? c % 28 : 0; return w + (j && j !== 8 ? '으로' : '로'); };
+  const eun = (w) => { const c = w.charCodeAt(w.length - 1) - 0xac00; return w + (c >= 0 && c < 11172 && c % 28 ? '은' : '는'); };
+  function notFound(app, what, id, backHref, backLabel, prefer) {
+    const words = String(id || '').replace(/^[a-z0-9]+\./i, '').replace(/[-_.]+/g, ' ').trim();
+    const near = (words ? search(words) : []).map((it, i) => [it.f === prefer ? 0 : 1, i, it]).sort((x, y) => x[0] - y[0] || x[1] - y[1]).map((x) => x[2]).slice(0, 6);
+    app.append(h('div', { class: 'page-h' }, h('span', { class: 'eyebrow' }, '찾지 못했어요'),
+      h('h1', null, eun(what) + ' 사전에 없어요'),
+      h('p', null, '주소가 바뀌었거나 아직 없는 항목이에요. ', h('a', { href: backHref }, ro(backLabel) + ' 돌아가기'), ' 또는 위 검색창에서 찾아보세요.')));
+    if (near.length) app.append(h('div', { class: 'section' }, h('div', { class: 'section-h' }, h('h2', null, '혹시 이걸 찾았나요?')),
+      h('div', { class: 'layers' }, near.map((it) => h('a', { class: 'layer', href: it.href }, h('b', null, it.t), h('span', null, it.kind + (it.f ? ' · ' + it.f : '') + ' · ' + it.d))))));
+  }
   /* ── 라우터 ───────────────────────────────── */
   function nav(current) {
     const n = document.getElementById('nav');
@@ -1027,7 +1062,7 @@
     else if (p[0] === 'k') { current = 'tech'; S.techField = p[1]; S.techCat = 'all'; viewTech(app, null, p[1] + '.' + p.slice(2).join('.')); }
     else if (p[0] === 'briefs') { current = 'briefs'; viewBriefs(app); }
     else if (p[0] === 'b') { current = 'briefs'; viewBrief(app, p.slice(1).join('.')); }
-    else viewHome(app);
+    else notFound(app, '이 주소', hash, '#home', '처음');
     nav(current);
     // 뒤로·앞으로 가기로 돌아온 화면은 보던 자리로, 새로 연 화면은 맨 위로
     const back = !sameView && history.state && history.state.k && POS[history.state.k] != null ? POS[history.state.k] : null;
@@ -1057,9 +1092,33 @@
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.addEventListener('pagehide', savePos);
 
+  // 메뉴가 넘치면 가장자리를 흐리게, 휴대폰에서는 내릴 때 헤더를 접어요
+  function setupChrome() {
+    const n = document.getElementById('nav');
+    const top = document.querySelector('.top');
+    const edge = () => {
+      const over = n.scrollWidth > n.clientWidth + 2;
+      n.classList.toggle('more-r', over && n.scrollLeft + n.clientWidth < n.scrollWidth - 2);
+      n.classList.toggle('more-l', over && n.scrollLeft > 2);
+    };
+    n.addEventListener('scroll', edge, { passive: true });
+    window.addEventListener('resize', edge);
+    new MutationObserver(edge).observe(n, { childList: true });
+    edge();
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const typing = document.activeElement && document.activeElement.id === 'q';
+      if (y < 80 || y < lastY - 4 || typing) top.classList.remove('tuck');
+      else if (y > lastY + 4) top.classList.add('tuck');
+      lastY = y;
+    }, { passive: true });
+  }
+
   function boot() {
     booted = true;
     setupSearch();
+    setupChrome();
     window.addEventListener('hashchange', () => route(false));
     route(true);
     MINE.all().then(() => { if (MINE.cache.size) route(true); });

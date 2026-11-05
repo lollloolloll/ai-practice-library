@@ -334,3 +334,22 @@ a.card:hover { border-color: var(--fg); }
   .tiles:not(.wide) .tile-h .n .k { display: none; }
   .hero h1 { font-size: 44px; }
 }
+
+/* ── 마감 2차: 손가락으로 누르기 ─────────────────── */
+/* 터치 화면에서는 작은 버튼의 누르는 범위를 44px 가까이 넓혀요. 모양은 그대로예요. */
+@media (pointer: coarse) {
+  .tile-h button.x, .diag-btn { position: relative; }
+  .tile-h button.x::after, .diag-btn::after { content: ''; position: absolute; inset: -11px -8px; }
+  .btn, a.chip, button.chip { min-height: 40px; }
+  .nav a { padding: 10px 12px; }
+  .cats a { min-height: 40px; display: inline-flex; align-items: center; }
+}
+/* 메뉴가 옆으로 더 있으면 오른쪽 끝을 흐리게 해서 밀 수 있다고 알려요 */
+.nav.more-r { -webkit-mask-image: linear-gradient(to right, #000 82%, transparent); mask-image: linear-gradient(to right, #000 82%, transparent); }
+.nav.more-l.more-r { -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 82%, transparent); mask-image: linear-gradient(to right, transparent, #000 14%, #000 82%, transparent); }
+.nav.more-l:not(.more-r) { -webkit-mask-image: linear-gradient(to right, transparent, #000 18%); mask-image: linear-gradient(to right, transparent, #000 18%); }
+/* 휴대폰에서 아래로 내리면 헤더를 접고, 위로 올리면 다시 보여요 */
+.top { transition: transform .22s ease; }
+@media (max-width: 600px) { .top.tuck { transform: translateY(-100%); } }
+@media (prefers-reduced-motion: reduce) { .top { transition: none; } }
+.btn.copied { color: var(--ok, #1f8a4c); border-color: currentColor; }

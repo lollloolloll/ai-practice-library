@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>페이지를 찾지 못했어요 · 프롬프트 언어 사전</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/ai-practice-library/assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/ai-practice-library/css/app.css?v=20261105c">
+<style>
+body { background: var(--bg); }
+.nf { max-width: 640px; margin: 0 auto; padding: 72px var(--gutter) 64px; display: grid; gap: 16px; }
+.nf .code { font: 400 96px/1 var(--f-display); font-style: italic; color: var(--accent); margin: 0; }
+.nf h1 { margin: 0; font-size: 26px; }
+.nf p { margin: 0; color: var(--muted); line-height: 1.7; }
+.nf code { font: 13px var(--f-mono); background: var(--surface-2); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
+.nf nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.nf nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); text-decoration: none; font-weight: 600; }
+.nf nav a.pri { background: var(--accent); border-color: var(--accent); color: #fff; }
+</style>
+</head>
+<body>
+<main class="nf">
+  <p class="code" aria-hidden="true">404</p>
+  <h1>이 페이지는 없어요</h1>
+  <p>주소가 바뀌었거나 잘못 입력됐어요. 찾던 주소: <code id="path"></code></p>
+  <nav aria-label="돌아갈 곳">
+    <a class="pri" href="/ai-practice-library/">사전 처음으로</a>
+    <a href="/ai-practice-library/cases/index.html">실전 사례</a>
+    <a href="/ai-practice-library/cases/remix/habit.html">오늘의 퀘스트</a>
+    <a href="/ai-practice-library/cases/remix/story.html">판 깔기</a>
+  </nav>
+</main>
+<script>document.getElementById('path').textContent = decodeURIComponent(location.pathname.replace(/^\/ai-practice-library/, '') || '/');</script>
+</body>
+</html>
