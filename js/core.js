@@ -607,7 +607,8 @@
         h('a', { class: 'layer', href: 'cases/remix/habit.html' }, h('b', null, '오늘의 퀘스트'), h('span', null, '재조립 1호 · Habitica 문법으로 만든 습관 앱. 바로 써 볼 수 있어요')),
         h('a', { class: 'layer', href: 'cases/remix/story.html' }, h('b', null, '판 깔기'), h('span', null, '재조립 2호 · 크랙 문법으로 만든 이야기 프롬프트. 아무 챗봇에 붙여 써요')),
         h('a', { class: 'layer', href: 'cases/habitica.html' }, h('b', null, 'Habitica 분해'), h('span', null, '할 일을 RPG로 바꾸는 앱을 이틀 동안 직접 해 보고 문법을 뽑았어요')),
-        h('a', { class: 'layer', href: 'cases/crack.html' }, h('b', null, '크랙 분해'), h('span', null, 'AI 이야기 플랫폼에서 어디서 빠져들고 어디서 식는지 따라갔어요')))));
+        h('a', { class: 'layer', href: 'cases/crack.html' }, h('b', null, '크랙 분해'), h('span', null, 'AI 이야기 플랫폼에서 어디서 빠져들고 어디서 식는지 따라갔어요')),
+        h('a', { class: 'layer', href: 'cases/lexicon-polish.html' }, h('b', null, '이 사이트 마감 기록'), h('span', null, '상용 서비스처럼 다듬은 19가지 전과 후. 프롬프트에 넣는 마감 용어로 정리했어요')))));
 
     app.append(h('div', { class: 'section' },
       h('div', { class: 'section-h' }, h('h2', null, '원본 출처')),

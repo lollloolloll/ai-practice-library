@@ -77,6 +77,11 @@
       "id": "workflow",
       "name_ko": "AI 코딩 작업 방식",
       "desc_ko": "계획·규칙 파일·스크린샷·범위 제한 등 AI와 주고받는 방법."
+    },
+    {
+      "id": "polish",
+      "name_ko": "마감·디테일",
+      "desc_ko": "돌아가는 것과 상용 서비스 사이의 차이예요. 한 줄씩 넣으면 AI가 마감까지 챙겨요. 이 사이트를 직접 고치며 뽑았어요."
     }
   ],
   "terms": [
@@ -4208,6 +4213,522 @@
         "https://support.bolt.new/best-practices/prompting-effectively",
         "https://code.claude.com/docs/en/best-practices"
       ]
+    },
+    {
+      "id": "polish-pass",
+      "term": "polish pass",
+      "ko": "마감 한 바퀴",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "다 만든 뒤 \"직접 써 보며 거친 곳을 찾아 고쳐 줘\"를 따로 시켜요. 기능 만들 때 섞으면 AI가 마감을 건너뛰어요.",
+      "snippet": "Now do a polish pass: use the app as a first-time user on desktop and a 375px phone, list every rough edge (dead ends, missing feedback, layout jumps, slow loads), then fix them one by one.",
+      "compare_with": [
+        "production-ready",
+        "visual-verification",
+        "edge-cases"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "standards-mode",
+      "term": "standards mode (doctype + lang)",
+      "ko": "표준 모드 문서",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "맨 위 <!doctype html>과 <html lang=\"ko\">를 꼭 넣어요. 빠지면 브라우저가 옛날 호환 모드로 그려 레이아웃이 미묘하게 어긋나고, 화면 낭독기가 언어를 몰라요.",
+      "snippet": "Start every HTML file with <!doctype html> and <html lang=\"ko\">, with charset and viewport metas first in <head>.",
+      "compare_with": [
+        "accessible-a11y",
+        "single-html-file"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTML/Quirks_Mode_and_Standards_Mode",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "scroll-restoration",
+      "term": "scroll restoration",
+      "ko": "뒤로 가기 스크롤 복원",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "목록을 내려가 상세를 열었다가 뒤로 오면 보던 자리로 돌아와요. 빠지면 매번 맨 위로 튕겨서 긴 목록을 다시 내려가야 해요.",
+      "snippet": "Restore scroll position on back/forward navigation: save scrollY per history entry and restore it after the view renders; new navigations start at the top.",
+      "compare_with": [
+        "client-side-routing",
+        "url-state",
+        "infinite-scroll"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/History/scrollRestoration",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "per-view-title",
+      "term": "per-view document title",
+      "ko": "화면마다 탭 제목",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "보는 화면 이름을 탭 제목 앞에 붙여요(\"rim light · 사이트 이름\"). 탭을 여러 개 열거나 방문 기록을 볼 때 구분돼요.",
+      "snippet": "Update document.title on every route change to \"<view name> · <site name>\".",
+      "compare_with": [
+        "client-side-routing"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "forgiving-search",
+      "term": "forgiving search (spacing, filler words)",
+      "ko": "너그러운 검색",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "띄어쓰기·하이픈을 무시하고(\"림라이트\" = \"림 라이트\"), \"느낌·분위기·스타일\" 같은 군말은 다른 말이 있으면 빼요. 군말이 순위를 흐려요.",
+      "snippet": "Make search forgiving: ignore spaces and hyphens when matching, drop filler words like \"느낌\", \"분위기\", \"스타일\", \"style\" when other words are present, and rank exact name matches above description matches.",
+      "compare_with": [
+        "search-filter-sort",
+        "debounce"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "keyboard-shortcut-slash",
+      "term": "\"/\" to search",
+      "ko": "/ 키로 검색",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "어디서든 / 를 누르면 검색창으로 가요. 글을 쓰는 중에는 무시하고, 검색창에 / 표시를 작게 보여 줘요(터치 화면에선 숨김).",
+      "snippet": "Add a \"/\" keyboard shortcut that focuses the search box unless the user is typing in a field; show a small \"/\" hint in the input on non-touch devices.",
+      "compare_with": [
+        "keyboard-navigation",
+        "command-palette"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "app-icons",
+      "term": "favicon and app icons",
+      "ko": "파비콘·앱 아이콘",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "탭과 홈 화면에 뜨는 아이콘이에요. 없으면 빈 아이콘이 떠서 미완성처럼 보여요. 32px, 180px(애플), 512px를 준비해요.",
+      "snippet": "Add a favicon (32px PNG or SVG), an apple-touch-icon (180px) and a 512px icon, all matching the brand color.",
+      "compare_with": [
+        "design-tokens"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Glossary/Favicon",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "share-preview",
+      "term": "share preview (Open Graph)",
+      "ko": "공유 미리보기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "메신저나 SNS에 링크를 붙였을 때 뜨는 카드예요. 페이지마다 제목·설명·1200×630 이미지를 넣어요. 없으면 제목만 덩그러니 떠요.",
+      "snippet": "Add per-page meta description and Open Graph tags (og:title, og:description, og:url, og:image 1200x630) plus twitter:card summary_large_image.",
+      "compare_with": [
+        "real-content"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://ogp.me/",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "theme-color",
+      "term": "theme-color",
+      "ko": "주소창 색",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "휴대폰 주소창과 상태 표시줄 색을 사이트 배경에 맞춰요. 밝은 모드와 어두운 모드를 따로 줘요.",
+      "snippet": "Set <meta name=\"theme-color\"> for light and dark color schemes to match the page background.",
+      "compare_with": [
+        "dark-mode"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name/theme-color",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "not-found-recovery",
+      "term": "not-found recovery",
+      "ko": "막다른 길 없애기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "없는 주소·항목에서 \"없어요\"로 끝내지 않아요. 비슷한 항목 몇 개와 돌아갈 곳을 보여 주고, 사이트 모양의 404 페이지를 둬요.",
+      "snippet": "Never dead-end: for unknown routes or missing items show a clear \"not found\" heading, up to 6 similar items from search, and a link back; add a styled 404.html with links to main sections.",
+      "compare_with": [
+        "empty-state",
+        "loading-error-states"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "touch-target-44",
+      "term": "44px touch targets",
+      "ko": "손가락 크기 누름 영역",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "휴대폰에서 누르는 곳은 44px 안팎이 돼야 해요. 보이는 모양은 그대로 두고 보이지 않는 누름 범위만 넓혀도 돼요.",
+      "snippet": "On touch devices make every tap target at least 44x44px; for small icons extend the hit area with an invisible ::after instead of enlarging the icon.",
+      "compare_with": [
+        "mobile-first",
+        "accessible-a11y"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+        "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "overflow-affordance",
+      "term": "overflow affordance",
+      "ko": "더 있다는 신호",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "옆으로 밀어야 하는 메뉴나 목록은 가장자리를 흐리게 해서 더 있다고 알려요. 스크롤바를 숨기면 아무도 밀지 않아요.",
+      "snippet": "When a row scrolls horizontally, fade the edge that has more content (mask-image gradient) and update it on scroll; never hide the overflow with no hint.",
+      "compare_with": [
+        "responsive",
+        "micro-interactions"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "hide-on-scroll-header",
+      "term": "hide-on-scroll header",
+      "ko": "내리면 접히는 헤더",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "휴대폰에서 아래로 내리면 헤더를 접고, 조금만 올려도 다시 보여요. 검색 중이거나 맨 위 근처에선 접지 않아요.",
+      "snippet": "On small screens hide the sticky header when scrolling down and reveal it on any upward scroll; keep it visible near the top and while the search field is focused.",
+      "compare_with": [
+        "sticky-header",
+        "mobile-first"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "in-place-feedback",
+      "term": "in-place feedback",
+      "ko": "누른 자리에서 알려 주기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "누른 버튼 자체가 잠깐 \"복사했어요 ✓\"로 바뀌어요. 화면 구석 알림만으로는 놓치기 쉬워요. 폭은 고정해서 옆이 밀리지 않게 해요.",
+      "snippet": "After an action, confirm on the control itself (e.g. the copy button reads \"Copied ✓\" for 1.5s) with a fixed width so nothing shifts, in addition to any toast.",
+      "compare_with": [
+        "micro-interactions",
+        "toast-notifications"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "honest-failure",
+      "term": "honest failure",
+      "ko": "정직한 실패",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "실패했는데 \"완료\"라고 하지 않아요. 이 사이트는 복사가 막혀도 \"복사했어요\"가 떴어요. 결과를 확인한 뒤에 알려요.",
+      "snippet": "Only report success after the operation actually succeeds; on failure say so and offer a manual fallback (e.g. \"Copy blocked - select the text and copy it\").",
+      "compare_with": [
+        "error-handling",
+        "loading-error-states"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "load-timeout-fallback",
+      "term": "load timeout fallback",
+      "ko": "오래 걸리면 알려 주기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "뼈대 화면이 끝없이 돌면 멈춘 건지 모르겠어요. 일정 시간이 넘으면 \"불러오지 못했어요 · 새로고침\"으로 바꿔요.",
+      "snippet": "Show a skeleton while data loads, and if it is still loading after 20 seconds replace it with an error message and a reload link.",
+      "compare_with": [
+        "skeleton-loading",
+        "loading-error-states"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "consistent-navigation",
+      "term": "consistent navigation",
+      "ko": "어디서나 같은 길",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "모든 페이지에 같은 헤더와 메뉴를 둬요. 따로 만든 페이지 하나만 헤더가 없어도 길을 잃어요.",
+      "snippet": "Use the same header and navigation on every page, including standalone pages, with the current section marked via aria-current.",
+      "compare_with": [
+        "sticky-header",
+        "design-tokens"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "entry-point",
+      "term": "visible entry point",
+      "ko": "입구 만들기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "새로 만든 기능은 메인에서 한 번에 닿게 해요. 몇 단계 안에 숨어 있으면 만든 사람 말고는 아무도 몰라요.",
+      "snippet": "Make every new feature reachable from the home page within one click, with a short line saying what it is.",
+      "compare_with": [
+        "real-content"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "basic",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
+    },
+    {
+      "id": "korean-particles",
+      "term": "Korean particle agreement",
+      "ko": "조사 맞추기",
+      "category": "polish",
+      "tags": [
+        "coding",
+        "polish"
+      ],
+      "effect_ko": "이름 뒤 조사를 받침에 맞춰요(모자를·조합은·편집으로). 이름이 바뀌는 자리에서 \"을(를)\"이나 틀린 조사가 나오면 기계 번역처럼 보여요.",
+      "snippet": "When inserting Korean words into sentences, choose particles by the final consonant (을/를, 은/는, 이/가, 으로/로 with the ㄹ exception) with a small helper instead of \"을(를)\".",
+      "compare_with": [
+        "real-content"
+      ],
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
+      ],
+      "level": "intermediate",
+      "sources": [
+        "https://lollloolloll.github.io/ai-practice-library/cases/lexicon-polish.html"
+      ]
     }
   ],
   "combos": [
@@ -4595,6 +5116,32 @@
         "v0",
         "Lovable",
         "Bolt"
+      ]
+    },
+    {
+      "id": "commercial-polish",
+      "name_ko": "상용 서비스처럼 마감",
+      "goal_ko": "돌아가기만 하는 화면을 남에게 보여 줄 수 있는 서비스로 다듬을 때",
+      "term_ids": [
+        "polish-pass",
+        "standards-mode",
+        "scroll-restoration",
+        "per-view-title",
+        "not-found-recovery",
+        "share-preview",
+        "touch-target-44",
+        "in-place-feedback",
+        "honest-failure",
+        "skeleton-loading"
+      ],
+      "prompt_en": "Do a polish pass before shipping: fix doctype/lang, restore scroll on back, set per-view titles, replace dead ends with helpful not-found views and a styled 404, add favicon and Open Graph previews, make touch targets 44px, confirm actions on the control itself, never report success on failure, and show a skeleton with a timeout fallback while loading. Verify each on desktop and a 375px phone.",
+      "notes_ko": "기능을 만들 때 섞지 말고, 다 만든 뒤 따로 한 바퀴 시켜요. 이 사이트에서 3차에 걸쳐 실제로 고친 순서예요.",
+      "tools": [
+        "Claude Code",
+        "Cursor",
+        "Claude artifacts",
+        "Bolt",
+        "Replit Agent"
       ]
     }
   ],
