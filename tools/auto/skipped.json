@@ -8,5 +8,10 @@
   "tries": 1,
   "last": "fail: 15분 안에 끝나지 않았어요",
   "final": false
+ },
+ "freeze-motion": {
+  "tries": 1,
+  "last": "skip: 원본에 움직임이나 튀는 액체가 없어 정지 순간을 시각적으로 표현하려면 새로운 요소를 추가해야 하므로 원본 유지 조건과 충돌합니다.",
+  "final": true
  }
 }

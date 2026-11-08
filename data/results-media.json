@@ -417,6 +417,105 @@
     "auto": true,
     "date": "2026-11-05"
    }
+  ],
+  "chromatic-aberration": [
+   {
+    "src": "assets/results/image/chromatic-aberration.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, chromatic aberration",
+    "note": "원본 인물과 장면을 유지하면서 머리카락과 어깨 등의 가장자리에 색수차로 인한 색 번짐을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "motion-blur": [
+   {
+    "src": "assets/results/image/motion-blur.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, motion blur, slow shutter",
+    "note": "원본의 인물과 호수 배경 구도를 유지하면서 얼굴과 머리카락에 느린 셔터로 촬영한 듯한 수평 모션 블러를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "long-exposure": [
+   {
+    "src": "assets/results/image/long-exposure.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, long exposure",
+    "note": "원본 거리와 구도를 유지하면서 먼 차량의 움직임에 은은한 장노출 궤적을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "extreme-close-up": [
+   {
+    "src": "assets/results/image/extreme-close-up.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, extreme close-up (ECU)",
+    "note": "동일 인물의 눈과 눈썹 주변만 화면을 채우도록 익스트림 클로즈업을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "close-up": [
+   {
+    "src": "assets/results/image/close-up.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, close-up shot",
+    "note": "같은 인물과 호수 배경을 유지하며 얼굴이 화면 대부분을 채우는 클로즈업 구도로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "medium-close-up": [
+   {
+    "src": "assets/results/image/medium-close-up.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, medium close-up",
+    "note": "같은 인물과 호수 배경을 유지하며 가슴 위까지 표정과 옷이 함께 보이는 미디엄 클로즈업 구도로 조정했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "medium-shot": [
+   {
+    "src": "assets/results/image/medium-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, medium shot (waist up)",
+    "note": "같은 인물과 호수·언덕 배경을 유지하면서 허리 위까지 보이는 미디엄 샷으로 구도를 넓혔습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "cowboy-shot": [
+   {
+    "src": "assets/results/image/cowboy-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, cowboy shot (American shot)",
+    "note": "같은 인물과 호수 배경을 유지하면서 머리부터 허벅지 중간까지 담는 카우보이 샷으로 구도를 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
+  ],
+  "full-body-shot": [
+   {
+    "src": "assets/results/image/full-body-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, full body shot",
+    "note": "같은 인물과 호수·언덕 배경을 유지하며 머리부터 발끝까지 보이는 전신 구도로 넓혔습니다.",
+    "auto": true,
+    "date": "2026-11-08"
+   }
   ]
  }
 }
