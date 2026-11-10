@@ -516,6 +516,105 @@
     "auto": true,
     "date": "2026-11-08"
    }
+  ],
+  "wide-shot": [
+   {
+    "src": "assets/results/image/wide-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, wide shot",
+    "note": "같은 인물과 호숫가 장면을 유지하며 인물을 작게 담고 호수와 언덕이 넓게 보이는 와이드 샷으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "extreme-wide-shot": [
+   {
+    "src": "assets/results/image/extreme-wide-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, extreme wide shot / establishing shot",
+    "note": "같은 인물과 호수·언덕 배경을 유지하면서 넓은 풍경 속 인물이 작게 보이는 익스트림 와이드 숏으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "over-the-shoulder": [
+   {
+    "src": "assets/results/image/over-the-shoulder.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, over-the-shoulder shot",
+    "note": "같은 여성의 어깨 너머로 호수와 언덕을 바라보는 구도로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "pov-shot": [
+   {
+    "src": "assets/results/image/pov-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, POV shot, first-person view",
+    "note": "같은 호수와 언덕을 인물의 눈으로 바라보며 자신의 손과 팔이 전경에 보이는 1인칭 시점으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "macro-shot": [
+   {
+    "src": "assets/results/image/macro-shot.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, macro shot",
+    "note": "같은 인물의 눈 주변을 매크로로 확대해 홍채와 피부의 미세한 질감, 얕은 심도를 표현했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "low-angle": [
+   {
+    "src": "assets/results/image/low-angle.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, low-angle shot",
+    "note": "같은 인물과 호수 배경을 유지하면서 아래에서 올려다보는 로우앵글로 바꿔 인물이 크고 당당하게 보이도록 했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "high-angle": [
+   {
+    "src": "assets/results/image/high-angle.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, high-angle shot",
+    "note": "같은 인물과 호수 배경을 유지하면서 위에서 내려다보는 하이앵글 구도로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "birds-eye-view": [
+   {
+    "src": "assets/results/image/birds-eye-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, bird's-eye view / top-down",
+    "note": "고층 건물 사이 빈 거리와 트램 선로를 바로 위에서 수직으로 내려다보는 시점으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
+  ],
+  "worms-eye-view": [
+   {
+    "src": "assets/results/image/worms-eye-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, worm's-eye view",
+    "note": "같은 도심 거리를 지면에서 위로 올려다보는 시점으로 바꿔 건물의 높이와 원근감을 강조했습니다.",
+    "auto": true,
+    "date": "2026-11-10"
+   }
   ]
  }
 }
