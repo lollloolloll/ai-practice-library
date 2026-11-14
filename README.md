@@ -5,6 +5,8 @@
 
 **사이트**: https://lollloolloll.github.io/ai-practice-library/
 
+**분해실(새 버전)**: https://lollloolloll.github.io/ai-practice-library/lab/ — 작품을 순서와 문법으로 뜯어보고, 고른 문법으로 조립 주문서를 만들어요. 작품 추가는 `lab/lab.js`의 `WORKS`에 한 줄 + `analyses/<id>/experience.json`.
+
 ## 실행
 
 ```bash

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>분해실 · 잘 만든 것을 뜯어보고 다시 만들기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="잘 만든 앱과 서비스를 사용자로 직접 겪고, 순서와 문법으로 뜯어본 뒤 그 문법으로 새 작품을 조립해요.">
+<meta name="theme-color" content="#f3efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15130f" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="분해실">
+<meta property="og:description" content="잘 만든 것을 순서와 문법으로 뜯어보고, 그 문법으로 다시 만들어요.">
+<meta property="og:image" content="https://lollloolloll.github.io/ai-practice-library/assets/brand/og.png">
+<link rel="icon" href="../assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="lab.css?v=20261114a">
+</head>
+<body>
+<a class="skip" href="#app">본문으로 건너뛰기</a>
+<header class="mast">
+  <a class="logo" href="#/" aria-label="분해실 처음으로"><span class="mark" aria-hidden="true">分</span><b>분해실</b></a>
+  <nav aria-label="주 메뉴">
+    <a href="#/" data-nav="home">작품</a>
+    <a href="#/grammar" data-nav="grammar">문법 모음</a>
+    <a href="#/bench" data-nav="bench">조립대 <span class="badge" id="pickN" hidden></span></a>
+  </nav>
+</header>
+<main id="app" tabindex="-1"><p class="loading">불러오는 중이에요…</p></main>
+<footer class="foot">
+  <span>겪고 → 뜯고 → 다시 만들어요.</span>
+  <a href="../index.html">단어 사전(이전 버전) 보기</a>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog class="zoom" id="zoom" aria-label="크게 보기"><img alt=""></dialog>
+<script src="lab.js?v=20261114a"></script>
+</body>
+</html>
