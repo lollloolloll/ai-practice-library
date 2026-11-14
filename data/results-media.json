@@ -615,6 +615,105 @@
     "auto": true,
     "date": "2026-11-10"
    }
+  ],
+  "dutch-angle": [
+   {
+    "src": "assets/results/image/dutch-angle.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, Dutch angle (canted angle)",
+    "note": "원본의 인물과 호수 배경을 유지하면서 카메라를 기울여 수평선이 비스듬해지는 더치 앵글을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "aerial-view": [
+   {
+    "src": "assets/results/image/aerial-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, aerial drone shot",
+    "note": "같은 인물과 호수 장면을 높은 곳에서 비스듬히 내려다보며 주변 지형과 규모가 드러나는 드론 시점으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "profile-view": [
+   {
+    "src": "assets/results/image/profile-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, side profile view",
+    "note": "같은 인물과 호수·언덕 배경을 유지하며 왼쪽을 향한 정측면 시점으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "three-quarter-view": [
+   {
+    "src": "assets/results/image/three-quarter-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, three-quarter view",
+    "note": "원본의 인물과 호수 배경을 유지하면서 얼굴을 왼쪽으로 돌린 3/4뷰로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "isometric-view": [
+   {
+    "src": "assets/results/image/isometric-view.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, isometric view",
+    "note": "동일한 인물과 호수·언덕 배경을 유지하며 원근감을 줄이고 위에서 비스듬히 내려다보는 시점으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "rule-of-thirds": [
+   {
+    "src": "assets/results/image/rule-of-thirds.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, rule of thirds composition",
+    "note": "인물을 오른쪽 삼분할선 부근에 배치하고 왼쪽 배경 여백을 넓혀 삼분할 구도를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "symmetrical-composition": [
+   {
+    "src": "assets/results/image/symmetrical-composition.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, symmetrical composition",
+    "note": "트램 선로와 소실점을 중앙에 맞추고 양쪽 건물과 가로등을 좌우 대칭으로 배치했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "leading-lines": [
+   {
+    "src": "assets/results/image/leading-lines.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, leading lines",
+    "note": "기존 도심 장면을 유지하면서 철로와 도로 경계가 중앙 소실점으로 시선을 이끌도록 유도선을 강조했습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
+  ],
+  "negative-space": [
+   {
+    "src": "assets/results/image/negative-space.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "A white ceramic mug on a white table against a plain wall, negative space",
+    "note": "같은 흰색 머그컵과 장면을 유지하면서 컵을 화면에서 작게 배치해 주변 여백을 넓혔습니다.",
+    "auto": true,
+    "date": "2026-11-14"
+   }
   ]
  }
 }
