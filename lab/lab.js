@@ -1,12 +1,13 @@
 /* 분해실: 작품을 순서(sequence)와 문법(syntax)으로 뜯어보고, 고른 문법으로 조립 주문서를 만들어요.
    작품 추가: WORKS에 한 줄 넣고 analyses/<id>/experience.json을 두면 돼요. */
 (() => {
+  const ROOT = document.currentScript.dataset.root || '../'; // 이 스크립트를 부른 페이지에서 저장소 루트까지
   const WORKS = [
-    { id: 'habitica', name: 'Habitica', kind: '습관 앱 · 할 일을 RPG로', src: '../analyses/habitica/', old: '../cases/habitica.html',
-      remix: { name: '오늘의 퀘스트', href: '../cases/remix/habit.html', say: 'Habitica의 문법만 가져와 만든 작은 습관 앱이에요.' } },
-    { id: 'crack', name: '크랙', kind: 'AI 이야기 채팅 · 세계가 반응하는 웹소설', src: '../analyses/crack/', old: '../cases/crack.html',
-      remix: { name: '판 깔기', href: '../cases/remix/story.html', say: '크랙의 문법으로 어느 챗봇에서나 판을 까는 프롬프트 생성기예요.' } },
-    { id: 'polish', name: '이 사이트의 마감', kind: '웹사이트 · 상용 서비스처럼 다듬기', old: '../cases/lexicon-polish.html',
+    { id: 'habitica', name: 'Habitica', kind: '습관 앱 · 할 일을 RPG로', src: ROOT + 'analyses/habitica/', old: ROOT + 'cases/habitica.html',
+      remix: { name: '오늘의 퀘스트', href: ROOT + 'cases/remix/habit.html', say: 'Habitica의 문법만 가져와 만든 작은 습관 앱이에요.' } },
+    { id: 'crack', name: '크랙', kind: 'AI 이야기 채팅 · 세계가 반응하는 웹소설', src: ROOT + 'analyses/crack/', old: ROOT + 'cases/crack.html',
+      remix: { name: '판 깔기', href: ROOT + 'cases/remix/story.html', say: '크랙의 문법으로 어느 챗봇에서나 판을 까는 프롬프트 생성기예요.' } },
+    { id: 'polish', name: '이 사이트의 마감', kind: '웹사이트 · 상용 서비스처럼 다듬기', old: ROOT + 'cases/lexicon-polish.html',
       data: {
         verdict: '마감의 쾌감은 "막히는 곳이 없다"예요. 기능은 금방 만들지만, 믿을 만하다는 느낌은 거친 가장자리 19곳을 하나씩 깎아야 생겨요.',
         persona: '사용자가 아니라 만든 사람 쪽 기록이에요. 처음 온 사람처럼 직접 눌러 보며 찾은 19곳의 전과 후를 사진으로 남겼어요.',
@@ -201,6 +202,7 @@
   let keyNav = null;
   document.addEventListener('keydown', (e) => keyNav && keyNav(e));
   async function route() {
+    if (location.hash.length > 1 && !location.hash.startsWith('#/')) { location.replace(ROOT + 'lexicon.html' + location.hash); return; } // 예전 사전 주소로 들어온 사람
     const h = location.hash.replace(/^#\/?/, ''), [a, b] = h.split('/'); keyNav = null;
     document.querySelectorAll('[data-nav]').forEach((n) => { const on = (n.dataset.nav === 'home' && (!a || a === 'w')) || n.dataset.nav === a; on ? n.setAttribute('aria-current', 'page') : n.removeAttribute('aria-current'); });
     try { if (!a) await home(); else if (a === 'w') await work(b); else if (a === 'grammar') await grammar(); else if (a === 'bench') await bench(); else lost(); }

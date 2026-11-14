@@ -198,11 +198,11 @@ def register(t, img, prompt, note):
 
 
 def publish(made):
-    idx = os.path.join(REPO, 'index.html')
+    idx = os.path.join(REPO, 'lexicon.html')
     s = open(idx, encoding='utf-8').read()
     s = re.sub(r'(data/results-media\.js\?v=)[\w-]+', r'\g<1>auto' + datetime.datetime.now().strftime('%Y%m%d%H%M'), s)
     open(idx, 'w', encoding='utf-8').write(s)
-    sh(['git', 'add', '-A', 'assets/results', 'data/results-media.js', 'data/results-media.json', 'index.html', 'tools/auto/skipped.json', 'tools/auto/log.md'])
+    sh(['git', 'add', '-A', 'assets/results', 'data/results-media.js', 'data/results-media.json', 'lexicon.html', 'tools/auto/skipped.json', 'tools/auto/log.md'])
     msg = '자동 실제 결과: 이미지 %d개 (%s)\n\nGPT 이미지(ChatGPT 구독, Codex CLI)로 생성, tools/auto/run.py가 검사 후 등록' % (
         len(made), ', '.join(made))
     sh(['git', '-c', 'user.name=lexicon-auto', '-c', 'user.email=lexicon-auto@users.noreply.github.com', 'commit', '-q', '-m', msg])

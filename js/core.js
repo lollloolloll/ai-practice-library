@@ -1046,7 +1046,7 @@
     n.append(h('span', { class: 'sep', 'aria-hidden': 'true' }));
     [['combos', '조합'], ['tech', '기법'], ['briefs', '브리프']].forEach(([k, label]) =>
       n.append(h('a', { href: '#' + k, 'aria-current': current === k ? 'page' : null }, label)));
-    n.append(h('a', { href: 'cases/index.html' }, '실전 사례'));
+    n.append(h('a', { href: 'cases/index.html' }, '실전 사례')); n.append(h('a', { href: './' }, '분해실'));
   }
 
   let lastHash = null;

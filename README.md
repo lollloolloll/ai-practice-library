@@ -1,11 +1,11 @@
-# Prompt Lexicon · 프롬프트 언어 사전
+# 분해실 · Prompt Lexicon
+
+첫 화면은 **분해실**(`index.html`, `lab/`)이에요. 단어 사전은 `lexicon.html`로 옮겼어요: https://lollloolloll.github.io/ai-practice-library/lexicon.html
 
 같은 원본에 용어 하나만 넣었을 때 결과가 어떻게 달라지는지 나란히 보여 주는 사전이에요.
 이미지·동영상·영상 편집·음악·3D·디자인·글쓰기·코딩, 8개 분야의 용어 1,374개와 조합 133개, 기법 210개, 브리프 틀 12개가 들어 있어요.
 
-**사이트**: https://lollloolloll.github.io/ai-practice-library/
-
-**분해실(새 버전)**: https://lollloolloll.github.io/ai-practice-library/lab/ — 작품을 순서와 문법으로 뜯어보고, 고른 문법으로 조립 주문서를 만들어요. 작품 추가는 `lab/lab.js`의 `WORKS`에 한 줄 + `analyses/<id>/experience.json`.
+**사이트(분해실)**: https://lollloolloll.github.io/ai-practice-library/ — 작품을 순서와 문법으로 뜯어보고, 고른 문법으로 조립 주문서를 만들어요. 작품 추가는 `lab/lab.js`의 `WORKS`에 한 줄 + `analyses/<id>/experience.json`.
 
 ## 실행
 
@@ -15,7 +15,7 @@ python -m http.server 8765
 
 브라우저에서 http://127.0.0.1:8765 를 열어요. 파일을 직접 열면(file://) 이미지 효과가 동작하지 않아요.
 
-`main` 브랜치에 푸시하면 GitHub Pages가 1~2분 안에 사이트를 다시 배포해요. 파일을 고친 뒤에는 `index.html`의 `?v=` 값을 바꿔 주세요. 그래야 방문자 브라우저가 옛 파일을 쓰지 않아요.
+`main` 브랜치에 푸시하면 GitHub Pages가 1~2분 안에 사이트를 다시 배포해요. 파일을 고친 뒤에는 `lexicon.html`(사전)이나 `index.html`(분해실)의 `?v=` 값을 바꿔 주세요. 그래야 방문자 브라우저가 옛 파일을 쓰지 않아요.
 
 ## 구조
 
