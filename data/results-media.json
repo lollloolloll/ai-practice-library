@@ -714,6 +714,94 @@
     "auto": true,
     "date": "2026-11-14"
    }
+  ],
+  "fill-the-frame": [
+   {
+    "src": "assets/results/image/fill-the-frame.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, fill the frame",
+    "note": "같은 인물과 호수 배경을 유지하면서 얼굴과 머리카락이 화면을 가득 채우도록 구도를 확대했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "framing-within-frame": [
+   {
+    "src": "assets/results/image/framing-within-frame.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, frame within a frame",
+    "note": "원본의 도심 거리와 트램 선로를 유지하면서 전경에 석조 아치를 추가해 프레임 안의 프레임 구도를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "one-point-perspective": [
+   {
+    "src": "assets/results/image/one-point-perspective.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, one-point perspective",
+    "note": "트램 선로와 건물의 원근선이 중앙의 하나의 소실점으로 모이도록 정면 투시를 조정했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "foreground-interest": [
+   {
+    "src": "assets/results/image/foreground-interest.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, foreground elements, layered depth",
+    "note": "인물과 호수 배경을 유지하면서 화면 가장자리에 흐릿한 갈대와 잎을 더해 전경·중경·배경의 깊이감을 강조했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "golden-ratio": [
+   {
+    "src": "assets/results/image/golden-ratio.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, golden ratio composition",
+    "note": "인물과 호수 배경을 유지하면서 얼굴을 오른쪽 황금분할 지점 근처로 옮겨 구도를 조정했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "diagonal-composition": [
+   {
+    "src": "assets/results/image/diagonal-composition.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, diagonal composition",
+    "note": "같은 도심 거리 장면을 유지하면서 구도를 기울여 선로와 건물의 주요 선을 대각선으로 배치했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "golden-hour": [
+   {
+    "src": "assets/results/image/golden-hour.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, golden hour",
+    "note": "원본의 도심 거리와 구도를 유지하면서 골든 아워의 낮고 따뜻한 햇빛과 긴 그림자를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
+  ],
+  "blue-hour": [
+   {
+    "src": "assets/results/image/blue-hour.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, blue hour",
+    "note": "원본 거리 구도를 유지하며 해 진 직후의 차가운 푸른빛과 따뜻한 도시 조명이 대비되는 블루아워를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-15"
+   }
   ]
  }
 }
