@@ -802,6 +802,116 @@
     "auto": true,
     "date": "2026-11-15"
    }
+  ],
+  "midday-sun": [
+   {
+    "src": "assets/results/image/midday-sun.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, harsh midday sun",
+    "note": "원본 거리와 구도를 유지하며 머리 위에서 내리쬐는 강한 정오의 햇빛과 짧고 선명한 그림자를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "overcast": [
+   {
+    "src": "assets/results/image/overcast.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, overcast sky, soft diffused daylight",
+    "note": "기존 거리 구도를 유지하며 흐린 하늘과 부드러운 확산광을 적용해 강한 그림자를 줄이고 색감을 차분하게 바꿨습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "fog-mist": [
+   {
+    "src": "assets/results/image/fog-mist.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, fog / morning mist",
+    "note": "원본 구도를 유지하며 멀리 있는 건물과 도로일수록 흐려지는 아침 안개를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "rain": [
+   {
+    "src": "assets/results/image/rain.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, rainy, wet reflective streets",
+    "note": "원본의 도심 거리와 구도를 유지하면서 빗줄기와 젖은 도로에 비치는 건물 반사를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "night": [
+   {
+    "src": "assets/results/image/night.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, night, moonlight",
+    "note": "원본의 거리와 구도를 유지하며 차가운 달빛과 가로등의 점광원이 돋보이는 어두운 밤으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "snow": [
+   {
+    "src": "assets/results/image/snow.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "An empty downtown street with tram tracks running between tall buildings, snowfall",
+    "note": "원본 거리와 전차 선로 구도를 유지하며 부드럽게 내리는 눈과 얇게 쌓인 눈으로 고요한 겨울 분위기를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "teal-orange": [
+   {
+    "src": "assets/results/image/teal-orange.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, teal and orange color grading",
+    "note": "원본 인물과 구도를 유지하며 피부에는 주황빛을, 그림자와 배경에는 청록빛을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "muted-colors": [
+   {
+    "src": "assets/results/image/muted-colors.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, muted, desaturated palette",
+    "note": "원본의 인물과 호수 배경, 구도를 유지하면서 전체 채도를 낮춰 차분한 색감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "vibrant-colors": [
+   {
+    "src": "assets/results/image/vibrant-colors.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, vibrant, saturated colors",
+    "note": "원본의 인물과 구도를 유지하면서 머리카락과 호수, 하늘, 언덕, 의상의 색을 진하고 생생하게 표현했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
+  ],
+  "pastel": [
+   {
+    "src": "assets/results/image/pastel.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, pastel color palette",
+    "note": "인물과 호수 배경의 구도를 유지하면서 색감을 밝고 부드러운 저대비 파스텔 톤으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-16"
+   }
   ]
  }
 }
