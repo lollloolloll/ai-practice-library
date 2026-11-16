@@ -912,6 +912,116 @@
     "auto": true,
     "date": "2026-11-16"
    }
+  ],
+  "monochrome": [
+   {
+    "src": "assets/results/image/monochrome.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, monochromatic palette",
+    "note": "인물과 호수 배경의 구도를 유지하며 전체 색상을 구릿빛 갈색의 단색 계열로 통일했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "black-and-white": [
+   {
+    "src": "assets/results/image/black-and-white.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, black and white",
+    "note": "원본의 인물과 호수 배경, 구도를 유지하며 색상을 제거해 흑백으로 변환했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "sepia": [
+   {
+    "src": "assets/results/image/sepia.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, sepia tone",
+    "note": "원본의 인물과 구도를 유지하면서 전체 색상을 옛날 사진 느낌의 갈색 세피아 톤으로 변경했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "complementary": [
+   {
+    "src": "assets/results/image/complementary.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, complementary colors",
+    "note": "원본의 인물과 구도를 유지하면서 구릿빛 머리의 주황색과 호수·하늘의 파란색 사이 보색 대비를 강화했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "analogous": [
+   {
+    "src": "assets/results/image/analogous.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, analogous color scheme",
+    "note": "인물과 호수 배경의 구도를 유지하면서 적갈색·구리색·황토색의 이웃한 색상으로 전체 톤을 맞췄습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "hex-color": [
+   {
+    "src": "assets/results/image/hex-color.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "A white ceramic mug on a white table against a plain wall, exact hex color (#RRGGBB)",
+    "note": "기존 장면과 구도를 유지하면서 머그잔에만 HEX #3366CC 파란색을 지정해 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "bleach-bypass": [
+   {
+    "src": "assets/results/image/bleach-bypass.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, bleach bypass look",
+    "note": "원본 인물과 호수 배경 구도를 유지하면서 채도를 낮추고 대비를 높인 은빛 블리치 바이패스 톤을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "warm-tone": [
+   {
+    "src": "assets/results/image/warm-tone.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, warm color temperature",
+    "note": "인물과 구도를 유지하면서 노랑·주황 기운의 따뜻한 색온도로 조정했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "cool-tone": [
+   {
+    "src": "assets/results/image/cool-tone.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, cool color temperature",
+    "note": "원본의 인물과 호수 배경, 구도를 유지하면서 전체 색온도를 푸른 기운의 차가운 톤으로 조정했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
+  ],
+  "cinematic": [
+   {
+    "src": "assets/results/image/cinematic.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, cinematic still",
+    "note": "원본 인물과 호수 배경의 구도를 유지하면서 깊은 음영과 따뜻한 피부·차가운 배경의 색 대비로 영화 장면 같은 조명과 색감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-17"
+   }
   ]
  }
 }
