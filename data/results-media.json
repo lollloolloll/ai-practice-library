@@ -1121,6 +1121,61 @@
     "auto": true,
     "date": "2026-11-18"
    }
+  ],
+  "cinestill-800t": [
+   {
+    "src": "assets/results/image/cinestill-800t.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, CineStill 800T",
+    "note": "인물과 호수 배경, 구도를 유지하면서 CineStill 800T의 청록 그림자와 은은한 붉은 할레이션, 필름 입자를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-20"
+   }
+  ],
+  "ilford-hp5": [
+   {
+    "src": "assets/results/image/ilford-hp5.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, Ilford HP5 black and white film",
+    "note": "원본 인물과 호수 배경의 구도를 유지하면서 Ilford HP5 특유의 입자감 있는 흑백 필름 표현을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-20"
+   }
+  ],
+  "kodachrome": [
+   {
+    "src": "assets/results/image/kodachrome.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, Kodachrome",
+    "note": "원본 인물과 구도를 유지하며 진한 붉은색과 깊은 그림자가 특징인 코다크롬 슬라이드 필름 색감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-20"
+   }
+  ],
+  "polaroid": [
+   {
+    "src": "assets/results/image/polaroid.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, Polaroid instant photo",
+    "note": "원본 인물과 배경 구도를 유지하고 테두리 없이 바랜 색감과 부드러운 폴라로이드 즉석 사진 질감을 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-20"
+   }
+  ],
+  "disposable-camera": [
+   {
+    "src": "assets/results/image/disposable-camera.jpg",
+    "type": "image",
+    "model": "GPT 이미지 (ChatGPT 구독 · Codex CLI 자동)",
+    "prompt": "Portrait of a young woman with a copper bob haircut, a lake and hills softly blurred behind her, disposable camera, direct flash",
+    "note": "원본 인물과 호수 배경 구도를 유지하면서 정면 플래시, 살짝 어두운 가장자리, 필름 노이즈를 적용했습니다.",
+    "auto": true,
+    "date": "2026-11-20"
+   }
   ]
  }
 }
